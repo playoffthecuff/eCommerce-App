@@ -8,6 +8,7 @@ module.exports = {
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
+    "prettier",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
