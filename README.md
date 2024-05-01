@@ -19,6 +19,7 @@ This project aims to develop and implement an online bookstore for selling books
 - **React Router**: Routing library for React.
 - **ESLint**: Tool for identifying and fixing JavaScript code errors.
 - **Prettier**: Tool for automatic code formatting.
+- **Vitest**: Testing framework for frontend.
 
 ### Backend
 
