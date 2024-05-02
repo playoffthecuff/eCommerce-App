@@ -6,6 +6,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "airbnb",
+    "airbnb-typescript",
     "airbnb/hooks",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
@@ -22,5 +23,8 @@ module.exports = {
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+  },
+  parserOptions: {
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
   },
 };
