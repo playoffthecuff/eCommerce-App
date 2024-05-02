@@ -23,7 +23,7 @@
     "noImplicitOverride": true,
 
     /* Plugins */
-    "plugins": [{"name": "ts-css-modules-vite-plugin", "root": "./"}]
+    "plugins": [{ "name": "ts-css-modules-vite-plugin", "root": "./" }]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
