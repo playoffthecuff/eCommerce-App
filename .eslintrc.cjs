@@ -21,6 +21,6 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   parserOptions: {
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],
   },
 };
