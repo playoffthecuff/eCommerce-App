@@ -1,4 +1,3 @@
-
 # Bookstore E-commerce Project
 This is an educational project for an online store as part of the educational program "JS / Front-end RU" [Rolling Scopes School](https://rs.school/).
 This repository contains the source code for a book e-commerce project developed by `p0grammers Team`.
