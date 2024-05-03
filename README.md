@@ -34,6 +34,8 @@ This project aims to develop and implement an online bookstore for selling books
 - `npm run dev`: Starts Vite for development.
 - `npm run build`: Builds frontend for production.
 - `npm run test`: Runs tests for frontend using Vitest.
+- `npm run test:ui`: Runs UI tests using Vitest.
+- `npm run coverage`: Generates test coverage report using Vitest.
 - `npm run prepare`: Installs Husky in the project directory.
 - `npm run lint`: Lints files using ESLint.
 - `npm run lint:fix`: Lints and fixes files using ESLint.
