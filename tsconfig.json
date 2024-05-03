@@ -21,13 +21,10 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
-      
+
     /* Plugins */
-    "plugins": [{ "name": "typescript-plugin-css-modules",
-    "options": { "classnameTransform": "camelCase" } }],
-    },
+    "plugins": [{ "name": "ts-css-modules-vite-plugin", "root": "./" }]
   },
-    
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
