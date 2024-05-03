@@ -21,10 +21,9 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Plugins */
-    "plugins": [{ "name": "typescript-plugin-css-modules",
-    "options": { "classnameTransform": "camelCase" } }],
+    "plugins": [{ "name": "typescript-plugin-css-modules", "options": { "classnameTransform": "camelCase" } }]
   },
-  
+
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
