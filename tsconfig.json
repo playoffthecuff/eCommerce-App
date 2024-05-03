@@ -25,6 +25,6 @@
     /* Plugins */
     "plugins": [{ "name": "ts-css-modules-vite-plugin", "root": "./" }]
   },
-  "include": ["src", "./vitest.setup.ts"],
+  "include": ["src", "./vitest.setup.ts", "tests/App.test.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
