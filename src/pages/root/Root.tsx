@@ -7,10 +7,8 @@ function Root() {
   return (
     <div className="wrapper">
       <Header />
-      <div className="content">
-        <div className="container">
-          <Outlet />
-        </div>
+      <div className="container">
+        <Outlet />
       </div>
       <Footer />
     </div>
