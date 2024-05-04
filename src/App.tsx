@@ -1,8 +1,37 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Root from './pages/root/Root';
+import Login from './pages/login/Login';
+import Registration from './pages/registration/Registration';
+import Main from './pages/main/Main';
+import ErrorPage from './pages/error-page/ErrorPage';
+
 import './App.css';
-import styles from './test.module.css';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: '/main',
+        element: <Main />,
+      },
+      {
+        path: '/registration',
+        element: <Registration />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  return <h1 className={styles.testOk}>Hello Team!</h1>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
