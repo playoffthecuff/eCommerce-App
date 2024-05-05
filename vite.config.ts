@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
@@ -16,6 +18,14 @@ export default (args: ViteConfigOutput) => {
       modules: {
         localsConvention: 'camelCase',
         generateScopedName,
+      },
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: ['./vitest.setup.ts'],
+      coverage: {
+        reportsDirectory: './tests/coverage',
       },
     },
   });

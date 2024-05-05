@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import './App.css';
-import styles from './test.module.css';
 
 function App() {
-  return <h1 className={styles.testOk}>Hello Team!</h1>;
+  const [count, setCount] = useState(0);
+  return (
+    <>
+      <h1>Hello Team!</h1>
+      <button type="button" onClick={() => setCount((prevCount) => prevCount + 1)}>
+        count is {count}
+      </button>
+    </>
+  );
 }
 
 export default App;

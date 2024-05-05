@@ -23,7 +23,6 @@
     /* Plugins */
     "plugins": [{ "name": "typescript-plugin-css-modules", "options": { "classnameTransform": "camelCase" } }]
   },
-
-  "include": ["src"],
+  "include": ["src", "./vitest.setup.ts", "./tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
