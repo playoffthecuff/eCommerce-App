@@ -7,6 +7,14 @@ This repository contains the source code for a book e-commerce project developed
 
 This project aims to develop and implement an online bookstore for selling books. The goal of the project is to create a convenient and attractive service for customers to search, browse, and purchase books.
 
+## Setup and Running
+
+- Use `node 14.x` or higher.
+- Clone this repo: `$ git clone https://github.com/playoffthecuff/eCommerce-App.git`.
+- Go to downloaded folder: `$ cd eCommerce-App`.
+- Install dependencies: `$ npm install`.
+- Start application: `$ npm run dev`.
+
 ## Technologies Used
 
 ### Frontend
