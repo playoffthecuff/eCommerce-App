@@ -1,10 +1,19 @@
 # Bookstore E-commerce Project
+
 This is an educational project for an online store as part of the educational program "JS / Front-end RU" [Rolling Scopes School](https://rs.school/).
 This repository contains the source code for a book e-commerce project developed by `p0grammers Team`.
 
 ## Project Description
 
 This project aims to develop and implement an online bookstore for selling books. The goal of the project is to create a convenient and attractive service for customers to search, browse, and purchase books.
+
+## Setup and Running
+
+- Use `node 14.x` or higher.
+- Clone this repo: `$ git clone https://github.com/playoffthecuff/eCommerce-App.git`.
+- Go to downloaded folder: `$ cd eCommerce-App`.
+- Install dependencies: `$ npm install`.
+- Start application: `$ npm run dev`.
 
 ## Technologies Used
 
@@ -28,6 +37,18 @@ This project aims to develop and implement an online bookstore for selling books
 - **Bcrypt**: Library for hashing passwords.
 - **Nodemailer**: Library for sending email.
 
+## Useful Commands
+
+- `npm run dev`: Starts Vite for development.
+- `npm run build`: Builds frontend for production.
+- `npm run test`: Runs tests for frontend using Vitest.
+- `npm run test:ui`: Runs UI tests using Vitest.
+- `npm run coverage`: Generates test coverage report using Vitest.
+- `npm run prepare`: Installs Husky in the project directory.
+- `npm run lint`: Lints files using ESLint.
+- `npm run lint:fix`: Lints and fixes files using ESLint.
+- `npm run format`: Formats files using Prettier.
+- `npm run preview`: Previews the application using Vite.
 
 ## Contributing
 

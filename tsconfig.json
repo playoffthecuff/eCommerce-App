@@ -19,12 +19,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitOverride": true,
 
     /* Plugins */
-    "plugins": [{ "name": "ts-css-modules-vite-plugin", "root": "./" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules", "options": { "classnameTransform": "camelCase" } }]
   },
-  "include": ["src"],
+  "include": ["src", "./vitest.setup.ts", "./tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
