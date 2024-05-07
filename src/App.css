@@ -14,7 +14,7 @@ body {
 
 .wrapper {
   display: grid;
-  grid-template-rows: 50px 1fr 50px;
+  grid-template-rows: auto 1fr 50px;
   min-height: 100%;
   align-items: center;
 }

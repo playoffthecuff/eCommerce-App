@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 
 import Root from './pages/root/Root';
 import Login from './pages/login/Login';
@@ -8,7 +8,7 @@ import ErrorPage from './pages/error-page/ErrorPage';
 
 import './App.css';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Root />,
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login />,
+        element: <Main />,
       },
       {
         path: '/main',

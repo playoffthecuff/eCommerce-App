@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Space } from 'antd';
 
 import styles from './Login.module.css';
 
@@ -7,8 +8,10 @@ function Login() {
     <>
       <div>Login</div>
       <div className={styles['link-wrapper']}>
-        <Link to="/registration">Sign Up</Link>
-        <Link to="/main">Login</Link>
+        <Space>
+          <Link to="/registration">Sign Up</Link>
+          <Link to="/main">Login</Link>
+        </Space>
       </div>
     </>
   );

@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import { Space } from 'antd';
 
 function Registration() {
   return (
     <>
       <div>Registration</div>
-      <Link to="/login">Sign In</Link>
+      <Space>
+        <Link to="/login">Submit</Link>
+      </Space>
     </>
   );
 }
