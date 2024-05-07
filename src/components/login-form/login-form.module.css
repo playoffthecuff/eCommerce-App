@@ -1,13 +1,22 @@
 .login-form {
-  display: flex;
-  flex-direction: column;
   margin: 0 auto;
-  height: 100%;
   width: fit-content;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-}
+  border-bottom: 1px solid #111;
+  border-top: 1px solid #111;
 
-button {
-  margin-top: 16px;
+  .button-wrapper {
+    button {
+      background-color: #111;
+    }
+
+    button::after {
+      background: #cd4c1d;
+    }
+  }
+
+  .button-wrapper.button-wrapper {
+    button:hover {
+      background-color: #111;
+    }
+  }
 }

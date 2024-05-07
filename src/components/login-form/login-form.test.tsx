@@ -45,7 +45,6 @@ describe('LoginForm tests', () => {
   test('empty input fields must be invalid after clicking submit button', async () => {
     const button = screen.getByRole('button');
     await user.click(button);
-    screen.debug();
     expect(emailInput).toBeInvalid();
     expect(passwordInput).toBeInvalid();
   });

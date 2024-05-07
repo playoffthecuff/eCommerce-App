@@ -19,7 +19,7 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 export default function LoginForm() {
   return (
-    <ConfigProvider theme={{ components: { Form: { itemMarginBottom: 32 } } }}>
+    <ConfigProvider theme={{ components: { Form: { itemMarginBottom: 28, verticalLabelPadding: 0 } } }}>
       <Form
         name="login"
         className={styles.loginForm}
@@ -29,13 +29,12 @@ export default function LoginForm() {
         labelCol={{ span: 7 }}
         scrollToFirstError
         layout="vertical"
+        data-testid="login-form"
       >
-        <Title level={3}>Sign in</Title>
+        <Title level={3}>CUSTOMER INFO</Title>
         <Paragraph>
           <Text>Don&apos;t have an account? </Text>
-          <Link href="./" target="_blank">
-            Create Account
-          </Link>
+          <Link href="./registration">Create Account</Link>
           <Text> to continue.</Text>
         </Paragraph>
         <Form.Item<FieldType>
@@ -43,8 +42,12 @@ export default function LoginForm() {
           label="Email"
           rules={[
             { required: true, message: 'Please enter your Email' },
-            { type: 'email', message: 'Please enter correct Email address' },
+            {
+              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Please enter correct Email address',
+            },
           ]}
+          hasFeedback
         >
           <Input placeholder="Enter your email..." />
         </Form.Item>
@@ -54,9 +57,9 @@ export default function LoginForm() {
           rules={[
             { required: true, message: 'Please enter your password' },
             { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
-            { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
-            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
-            { pattern: /[0-9]/, message: 'Must contain at least one digit!' },
+            { pattern: /[a-z]/, message: 'Must contain at least one lowercase english letter!' },
+            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase english letter!' },
+            { pattern: /\d/, message: 'Must contain at least one digit!' },
             { pattern: /[^A-Za-zА-Яа-я\s0-9]/, message: 'Must contain at least one special character!' },
             { min: 8, message: 'Must be at least 8 characters long!' },
           ]}
@@ -66,13 +69,11 @@ export default function LoginForm() {
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
-          <Link href="./" target="_blank">
-            Forgot your password?
-          </Link>
+          <Link href="./#">Forgot your password?</Link>
         </Paragraph>
-        <Form.Item wrapperCol={{ span: 24 }}>
-          <Button type="primary" block htmlType="submit">
-            LOGIN
+        <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
+          <Button type="primary" htmlType="submit" block>
+            SIGN IN
           </Button>
         </Form.Item>
       </Form>
