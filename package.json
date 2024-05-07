@@ -21,10 +21,10 @@
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript-plugin-css-modules": "^5.1.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "typescript-plugin-css-modules": "^5.1.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.6",
     "@testing-library/user-event": "^14.5.2",
