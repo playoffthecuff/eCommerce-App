@@ -1,0 +1,11 @@
+.registrationForm {
+  background-color: rgb(255, 255, 255);
+  margin: 0px auto;
+  max-width: 600px;
+  padding: 30px 10px 10px;
+  border-radius: 10px;
+}
+
+h1 {
+  color: black;
+}
