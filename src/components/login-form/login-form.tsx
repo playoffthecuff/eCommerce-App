@@ -36,8 +36,9 @@ export default function LoginForm() {
         <Title level={3}>CUSTOMER INFO</Title>
         <Paragraph>
           <Text>Don&apos;t have an account? </Text>
-          {/* <Link href="./registration">Create Account</Link> */}
-          <Link to="/registration">Create Account</Link>
+          <Link to="/registration" className={styles['login-form-link']}>
+            Create Account
+          </Link>
           <Text> to continue.</Text>
         </Paragraph>
         <Form.Item<FieldType>
@@ -72,7 +73,9 @@ export default function LoginForm() {
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
-          <Link to="/">Forgot your password?</Link>
+          <Link to="/" className={styles['login-form-link']}>
+            Forgot your password?
+          </Link>
         </Paragraph>
         <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block>

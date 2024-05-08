@@ -19,4 +19,12 @@
       background-color: #111;
     }
   }
+
+  .login-form-link {
+    color: #cd4c1d;
+
+    &:hover {
+      color: #9f2d11;
+    }
+  }
 }
