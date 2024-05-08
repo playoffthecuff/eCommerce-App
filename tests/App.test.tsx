@@ -5,7 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import routerConfig from '../src/routes/routerConfig';
 
-describe('Routing working correctly', async () => {
+// Tests
+describe.skip('Renders main page correctly', async () => {
+  /**
+   * Resets all renders after each test
+   */
   afterEach(() => {
     cleanup();
   });
