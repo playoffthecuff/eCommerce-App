@@ -1,20 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Space } from 'antd';
-
-import styles from './Login.module.css';
+import LoginForm from '../../components/login-form/login-form';
 
 function Login() {
-  return (
-    <>
-      <div>Login</div>
-      <div className={styles['link-wrapper']}>
-        <Space>
-          <Link to="/registration">Sign Up</Link>
-          <Link to="/main">Login</Link>
-        </Space>
-      </div>
-    </>
-  );
+  return <LoginForm />;
 }
 
 export default Login;

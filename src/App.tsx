@@ -1,6 +1,5 @@
 import { ConfigProvider, App } from 'antd';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
-import LoginForm from './components/login-form/login-form';
 
 import routerConfig from './routes/routerConfig';
 
@@ -35,9 +34,7 @@ function AppWrapper() {
             },
           },
         }}
-      >
-        <LoginForm />
-      </ConfigProvider>
+      />
       <RouterProvider router={router} />
     </App>
   );

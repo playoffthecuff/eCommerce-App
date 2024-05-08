@@ -34,6 +34,7 @@
 }
 
 #root {
+  max-width: 1280px;
   margin: 0 auto;
   height: 100dvh;
 }
@@ -80,4 +81,13 @@ button::after {
 
 .ant-btn.ant-btn-primary.ant-btn-block:hover::after {
   left: -5%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr 50px;
+  align-items: center;
+  padding: 0 15px;
+  min-height: 100%;
+  text-align: center;
 }
