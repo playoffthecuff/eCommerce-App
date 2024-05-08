@@ -2,59 +2,36 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import App from '../src/App';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import routerConfig from '../src/routes/routerConfig';
 
-// Tests
-describe('Renders main page correctly', async () => {
-  /**
-   * Resets all renders after each test
-   */
+describe('Routing working correctly', async () => {
   afterEach(() => {
     cleanup();
   });
 
-  /**
-   * Passes - shows title correctly
-   */
-  it('Should render the page correctly', async () => {
-    // Setup
-    await render(<App />);
-    const h1 = await screen.queryByText('Hello Team!');
+  it('renders main page when path is /', async () => {
+    const router = createMemoryRouter(routerConfig, {
+      initialEntries: ['/'],
+    });
 
-    // Post Expectations
-    expect(h1).toBeInTheDocument();
+    render(<RouterProvider router={router} />);
+
+    expect(screen.getByText(/main/i)).toBeInTheDocument();
   });
 
-  /**
-   * Passes - shows the button count correctly present
-   */
-  it('Should show the button count set to 0', async () => {
-    // Setup
-    await render(<App />);
-    const button = await screen.queryByText('count is 0');
+  it('renders registration page when user click Sign Up', async () => {
+    const router = createMemoryRouter(routerConfig, {
+      initialEntries: ['/'],
+    });
 
-    // Expectations
-    expect(button).toBeInTheDocument();
-  });
+    render(<RouterProvider router={router} />);
 
-  /**
-   * Passes - clicks the button 3 times and shows the correct count
-   */
-  it('Should show the button count set to 3', async () => {
-    // Setup
     const user = userEvent.setup();
-    await render(<App />);
-    const button = await screen.queryByText('count is 0');
 
-    // Pre Expectations
-    expect(button).toBeInTheDocument();
+    expect(screen.getByText(/main/i)).toBeInTheDocument();
 
-    // Actions
-    await user.click(button as HTMLElement);
-    await user.click(button as HTMLElement);
-    await user.click(button as HTMLElement);
-
-    // Post Expectations
-    expect(button?.innerHTML).toBe('count is 3');
+    await user.click(screen.getByText(/sign up/i));
+    expect(screen.getByText(/registration/i)).toBeInTheDocument();
   });
 });
