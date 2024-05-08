@@ -1,18 +1,29 @@
 .registrationForm {
   background-color: rgb(255, 255, 255);
-  margin: 0px auto;
-  max-width: 600px;
+  margin: 15px auto;
+  max-width: 500px;
   padding: 10px 0px;
   border-radius: 10px;
   box-sizing: border-box;
 }
 
-h1 {
+.finishTitle {
   margin: 15px;
   color: black;
   font-size: 25px;
 }
 
-.registrationForm input {
-  max-width: 100px;
+.steps {
+  max-width: 600px;
+  margin: 0px auto;
+}
+
+.nextStepBtn {
+  margin-top: 15px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.finishForm {
+  margin-top: 100px;
 }

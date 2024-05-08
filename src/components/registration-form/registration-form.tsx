@@ -1,132 +1,210 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import dayjs from 'dayjs';
-import { Button, DatePicker, Form, Input, Select } from 'antd';
+import { Steps, Button, DatePicker, Form, Input, Select } from 'antd';
+import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
 import styles from './registration-form.module.css';
+import { Country, AddressProps, PersonalDataProps, TPersonalData, TAddress, FinishProps } from './types';
+import { getCountries } from './server';
 
-const minValidAge = 16;
-const maxValidAge = 100;
-const minValidDate = dayjs().subtract(minValidAge, 'year');
-const maxValidDate = dayjs().subtract(maxValidAge, 'year');
+function StepsApp() {
+  const [step, setStep] = useState(0);
+  const [personalData, setPersonalData] = useState<TPersonalData | undefined>();
+  const [address, setAddress] = useState<TAddress | undefined>();
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
+  const onFinishPersonal = (d: TPersonalData) => {
+    setPersonalData(d);
+    setStep(1);
+  };
 
-function RegistrationForm() {
+  const onFinishAdress = (a: TAddress) => {
+    setAddress(a);
+    setStep(2);
+  };
+
+  const handleSubmit = () => {
+    const data = { address, personalData };
+    return data;
+  };
+
+  const forms = [
+    <PersonalData onFinish={onFinishPersonal} />,
+    <Address onFinish={onFinishAdress} />,
+    <Finish onClick={handleSubmit} />,
+  ];
+
   return (
-    <div className={styles.registrationForm}>
-      <h1>Registration</h1>
-      <Form {...formItemLayout} style={{ maxWidth: 600 }} autoComplete="off" variant="filled">
-        <Form.Item
-          label="First name"
-          name="First name"
-          rules={[
-            { required: true, message: 'Please enter your name!' },
-            { min: 1, message: 'Must be at least 1 characters long!' },
-            { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
-          ]}
-          hasFeedback
-        >
-          <Input placeholder="Enter your name..." />
-        </Form.Item>
-        <Form.Item
-          label="Last Name"
-          name="Last Name"
-          rules={[
-            { required: true, message: 'Please enter your last name!' },
-            { min: 1, message: 'Must be at least 1 characters long!' },
-            { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
-          ]}
-          hasFeedback
-        >
-          <Input placeholder="Enter your email last name..." />
-        </Form.Item>
-        <Form.Item
-          label="Password"
-          name="Password"
-          rules={[
-            { required: true, message: 'Please enter your password' },
-            { pattern: /^[A-Za-z0-9]*$/, message: 'Must contain only English letter and numbers!' },
-            { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
-            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
-            { pattern: /[0-9]/, message: 'Must contain at least one digit!' },
-            { min: 8, message: 'Must be at least 8 characters long!' },
-          ]}
-          hasFeedback
-          validateFirst
-        >
-          <Input placeholder="Enter your password..." />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="Email"
-          rules={[
-            { required: true, message: 'Please enter your Email' },
-            { type: 'email', message: 'Please enter correct Email address' },
-          ]}
-          hasFeedback
-        >
-          <Input placeholder="Enter your email..." />
-        </Form.Item>
-        <Form.Item
-          label="Date of birth"
-          name="Date of birth"
-          rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
-          hasFeedback
-        >
-          <DatePicker placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
-        </Form.Item>
-
-        <Form.Item label="Country" name="Country" rules={[{ required: true, message: 'Please enter your country!' }]}>
-          <Select placeholder="Choose your country..." />
-        </Form.Item>
-        <Form.Item
-          label="City"
-          name="City"
-          rules={[
-            { required: true, message: 'Please enter your city!' },
-            { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
-            { pattern: /^[A-Za-z]*$/, message: 'Must not contain special characters or numbers!' },
-          ]}
-          hasFeedback
-          validateFirst
-        >
-          <Input placeholder="Enter your city..." />
-        </Form.Item>
-        <Form.Item
-          label="Street"
-          name="Street"
-          rules={[
-            { required: true, message: 'Please enter your street!' },
-            { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
-          ]}
-          hasFeedback
-        >
-          <Input placeholder="Enter your street..." />
-        </Form.Item>
-        <Form.Item
-          label="Post Code"
-          name="Post Code"
-          rules={[{ required: true, message: 'Please enter your post code!' }]}
-          hasFeedback
-        >
-          <Input placeholder="Enter your post code..." />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+    <div className={styles.steps}>
+      <Steps current={step}>
+        <Steps.Step title="Personal data" icon={<UserOutlined />} />
+        <Steps.Step title="Address" icon={<EnvironmentOutlined />} />
+        <Steps.Step title="Finish" icon={<CheckCircleOutlined />} />
+      </Steps>
+      {forms[step]}
     </div>
   );
 }
 
-export default RegistrationForm;
+export default StepsApp;
+
+function PersonalData({ onFinish }: PersonalDataProps) {
+  const minValidAge = 16;
+  const maxValidAge = 100;
+  const minValidDate = dayjs().subtract(minValidAge, 'year');
+  const maxValidDate = dayjs().subtract(maxValidAge, 'year');
+
+  return (
+    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" variant="filled" layout="vertical">
+      <h1>Sign Up</h1>
+      <Form.Item
+        label="First name"
+        name="firstName"
+        rules={[
+          { required: true, message: 'Please enter your name!' },
+          { min: 1, message: 'Must be at least 1 characters long!' },
+          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
+        ]}
+        hasFeedback
+      >
+        <Input placeholder="Enter your name..." />
+      </Form.Item>
+      <Form.Item
+        label="Last Name"
+        name="lastName"
+        rules={[
+          { required: true, message: 'Please enter your last name!' },
+          { min: 1, message: 'Must be at least 1 characters long!' },
+          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
+        ]}
+        hasFeedback
+      >
+        <Input placeholder="Enter your email last name..." />
+      </Form.Item>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          { required: true, message: 'Please enter your password' },
+          { pattern: /^[A-Za-z0-9]*$/, message: 'Must contain only English letter and numbers!' },
+          { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
+          { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
+          { pattern: /[0-9]/, message: 'Must contain at least one digit!' },
+          { min: 8, message: 'Must be at least 8 characters long!' },
+        ]}
+        hasFeedback
+        validateFirst
+      >
+        <Input placeholder="Enter your password..." />
+      </Form.Item>
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: 'Please enter your Email' },
+          { type: 'email', message: 'Please enter correct Email address' },
+        ]}
+        hasFeedback
+      >
+        <Input placeholder="Enter your email..." />
+      </Form.Item>
+      <Form.Item
+        label="Date of birth"
+        name="dateOfBirth"
+        rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
+        hasFeedback
+      >
+        <DatePicker placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
+      </Form.Item>
+      <Button type="primary" htmlType="submit" className={styles.nextStepBtn}>
+        Next Step
+      </Button>
+    </Form>
+  );
+}
+
+function Address({ onFinish }: AddressProps) {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [country, setCountry] = useState<Country | undefined>();
+
+  useEffect(() => {
+    getCountries()
+      .then((d) => {
+        setCountries(d);
+        setCountry(d[0]);
+      })
+      .catch(() => {});
+  }, []);
+
+  return (
+    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" variant="filled" layout="vertical">
+      <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
+        <Select
+          showSearch
+          placeholder="Choose your country..."
+          onChange={(v) => {
+            setCountry(countries.find((c) => c.name === v));
+          }}
+        >
+          {countries.length > 0 &&
+            countries.map((c) => {
+              return (
+                <Select.Option key={c._id} value={c.name}>
+                  {c.name}
+                </Select.Option>
+              );
+            })}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="City"
+        name="city"
+        rules={[
+          { required: true, message: 'Please enter your city!' },
+          { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
+          { pattern: /^[A-Za-z]*$/, message: 'Must not contain special characters or numbers!' },
+        ]}
+        hasFeedback
+        validateFirst
+      >
+        <Input placeholder="Enter your city..." />
+      </Form.Item>
+      <Form.Item
+        label="Street"
+        name="street"
+        rules={[
+          { required: true, message: 'Please enter your street!' },
+          { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
+        ]}
+        hasFeedback
+      >
+        <Input placeholder="Enter your street..." />
+      </Form.Item>
+      <Form.Item
+        label="Post Code"
+        name="postCode"
+        dependencies={['country']}
+        rules={[
+          { required: true, message: 'Please enter your post code!' },
+          { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
+        ]}
+        hasFeedback
+      >
+        <Input placeholder={country?.postalCodePattern} />
+      </Form.Item>
+      <Button type="primary" htmlType="submit" className={styles.nextStepBtn}>
+        Next Step
+      </Button>
+    </Form>
+  );
+}
+
+function Finish({ onClick }: FinishProps) {
+  return (
+    <div className={styles.finishForm}>
+      <p className={styles.finishTitle}>You are set all data!</p>
+      <p>To successfully complete registration, click the submit button!</p>
+      <Button type="primary" htmlType="submit" onClick={onClick}>
+        Submit
+      </Button>
+    </div>
+  );
+}
