@@ -1,8 +1,8 @@
-import Root from '../pages/root/Root';
-import Login from '../pages/login/Login';
-import Registration from '../pages/registration/Registration';
-import Main from '../pages/main/Main';
-import ErrorPage from '../pages/error-page/ErrorPage';
+import Root from '../pages/Root/Root';
+import Login from '../pages/Login/Login';
+import Registration from '../pages/Registration/Registration';
+import Main from '../pages/Main/Main';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 const routerConfig = [
   {
