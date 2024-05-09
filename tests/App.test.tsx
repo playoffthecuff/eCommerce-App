@@ -6,7 +6,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import routerConfig from '../src/routes/routerConfig';
 
 // Tests
-describe.skip('Renders main page correctly', async () => {
+describe('Renders main page correctly', async () => {
   /**
    * Resets all renders after each test
    */
