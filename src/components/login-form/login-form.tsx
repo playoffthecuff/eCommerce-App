@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
 import { Button, ConfigProvider, Form, Input, Typography, FormProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 
 import styles from './login-form.module.css';
 
-const { Text, Title } = Typography;
+const { Text, Title, Link } = Typography;
 
 type FieldType = {
   email: string;
@@ -36,9 +35,7 @@ export default function LoginForm() {
         <Title level={3}>CUSTOMER INFO</Title>
         <Paragraph>
           <Text>Don&apos;t have an account? </Text>
-          <Link to="/registration" className={styles['login-form-link']}>
-            Create Account
-          </Link>
+          <Link href="#/registration">Create Account</Link>
           <Text> to continue.</Text>
         </Paragraph>
         <Form.Item<FieldType>
@@ -73,9 +70,7 @@ export default function LoginForm() {
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
-          <Link to="/" className={styles['login-form-link']}>
-            Forgot your password?
-          </Link>
+          <Link href="#/">Forgot your password?</Link>
         </Paragraph>
         <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block>

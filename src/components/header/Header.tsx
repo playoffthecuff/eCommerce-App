@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Typography, Space } from 'antd';
 import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 import styles from './Header.module.css';
 
-const { Title } = Typography;
+const { Title, Link } = Typography;
 
 function Header() {
   return (
@@ -12,14 +12,14 @@ function Header() {
       <Title>Cycles store</Title>
       <div className={styles['link-wrapper']}>
         <Space>
-          <Link className={styles['header-link']} to="/registration">
+          <Link className={styles['header-link']} href="#/registration">
             <EditTwoTone />
             Sign Up
           </Link>
         </Space>
 
         <Space>
-          <Link className={styles['header-link']} to="/login">
+          <Link className={styles['header-link']} href="#/login">
             <CheckCircleTwoTone />
             Sign In
           </Link>

@@ -19,12 +19,4 @@
       background-color: #111;
     }
   }
-
-  .login-form-link {
-    color: var(--link-accent);
-
-    &:hover {
-      color: var(--link-hover);
-    }
-  }
 }

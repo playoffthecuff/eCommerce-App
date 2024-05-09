@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import { Space } from 'antd';
+import { Typography } from 'antd';
+
+const { Link } = Typography;
 
 function Registration() {
   return (
     <>
       <div>Registration</div>
-      <Space>
-        <Link to="/login">Submit</Link>
-      </Space>
+
+      <Link href="#/login">Submit</Link>
     </>
   );
 }
