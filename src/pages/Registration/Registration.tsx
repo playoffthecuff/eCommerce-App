@@ -1,15 +1,7 @@
-import { Typography } from 'antd';
-
-const { Link } = Typography;
+import RegistrationForm from '../../components/registration-form/registration-form';
 
 function Registration() {
-  return (
-    <>
-      <div>Registration</div>
-
-      <Link href="#/login">Submit</Link>
-    </>
-  );
+  return <RegistrationForm />;
 }
 
 export default Registration;

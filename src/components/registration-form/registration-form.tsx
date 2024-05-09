@@ -1,12 +1,14 @@
 import dayjs from 'dayjs';
-import { Steps, Button, DatePicker, Form, Input, Select } from 'antd';
+import { Steps, Button, DatePicker, Form, Input, Select, Typography } from 'antd';
 import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import styles from './registration-form.module.css';
 import { Country, AddressProps, PersonalDataProps, TPersonalData, TAddress, FinishProps } from './types';
 import { getCountries } from './server';
 
-function StepsApp() {
+const { Title } = Typography;
+
+function RegistrationForm() {
   const [step, setStep] = useState(0);
   const [personalData, setPersonalData] = useState<TPersonalData | undefined>();
   const [address, setAddress] = useState<TAddress | undefined>();
@@ -44,7 +46,7 @@ function StepsApp() {
   );
 }
 
-export default StepsApp;
+export default RegistrationForm;
 
 function PersonalData({ onFinish }: PersonalDataProps) {
   const minValidAge = 16;
@@ -53,8 +55,8 @@ function PersonalData({ onFinish }: PersonalDataProps) {
   const maxValidDate = dayjs().subtract(maxValidAge, 'year');
 
   return (
-    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" variant="filled" layout="vertical">
-      <h1>Sign Up</h1>
+    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" layout="vertical">
+      <Title level={3}>SIGN UP</Title>
       <Form.Item
         label="First name"
         name="firstName"
@@ -114,8 +116,8 @@ function PersonalData({ onFinish }: PersonalDataProps) {
       >
         <DatePicker placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles.nextStepBtn}>
-        Next Step
+      <Button type="primary" htmlType="submit" className={styles.nextStepBtn} block>
+        NEXT STEP
       </Button>
     </Form>
   );
@@ -135,7 +137,7 @@ function Address({ onFinish }: AddressProps) {
   }, []);
 
   return (
-    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" variant="filled" layout="vertical">
+    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" layout="vertical">
       <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
         <Select
           showSearch
@@ -190,8 +192,8 @@ function Address({ onFinish }: AddressProps) {
       >
         <Input placeholder={country?.postalCodePattern} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles.nextStepBtn}>
-        Next Step
+      <Button type="primary" htmlType="submit" className={styles.nextStepBtn} block>
+        NEXT STEP
       </Button>
     </Form>
   );
@@ -203,7 +205,7 @@ function Finish({ onClick }: FinishProps) {
       <p className={styles.finishTitle}>You are set all data!</p>
       <p>To successfully complete registration, click the submit button!</p>
       <Button type="primary" htmlType="submit" onClick={onClick}>
-        Submit
+        SUBMIT
       </Button>
     </div>
   );

@@ -1,15 +1,16 @@
 .registrationForm {
-  background-color: rgb(255, 255, 255);
-  margin: 15px auto;
+  margin: 2rem auto;
   max-width: 500px;
-  padding: 10px 0px;
-  border-radius: 10px;
-  box-sizing: border-box;
+  padding: 1.5rem 0px;
+}
+
+.registrationForm input {
+  background-color: fff;
 }
 
 .finishTitle {
-  margin: 15px;
-  color: black;
+  margin: 2rem;
+  color: #000;
   font-size: 25px;
 }
 
@@ -19,9 +20,18 @@
 }
 
 .nextStepBtn {
-  margin-top: 15px;
+  margin-top: 2rem;
   max-width: 500px;
   width: 100%;
+  background-color: #111;
+}
+
+.nextStepBtn:hover {
+  background-color: #111;
+}
+
+.nextStepBtn::after {
+  background: #cd4c1d;
 }
 
 .finishForm {
