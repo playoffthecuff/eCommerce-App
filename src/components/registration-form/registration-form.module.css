@@ -1,39 +1,30 @@
-.registrationForm {
-  margin: 2rem auto;
-  max-width: 500px;
-  padding: 1.5rem 0px;
-}
-
-.registrationForm input {
-  background-color: fff;
-}
-
-.finishTitle {
-  margin: 2rem;
-  color: #000;
-  font-size: 25px;
-}
-
 .steps {
   max-width: 600px;
-  margin: 0px auto;
+  margin: 1rem auto;
 }
 
-.nextStepBtn {
+.registration-form {
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 1.5rem 0.5rem;
+}
+
+.finish-form {
+  margin-top: 7rem;
+  text-align: center;
+}
+
+.next-step-btn {
   margin-top: 2rem;
   max-width: 500px;
   width: 100%;
-  background-color: #111;
+  background-color: var(--btn-color);
 }
 
-.nextStepBtn:hover {
-  background-color: #111;
+.next-step-btn:hover {
+  background-color: var(--btn-color);
 }
 
-.nextStepBtn::after {
-  background: #cd4c1d;
-}
-
-.finishForm {
-  margin-top: 100px;
+.next-step-btn::after {
+  background: var(--link-accent);
 }

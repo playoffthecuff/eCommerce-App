@@ -2,11 +2,12 @@ import dayjs from 'dayjs';
 import { Steps, Button, DatePicker, Form, Input, Select, Typography } from 'antd';
 import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
+import Paragraph from 'antd/es/typography/Paragraph';
 import styles from './registration-form.module.css';
 import { Country, AddressProps, PersonalDataProps, TPersonalData, TAddress, FinishProps } from './types';
 import { getCountries } from './server';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function RegistrationForm() {
   const [step, setStep] = useState(0);
@@ -63,7 +64,7 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         rules={[
           { required: true, message: 'Please enter your name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
-          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
+          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letters!' },
         ]}
         hasFeedback
       >
@@ -75,7 +76,7 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         rules={[
           { required: true, message: 'Please enter your last name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
-          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letter!' },
+          { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letters!' },
         ]}
         hasFeedback
       >
@@ -86,10 +87,17 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         name="password"
         rules={[
           { required: true, message: 'Please enter your password' },
-          { pattern: /^[A-Za-z0-9]*$/, message: 'Must contain only English letter and numbers!' },
+          // {
+          //   pattern: /^[?=.*[~@#$%^&*_\-+=`|{}:;!.?"()[A-Z][a-z][0-9]]*$/,
+          //   message: 'Must contain only English letters, numbers and special characters!',
+          // },
           { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
           { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
           { pattern: /[0-9]/, message: 'Must contain at least one digit!' },
+          // {
+          //   pattern: /[?=.*[~@#$%^&*_\-+=`|{}:;!.?"()[A-Z][a-z][0-9]]/,
+          //   message: 'Must contain at least one special character!',
+          // },
           { min: 8, message: 'Must be at least 8 characters long!' },
         ]}
         hasFeedback
@@ -116,7 +124,7 @@ function PersonalData({ onFinish }: PersonalDataProps) {
       >
         <DatePicker placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles.nextStepBtn} block>
+      <Button type="primary" htmlType="submit" className={styles['next-sterp-btn']} block>
         NEXT STEP
       </Button>
     </Form>
@@ -137,7 +145,7 @@ function Address({ onFinish }: AddressProps) {
   }, []);
 
   return (
-    <Form onFinish={onFinish} className={styles.registrationForm} autoComplete="off" layout="vertical">
+    <Form onFinish={onFinish} className={styles['registration-form']} autoComplete="off" layout="vertical">
       <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
         <Select
           showSearch
@@ -192,7 +200,7 @@ function Address({ onFinish }: AddressProps) {
       >
         <Input placeholder={country?.postalCodePattern} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles.nextStepBtn} block>
+      <Button type="primary" htmlType="submit" className={styles['next-step-btn']} block>
         NEXT STEP
       </Button>
     </Form>
@@ -201,10 +209,12 @@ function Address({ onFinish }: AddressProps) {
 
 function Finish({ onClick }: FinishProps) {
   return (
-    <div className={styles.finishForm}>
-      <p className={styles.finishTitle}>You are set all data!</p>
-      <p>To successfully complete registration, click the submit button!</p>
-      <Button type="primary" htmlType="submit" onClick={onClick}>
+    <div className={styles['finish-form']}>
+      <Title level={3}>You are set all data!</Title>
+      <Paragraph>
+        <Text>To successfully complete registration, click the submit button!</Text>
+      </Paragraph>
+      <Button type="primary" htmlType="submit" onClick={onClick} block>
         SUBMIT
       </Button>
     </div>
