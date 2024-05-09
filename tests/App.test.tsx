@@ -1,9 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import routerConfig from '../src/routes/routerConfig';
+import App from '../src/App';
 
 // Tests
 describe('Renders main page correctly', async () => {
@@ -15,21 +13,17 @@ describe('Renders main page correctly', async () => {
   });
 
   it('renders main page when path is /', async () => {
-    const router = createMemoryRouter(routerConfig, {
-      initialEntries: ['/'],
-    });
+    // const router = createMemoryRouter(routerConfig, {
+    //   initialEntries: ['/'],
+    // });
 
-    render(<RouterProvider router={router} />);
+    render(<App />);
 
     expect(screen.getByText(/main/i)).toBeInTheDocument();
   });
 
   it('renders registration page when user click Sign Up', async () => {
-    const router = createMemoryRouter(routerConfig, {
-      initialEntries: ['/'],
-    });
-
-    render(<RouterProvider router={router} />);
+    render(<App />);
 
     const user = userEvent.setup();
 

@@ -1,11 +1,11 @@
-import { ConfigProvider, App } from 'antd';
+import { ConfigProvider, App as AntApp } from 'antd';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 
 import routerConfig from './routes/routerConfig';
 
 const router = createHashRouter(routerConfig);
 
-function AppWrapper() {
+function App() {
   return (
     <ConfigProvider
       theme={{
@@ -34,11 +34,11 @@ function AppWrapper() {
         },
       }}
     >
-      <App className="app">
+      <AntApp className="app">
         <RouterProvider router={router} />
-      </App>
+      </AntApp>
     </ConfigProvider>
   );
 }
 
-export default AppWrapper;
+export default App;
