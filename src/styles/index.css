@@ -3,6 +3,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --link-accent: #cd4c1d;
+  --link-hover: #9f2d11;
 }
 
 @font-face {

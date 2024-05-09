@@ -21,10 +21,10 @@
   }
 
   .login-form-link {
-    color: #cd4c1d;
+    color: var(--link-accent);
 
     &:hover {
-      color: #9f2d11;
+      color: var(--link-hover);
     }
   }
 }
