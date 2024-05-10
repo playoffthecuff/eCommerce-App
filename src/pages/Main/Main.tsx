@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -22,7 +20,7 @@ function Main() {
       const sortedCountries = response.data.sort((a, b) => a.name.localeCompare(b.name));
       setCountries(sortedCountries);
     } catch (error) {
-      console.error('Error fetching countries:', error);
+      // console.error('Error fetching countries:', error);
     }
   };
 
@@ -37,6 +35,7 @@ function Main() {
           <h2>List of countries:</h2>
           <ol>
             {countries.map((country) => (
+              // eslint-disable-next-line no-underscore-dangle
               <li key={country._id}>{country.name}</li>
             ))}
           </ol>

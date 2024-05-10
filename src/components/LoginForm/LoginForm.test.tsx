@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import LoginForm from './login-form';
+import LoginForm from './LoginForm';
 
 describe('LoginForm tests', () => {
   let emailInput: HTMLInputElement;
