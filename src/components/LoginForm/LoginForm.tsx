@@ -73,7 +73,7 @@ export default function LoginForm() {
         <Paragraph>
           <Link href="#/">Forgot your password?</Link>
         </Paragraph>
-        <Form.Item wrapperCol={{ span: 24 }}>
+        <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block>
             SIGN IN
           </Button>
