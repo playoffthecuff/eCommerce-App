@@ -87,6 +87,7 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         name="password"
         rules={[
           { required: true, message: 'Please enter your password' },
+          { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters!' },
           { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
           { pattern: /[a-z]/, message: 'Must contain at least one lowercase english letter!' },
           { pattern: /[A-Z]/, message: 'Must contain at least one uppercase english letter!' },
