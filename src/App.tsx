@@ -1,40 +1,44 @@
-import { ConfigProvider, App } from 'antd';
-import LoginForm from './components/login-form/login-form';
+import { ConfigProvider, App as AntApp } from 'antd';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 
-function AppWrapper() {
+import routerConfig from './routes/routerConfig';
+
+const router = createHashRouter(routerConfig);
+
+function App() {
   return (
-    <App className="app">
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#cd4c1d',
-            colorPrimaryHover: '#111',
-            borderRadius: 0,
-            colorLink: '#cd4c1d',
-            fontFamily: 'Haas',
-            colorError: '#9f2d11',
-            linkDecoration: 'underline',
-            linkHoverDecoration: 'underline',
-            colorLinkHover: '#9f2d11',
-            controlHeight: 36,
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#cd4c1d',
+          colorPrimaryHover: '#111',
+          borderRadius: 0,
+          colorLink: '#cd4c1d',
+          fontFamily: 'Haas',
+          colorError: '#9f2d11',
+          linkDecoration: 'underline',
+          linkHoverDecoration: 'underline',
+          colorLinkHover: '#9f2d11',
+          controlHeight: 36,
+        },
+        components: {
+          Button: {
+            fontFamily: 'Futura',
+            fontWeight: 'bold',
+            primaryShadow: 'none',
           },
-          components: {
-            Button: {
-              fontFamily: 'Futura',
-              fontWeight: 'bold',
-              primaryShadow: 'none',
-            },
-            Form: {
-              itemMarginBottom: 28,
-              verticalLabelPadding: 0,
-            },
+          Form: {
+            itemMarginBottom: 28,
+            verticalLabelPadding: 0,
           },
-        }}
-      >
-        <LoginForm />
-      </ConfigProvider>
-    </App>
+        },
+      }}
+    >
+      <AntApp className="app">
+        <RouterProvider router={router} />
+      </AntApp>
+    </ConfigProvider>
   );
 }
 
-export default AppWrapper;
+export default App;

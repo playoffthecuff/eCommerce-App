@@ -3,6 +3,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --link-accent: #cd4c1d;
+  --link-hover: #9f2d11;
 }
 
 @font-face {
@@ -34,6 +36,7 @@
 }
 
 #root {
+  max-width: 1280px;
   margin: 0 auto;
   height: 100dvh;
 }
@@ -80,4 +83,12 @@ button::after {
 
 .ant-btn.ant-btn-primary.ant-btn-block:hover::after {
   left: -5%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr 50px;
+  align-items: center;
+  padding: 0 15px;
+  min-height: 100%;
 }

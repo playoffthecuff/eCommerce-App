@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.header-link span[class~='anticon'] {
+  margin-right: 3px;
+}

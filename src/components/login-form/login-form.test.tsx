@@ -1,6 +1,7 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import LoginForm from './login-form';
 
 describe('LoginForm tests', () => {
@@ -8,7 +9,11 @@ describe('LoginForm tests', () => {
   let passwordInput: HTMLInputElement;
   let user: UserEvent;
   beforeEach(() => {
-    render(<LoginForm />);
+    render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
     emailInput = screen.getByPlaceholderText('Enter your email...');
     passwordInput = screen.getByPlaceholderText('Enter your password...');
     user = userEvent.setup();
