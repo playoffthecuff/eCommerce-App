@@ -10,21 +10,23 @@
 }
 
 .finish-form {
-  margin-top: 7rem;
+  max-width: 400px;
+  margin: 7rem auto;
   text-align: center;
 }
 
-.next-step-btn {
-  margin-top: 2rem;
-  max-width: 500px;
-  width: 100%;
-  background-color: var(--btn-color);
+.button-wrapper {
+  button {
+    background-color: var(--color-primary-hover);
+  }
+
+  button::after {
+    background: var(--color-primary);
+  }
 }
 
-.next-step-btn:hover {
-  background-color: var(--btn-color);
-}
-
-.next-step-btn::after {
-  background: var(--link-accent);
+.button-wrapper.button-wrapper.button-wrapper {
+  button:hover {
+    background-color: var(--color-primary-hover);
+  }
 }

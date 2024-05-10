@@ -119,15 +119,17 @@ function PersonalData({ onFinish }: PersonalDataProps) {
       >
         <DatePicker data-testid="dateOfBirth" placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
       </Form.Item>
-      <Button
-        data-testid="submitPersonalData"
-        type="primary"
-        htmlType="submit"
-        className={styles['next-step-btn']}
-        block
-      >
-        NEXT STEP
-      </Button>
+      <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
+        <Button
+          data-testid="submitPersonalData"
+          type="primary"
+          htmlType="submit"
+          className={styles['next-step-btn']}
+          block
+        >
+          NEXT STEP
+        </Button>
+      </Form.Item>
     </Form>
   );
 }
@@ -139,6 +141,7 @@ function Address({ onFinish }: AddressProps) {
   useEffect(() => {
     getCountries()
       .then((d) => {
+        d.sort((a, b) => a.name.localeCompare(b.name));
         setCountries(d);
         setCountry(d[0]);
       })
@@ -207,9 +210,11 @@ function Address({ onFinish }: AddressProps) {
       >
         <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
       </Form.Item>
-      <Button data-testid="submitAddress" type="primary" htmlType="submit" className={styles['next-step-btn']} block>
-        NEXT STEP
-      </Button>
+      <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
+        <Button data-testid="submitAddress" type="primary" htmlType="submit" className={styles['next-step-btn']} block>
+          NEXT STEP
+        </Button>
+      </Form.Item>
     </Form>
   );
 }
@@ -221,9 +226,11 @@ function Finish({ onClick }: FinishProps) {
       <Paragraph>
         <Text>To successfully complete registration, click the submit button!</Text>
       </Paragraph>
-      <Button data-testid="completeRegestration" type="primary" htmlType="submit" onClick={onClick} block>
-        SUBMIT
-      </Button>
+      <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
+        <Button data-testid="completeRegestration" type="primary" htmlType="submit" onClick={onClick} block>
+          SUBMIT
+        </Button>
+      </Form.Item>
     </div>
   );
 }
