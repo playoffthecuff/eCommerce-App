@@ -3,8 +3,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --link-accent: #cd4c1d;
-  --link-hover: #9f2d11;
+  --color-primary: #cd4c1d;
+  --color-primary-hover: #111;
+  --colorLink: #9f2d11;
 }
 
 @font-face {
@@ -36,7 +37,7 @@
 }
 
 #root {
-  max-width: 1280px;
+  max-width: 80rem;
   margin: 0 auto;
   height: 100dvh;
 }
@@ -49,7 +50,7 @@ h3.ant-typography {
   font-family: 'Futura';
 }
 
-button {
+.ant-btn-primary {
   letter-spacing: 0.8px;
   display: block;
 
@@ -59,36 +60,36 @@ button {
   }
 }
 
-button::after {
+.ant-btn-primary::after {
   content: '';
   display: block;
   position: absolute;
   height: 115%;
   width: 110%;
   transform: skew(-15deg);
-  background: #111;
+  background: var(--color-primary-hover);
   left: -115%;
   bottom: -2px;
   transition: left 0.4s;
 }
 
-.ant-btn.ant-btn-primary.ant-btn-block {
+.ant-btn-primary {
   overflow: hidden;
   border: none;
 }
 
-.ant-btn.ant-btn-primary.ant-btn-block:hover {
-  background: #cd4c1d;
+.ant-btn.ant-btn.ant-btn.ant-btn-primary:hover {
+  background: var(--color-primary);
 }
 
-.ant-btn.ant-btn-primary.ant-btn-block:hover::after {
+.ant-btn-primary:hover::after {
   left: -5%;
 }
 
 .wrapper {
   display: grid;
-  grid-template-rows: auto 1fr 50px;
+  grid-template-rows: auto 1fr 3rem;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 2rem;
   min-height: 100%;
 }

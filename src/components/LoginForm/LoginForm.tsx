@@ -1,7 +1,7 @@
 import { Button, ConfigProvider, Form, Input, Typography, FormProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 
-import styles from './login-form.module.css';
+import styles from './LoginForm.module.css';
 
 const { Text, Title, Link } = Typography;
 
@@ -58,8 +58,9 @@ export default function LoginForm() {
           rules={[
             { required: true, message: 'Please enter your password' },
             { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
-            { pattern: /[a-z]/, message: 'Must contain at least one lowercase english letter!' },
-            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase english letter!' },
+            { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters!' },
+            { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
+            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
             { pattern: /\d/, message: 'Must contain at least one digit!' },
             { pattern: /[^A-Za-zА-Яа-я\s0-9]/, message: 'Must contain at least one special character!' },
             { min: 8, message: 'Must be at least 8 characters long!' },
@@ -72,7 +73,7 @@ export default function LoginForm() {
         <Paragraph>
           <Link href="#/">Forgot your password?</Link>
         </Paragraph>
-        <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
+        <Form.Item wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block>
             SIGN IN
           </Button>
