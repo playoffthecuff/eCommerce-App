@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Paragraph from 'antd/es/typography/Paragraph';
 import styles from './registration-form.module.css';
 import { Country, AddressProps, PersonalDataProps, TPersonalData, TAddress, FinishProps } from './types';
-import { getCountries } from './server';
+import { getCountries } from './service';
 
 const { Title, Text } = Typography;
 
@@ -60,7 +60,7 @@ function PersonalData({ onFinish }: PersonalDataProps) {
       <Title level={3}>SIGN UP</Title>
       <Form.Item
         label="First name"
-        name="firstName"
+        name="first-name"
         rules={[
           { required: true, message: 'Please enter your name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -68,11 +68,11 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         ]}
         hasFeedback
       >
-        <Input placeholder="Enter your name..." />
+        <Input data-testid="firstName" placeholder="Enter your name..." />
       </Form.Item>
       <Form.Item
         label="Last Name"
-        name="lastName"
+        name="last-name"
         rules={[
           { required: true, message: 'Please enter your last name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -80,30 +80,24 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         ]}
         hasFeedback
       >
-        <Input placeholder="Enter your email last name..." />
+        <Input data-testid="lastName" placeholder="Enter your email last name..." />
       </Form.Item>
       <Form.Item
         label="Password"
         name="password"
         rules={[
           { required: true, message: 'Please enter your password' },
-          // {
-          //   pattern: /^[?=.*[~@#$%^&*_\-+=`|{}:;!.?"()[A-Z][a-z][0-9]]*$/,
-          //   message: 'Must contain only English letters, numbers and special characters!',
-          // },
-          { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
-          { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
-          { pattern: /[0-9]/, message: 'Must contain at least one digit!' },
-          // {
-          //   pattern: /[?=.*[~@#$%^&*_\-+=`|{}:;!.?"()[A-Z][a-z][0-9]]/,
-          //   message: 'Must contain at least one special character!',
-          // },
+          { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
+          { pattern: /[a-z]/, message: 'Must contain at least one lowercase english letter!' },
+          { pattern: /[A-Z]/, message: 'Must contain at least one uppercase english letter!' },
+          { pattern: /\d/, message: 'Must contain at least one digit!' },
+          { pattern: /[^A-Za-zА-Яа-я\s0-9]/, message: 'Must contain at least one special character!' },
           { min: 8, message: 'Must be at least 8 characters long!' },
         ]}
         hasFeedback
         validateFirst
       >
-        <Input placeholder="Enter your password..." />
+        <Input data-testid="password" type="password" placeholder="Enter your password..." />
       </Form.Item>
       <Form.Item
         label="Email"
@@ -114,17 +108,23 @@ function PersonalData({ onFinish }: PersonalDataProps) {
         ]}
         hasFeedback
       >
-        <Input placeholder="Enter your email..." />
+        <Input data-testid="email" placeholder="Enter your email..." />
       </Form.Item>
       <Form.Item
         label="Date of birth"
-        name="dateOfBirth"
+        name="date-of-birth"
         rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
         hasFeedback
       >
-        <DatePicker placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
+        <DatePicker data-testid="dateOfBirth" placeholder="YEAR-MM-DD" maxDate={minValidDate} minDate={maxValidDate} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles['next-sterp-btn']} block>
+      <Button
+        data-testid="submitPersonalData"
+        type="primary"
+        htmlType="submit"
+        className={styles['next-step-btn']}
+        block
+      >
         NEXT STEP
       </Button>
     </Form>
@@ -145,7 +145,13 @@ function Address({ onFinish }: AddressProps) {
   }, []);
 
   return (
-    <Form onFinish={onFinish} className={styles['registration-form']} autoComplete="off" layout="vertical">
+    <Form
+      data-testid="address-form"
+      onFinish={onFinish}
+      className={styles['registration-form']}
+      autoComplete="off"
+      layout="vertical"
+    >
       <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
         <Select
           showSearch
@@ -175,7 +181,7 @@ function Address({ onFinish }: AddressProps) {
         hasFeedback
         validateFirst
       >
-        <Input placeholder="Enter your city..." />
+        <Input data-testid="city" placeholder="Enter your city..." />
       </Form.Item>
       <Form.Item
         label="Street"
@@ -186,11 +192,11 @@ function Address({ onFinish }: AddressProps) {
         ]}
         hasFeedback
       >
-        <Input placeholder="Enter your street..." />
+        <Input data-testid="street" placeholder="Enter your street..." />
       </Form.Item>
       <Form.Item
         label="Post Code"
-        name="postCode"
+        name="post-code"
         dependencies={['country']}
         rules={[
           { required: true, message: 'Please enter your post code!' },
@@ -198,9 +204,9 @@ function Address({ onFinish }: AddressProps) {
         ]}
         hasFeedback
       >
-        <Input placeholder={country?.postalCodePattern} />
+        <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className={styles['next-step-btn']} block>
+      <Button data-testid="submitAddress" type="primary" htmlType="submit" className={styles['next-step-btn']} block>
         NEXT STEP
       </Button>
     </Form>
@@ -209,12 +215,12 @@ function Address({ onFinish }: AddressProps) {
 
 function Finish({ onClick }: FinishProps) {
   return (
-    <div className={styles['finish-form']}>
+    <div data-testid="finishForm" className={styles['finish-form']}>
       <Title level={3}>You are set all data!</Title>
       <Paragraph>
         <Text>To successfully complete registration, click the submit button!</Text>
       </Paragraph>
-      <Button type="primary" htmlType="submit" onClick={onClick} block>
+      <Button data-testid="completeRegestration" type="primary" htmlType="submit" onClick={onClick} block>
         SUBMIT
       </Button>
     </div>
