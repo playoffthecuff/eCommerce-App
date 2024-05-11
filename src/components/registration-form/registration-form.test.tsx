@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, Mock, beforeEach } from 'vitest';
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RegistrationForm from './registration-form';
+import { RegistrationForm } from './registration-form';
 import { Country } from './types';
 import { getCountries } from './service';
 
@@ -23,7 +23,7 @@ describe('RegistrationForm tests', () => {
   });
 
   test('can register', async () => {
-    // personal data form
+    // step: personal data
     const { container } = render(<RegistrationForm />);
     const firstNameEl = screen.getByTestId('firstName');
     const lastNameEl = screen.getByTestId('lastName');
@@ -38,14 +38,12 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(emailEl, 'john.smith@company.com');
     await userEvent.type(dateOfBirthEl, '2000-01-01');
 
-    const submitPersonalDataBtn = screen.getByTestId('submitPersonalData');
-    await userEvent.click(submitPersonalDataBtn);
-    await userEvent.click(submitPersonalDataBtn);
+    const submitBtn = screen.getByTestId('submitBtn');
+    await userEvent.click(submitBtn);
+    await userEvent.click(submitBtn);
 
-    await screen.findByTestId('address-form');
-
-    // address form
-    const countryEl = screen.getByRole('combobox', { name: 'Country' });
+    // step: address
+    const countryEl = await screen.findByRole('combobox', { name: 'Country' });
     userEvent.click(countryEl);
     const opts = await screen.findByText(/united states/i, { selector: '.ant-select-item-option-content' });
     fireEvent.click(opts);
@@ -56,14 +54,11 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(cityEl, 'City');
     await userEvent.type(streetEl, 'Green');
     await userEvent.type(postCodeEl, '10001');
+    await userEvent.click(submitBtn);
 
-    const submitAddressBtn = screen.getByTestId('submitAddress');
-    await userEvent.click(submitAddressBtn);
-
-    await screen.findByTestId('finishForm');
-
-    // complete regestration
-    userEvent.click(screen.getByTestId('completeRegestration'));
+    // step: complete regestration
+    await screen.findByText(/complete registration/i);
+    userEvent.click(submitBtn);
   });
 
   test('validates email', async () => {

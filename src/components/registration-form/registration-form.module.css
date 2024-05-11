@@ -17,16 +17,16 @@
 
 .button-wrapper {
   button {
-    background-color: var(--color-primary-hover);
+    background-color: #111111;
   }
 
   button::after {
-    background: var(--color-primary);
+    background: #cd4c1d;
   }
 }
 
-.button-wrapper.button-wrapper.button-wrapper {
+.button-wrapper.button-wrapper {
   button:hover {
-    background-color: var(--color-primary-hover);
+    background-color: #111111;
   }
 }
