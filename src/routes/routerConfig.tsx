@@ -1,3 +1,5 @@
+import { Navigate } from 'react-router-dom';
+
 import Root from '../pages/Root/Root';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
@@ -25,6 +27,14 @@ const routerConfig = [
       {
         path: '/registration',
         element: <Registration />,
+      },
+      {
+        path: '/not-found',
+        element: <ErrorPage />,
+      },
+      {
+        path: '*',
+        element: <Navigate replace to="/not-found" />,
       },
     ],
   },
