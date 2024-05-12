@@ -50,14 +50,17 @@ export function PersonalData() {
         hasFeedback
         validateFirst
       >
-        <Input data-testid="password" type="password" placeholder="Enter your password..." />
+        <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />
       </Form.Item>
       <Form.Item
         label="Email"
         name="email"
         rules={[
           { required: true, message: 'Please enter your Email' },
-          { type: 'email', message: 'Please enter correct Email address' },
+          {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: 'Please enter correct Email address',
+          },
         ]}
         hasFeedback
       >
@@ -70,11 +73,11 @@ export function PersonalData() {
         hasFeedback
       >
         <DatePicker
-          showNow
           data-testid="dateOfBirth"
-          placeholder="YEAR-MM-DD"
+          placeholder="DD.MM.YEAR"
           maxDate={minValidDate}
           minDate={maxValidDate}
+          format="DD.MM.YYYY"
         />
       </Form.Item>
     </>

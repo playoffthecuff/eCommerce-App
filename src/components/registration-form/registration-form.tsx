@@ -7,7 +7,7 @@ import { Address, PersonalData, Finish } from './components';
 const steps = [
   {
     render: () => <PersonalData />,
-    title: 'Signup',
+    title: 'Person',
     icon: <UserOutlined />,
   },
   {
@@ -47,7 +47,7 @@ export function RegistrationForm() {
     <div className={styles.steps}>
       <Steps current={step}>
         {steps.map((s) => (
-          <Steps.Step key={s.title} title={s.title} icon={s.icon} />
+          <Steps.Step className={styles.step} key={s.title} title={s.title} icon={s.icon} />
         ))}
       </Steps>
       <div className={styles['registration-form']}>

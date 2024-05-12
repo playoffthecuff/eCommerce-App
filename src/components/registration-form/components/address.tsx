@@ -9,10 +9,10 @@ export function Address() {
 
   useEffect(() => {
     getCountries()
-      .then((d) => {
-        d.sort((a, b) => a.name.localeCompare(b.name));
-        setCountries(d);
-        setCountry(d[0]);
+      .then((data) => {
+        data.sort((a, b) => a.name.localeCompare(b.name));
+        setCountries(data);
+        setCountry(data[0]);
       })
       .catch(() => {});
   }, []);
@@ -42,8 +42,7 @@ export function Address() {
         name="city"
         rules={[
           { required: true, message: 'Please enter your city!' },
-          { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
-          { pattern: /^[A-Za-z]*$/, message: 'Must not contain special characters or numbers!' },
+          { pattern: /^[A-Za-z ]*$/, message: 'Must not contain special characters or numbers!' },
         ]}
         hasFeedback
         validateFirst
@@ -55,7 +54,7 @@ export function Address() {
         name="street"
         rules={[
           { required: true, message: 'Please enter your street!' },
-          { pattern: /[A-Za-z]/, message: 'Must contain at least one character' },
+          { pattern: /^[A-Za-z0-9]*$/, message: 'Must contain only English letters and numbers' },
         ]}
         hasFeedback
       >
