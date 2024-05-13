@@ -10,7 +10,7 @@
 }
 
 .registration-form {
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 500px;
   padding: 1.5rem 0.5rem;
 }
@@ -19,6 +19,14 @@
   max-width: 400px;
   margin: 7rem auto;
   text-align: center;
+}
+
+.chechbox-style {
+  margin: 0.5rem 0;
+}
+
+.address-form {
+  margin-top: 1rem;
 }
 
 .button-wrapper {

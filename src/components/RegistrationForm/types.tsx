@@ -9,11 +9,8 @@ export type Country = {
 };
 
 export type AddressProps = {
-  onFinish: (values: TAddress) => void;
-};
-
-export type PersonalDataProps = {
-  onFinish: (values: TPersonalData) => void;
+  sameAddresses: boolean;
+  setSameAddresses: (flag: boolean) => void;
 };
 
 export type TPersonalData = {
@@ -29,8 +26,4 @@ export type TAddress = {
   country: string;
   postCode: string;
   street: string;
-};
-
-export type FinishProps = {
-  onClick: () => void;
 };

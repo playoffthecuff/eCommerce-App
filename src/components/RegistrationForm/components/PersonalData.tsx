@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
+import Paragraph from 'antd/es/typography/Paragraph';
 import { DatePicker, Form, Input, Typography } from 'antd';
+
+const { Text, Link } = Typography;
 
 export function PersonalData() {
   const minValidAge = 16;
@@ -10,9 +13,14 @@ export function PersonalData() {
   return (
     <>
       <Typography.Title level={3}>SIGN UP</Typography.Title>
+      <Paragraph>
+        <Text>Already have an account? Go to </Text>
+        <Link href="#/login">Log In</Link>
+        <Text> to continue.</Text>
+      </Paragraph>
       <Form.Item
         label="First name"
-        name="first-name"
+        name="firstName"
         rules={[
           { required: true, message: 'Please enter your name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -24,7 +32,7 @@ export function PersonalData() {
       </Form.Item>
       <Form.Item
         label="Last Name"
-        name="last-name"
+        name="lastName"
         rules={[
           { required: true, message: 'Please enter your last name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -68,7 +76,7 @@ export function PersonalData() {
       </Form.Item>
       <Form.Item
         label="Date of birth"
-        name="date-of-birth"
+        name="dateOfBirth"
         rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
         hasFeedback
       >

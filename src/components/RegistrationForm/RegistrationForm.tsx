@@ -3,6 +3,7 @@ import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-des
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
 import { Address, PersonalData, Finish } from './components';
+import { AddressProps } from './types';
 
 const steps = [
   {
@@ -11,7 +12,7 @@ const steps = [
     icon: <UserOutlined />,
   },
   {
-    render: () => <Address />,
+    render: (props: AddressProps) => <Address {...props} />,
     title: 'Address',
     icon: <EnvironmentOutlined />,
   },
@@ -23,13 +24,13 @@ const steps = [
 ];
 
 export function RegistrationForm() {
+  const [sameAddresses, setSameAddresses] = useState(false);
   const [step, setStep] = useState(0);
   const [form] = Form.useForm();
 
   const submit = () => {
     const data = form.getFieldsValue(true);
-    // eslint-disable-next-line no-console
-    console.log(data);
+    console.log({ ...data, sameAddresses });
   };
 
   const next = async () => {
@@ -52,7 +53,7 @@ export function RegistrationForm() {
       </Steps>
       <div className={styles['registration-form']}>
         <Form form={form} layout="vertical" onFinish={step === 2 ? submit : next}>
-          <CurrentStep />
+          <CurrentStep sameAddresses={sameAddresses} setSameAddresses={setSameAddresses} />
           <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
             <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
               {step === 2 ? 'SUBMIT' : 'NEXT'}
