@@ -1,4 +1,4 @@
-import { RegistrationForm } from '../../components/registration-form/registration-form';
+import { RegistrationForm } from '../../components/RegistrationForm';
 
 function Registration() {
   return <RegistrationForm />;

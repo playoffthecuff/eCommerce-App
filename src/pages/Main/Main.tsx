@@ -35,7 +35,6 @@ function Main() {
           <h2>List of countries:</h2>
           <ol>
             {countries.map((country) => (
-              // eslint-disable-next-line no-underscore-dangle
               <li key={country._id}>{country.name}</li>
             ))}
           </ol>

@@ -1,6 +1,6 @@
 import { Typography } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
-import styles from '../registration-form.module.css';
+import styles from '../RegistrationForm.module.css';
 
 export function Finish() {
   return (

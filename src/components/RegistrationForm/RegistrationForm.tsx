@@ -1,7 +1,7 @@
 import { Steps, Button, Form } from 'antd';
 import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import styles from './registration-form.module.css';
+import styles from './RegistrationForm.module.css';
 import { Address, PersonalData, Finish } from './components';
 
 const steps = [

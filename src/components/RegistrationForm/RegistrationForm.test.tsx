@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, Mock, beforeEach } from 'vitest';
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RegistrationForm } from './registration-form';
+import { RegistrationForm } from './RegistrationForm';
 import { Country } from './types';
 import { getCountries } from './service';
 
@@ -36,7 +36,7 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(lastNameEl, 'Smith');
     await userEvent.type(passwordEl, 'Secret12345!');
     await userEvent.type(emailEl, 'john.smith@company.com');
-    await userEvent.type(dateOfBirthEl, '2000-01-01');
+    await userEvent.type(dateOfBirthEl, '01.01.2000');
 
     const submitBtn = screen.getByTestId('submitBtn');
     await userEvent.click(submitBtn);
