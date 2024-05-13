@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { Button } from 'antd';
+import { Button, Space, Typography } from 'antd';
+
+import styles from './Main.module.css';
+
+const { Link, Title } = Typography;
 
 interface CountryData {
   abbrev: string;
@@ -16,7 +20,7 @@ function Main() {
 
   const handleButtonClick = async () => {
     try {
-      const response = await axios.get<CountryData[]>('http://localhost:3000/api/countries');
+      const response = await axios.get<CountryData[]>('https://codefrondlers.store/jsfe23q4/api/countries');
       const sortedCountries = response.data.sort((a, b) => a.name.localeCompare(b.name));
       setCountries(sortedCountries);
     } catch (error) {
@@ -25,9 +29,17 @@ function Main() {
   };
 
   return (
-    <main>
-      Main
-      <Button type="primary" htmlType="button" block onClick={handleButtonClick}>
+    <main className={styles.main}>
+      <Title level={2}>Main Page</Title>
+      <Space>
+        <Link href="#/login" className={styles['test-link']}>
+          Login Page
+        </Link>
+        <Link href="#/registration" className={styles['test-link']}>
+          Registration Page
+        </Link>
+      </Space>
+      <Button type="primary" htmlType="button" block onClick={handleButtonClick} className={styles['test-button']}>
         TEST BUTTON TO FETCH COUNTRIES
       </Button>
       {countries.length > 0 && (
