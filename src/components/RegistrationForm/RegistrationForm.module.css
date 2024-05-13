@@ -1,0 +1,38 @@
+.steps {
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.step {
+  padding-inline-start: 2rem;
+  margin: 0 auto;
+  width: 8rem;
+}
+
+.registration-form {
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 1.5rem 0.5rem;
+}
+
+.finish-form {
+  max-width: 400px;
+  margin: 7rem auto;
+  text-align: center;
+}
+
+.button-wrapper {
+  button {
+    background-color: #111111;
+  }
+
+  button::after {
+    background: #cd4c1d;
+  }
+}
+
+.button-wrapper.button-wrapper {
+  button:hover {
+    background-color: #111111;
+  }
+}

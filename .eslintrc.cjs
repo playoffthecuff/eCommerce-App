@@ -19,6 +19,9 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-underscore-dangle': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    'import/prefer-default-export': 'off',
   },
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],
