@@ -14,8 +14,8 @@ export function PersonalData() {
     <>
       <Typography.Title level={3}>SIGN UP</Typography.Title>
       <Paragraph>
-        <Text>Already have an account? Go to </Text>
-        <Link href="#/login">Log In</Link>
+        <Text>Already have an account? Click </Text>
+        <Link href="#/login">Sign In</Link>
         <Text> to continue.</Text>
       </Paragraph>
       <Form.Item

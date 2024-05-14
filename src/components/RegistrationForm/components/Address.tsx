@@ -1,8 +1,12 @@
-import { Form, Input, Select, Checkbox } from 'antd';
+import { Form, Input, Select, Checkbox, Typography } from 'antd';
 import { useEffect, useState } from 'react';
-import { AddressProps, Country } from '../types';
+import { AddressFormProps, AddressProps, BillingFormProps, Country } from '../types';
 import { getCountries } from '../service';
-import styles from '../RegistrationForm.module.css';
+
+// todo
+// placeholder post code
+// date picker validation
+// sent data to backend
 
 export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -14,44 +18,33 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
       .then((data) => {
         data.sort((a, b) => a.name.localeCompare(b.name));
         setCountries(data);
-        setCountry(data[0]);
+        // setCountry(data[0]);
       })
       .catch(() => {});
   }, []);
 
   return (
     <>
-      <h2>Shipping Address</h2>
-      <Checkbox
-        className={styles['chechbox-style']}
-        checked={sameAddresses}
-        onChange={() => setSameAddresses(!sameAddresses)}
-      >
-        I have the same billing and shipping addresses
-      </Checkbox>
+      <Typography.Title level={3}>Shipping Address</Typography.Title>
+      <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
+        <Checkbox>Set as default shipping address</Checkbox>
+      </Form.Item>
       <AddressForm countries={countries} country={country} setCountry={setCountry} />
-      {!sameAddresses && (
-        <>
-          <h2>Billing Address</h2>
-          <BillingForm countries={countries} country={billingCountry} setCountry={setBillingCountry} />
-        </>
-      )}
+      <Typography.Title level={3}>Billing Address</Typography.Title>
+      <Checkbox checked={sameAddresses} onChange={() => setSameAddresses(!sameAddresses)}>
+        Have the same billign address
+      </Checkbox>
+      <Form.Item name="setAsDefaultBillingAddress" valuePropName="checked">
+        <Checkbox>Set as default billing address</Checkbox>
+      </Form.Item>
+      {!sameAddresses && <BillingForm countries={countries} country={billingCountry} setCountry={setBillingCountry} />}
     </>
   );
 }
 
-type AddressFormProps = {
-  countries: Country[];
-  country?: Country;
-  setCountry: (country?: Country) => void;
-};
-
 function AddressForm({ countries, country, setCountry }: AddressFormProps) {
   return (
-    <div className={styles['address-form']}>
-      <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
-        <Checkbox className={styles['chechbox-style']}>Set as default shipping address</Checkbox>
-      </Form.Item>
+    <>
       <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
         <Select
           showSearch
@@ -105,22 +98,13 @@ function AddressForm({ countries, country, setCountry }: AddressFormProps) {
       >
         <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
       </Form.Item>
-    </div>
+    </>
   );
 }
 
-type BillingFormProps = {
-  countries: Country[];
-  country?: Country;
-  setCountry: (country?: Country) => void;
-};
-
 function BillingForm({ countries, country, setCountry }: BillingFormProps) {
   return (
-    <div className={styles['address-form']}>
-      <Form.Item name="setAsDefaultBillingAddress" valuePropName="checked">
-        <Checkbox className={styles['chechbox-style']}>Set as default billing address</Checkbox>
-      </Form.Item>
+    <>
       <Form.Item
         label="Country"
         name="billingCountry"
@@ -169,7 +153,7 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
       <Form.Item
         label="Post Code"
         name="billingPostCode"
-        dependencies={['country']}
+        dependencies={['billingCountry']}
         rules={[
           { required: true, message: 'Please enter your post code!' },
           { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
@@ -178,6 +162,6 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
       >
         <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
       </Form.Item>
-    </div>
+    </>
   );
 }

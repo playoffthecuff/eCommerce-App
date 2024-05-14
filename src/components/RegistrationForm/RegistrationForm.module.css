@@ -16,17 +16,8 @@
 }
 
 .finish-form {
-  max-width: 400px;
-  margin: 7rem auto;
+  margin: 3rem auto;
   text-align: center;
-}
-
-.chechbox-style {
-  margin: 0.5rem 0;
-}
-
-.address-form {
-  margin-top: 1rem;
 }
 
 .button-wrapper {

@@ -1,5 +1,3 @@
-import { Dayjs } from 'dayjs';
-
 export type Country = {
   _id: string;
   abbrev: string;
@@ -13,17 +11,14 @@ export type AddressProps = {
   setSameAddresses: (flag: boolean) => void;
 };
 
-export type TPersonalData = {
-  dateOfBirth: Dayjs;
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
+export type BillingFormProps = {
+  countries: Country[];
+  country?: Country;
+  setCountry: (country?: Country) => void;
 };
 
-export type TAddress = {
-  city: string;
-  country: string;
-  postCode: string;
-  street: string;
+export type AddressFormProps = {
+  countries: Country[];
+  country?: Country;
+  setCountry: (country?: Country) => void;
 };
