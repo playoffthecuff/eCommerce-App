@@ -4,7 +4,6 @@ import { AddressFormProps, AddressProps, BillingFormProps, Country } from '../ty
 import { getCountries } from '../service';
 
 // todo
-// placeholder post code
 // date picker validation
 // sent data to backend
 
@@ -18,7 +17,6 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
       .then((data) => {
         data.sort((a, b) => a.name.localeCompare(b.name));
         setCountries(data);
-        // setCountry(data[0]);
       })
       .catch(() => {});
   }, []);
@@ -91,12 +89,12 @@ function AddressForm({ countries, country, setCountry }: AddressFormProps) {
         name="postCode"
         dependencies={['country']}
         rules={[
-          { required: true, message: 'Please enter your post code!' },
+          { required: true, message: 'Please enter valid post code!' },
           { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
         ]}
         hasFeedback
       >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
+        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
       </Form.Item>
     </>
   );
@@ -155,12 +153,12 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
         name="billingPostCode"
         dependencies={['billingCountry']}
         rules={[
-          { required: true, message: 'Please enter your post code!' },
+          { required: true, message: 'Please enter valid post code!' },
           { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
         ]}
         hasFeedback
       >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
+        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
       </Form.Item>
     </>
   );
