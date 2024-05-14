@@ -54,11 +54,9 @@ export function RegistrationForm() {
       <div className={styles['registration-form']}>
         <Form form={form} layout="vertical" onFinish={step === 2 ? submit : next}>
           <CurrentStep sameAddresses={sameAddresses} setSameAddresses={setSameAddresses} />
-          <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
-            <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
-              {step === 2 ? 'SUBMIT' : 'NEXT'}
-            </Button>
-          </Form.Item>
+          <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
+            {step === 2 ? 'SUBMIT' : 'NEXT'}
+          </Button>
         </Form>
       </div>
     </div>

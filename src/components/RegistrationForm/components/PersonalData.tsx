@@ -1,15 +1,11 @@
 import dayjs from 'dayjs';
+import { RuleObject } from 'antd/es/form';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { DatePicker, Form, Input, Typography } from 'antd';
 
 const { Text, Link } = Typography;
 
 export function PersonalData() {
-  const minValidAge = 16;
-  const maxValidAge = 100;
-  const minValidDate = dayjs().subtract(minValidAge, 'year');
-  const maxValidDate = dayjs().subtract(maxValidAge, 'year');
-
   return (
     <>
       <Typography.Title level={3}>SIGN UP</Typography.Title>
@@ -77,17 +73,37 @@ export function PersonalData() {
       <Form.Item
         label="Date of birth"
         name="dateOfBirth"
-        rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
+        rules={[{ required: true, message: 'Please enter valid date of birth.' }, dateOfBirthValidator]}
         hasFeedback
       >
-        <DatePicker
-          data-testid="dateOfBirth"
-          placeholder="DD.MM.YEAR"
-          maxDate={minValidDate}
-          minDate={maxValidDate}
-          format="DD.MM.YYYY"
-        />
+        <DatePicker data-testid="dateOfBirth" placeholder="DD.MM.YEAR" format="DD.MM.YYYY" />
       </Form.Item>
     </>
   );
 }
+
+const MIN_AGE = 16;
+
+const dateOfBirthValidator = {
+  validator: (_rules: RuleObject, value: unknown, callback: (error?: string | undefined) => void): void => {
+    if (!value) {
+      callback();
+      return;
+    }
+
+    let date;
+    try {
+      date = dayjs(value as string);
+    } catch {
+      callback('Date has to be valid.');
+      return;
+    }
+    const now = dayjs();
+    const diff = now.diff(date, 'years');
+    if (diff < MIN_AGE) {
+      callback(`You have to be at least ${MIN_AGE} years old.`);
+      return;
+    }
+    callback();
+  },
+};

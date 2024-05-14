@@ -19,19 +19,3 @@
   margin: 3rem auto;
   text-align: center;
 }
-
-.button-wrapper {
-  button {
-    background-color: #111111;
-  }
-
-  button::after {
-    background: #cd4c1d;
-  }
-}
-
-.button-wrapper.button-wrapper {
-  button:hover {
-    background-color: #111111;
-  }
-}
