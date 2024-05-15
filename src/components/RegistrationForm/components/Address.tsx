@@ -26,7 +26,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
       <AddressForm countries={countries} country={country} setCountry={setCountry} />
       <Typography.Title level={3}>Billing Address</Typography.Title>
       <Checkbox checked={sameAddresses} onChange={() => setSameAddresses(!sameAddresses)}>
-        Same as shipping address
+        Have the same shipping address
       </Checkbox>
       <Form.Item name="setAsDefaultBillingAddress" valuePropName="checked">
         <Checkbox>Set as default billing address</Checkbox>

@@ -1,5 +1,5 @@
 import { Steps, Button, Form } from 'antd';
-import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
+import { CheckOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
 import { Address, PersonalData, Finish } from './components';
@@ -19,7 +19,7 @@ const steps = [
   {
     render: () => <Finish />,
     title: 'Finish',
-    icon: <CheckCircleOutlined />,
+    icon: <CheckOutlined />,
   },
 ];
 
