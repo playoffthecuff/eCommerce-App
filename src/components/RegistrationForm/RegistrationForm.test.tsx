@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, Mock, beforeEach } from 'vitest';
-import { screen, render, waitFor, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RegistrationForm } from './RegistrationForm';
 import { Country } from './types';
@@ -29,7 +29,7 @@ describe('RegistrationForm tests', () => {
     const lastNameEl = screen.getByTestId('lastName');
     const passwordEl = screen.getByTestId('password');
     const emailEl = screen.getByTestId('email');
-    const dateOfBirthEl = container.querySelector('#date-of-birth')!;
+    const dateOfBirthEl = container.querySelector('#dateOfBirth')!;
     expect(dateOfBirthEl).toBeTruthy();
 
     await userEvent.type(firstNameEl, 'John');
@@ -43,7 +43,7 @@ describe('RegistrationForm tests', () => {
     await userEvent.click(submitBtn);
 
     // step: address
-    const countryEl = await screen.findByRole('combobox', { name: 'Country' });
+    const [countryEl] = await screen.findAllByRole('combobox', { name: 'Country' });
     userEvent.click(countryEl);
     const opts = await screen.findByText(/united states/i, { selector: '.ant-select-item-option-content' });
     fireEvent.click(opts);
@@ -54,6 +54,9 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(cityEl, 'City');
     await userEvent.type(streetEl, 'Green');
     await userEvent.type(postCodeEl, '10001');
+
+    const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: 'Same as shipping address' });
+    userEvent.click(sameBillingAddressCheckbox);
     await userEvent.click(submitBtn);
 
     // step: complete regestration
@@ -67,8 +70,6 @@ describe('RegistrationForm tests', () => {
     userEvent.type(emailEl, 'invalid email');
     fireEvent.focus(window);
 
-    await waitFor(() => {
-      expect(screen.getByText(/enter correct email/i)).toBeInTheDocument();
-    });
+    await screen.findByText(/enter correct email/i);
   });
 });

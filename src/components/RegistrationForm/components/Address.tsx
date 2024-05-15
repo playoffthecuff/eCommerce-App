@@ -3,10 +3,6 @@ import { useEffect, useState } from 'react';
 import { AddressFormProps, AddressProps, BillingFormProps, Country } from '../types';
 import { getCountries } from '../service';
 
-// todo
-// date picker validation
-// sent data to backend
-
 export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<Country | undefined>();
@@ -30,7 +26,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
       <AddressForm countries={countries} country={country} setCountry={setCountry} />
       <Typography.Title level={3}>Billing Address</Typography.Title>
       <Checkbox checked={sameAddresses} onChange={() => setSameAddresses(!sameAddresses)}>
-        Have the same billign address
+        Same as shipping address
       </Checkbox>
       <Form.Item name="setAsDefaultBillingAddress" valuePropName="checked">
         <Checkbox>Set as default billing address</Checkbox>
@@ -89,7 +85,7 @@ function AddressForm({ countries, country, setCountry }: AddressFormProps) {
         name="postCode"
         dependencies={['country']}
         rules={[
-          { required: true, message: 'Please enter valid post code!' },
+          { required: true, message: 'Please enter your post code!' },
           { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
         ]}
         hasFeedback
@@ -135,7 +131,7 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
         hasFeedback
         validateFirst
       >
-        <Input data-testid="city" placeholder="Enter your city..." />
+        <Input data-testid="billingCity" placeholder="Enter your city..." />
       </Form.Item>
       <Form.Item
         label="Street"
@@ -146,7 +142,7 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
         ]}
         hasFeedback
       >
-        <Input data-testid="street" placeholder="Enter your street..." />
+        <Input data-testid="billingStreet" placeholder="Enter your street..." />
       </Form.Item>
       <Form.Item
         label="Post Code"
@@ -158,7 +154,7 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
         ]}
         hasFeedback
       >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
+        <Input data-testid="billingPostCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
       </Form.Item>
     </>
   );
