@@ -1,19 +1,23 @@
-import { ConfigProvider, App as AntApp } from 'antd';
-import { RouterProvider, createHashRouter } from 'react-router-dom';
+import { ConfigProvider, App as AntApp, Spin } from 'antd';
+import { RouterProvider } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import lightTheme from './utils/themes';
+import router from './utils/router';
+import userStore from './store/user-store';
 
-import routerConfig from './routes/routerConfig';
-
-const router = createHashRouter(routerConfig);
-
+// eslint-disable-next-line react-refresh/only-export-components
 function App() {
   return (
     <ConfigProvider theme={lightTheme}>
-      <AntApp className="app">
-        <RouterProvider router={router} />
-      </AntApp>
+      <Spin size="large" spinning={userStore.isLoading}>
+        <AntApp className="app">
+          <RouterProvider router={router} />
+        </AntApp>
+      </Spin>
     </ConfigProvider>
   );
 }
 
-export default App;
+const observableApp = observer(App);
+
+export default observableApp;

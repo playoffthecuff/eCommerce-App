@@ -3,9 +3,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --color-primary: #cd4c1d;
+  --color-primary: #2644ad; /* 112d9f */
   --color-primary-hover: #111;
-  --colorLink: #9f2d11;
+  --colorLink: #2644ad; /* 112d9f */
 }
 
 @font-face {
@@ -65,10 +65,10 @@ h3.ant-typography {
   display: block;
   position: absolute;
   height: 115%;
-  width: 110%;
+  width: 120%;
   transform: skew(-15deg);
   background: var(--color-primary-hover);
-  left: -115%;
+  left: -125%;
   bottom: -2px;
   transition: left 0.4s;
 }
@@ -83,7 +83,24 @@ h3.ant-typography {
 }
 
 .ant-btn-primary:hover::after {
-  left: -5%;
+  left: -10%;
+}
+
+.ant-btn-primary.ant-btn-primary:disabled {
+  background-color: #666;
+  color: rgba(28, 50, 73, 0.75);
+}
+
+.ant-btn.ant-btn.ant-btn.ant-btn-primary:hover:disabled {
+  background-color: #666;
+}
+
+.ant-btn-primary:hover:disabled::after {
+  left: -125%;
+}
+
+.ant-spin.ant-spin.ant-spin {
+  max-height: 100%;
 }
 
 .wrapper {

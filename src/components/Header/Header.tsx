@@ -1,32 +1,32 @@
-// import { Link } from 'react-router-dom';
-import { Typography, Space } from 'antd';
-import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
+import { Typography, Space, Button } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
 
+import { observer } from 'mobx-react-lite';
 import styles from './Header.module.css';
+import userStore from '../../store/user-store';
+import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
 
-const { Title, Link } = Typography;
+const { Title, Paragraph } = Typography;
 
+// eslint-disable-next-line react-refresh/only-export-components
 function Header() {
   return (
     <header className={styles.header}>
       <Title>Cycles store</Title>
+      <Paragraph>{userStore.isAuthorized ? 'User is authorized' : 'Please sign in or sign up'}</Paragraph>
       <div className={styles['link-wrapper']}>
         <Space>
-          <Link className={styles['header-link']} href="#/registration">
-            <EditTwoTone />
+          <Button type="link" href="#/registration" icon={<FormOutlined />}>
             Sign Up
-          </Link>
+          </Button>
         </Space>
-
-        <Space>
-          <Link className={styles['header-link']} href="#/login">
-            <CheckCircleTwoTone />
-            Sign In
-          </Link>
-        </Space>
+        <Space>{userStore.isAuthorized ? <LogoutButton /> : <LoginButton />}</Space>
       </div>
     </header>
   );
 }
 
-export default Header;
+const observableHeader = observer(Header);
+
+export default observableHeader;

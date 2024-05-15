@@ -28,7 +28,6 @@ export function RegistrationForm() {
 
   const submit = () => {
     const data = form.getFieldsValue(true);
-    // eslint-disable-next-line no-console
     console.log(data);
   };
 
@@ -54,7 +53,7 @@ export function RegistrationForm() {
         <Form form={form} layout="vertical" onFinish={step === 2 ? submit : next}>
           <CurrentStep />
           <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
-            <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
+            <Button data-testid="submitBtn" type="primary" htmlType="submit" block>
               {step === 2 ? 'SUBMIT' : 'NEXT'}
             </Button>
           </Form.Item>
