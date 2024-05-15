@@ -1,9 +1,9 @@
 import { describe, test, expect, vi, Mock, beforeEach } from 'vitest';
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RegistrationForm } from './RegistrationForm';
 import { Country } from './types';
-import { getCountries } from './service';
+import { getCountries, signUp } from './service';
 
 vi.mock('./service');
 
@@ -19,7 +19,17 @@ const mockCountries: Country[] = [
 
 describe('RegistrationForm tests', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     (getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    (signUp as Mock).mockResolvedValueOnce({
+      accessToken: 'access_token',
+      refreshToken: 'refresh_token',
+      user: {
+        email: 'john.smith@company.com',
+        _id: '1',
+        isActivated: false,
+      },
+    });
   });
 
   test('can register', async () => {
@@ -55,13 +65,16 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(streetEl, 'Green');
     await userEvent.type(postCodeEl, '10001');
 
-    const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: 'Same as shipping address' });
+    const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: /same shipping address/i });
     userEvent.click(sameBillingAddressCheckbox);
     await userEvent.click(submitBtn);
 
     // step: complete regestration
     await screen.findByText(/complete registration/i);
     userEvent.click(submitBtn);
+    await waitFor(() => {
+      expect(signUp as Mock).toHaveBeenCalledTimes(1);
+    });
   });
 
   test('validates email', async () => {

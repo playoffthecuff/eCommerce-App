@@ -3,7 +3,8 @@ import { CheckOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/ic
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
 import { Address, PersonalData, Finish } from './components';
-import { AddressProps } from './types';
+import { AddressProps, Fields, SignUpArg } from './types';
+import { signUp } from './service';
 
 const steps = [
   {
@@ -28,9 +29,16 @@ export function RegistrationForm() {
   const [step, setStep] = useState(0);
   const [form] = Form.useForm();
 
-  const submit = () => {
-    const data = form.getFieldsValue(true);
-    console.log({ ...data, sameAddresses });
+  const submit = async () => {
+    const fields: Fields = form.getFieldsValue(true);
+    let resp;
+    try {
+      resp = await signUp(mapToSignUpArg(fields, sameAddresses));
+    } catch (err) {
+      console.error('Failed to sign up:', err);
+      return;
+    }
+    console.log('RESPONSE', resp);
   };
 
   const next = async () => {
@@ -61,4 +69,37 @@ export function RegistrationForm() {
       </div>
     </div>
   );
+}
+
+function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
+  const shippingAddress = {
+    city: fields.city,
+    country: fields.country,
+    postalCode: fields.postCode,
+    street: fields.street,
+    isDefault: fields.setAsDefaultShippingAddress,
+  };
+  const arg: SignUpArg = {
+    firstName: fields.firstName,
+    lastName: fields.lastName,
+    dateOfBirth: fields.dateOfBirth.toISOString(),
+    email: fields.email,
+    password: fields.password,
+    addresses: {
+      shippingAddresses: [shippingAddress],
+      billingAddresses: [shippingAddress],
+    },
+  };
+  if (!sameAddresses) {
+    arg.addresses.billingAddresses = [
+      {
+        city: fields.billingCity!,
+        country: fields.billingCountry!,
+        postalCode: fields.billingPostCode!,
+        street: fields.billingStreet!,
+        isDefault: fields.setAsDefaultBillingAddress,
+      },
+    ];
+  }
+  return arg;
 }
