@@ -54,8 +54,8 @@ export function RegistrationForm() {
   const CurrentStep = steps[step].render;
 
   return (
-    <div className={styles.steps}>
-      <Steps current={step}>
+    <>
+      <Steps className={styles.steps} current={step}>
         {steps.map((s) => (
           <Steps.Step className={styles.step} key={s.title} title={s.title} icon={s.icon} />
         ))}
@@ -68,7 +68,7 @@ export function RegistrationForm() {
           </Button>
         </Form>
       </div>
-    </div>
+    </>
   );
 }
 
