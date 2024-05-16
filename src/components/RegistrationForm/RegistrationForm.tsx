@@ -25,18 +25,19 @@ const steps = [
 ];
 
 export function RegistrationForm() {
+  const [isSubmit, setIsSubmiting] = useState(false);
   const [sameAddresses, setSameAddresses] = useState(false);
   const [step, setStep] = useState(0);
   const [form] = Form.useForm();
 
   const submit = async () => {
+    setIsSubmiting(true);
     const fields: Fields = form.getFieldsValue(true);
     let resp;
     try {
       resp = await signUp(mapToSignUpArg(fields, sameAddresses));
     } catch (err) {
       console.error('Failed to sign up:', err);
-      return;
     }
     console.log('RESPONSE', resp);
   };
@@ -62,7 +63,7 @@ export function RegistrationForm() {
       <div className={styles['registration-form']}>
         <Form form={form} layout="vertical" onFinish={step === 2 ? submit : next}>
           <CurrentStep sameAddresses={sameAddresses} setSameAddresses={setSameAddresses} />
-          <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
+          <Button data-testid="submitBtn" type="primary" htmlType="submit" block disabled={isSubmit}>
             {step === 2 ? 'SUBMIT' : 'NEXT'}
           </Button>
         </Form>
@@ -77,8 +78,9 @@ function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
     country: fields.country,
     postalCode: fields.postCode,
     street: fields.street,
-    isDefault: fields.setAsDefaultShippingAddress,
+    isDefault: Boolean(fields.setAsDefaultShippingAddress),
   };
+  const billingAddress = { ...shippingAddress, isDefault: Boolean(fields.setAsDefaultBillingAddress) };
   const arg: SignUpArg = {
     firstName: fields.firstName,
     lastName: fields.lastName,
@@ -87,7 +89,7 @@ function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
     password: fields.password,
     addresses: {
       shippingAddresses: [shippingAddress],
-      billingAddresses: [shippingAddress],
+      billingAddresses: [billingAddress],
     },
   };
   if (!sameAddresses) {
@@ -97,7 +99,7 @@ function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
         country: fields.billingCountry!,
         postalCode: fields.billingPostCode!,
         street: fields.billingStreet!,
-        isDefault: fields.setAsDefaultBillingAddress,
+        isDefault: Boolean(fields.setAsDefaultBillingAddress),
       },
     ];
   }
