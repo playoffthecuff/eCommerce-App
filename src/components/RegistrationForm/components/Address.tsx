@@ -75,12 +75,15 @@ function AddressForm({ countries, country, setCountry }: AddressFormProps) {
         rules={[
           { required: true, message: 'Please enter your street!' },
           { pattern: /[A-Za-z]/, message: 'Must contain at list one English letter' },
+          { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters, numbers and symbols!' },
         ]}
         hasFeedback
+        validateFirst
       >
         <Input data-testid="street" placeholder="Enter your street..." />
       </Form.Item>
       <Form.Item
+        tooltip={(country && `format: ${country?.postalCodePattern}`) || 'choose your country'}
         label="Post Code"
         name="postCode"
         dependencies={['country']}
@@ -139,12 +142,15 @@ function BillingForm({ countries, country, setCountry }: BillingFormProps) {
         rules={[
           { required: true, message: 'Please enter your street!' },
           { pattern: /[A-Za-z]/, message: 'Must contain at list one English letter' },
+          { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters, numbers and symbols!' },
         ]}
         hasFeedback
+        validateFirst
       >
         <Input data-testid="billingStreet" placeholder="Enter your street..." />
       </Form.Item>
       <Form.Item
+        tooltip={(country && `format: ${country?.postalCodePattern}`) || 'choose your country'}
         label="Post Code"
         name="billingPostCode"
         dependencies={['billingCountry']}
