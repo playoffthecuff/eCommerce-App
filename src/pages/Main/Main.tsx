@@ -25,7 +25,7 @@ function Main() {
   };
 
   return (
-    <main>
+    <div className="container">
       Main
       <Button type="primary" htmlType="button" block onClick={handleButtonClick}>
         TEST BUTTON TO FETCH COUNTRIES
@@ -40,7 +40,7 @@ function Main() {
           </ol>
         </div>
       )}
-    </main>
+    </div>
   );
 }
 
