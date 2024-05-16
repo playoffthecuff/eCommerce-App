@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 
-// import Header from '../../components/Header/Header';
+import Header from '../../components/Header/Header';
 // import Footer from '../../components/Footer/Footer';
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 function Root() {
   return (
@@ -13,9 +13,6 @@ function Root() {
       <Content>
         <Outlet />
       </Content>
-      {/* <div className="container"> */}
-
-      {/* </div> */}
       <Footer />
     </Layout>
   );

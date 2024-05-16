@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { MenuProps, Menu } from 'antd';
 import styles from './HeaderMenu.module.css';
@@ -7,54 +7,65 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
-    label: 'Navigation Three - Submenu',
-    key: 'SubMenu',
-    children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
-          { label: 'Option 1', key: 'setting:1' },
-          { label: 'Option 2', key: 'setting:2' },
-        ],
-      },
-      {
-        type: 'group',
-        label: 'Item 2',
-        children: [
-          { label: 'Option 3', key: 'setting:3' },
-          { label: 'Option 4', key: 'setting:4' },
-        ],
-      },
-    ],
+    key: 'single speed',
+    label: (
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        Single Speed
+      </a>
+    ),
   },
   {
-    key: 'alipay',
+    key: 'city bikes',
     label: (
-      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        Navigation Four - Link
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        City Bikes
+      </a>
+    ),
+  },
+  {
+    key: 'commuter bikes',
+    label: (
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        Commuter Bikes
+      </a>
+    ),
+  },
+  {
+    key: 'gravel bikes',
+    label: (
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        Gravel Bikes
+      </a>
+    ),
+  },
+  {
+    key: 'all bikes',
+    label: (
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        All Bikes
+      </a>
+    ),
+  },
+  {
+    key: 'accessories',
+    label: (
+      <a href="#/main" target="_blank" rel="noopener noreferrer">
+        Accessories
       </a>
     ),
   },
 ];
 
 function HeaderMenu() {
-  const [current, setCurrent] = useState('mail');
+  // const [current, setCurrent] = useState('single speed');
 
-  const onClick: MenuProps['onClick'] = (event) => {
-    // console.log('click ', event);
-    setCurrent(event.key);
-  };
+  // const onClick: MenuProps['onClick'] = (event) => {
+  //   // console.log('click ', event);
+  //   setCurrent(event.key);
+  // };
 
-  return (
-    <Menu
-      className={styles['header-menu']}
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={items}
-    />
-  );
+  // return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+  return <Menu mode="horizontal" items={items} className={styles['header-menu']} />;
 }
 
 export default HeaderMenu;

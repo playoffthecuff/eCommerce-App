@@ -51,13 +51,9 @@
   align-items: center;
 }
 
-.ant-layout-header {
-  padding: 0 16px;
-}
-
 .ant-layout-footer {
   padding: 0 16px;
-  background: #001529;
+  background: #000;
   height: 100%;
 }
 
