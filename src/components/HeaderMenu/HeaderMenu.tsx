@@ -7,50 +7,26 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
-    key: 'single speed',
+    key: 'shop',
     label: (
       <a href="#/main" target="_blank" rel="noopener noreferrer">
-        Single Speed
+        Shop
       </a>
     ),
   },
   {
-    key: 'city bikes',
+    key: 'outlet',
     label: (
       <a href="#/main" target="_blank" rel="noopener noreferrer">
-        City Bikes
+        Outlet
       </a>
     ),
   },
   {
-    key: 'commuter bikes',
+    key: 'about us',
     label: (
       <a href="#/main" target="_blank" rel="noopener noreferrer">
-        Commuter Bikes
-      </a>
-    ),
-  },
-  {
-    key: 'gravel bikes',
-    label: (
-      <a href="#/main" target="_blank" rel="noopener noreferrer">
-        Gravel Bikes
-      </a>
-    ),
-  },
-  {
-    key: 'all bikes',
-    label: (
-      <a href="#/main" target="_blank" rel="noopener noreferrer">
-        All Bikes
-      </a>
-    ),
-  },
-  {
-    key: 'accessories',
-    label: (
-      <a href="#/main" target="_blank" rel="noopener noreferrer">
-        Accessories
+        About Us
       </a>
     ),
   },
@@ -65,6 +41,7 @@ function HeaderMenu() {
   // };
 
   // return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+
   return <Menu mode="horizontal" items={items} className={styles['header-menu']} />;
 }
 

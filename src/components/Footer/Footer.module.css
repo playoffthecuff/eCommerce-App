@@ -3,6 +3,10 @@
   font-size: 1.5rem;
 }
 
+.footer-copyright-text {
+  margin: 0;
+}
+
 .footer-link {
   display: flex;
   flex-direction: column;

@@ -57,7 +57,7 @@ function Footer() {
           </Row>
         </Col>
         <Col className={styles['footer-copyright']} xs={24} sm={24} md={8} lg={6} style={{ textAlign: 'center' }}>
-          <p>&copy; {new Date().getFullYear()}</p>
+          <p className={styles['footer-copyright-text']}>&copy; {new Date().getFullYear()}</p>
         </Col>
       </Row>
     </AntFooter>
