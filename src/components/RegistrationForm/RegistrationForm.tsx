@@ -2,9 +2,10 @@ import { Steps, Button, Form } from 'antd';
 import { CheckOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
-import { Address, PersonalData, Finish } from './components';
-import { AddressProps, Fields, SignUpArg } from './types';
+import { Address, PersonalData, Finish } from './sub-components';
+import { AddressProps, Fields } from './types';
 import { signUp } from './service';
+import { mapToSignUpArg } from './helpers';
 
 const steps = [
   {
@@ -70,38 +71,4 @@ export function RegistrationForm() {
       </div>
     </>
   );
-}
-
-function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
-  const shippingAddress = {
-    city: fields.city,
-    country: fields.country,
-    postalCode: fields.postCode,
-    street: fields.street,
-    isDefault: Boolean(fields.setAsDefaultShippingAddress),
-  };
-  const billingAddress = { ...shippingAddress, isDefault: Boolean(fields.setAsDefaultBillingAddress) };
-  const arg: SignUpArg = {
-    firstName: fields.firstName,
-    lastName: fields.lastName,
-    dateOfBirth: fields.dateOfBirth.toISOString(),
-    email: fields.email,
-    password: fields.password,
-    addresses: {
-      shippingAddresses: [shippingAddress],
-      billingAddresses: [billingAddress],
-    },
-  };
-  if (!sameAddresses) {
-    arg.addresses.billingAddresses = [
-      {
-        city: fields.billingCity!,
-        country: fields.billingCountry!,
-        postalCode: fields.billingPostCode!,
-        street: fields.billingStreet!,
-        isDefault: Boolean(fields.setAsDefaultBillingAddress),
-      },
-    ];
-  }
-  return arg;
 }
