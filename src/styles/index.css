@@ -46,14 +46,13 @@
 
 .ant-layout {
   display: grid;
-  grid-template-rows: auto 1fr 3rem;
+  grid-template-rows: auto 1fr auto;
   min-height: 100%;
 }
 
 .ant-layout-footer {
   padding: 0 16px;
-  background: #000;
-  height: 100%;
+  background: #333;
 }
 
 .container {
