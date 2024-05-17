@@ -8,7 +8,7 @@ const { Footer, Content } = Layout;
 
 function Root() {
   return (
-    <Layout>
+    <Layout style={{ overflow: 'hidden' }}>
       <Header />
       <Content>
         <Outlet />

@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { Button } from 'antd';
 
+import Hero from '../../components/Hero/Hero';
+
 interface CountryData {
   abbrev: string;
   name: string;
@@ -25,22 +27,25 @@ function Main() {
   };
 
   return (
-    <div className="container">
-      Main
-      <Button type="primary" htmlType="button" block onClick={handleButtonClick}>
-        TEST BUTTON TO FETCH COUNTRIES
-      </Button>
-      {countries.length > 0 && (
-        <div className="countries-container">
-          <h2>List of countries:</h2>
-          <ol>
-            {countries.map((country) => (
-              <li key={country._id}>{country.name}</li>
-            ))}
-          </ol>
-        </div>
-      )}
-    </div>
+    <>
+      <Hero />
+      <div className="container">
+        Main
+        <Button type="primary" htmlType="button" block onClick={handleButtonClick}>
+          TEST BUTTON TO FETCH COUNTRIES
+        </Button>
+        {countries.length > 0 && (
+          <div className="countries-container">
+            <h2>List of countries:</h2>
+            <ol>
+              {countries.map((country) => (
+                <li key={country._id}>{country.name}</li>
+              ))}
+            </ol>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
