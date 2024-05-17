@@ -1,8 +1,11 @@
 import { Steps, Button, Form } from 'antd';
-import { CheckCircleOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
+import { CheckOutlined, EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
-import { Address, PersonalData, Finish } from './components';
+import { Address, PersonalData, Finish } from './sub-components';
+import { AddressProps, Fields } from './types';
+import { signUp } from './service';
+import { mapToSignUpArg } from './helpers';
 
 const steps = [
   {
@@ -11,25 +14,33 @@ const steps = [
     icon: <UserOutlined />,
   },
   {
-    render: () => <Address />,
+    render: (props: AddressProps) => <Address {...props} />,
     title: 'Address',
     icon: <EnvironmentOutlined />,
   },
   {
     render: () => <Finish />,
     title: 'Finish',
-    icon: <CheckCircleOutlined />,
+    icon: <CheckOutlined />,
   },
 ];
 
 export function RegistrationForm() {
+  const [isSubmit, setIsSubmiting] = useState(false);
+  const [sameAddresses, setSameAddresses] = useState(false);
   const [step, setStep] = useState(0);
   const [form] = Form.useForm();
 
-  const submit = () => {
-    const data = form.getFieldsValue(true);
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const submit = async () => {
+    setIsSubmiting(true);
+    const fields: Fields = form.getFieldsValue(true);
+    let resp;
+    try {
+      resp = await signUp(mapToSignUpArg(fields, sameAddresses));
+    } catch (err) {
+      console.error('Failed to sign up:', err);
+    }
+    console.log('RESPONSE', resp);
   };
 
   const next = async () => {
@@ -44,22 +55,20 @@ export function RegistrationForm() {
   const CurrentStep = steps[step].render;
 
   return (
-    <div className={styles.steps}>
-      <Steps current={step}>
+    <>
+      <Steps className={styles.steps} current={step}>
         {steps.map((s) => (
           <Steps.Step className={styles.step} key={s.title} title={s.title} icon={s.icon} />
         ))}
       </Steps>
       <div className={styles['registration-form']}>
         <Form form={form} layout="vertical" onFinish={step === 2 ? submit : next}>
-          <CurrentStep />
-          <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
-            <Button data-testid="submitBtn" type="primary" htmlType="submit" className={styles['register-btn']} block>
-              {step === 2 ? 'SUBMIT' : 'NEXT'}
-            </Button>
-          </Form.Item>
+          <CurrentStep sameAddresses={sameAddresses} setSameAddresses={setSameAddresses} />
+          <Button data-testid="submitBtn" type="primary" htmlType="submit" block disabled={isSubmit}>
+            {step === 2 ? 'SUBMIT' : 'NEXT'}
+          </Button>
         </Form>
       </div>
-    </div>
+    </>
   );
 }

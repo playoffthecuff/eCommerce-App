@@ -1,18 +1,21 @@
-import dayjs from 'dayjs';
+import Paragraph from 'antd/es/typography/Paragraph';
 import { DatePicker, Form, Input, Typography } from 'antd';
+import { dateOfBirthValidator } from '../helpers';
+
+const { Text, Link } = Typography;
 
 export function PersonalData() {
-  const minValidAge = 16;
-  const maxValidAge = 100;
-  const minValidDate = dayjs().subtract(minValidAge, 'year');
-  const maxValidDate = dayjs().subtract(maxValidAge, 'year');
-
   return (
     <>
       <Typography.Title level={3}>SIGN UP</Typography.Title>
+      <Paragraph>
+        <Text>Already have an account? Click </Text>
+        <Link href="#/login">Sign In</Link>
+        <Text> to continue.</Text>
+      </Paragraph>
       <Form.Item
         label="First name"
-        name="first-name"
+        name="firstName"
         rules={[
           { required: true, message: 'Please enter your name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -24,7 +27,7 @@ export function PersonalData() {
       </Form.Item>
       <Form.Item
         label="Last Name"
-        name="last-name"
+        name="lastName"
         rules={[
           { required: true, message: 'Please enter your last name!' },
           { min: 1, message: 'Must be at least 1 characters long!' },
@@ -38,7 +41,7 @@ export function PersonalData() {
         label="Password"
         name="password"
         rules={[
-          { required: true, message: 'Please enter your password' },
+          { required: true, message: 'Please enter your password!' },
           { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters!' },
           { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
           { pattern: /[a-z]/, message: 'Must contain at least one lowercase english letter!' },
@@ -68,17 +71,11 @@ export function PersonalData() {
       </Form.Item>
       <Form.Item
         label="Date of birth"
-        name="date-of-birth"
-        rules={[{ required: true, message: 'Please enter valid date of birth!' }]}
+        name="dateOfBirth"
+        rules={[{ required: true, message: 'Please enter valid date of birth!' }, dateOfBirthValidator]}
         hasFeedback
       >
-        <DatePicker
-          data-testid="dateOfBirth"
-          placeholder="DD.MM.YEAR"
-          maxDate={minValidDate}
-          minDate={maxValidDate}
-          format="DD.MM.YYYY"
-        />
+        <DatePicker data-testid="dateOfBirth" placeholder="DD.MM.YEAR" format="DD.MM.YYYY" />
       </Form.Item>
     </>
   );

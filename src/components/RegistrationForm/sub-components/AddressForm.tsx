@@ -1,22 +1,7 @@
 import { Form, Input, Select } from 'antd';
-import { useEffect, useState } from 'react';
-import { Country } from '../types';
-import { getCountries } from '../service';
+import { AddressFormProps } from '../types';
 
-export function Address() {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [country, setCountry] = useState<Country | undefined>();
-
-  useEffect(() => {
-    getCountries()
-      .then((data) => {
-        data.sort((a, b) => a.name.localeCompare(b.name));
-        setCountries(data);
-        setCountry(data[0]);
-      })
-      .catch(() => {});
-  }, []);
-
+export function AddressForm({ countries, country, setCountry }: AddressFormProps) {
   return (
     <>
       <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
@@ -54,15 +39,18 @@ export function Address() {
         name="street"
         rules={[
           { required: true, message: 'Please enter your street!' },
-          { pattern: /^[A-Za-z0-9]*$/, message: 'Must contain only English letters and numbers' },
+          { pattern: /[A-Za-z]/, message: 'Must contain at list one English letter' },
+          { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters, numbers and symbols!' },
         ]}
         hasFeedback
+        validateFirst
       >
         <Input data-testid="street" placeholder="Enter your street..." />
       </Form.Item>
       <Form.Item
+        tooltip={(country && `format: ${country?.postalCodePattern}`) || 'choose your country'}
         label="Post Code"
-        name="post-code"
+        name="postCode"
         dependencies={['country']}
         rules={[
           { required: true, message: 'Please enter your post code!' },
@@ -70,7 +58,7 @@ export function Address() {
         ]}
         hasFeedback
       >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern} />
+        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
       </Form.Item>
     </>
   );
