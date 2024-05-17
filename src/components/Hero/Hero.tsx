@@ -1,9 +1,13 @@
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
 
-function Hero() {
+type HeroProps = {
+  style: React.CSSProperties;
+};
+
+function Hero({ style }: HeroProps) {
   return (
-    <section>
-      <Carousel />;
+    <section style={style}>
+      <Carousel />
     </section>
   );
 }

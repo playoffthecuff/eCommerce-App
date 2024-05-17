@@ -1,26 +1,28 @@
 import { Carousel as AntCarousel } from 'antd';
 
+import styles from './Carousel.module.css';
+
 const contentStyle: React.CSSProperties = {
-  height: '160px',
+  height: '100%',
   color: '#fff',
-  lineHeight: '160px',
   textAlign: 'center',
-  background: '#364d79',
+  // lineHeight: '80vh',
+  // background: '#364d79',
 };
 
 function Carousel() {
   return (
-    <AntCarousel autoplay>
-      <div>
+    <AntCarousel className={styles.carousel}>
+      <div className={`${styles.slide} ${styles['slide-1']}`}>
         <h3 style={contentStyle}>1</h3>
       </div>
-      <div>
+      <div className={`${styles.slide} ${styles['slide-2']}`}>
         <h3 style={contentStyle}>2</h3>
       </div>
-      <div>
+      <div className={`${styles.slide} ${styles['slide-3']}`}>
         <h3 style={contentStyle}>3</h3>
       </div>
-      <div>
+      <div className={`${styles.slide} ${styles['slide-4']}`}>
         <h3 style={contentStyle}>4</h3>
       </div>
     </AntCarousel>

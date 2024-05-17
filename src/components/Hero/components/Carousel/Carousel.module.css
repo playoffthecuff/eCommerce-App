@@ -1,0 +1,28 @@
+.carousel {
+  height: 80dvh;
+  h3 {
+    margin: 0;
+  }
+}
+
+.slide {
+  height: 80dvh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slide-1 {
+  background-image: url('../../../../assets/images/hero-image.jpg');
+}
+
+.slide-2 {
+  background-image: url('../../../../assets/images/hero-image2.jpg');
+}
+
+.slide-3 {
+  background-image: url('../../../../assets/images/hero-image3.jpg');
+}
+.slide-4 {
+  background-image: url('../../../../assets/images/hero-image4.jpg');
+}
