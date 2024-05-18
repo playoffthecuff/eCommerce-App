@@ -23,6 +23,9 @@ module.exports = {
     'no-underscore-dangle': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'import/prefer-default-export': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-console': 'off',
   },
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],

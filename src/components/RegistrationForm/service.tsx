@@ -1,7 +1,20 @@
-import { Country } from './types';
+import axios from 'axios';
+import { Country, SignUpArg, SignUpResponse } from './types';
+
+const API_URL = 'http://localhost:5000/api';
+
+const httpClient = axios.create({
+  baseURL: API_URL,
+});
 
 export async function getCountries(): Promise<Country[]> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/countries`);
-  const countries = await response.json();
-  return countries;
+  const resp = await httpClient.get<Country[]>('/countries');
+  return resp.data;
+}
+
+export async function signUp(arg: SignUpArg): Promise<SignUpResponse> {
+  const resp = await httpClient.post('/users/registration', arg, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  return resp.data;
 }
