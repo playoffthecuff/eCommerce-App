@@ -1,6 +1,6 @@
 .carousel {
   position: relative;
-  height: 80dvh;
+  height: 79dvh;
   h3 {
     margin: 0;
   }
@@ -49,6 +49,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
+  padding: 0 16px;
 
   .hero-title {
     color: #fff;

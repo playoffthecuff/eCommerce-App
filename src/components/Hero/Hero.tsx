@@ -6,7 +6,7 @@ type HeroProps = {
 
 function Hero({ style }: HeroProps) {
   return (
-    <section style={style}>
+    <section className="hero" style={style}>
       <Carousel />
     </section>
   );

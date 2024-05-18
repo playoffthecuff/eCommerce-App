@@ -4,6 +4,7 @@
 // import { Button } from 'antd';
 
 import Hero from '../../components/Hero/Hero';
+import BestBikes from '../../components/BestBikes/BestBikes';
 
 // interface CountryData {
 //   abbrev: string;
@@ -30,6 +31,7 @@ function Main() {
     <>
       <Hero style={{ maxWidth: '100vw' }} />
       <div className="container">
+        <BestBikes />
         {/* <Button type="primary" htmlType="button" block onClick={handleButtonClick}>
           TEST BUTTON TO FETCH COUNTRIES
         </Button>
