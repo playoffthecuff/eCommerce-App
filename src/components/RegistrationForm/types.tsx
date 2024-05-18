@@ -42,33 +42,3 @@ export type Fields = {
   billingStreet: string;
   billingCity: string;
 };
-
-type Address = {
-  street: string;
-  city: string;
-  postalCode: string;
-  country: string;
-  isDefault: boolean;
-};
-
-export type SignUpArg = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  addresses: {
-    shippingAddresses: Address[];
-    billingAddresses?: Address[];
-  };
-};
-
-export type SignUpResponse = {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    email: string;
-    _id: string;
-    isActivated: boolean;
-  };
-};

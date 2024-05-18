@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { RuleObject } from 'antd/es/form';
-import { Fields, SignUpArg } from './types';
-import { checkEmailAvailability } from './service';
+import { Fields } from './types';
+import { EmailAvailabilityResponse, SignUpArg } from '../../types/authorization-response';
+import userService from '../../utils/user-service';
 
 const MIN_AGE = 16;
 
@@ -36,9 +37,10 @@ export const emailAvailabilityValidator = {
         resolve();
         return;
       }
-      checkEmailAvailability(value)
+      userService
+        .checkEmailAvailability(value)
         .then((d) => {
-          if ((d as { email: string; exists: boolean }).exists) {
+          if ((d as EmailAvailabilityResponse).exists) {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject('User with such email already exists');
             return;
