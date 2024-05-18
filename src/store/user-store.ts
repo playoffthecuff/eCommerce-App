@@ -12,41 +12,13 @@ class UserStore {
   private _bootState: BootState = BootState.None;
 
   constructor() {
-    makeObservable<
-      UserStore,
-      | '_user'
-      | '_isAuthorized'
-      | '_bootState'
-      | 'setLoadingAsNone'
-      | 'setLoadingAsInProgress'
-      | 'setLoadingAsSuccess'
-      | 'setLoadingAsFailed'
-    >(this, {
+    makeObservable<UserStore, '_user' | '_isAuthorized' | '_bootState' | 'checkAuthorization'>(this, {
       _user: observable,
       _isAuthorized: observable,
       _bootState: observable,
-      setLoadingAsNone: action,
-      setLoadingAsInProgress: action,
-      setLoadingAsSuccess: action,
-      setLoadingAsFailed: action,
+      checkAuthorization: action,
     });
     this.checkAuthorization();
-  }
-
-  private setLoadingAsNone() {
-    this._bootState = BootState.None;
-  }
-
-  private setLoadingAsInProgress() {
-    this._bootState = BootState.InProgress;
-  }
-
-  private setLoadingAsSuccess() {
-    this._bootState = BootState.Success;
-  }
-
-  private setLoadingAsFailed() {
-    this._bootState = BootState.Failed;
   }
 
   public async login(email: string, password: string) {
@@ -119,7 +91,7 @@ class UserStore {
   }
 
   public async checkAuthorization() {
-    this.setLoadingAsInProgress();
+    this._bootState = BootState.InProgress;
     try {
       const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/users/refresh`, {
         withCredentials: true,
@@ -142,7 +114,9 @@ class UserStore {
       }
       console.log(message);
     } finally {
-      this.setLoadingAsSuccess();
+      runInAction(() => {
+        this._bootState = BootState.Success;
+      });
     }
   }
 

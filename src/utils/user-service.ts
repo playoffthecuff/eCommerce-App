@@ -4,7 +4,6 @@ import { AuthorizationResponse } from '../types/authorization-response';
 
 const UserService = {
   async login(email: string, password: string): Promise<AxiosResponse<AuthorizationResponse>> {
-    console.log(email, password);
     return api.post<AuthorizationResponse>('/users/login', { email, password });
   },
 
