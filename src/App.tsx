@@ -3,7 +3,8 @@ import { RouterProvider } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import lightTheme from './utils/themes';
 import router from './utils/router';
-import userStore, { BootState } from './store/user-store';
+import userStore from './store/user-store';
+import { BootState } from './types/boot-state';
 
 function App() {
   return (

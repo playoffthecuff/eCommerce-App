@@ -1,14 +1,8 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import axios, { AxiosError } from 'axios';
 import { AuthorizationResponse, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
-
-export enum BootState {
-  None,
-  InProgress,
-  Success,
-  Failed,
-}
+import { BootState } from '../types/boot-state';
 
 class UserStore {
   private _user: User = { id: null, email: null, isActivated: false };
@@ -18,12 +12,19 @@ class UserStore {
   private _bootState: BootState = BootState.None;
 
   constructor() {
-    makeObservable<UserStore, '_user' | '_isAuthorized' | '_bootState'>(this, {
+    makeObservable<
+      UserStore,
+      | '_user'
+      | '_isAuthorized'
+      | '_bootState'
+      | 'setLoadingAsNone'
+      | 'setLoadingAsInProgress'
+      | 'setLoadingAsSuccess'
+      | 'setLoadingAsFailed'
+    >(this, {
       _user: observable,
       _isAuthorized: observable,
       _bootState: observable,
-      setAuthorized: action,
-      setUser: action,
       setLoadingAsNone: action,
       setLoadingAsInProgress: action,
       setLoadingAsSuccess: action,
@@ -32,37 +33,31 @@ class UserStore {
     this.checkAuthorization();
   }
 
-  setAuthorized(isAuthorized: boolean) {
-    this._isAuthorized = isAuthorized;
-  }
-
-  setUser(user: User) {
-    this._user = user;
-  }
-
-  setLoadingAsNone() {
+  private setLoadingAsNone() {
     this._bootState = BootState.None;
   }
 
-  setLoadingAsInProgress() {
+  private setLoadingAsInProgress() {
     this._bootState = BootState.InProgress;
   }
 
-  setLoadingAsSuccess() {
+  private setLoadingAsSuccess() {
     this._bootState = BootState.Success;
   }
 
-  setLoadingAsFailed() {
+  private setLoadingAsFailed() {
     this._bootState = BootState.Failed;
   }
 
-  async login(email: string, password: string) {
+  public async login(email: string, password: string) {
     try {
       const response = await UserService.login(email, password);
       console.log(response);
       localStorage.setItem('token', response.data.accessToken);
-      this.setAuthorized(true);
-      this.setUser(response.data.user);
+      runInAction(() => {
+        this._isAuthorized = true;
+        this._user = response.data.user;
+      });
     } catch (err) {
       const error = err as AxiosError | Error;
       let message;
@@ -78,13 +73,15 @@ class UserStore {
     }
   }
 
-  async registration(email: string, password: string) {
+  public async registration(email: string, password: string) {
     try {
       const response = await UserService.registration(email, password);
       console.log(response);
       localStorage.setItem('token', response.data.accessToken);
-      this.setAuthorized(true);
-      this.setUser(response.data.user);
+      runInAction(() => {
+        this._isAuthorized = true;
+        this._user = response.data.user;
+      });
     } catch (err) {
       const error = err as AxiosError | Error;
       let message;
@@ -99,12 +96,14 @@ class UserStore {
     }
   }
 
-  async logout() {
+  public async logout() {
     try {
       await UserService.logout();
       localStorage.removeItem('token');
-      this.setAuthorized(false);
-      this.setUser({ id: null, email: null, isActivated: false });
+      runInAction(() => {
+        this._isAuthorized = false;
+        this._user = { id: null, email: null, isActivated: false };
+      });
     } catch (err) {
       const error = err as AxiosError | Error;
       let message;
@@ -119,7 +118,7 @@ class UserStore {
     }
   }
 
-  async checkAuthorization() {
+  public async checkAuthorization() {
     this.setLoadingAsInProgress();
     try {
       const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/users/refresh`, {
@@ -127,8 +126,10 @@ class UserStore {
       });
       console.log(response);
       localStorage.setItem('token', response.data.accessToken);
-      this.setAuthorized(true);
-      this.setUser(response.data.user);
+      runInAction(() => {
+        this._isAuthorized = true;
+        this._user = response.data.user;
+      });
     } catch (err) {
       const error = err as AxiosError | Error;
       let message;
