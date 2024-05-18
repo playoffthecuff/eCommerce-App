@@ -1,7 +1,7 @@
-import { Layout, Typography, Space } from 'antd';
-import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
+import { Layout, Typography } from 'antd';
+// import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
-import HeaderMenu from '../HeaderMenu/HeaderMenu';
+// import HeaderMenu from '../HeaderMenu/HeaderMenu';
 
 import logo from '../../assets/images/pure-cycles-logo.avif';
 import styles from './Header.module.css';
@@ -17,9 +17,9 @@ function Header() {
           <img src={logo} alt="Pure Cycles Logo" />
         </div>
       </Link>
-      <HeaderMenu />
+      {/* <HeaderMenu /> */}
 
-      <div className={styles['link-wrapper']}>
+      {/* <div className={styles['link-wrapper']}>
         <Space>
           <Link className={styles['header-link']} href="#/registration">
             <EditTwoTone twoToneColor="#9f2d11" />
@@ -32,8 +32,8 @@ function Header() {
             <CheckCircleTwoTone twoToneColor="#9f2d11" />
             Sign In
           </Link>
-        </Space>
-      </div>
+        </Space> 
+      </div> */}
     </AntHeader>
   );
 }
