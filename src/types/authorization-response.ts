@@ -1,6 +1,6 @@
 export type User = {
-  id: string;
-  email: string;
+  id: string | null;
+  email: string | null;
   isActivated: boolean;
 };
 

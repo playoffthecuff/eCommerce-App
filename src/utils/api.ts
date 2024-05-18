@@ -21,7 +21,7 @@ api.interceptors.response.use(
     if (err.response.status === 401 && err.config && !err.config._isRetry) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/refresh`, {
+        const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/users/refresh`, {
           withCredentials: true,
         });
         localStorage.setItem('token', response.data.accessToken);

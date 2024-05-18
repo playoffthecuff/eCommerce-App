@@ -1,30 +1,59 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import axios, { AxiosError } from 'axios';
 import { AuthorizationResponse, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
 
+export enum BootState {
+  None,
+  InProgress,
+  Success,
+  Failed,
+}
+
 class UserStore {
-  user = {} as User;
+  private _user: User = { id: null, email: null, isActivated: false };
 
-  isAuthorized = false;
+  private _isAuthorized: boolean = false;
 
-  isLoading = false;
+  private _bootState: BootState = BootState.None;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable<UserStore, '_user' | '_isAuthorized' | '_bootState'>(this, {
+      _user: observable,
+      _isAuthorized: observable,
+      _bootState: observable,
+      setAuthorized: action,
+      setUser: action,
+      setLoadingAsNone: action,
+      setLoadingAsInProgress: action,
+      setLoadingAsSuccess: action,
+      setLoadingAsFailed: action,
+    });
     this.checkAuthorization();
   }
 
   setAuthorized(isAuthorized: boolean) {
-    this.isAuthorized = isAuthorized;
+    this._isAuthorized = isAuthorized;
   }
 
   setUser(user: User) {
-    this.user = user;
+    this._user = user;
   }
 
-  setLoading(isLoading: boolean) {
-    this.isLoading = isLoading;
+  setLoadingAsNone() {
+    this._bootState = BootState.None;
+  }
+
+  setLoadingAsInProgress() {
+    this._bootState = BootState.InProgress;
+  }
+
+  setLoadingAsSuccess() {
+    this._bootState = BootState.Success;
+  }
+
+  setLoadingAsFailed() {
+    this._bootState = BootState.Failed;
   }
 
   async login(email: string, password: string) {
@@ -35,9 +64,15 @@ class UserStore {
       this.setAuthorized(true);
       this.setUser(response.data.user);
     } catch (err) {
-      const error = err as AxiosError;
-      const responseData: { message?: string } = error.response?.data ?? {};
-      const message = responseData.message ?? 'unexplained error';
+      const error = err as AxiosError | Error;
+      let message;
+      if (axios.isAxiosError(error)) {
+        const responseData: { message?: string } = error.response?.data ?? {};
+        console.log(error.message);
+        message = responseData.message ?? 'connection failed';
+      } else {
+        message = 'unexplained error';
+      }
       console.log(message);
       throw Error(message);
     }
@@ -51,9 +86,15 @@ class UserStore {
       this.setAuthorized(true);
       this.setUser(response.data.user);
     } catch (err) {
-      const error = err as AxiosError;
-      const responseData: { message?: string } = error.response?.data ?? {};
-      const message = responseData.message ?? 'unexplained error';
+      const error = err as AxiosError | Error;
+      let message;
+      if (axios.isAxiosError(error)) {
+        const responseData: { message?: string } = error.response?.data ?? {};
+        console.log(error.message);
+        message = responseData.message ?? 'connection failed';
+      } else {
+        message = 'unexplained error';
+      }
       console.log(message);
     }
   }
@@ -63,19 +104,25 @@ class UserStore {
       await UserService.logout();
       localStorage.removeItem('token');
       this.setAuthorized(false);
-      this.setUser({} as User);
+      this.setUser({ id: null, email: null, isActivated: false });
     } catch (err) {
-      const error = err as AxiosError;
-      const responseData: { message?: string } = error.response?.data ?? {};
-      const message = responseData.message ?? 'unexplained error';
+      const error = err as AxiosError | Error;
+      let message;
+      if (axios.isAxiosError(error)) {
+        const responseData: { message?: string } = error.response?.data ?? {};
+        console.log(error.message);
+        message = responseData.message ?? 'connection failed';
+      } else {
+        message = 'unexplained error';
+      }
       console.log(message);
     }
   }
 
   async checkAuthorization() {
-    this.setLoading(true);
+    this.setLoadingAsInProgress();
     try {
-      const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/refresh`, {
+      const response = await axios.get<AuthorizationResponse>(`${import.meta.env.VITE_API_URL}/users/refresh`, {
         withCredentials: true,
       });
       console.log(response);
@@ -83,13 +130,31 @@ class UserStore {
       this.setAuthorized(true);
       this.setUser(response.data.user);
     } catch (err) {
-      const error = err as AxiosError;
-      const responseData: { message?: string } = error.response?.data ?? {};
-      const message = responseData.message ?? 'unexplained error';
+      const error = err as AxiosError | Error;
+      let message;
+      if (axios.isAxiosError(error)) {
+        const responseData: { message?: string } = error.response?.data ?? {};
+        console.log(error.message);
+        message = responseData.message ?? 'connection failed';
+      } else {
+        message = 'unexplained error';
+      }
       console.log(message);
     } finally {
-      this.setLoading(false);
+      this.setLoadingAsSuccess();
     }
+  }
+
+  get user(): User {
+    return { ...this._user };
+  }
+
+  get isAuthorized() {
+    return this._isAuthorized;
+  }
+
+  get bootState() {
+    return this._bootState;
   }
 }
 

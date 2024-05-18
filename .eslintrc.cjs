@@ -16,7 +16,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'no-console': 'off',
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': ['off', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],

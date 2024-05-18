@@ -84,7 +84,6 @@ export default function LoginForm() {
         <Form.Item<FieldType>
           name="email"
           label="Email"
-          tooltip="Email address according RFC 5321 & RFC 5322"
           rules={[
             { required: true, message: 'Please enter your Email' },
             {
@@ -99,7 +98,6 @@ export default function LoginForm() {
         <Form.Item<FieldType>
           label="Password"
           name="password"
-          tooltip="The password must be at least 8 characters long and must consist of English letters of different case, numbers and special characters."
           rules={[
             { required: true, message: 'Please enter your password' },
             { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },

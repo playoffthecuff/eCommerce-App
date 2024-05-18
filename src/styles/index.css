@@ -46,7 +46,23 @@
   height: 100%;
 }
 
+h1.ant-typography {
+  font-family: 'Futura';
+}
+
+h2.ant-typography {
+  font-family: 'Futura';
+}
+
 h3.ant-typography {
+  font-family: 'Futura';
+}
+
+h4.ant-typography {
+  font-family: 'Futura';
+}
+
+h5.ant-typography {
   font-family: 'Futura';
 }
 

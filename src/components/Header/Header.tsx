@@ -9,11 +9,10 @@ import LoginButton from './LoginButton';
 
 const { Title, Paragraph } = Typography;
 
-// eslint-disable-next-line react-refresh/only-export-components
 function Header() {
   return (
     <header className={styles.header}>
-      <Title>Cycles store</Title>
+      <Title>Cycling Dependency</Title>
       <Paragraph>{userStore.isAuthorized ? 'User is authorized' : 'Please sign in or sign up'}</Paragraph>
       <div className={styles['link-wrapper']}>
         <Space>
