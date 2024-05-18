@@ -17,6 +17,7 @@ const lightTheme: ThemeConfig = {
     colorSuccess: '#44ad26',
     linkDecoration: 'underline',
     linkHoverDecoration: 'underline',
+    colorText: '#111',
   },
   components: {
     Button: {

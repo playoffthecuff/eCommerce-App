@@ -103,12 +103,12 @@ h5.ant-typography {
 }
 
 .ant-btn-primary.ant-btn-primary:disabled {
-  background-color: #666;
-  color: rgba(28, 50, 73, 0.75);
+  background-color: #d3d3d3;
+  color: #a9a9a9;
 }
 
 .ant-btn.ant-btn.ant-btn.ant-btn-primary:hover:disabled {
-  background-color: #666;
+  background-color: #d3d3d3;
 }
 
 .ant-btn-primary:hover:disabled::after {
