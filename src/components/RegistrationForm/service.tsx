@@ -18,3 +18,14 @@ export async function signUp(arg: SignUpArg): Promise<SignUpResponse> {
   });
   return resp.data;
 }
+
+export async function checkEmailAvailability(email: string): Promise<{ email: string; exists: boolean }> {
+  const resp = await httpClient.post(
+    '/users/check-email',
+    { email },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  return resp.data;
+}

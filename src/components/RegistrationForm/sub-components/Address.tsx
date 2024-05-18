@@ -1,5 +1,6 @@
-import { Form, Checkbox, Typography } from 'antd';
+import { Form, Checkbox, Typography, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { FrownOutlined } from '@ant-design/icons';
 import { AddressProps, Country } from '../types';
 import * as service from '../service';
 import { AddressForm } from './AddressForm';
@@ -9,13 +10,20 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<Country | undefined>();
   const [billingCountry, setBillingCountry] = useState<Country | undefined>();
+  const [notificationAPI, contextHolder] = notification.useNotification();
 
   const getCountries = async () => {
     let countriesList;
     try {
       countriesList = await service.getCountries();
     } catch (error) {
-      console.error('Failed to get countries:', error);
+      notificationAPI.error({
+        message: 'Failed to sign up:',
+        description: 'Please refresh page.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: Infinity,
+      });
       return;
     }
     countriesList.sort((a, b) => a.name.localeCompare(b.name));
@@ -24,6 +32,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
 
   useEffect(() => {
     getCountries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -41,6 +50,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
         <Checkbox>Set as default billing address</Checkbox>
       </Form.Item>
       {!sameAddresses && <BillingForm countries={countries} country={billingCountry} setCountry={setBillingCountry} />}
+      {contextHolder}
     </>
   );
 }
