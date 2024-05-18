@@ -1,10 +1,11 @@
+import { createHashRouter } from 'react-router-dom';
 import Root from '../pages/Root/Root';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
 import Main from '../pages/Main/Main';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
-const routerConfig = [
+const router = createHashRouter([
   {
     path: '/',
     element: <Root />,
@@ -28,6 +29,6 @@ const routerConfig = [
       },
     ],
   },
-];
+]);
 
-export default routerConfig;
+export default router;
