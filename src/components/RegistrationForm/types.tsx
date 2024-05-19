@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 
 export type Country = {
-  _id: string;
+  id: string;
   abbrev: string;
   name: string;
   postalCodePattern: string;

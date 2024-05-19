@@ -2,6 +2,7 @@ import { Steps, Button, Form, notification } from 'antd';
 import { CheckOutlined, EnvironmentOutlined, SmileOutlined, FrownOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import styles from './RegistrationForm.module.css';
 import { Address, PersonalData, Finish } from './sub-components';
 import { AddressProps, Fields } from './types';
@@ -52,7 +53,8 @@ export function RegistrationForm() {
       setSubmitting(false);
       notificationAPI.error({
         message: `Failed to sign up:`,
-        description: (err as Error).message || 'Please refresh page.',
+        description:
+          ((err as AxiosError)?.response?.data as { message: string })?.message || 'Please refresh the page.',
         placement: 'top',
         icon: <FrownOutlined />,
         duration: 2,

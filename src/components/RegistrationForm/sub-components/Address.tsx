@@ -19,7 +19,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
     } catch (error) {
       notificationAPI.error({
         message: 'Failed to sign up:',
-        description: 'Please refresh page.',
+        description: 'Please refresh the page.',
         placement: 'top',
         icon: <FrownOutlined />,
         duration: 0,
