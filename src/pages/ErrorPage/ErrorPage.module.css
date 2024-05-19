@@ -1,0 +1,18 @@
+.error {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text {
+  font-size: 1rem;
+}
+
+.error-image-wrapper {
+  max-width: 300px;
+
+  img {
+    width: 100%;
+  }
+}
