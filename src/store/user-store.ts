@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { SignUpArg, SignUpResponse, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
-import { BootState } from '../types/boot-state';
+import { BootState } from '../enums';
 
 class UserStore {
   private _user: User = { id: null, email: null, isActivated: false };
@@ -52,7 +52,6 @@ class UserStore {
   }
 
   public async signUp(arg: SignUpArg): Promise<void> {
-    this._bootState = BootState.InProgress;
     let resp: SignUpResponse;
     try {
       resp = await UserService.signUp(arg);
@@ -64,7 +63,6 @@ class UserStore {
     runInAction(() => {
       this._isAuthorized = true;
       this._user = resp.user;
-      this._bootState = BootState.Success;
     });
   }
 

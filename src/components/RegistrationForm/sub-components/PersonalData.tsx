@@ -1,6 +1,6 @@
 import Paragraph from 'antd/es/typography/Paragraph';
 import { DatePicker, Form, Input, Typography } from 'antd';
-import { dateOfBirthValidator, emailAvailabilityValidator } from '../helpers';
+import { dateOfBirthValidator } from '../helpers';
 
 const { Text, Link } = Typography;
 
@@ -58,14 +58,12 @@ export function PersonalData() {
       <Form.Item
         label="Email"
         name="email"
-        validateDebounce={1000}
         rules={[
           { required: true, message: 'Please enter your Email' },
           {
             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             message: 'Please enter correct Email address',
           },
-          emailAvailabilityValidator,
         ]}
         hasFeedback
       >

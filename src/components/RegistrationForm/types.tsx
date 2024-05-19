@@ -1,12 +1,5 @@
 import { Dayjs } from 'dayjs';
-
-export type Country = {
-  id: string;
-  abbrev: string;
-  name: string;
-  postalCodePattern: string;
-  postalRegex: string;
-};
+import { Country } from '../../utils/countries-service';
 
 export type AddressProps = {
   sameAddresses: boolean;

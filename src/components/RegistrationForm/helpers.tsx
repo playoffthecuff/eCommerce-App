@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 import { RuleObject } from 'antd/es/form';
 import { Fields } from './types';
-import { EmailAvailabilityResponse, SignUpArg } from '../../types/authorization-response';
-import userService from '../../utils/user-service';
+import { SignUpArg } from '../../types/authorization-response';
 
-const MIN_AGE = 16;
+const MIN_AGE = 12;
 
 export const dateOfBirthValidator = {
   validator: (_rules: RuleObject, value: unknown, callback: (error?: string | undefined) => void): void => {
@@ -27,31 +26,6 @@ export const dateOfBirthValidator = {
       return;
     }
     callback();
-  },
-};
-
-export const emailAvailabilityValidator = {
-  validator: (_: RuleObject, value: string) => {
-    return new Promise<void>((resolve, reject) => {
-      if (!value) {
-        resolve();
-        return;
-      }
-      userService
-        .checkEmailAvailability(value)
-        .then((d) => {
-          if ((d as EmailAvailabilityResponse).exists) {
-            // eslint-disable-next-line prefer-promise-reject-errors
-            reject('User with such email already exists');
-            return;
-          }
-          resolve();
-        })
-        .catch(() => {
-          // Ignore error and allow user to try to register.
-          resolve();
-        });
-    });
   },
 };
 

@@ -3,11 +3,14 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { RegistrationForm } from './RegistrationForm';
-import { Country } from './types';
-import { getCountries } from './service';
 import userService from '../../utils/user-service';
+import { Country, countriesService } from '../../utils/countries-service';
 
-vi.mock('./service');
+vi.mock('../../utils/countries-service', () => {
+  return {
+    countriesService: { getCountries: vi.fn().mockResolvedValue([]) },
+  };
+});
 vi.mock('../../utils/user-service', () => {
   return {
     __esModule: true,
@@ -31,7 +34,7 @@ const mockUser = {
 
 const mockCountries: Country[] = [
   {
-    id: '1',
+    _id: '1',
     abbrev: 'mock',
     name: 'United States',
     postalCodePattern: '99999 or 99999-9999',
@@ -50,7 +53,7 @@ describe('RegistrationForm tests', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    (countriesService.getCountries as Mock).mockResolvedValueOnce(mockCountries);
     (userService.signUp as Mock).mockResolvedValueOnce(mockUser);
     (userService.checkAuthorization as Mock).mockResolvedValue([{ data: mockUser }]);
     (userService.checkEmailAvailability as Mock).mockResolvedValue({ email: mockUser.user.email, exists: false });
