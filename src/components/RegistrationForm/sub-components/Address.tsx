@@ -22,7 +22,7 @@ export function Address({ sameAddresses, setSameAddresses }: AddressProps) {
         description: 'Please refresh page.',
         placement: 'top',
         icon: <FrownOutlined />,
-        duration: Infinity,
+        duration: 0,
       });
       return;
     }

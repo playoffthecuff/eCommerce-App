@@ -57,7 +57,6 @@ class UserStore {
     try {
       resp = await UserService.signUp(arg);
       localStorage.setItem('token', resp.accessToken);
-      localStorage.setItem('refresh_token', resp.refreshToken);
     } catch (error) {
       this._bootState = BootState.Failed;
       throw error;
