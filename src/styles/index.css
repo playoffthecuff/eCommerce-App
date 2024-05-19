@@ -37,13 +37,28 @@
 }
 
 #root {
-  max-width: 80rem;
-  margin: 0 auto;
   height: 100dvh;
 }
 
 .app {
   height: 100%;
+}
+
+.ant-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}
+
+.ant-layout-footer {
+  padding: 16px;
+  background: #333;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 80rem;
 }
 
 h3.ant-typography {
@@ -84,12 +99,4 @@ h3.ant-typography {
 
 .ant-btn-primary:hover::after {
   left: -5%;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr 3rem;
-  align-items: center;
-  padding: 0 2rem;
-  min-height: 100%;
 }
