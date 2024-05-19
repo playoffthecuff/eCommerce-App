@@ -1,17 +1,20 @@
 import { Outlet } from 'react-router-dom';
+import { Layout } from 'antd';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
+const { Content } = Layout;
+
 function Root() {
   return (
-    <div className="wrapper">
+    <Layout style={{ overflow: 'hidden' }}>
       <Header />
-      <div className="container">
+      <Content>
         <Outlet />
-      </div>
+      </Content>
       <Footer />
-    </div>
+    </Layout>
   );
 }
 

@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "husky install .husky",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -19,6 +18,7 @@
     "@ant-design/icons": "^5.3.6",
     "antd": "^5.16.5",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
     "react": "^18.2.0",

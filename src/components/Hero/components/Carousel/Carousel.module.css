@@ -1,0 +1,89 @@
+.carousel {
+  position: relative;
+  height: 79dvh;
+  h3 {
+    margin: 0;
+  }
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 80dvh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slide-1 {
+  background-image: url('../../../../assets/images/hero-image.jpg');
+}
+
+.slide-2 {
+  background-image: url('../../../../assets/images/hero-image2.jpg');
+}
+
+.slide-3 {
+  background-image: url('../../../../assets/images/hero-image3.jpg');
+}
+.slide-4 {
+  background-image: url('../../../../assets/images/hero-images4.jpg');
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 16px;
+
+  .hero-title {
+    color: #fff;
+    font-size: 50px;
+    margin: 0;
+  }
+
+  .hero-description {
+    font-size: 50px;
+    color: #fff;
+  }
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.hero-button {
+  max-width: 180px;
+}
+
+@media (max-width: 668px) {
+  .slide-content {
+    .hero-title {
+      font-size: 24px;
+    }
+
+    .hero-description {
+      font-size: 24px;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.steps {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 1rem;
+}
+
+.step {
+  margin: 0 auto;
+  width: 7rem;
+}
+
+.registration-form {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 0 0.5rem;
+}
+
+.finish-form {
+  margin: 3rem auto;
+  text-align: center;
+}

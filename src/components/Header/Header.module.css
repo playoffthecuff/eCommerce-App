@@ -1,12 +1,24 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background: #333;
+}
+
+.logo-wrapper {
+  display: flex;
   align-items: center;
 }
 
 .link-wrapper {
   display: flex;
   gap: 10px;
+
+  .header-link {
+    color: #fff;
+    font-size: 1rem;
+    text-decoration: none;
+  }
 }
 
 .header-link span[class~='anticon'] {
