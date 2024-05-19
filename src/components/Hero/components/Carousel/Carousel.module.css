@@ -63,12 +63,27 @@
   }
 }
 
-/* .hero-title.ant-typography {
-  color: #fff;
-  font-size: 50px;
-  margin: 0;
-} */
+.buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
 
-/* h2.ant-typography.hero-title {
-  color: #fff;
-} */
+.hero-button {
+  max-width: 180px;
+}
+
+@media (max-width: 668px) {
+  .slide-content {
+    .hero-title {
+      font-size: 24px;
+    }
+
+    .hero-description {
+      font-size: 24px;
+    }
+  }
+}
