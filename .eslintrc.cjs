@@ -26,6 +26,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-console': 'off',
+    'class-methods-use-this': 'off',
   },
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],

@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import { RuleObject } from 'antd/es/form';
-import { Fields, SignUpArg } from './types';
+import { Fields } from './types';
+import { SignUpArg } from '../../types/authorization-response';
 
-const MIN_AGE = 16;
+const MIN_AGE = 12;
 
 export const dateOfBirthValidator = {
   validator: (_rules: RuleObject, value: unknown, callback: (error?: string | undefined) => void): void => {

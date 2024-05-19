@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import { User } from '../types/authorization-response';
+import { SignUpArg, SignUpResponse, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
-import { BootState } from '../types/boot-state';
+import { BootState } from '../enums';
 
 class UserStore {
   private _user: User = { id: null, email: null, isActivated: false };
@@ -29,7 +29,7 @@ class UserStore {
       _bootState: observable,
       checkAuthorization: action,
       login: action,
-      registration: action,
+      signUp: action,
       logout: action,
     });
     this.checkAuthorization();
@@ -51,20 +51,19 @@ class UserStore {
     }
   }
 
-  public async registration(email: string, password: string): Promise<void> {
-    this._bootState = BootState.InProgress;
-    const [response, errorMessage] = await UserService.registration(email, password);
-    if (errorMessage) {
+  public async signUp(arg: SignUpArg): Promise<void> {
+    let resp: SignUpResponse;
+    try {
+      resp = await UserService.signUp(arg);
+      localStorage.setItem('token', resp.accessToken);
+    } catch (error) {
       this._bootState = BootState.Failed;
-      throw Error(errorMessage);
+      throw error;
     }
-    if (response) {
-      runInAction(() => {
-        this._isAuthorized = true;
-        this._user = response.data.user;
-        this._bootState = BootState.Success;
-      });
-    }
+    runInAction(() => {
+      this._isAuthorized = true;
+      this._user = resp.user;
+    });
   }
 
   public async logout(): Promise<void> {
