@@ -1,28 +1,37 @@
-import { Typography, Space, Button } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
+import { Layout, Typography } from 'antd';
+// import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-import styles from './Header.module.css';
-import userStore from '../../store/user-store';
-import LogoutButton from './LogoutButton';
-import LoginButton from './LoginButton';
+// import HeaderMenu from '../HeaderMenu/HeaderMenu';
 
-const { Title, Paragraph } = Typography;
+import logo from '../../assets/images/pure-cycles-logo.avif';
+import styles from './Header.module.css';
+// import userStore from '../../store/user-store';
+// import LogoutButton from './LogoutButton';
+// import LoginButton from './LoginButton';
+
+const { Link } = Typography;
+const { Header: AntHeader } = Layout;
 
 function Header() {
   return (
-    <header className={styles.header}>
-      <Title>Cycling Dependency</Title>
-      <Paragraph>{userStore.isAuthorized ? 'User is authorized' : 'Please sign in or sign up'}</Paragraph>
-      <div className={styles['link-wrapper']}>
+    <AntHeader className={styles.header}>
+      <Link href="#/main">
+        <div className={styles['logo-wrapper']}>
+          <img src={logo} alt="Pure Cycles Logo" />
+        </div>
+      </Link>
+      {/* <HeaderMenu /> */}
+
+      {/* <div className={styles['link-wrapper']}>
         <Space>
-          <Button type="link" href="#/registration" icon={<FormOutlined />}>
+          <Button type="link" href="#/registration" icon={<FormOutlined twoToneColor="#9f2d11" />}>
             Sign Up
           </Button>
         </Space>
         <Space>{userStore.isAuthorized ? <LogoutButton /> : <LoginButton />}</Space>
-      </div>
-    </header>
+      </div> */}
+    </AntHeader>
   );
 }
 

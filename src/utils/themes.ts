@@ -29,6 +29,11 @@ const lightTheme: ThemeConfig = {
       itemMarginBottom: 28,
       verticalLabelPadding: 0,
     },
+    Menu: {
+      itemColor: '#fff',
+      itemHoverColor: '#cd4c1d',
+      itemPaddingInline: 8,
+    },
   },
 };
 
