@@ -1,8 +1,6 @@
 .login-form {
   margin: 0 auto;
   width: fit-content;
-  border-bottom: 1px solid var(--color-primary-hover);
-  border-top: 1px solid var(--color-primary-hover);
 
   .button-wrapper {
     button {

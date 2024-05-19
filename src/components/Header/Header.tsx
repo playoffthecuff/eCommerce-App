@@ -1,10 +1,14 @@
 import { Layout, Typography } from 'antd';
 // import { EditTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
+import { observer } from 'mobx-react-lite';
 // import HeaderMenu from '../HeaderMenu/HeaderMenu';
 
 import logo from '../../assets/images/pure-cycles-logo.avif';
 import styles from './Header.module.css';
+// import userStore from '../../store/user-store';
+// import LogoutButton from './LogoutButton';
+// import LoginButton from './LoginButton';
 
 const { Link } = Typography;
 const { Header: AntHeader } = Layout;
@@ -21,21 +25,16 @@ function Header() {
 
       {/* <div className={styles['link-wrapper']}>
         <Space>
-          <Link className={styles['header-link']} href="#/registration">
-            <EditTwoTone twoToneColor="#9f2d11" />
+          <Button type="link" href="#/registration" icon={<FormOutlined twoToneColor="#9f2d11" />}>
             Sign Up
-          </Link>
+          </Button>
         </Space>
-
-        <Space>
-          <Link className={styles['header-link']} href="#/login">
-            <CheckCircleTwoTone twoToneColor="#9f2d11" />
-            Sign In
-          </Link>
-        </Space> 
+        <Space>{userStore.isAuthorized ? <LogoutButton /> : <LoginButton />}</Space>
       </div> */}
     </AntHeader>
   );
 }
 
-export default Header;
+const observableHeader = observer(Header);
+
+export default observableHeader;

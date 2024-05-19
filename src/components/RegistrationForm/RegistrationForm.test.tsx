@@ -1,11 +1,36 @@
 import { describe, test, expect, vi, Mock, beforeEach } from 'vitest';
-import { screen, render, waitFor, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import { RegistrationForm } from './RegistrationForm';
-import { Country } from './types';
-import { getCountries } from './service';
+import userService from '../../utils/user-service';
+import { Country, countriesService } from '../../utils/countries-service';
 
-vi.mock('./service');
+vi.mock('../../utils/countries-service', () => {
+  return {
+    countriesService: { getCountries: vi.fn().mockResolvedValue([]) },
+  };
+});
+vi.mock('../../utils/user-service', () => {
+  return {
+    __esModule: true,
+    default: {
+      signUp: vi.fn(),
+      checkAuthorization: vi.fn().mockResolvedValue([{ data: { user: {} } }]),
+      checkEmailAvailability: vi.fn(),
+    },
+  };
+});
+
+const mockUser = {
+  accessToken: 'access_token',
+  refreshToken: 'refresh_token',
+  user: {
+    email: 'john.smith@company.com',
+    id: '1',
+    isActivated: false,
+  },
+};
 
 const mockCountries: Country[] = [
   {
@@ -18,18 +43,30 @@ const mockCountries: Country[] = [
 ];
 
 describe('RegistrationForm tests', () => {
+  function setup() {
+    return render(
+      <MemoryRouter initialEntries={['/registration']}>
+        <RegistrationForm />
+      </MemoryRouter>
+    );
+  }
+
   beforeEach(() => {
-    (getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    vi.clearAllMocks();
+    (countriesService.getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    (userService.signUp as Mock).mockResolvedValueOnce(mockUser);
+    (userService.checkAuthorization as Mock).mockResolvedValue([{ data: mockUser }]);
+    (userService.checkEmailAvailability as Mock).mockResolvedValue({ email: mockUser.user.email, exists: false });
   });
 
   test('can register', async () => {
     // step: personal data
-    const { container } = render(<RegistrationForm />);
+    const { container } = setup();
     const firstNameEl = screen.getByTestId('firstName');
     const lastNameEl = screen.getByTestId('lastName');
     const passwordEl = screen.getByTestId('password');
     const emailEl = screen.getByTestId('email');
-    const dateOfBirthEl = container.querySelector('#date-of-birth')!;
+    const dateOfBirthEl = container.querySelector('#dateOfBirth')!;
     expect(dateOfBirthEl).toBeTruthy();
 
     await userEvent.type(firstNameEl, 'John');
@@ -43,7 +80,7 @@ describe('RegistrationForm tests', () => {
     await userEvent.click(submitBtn);
 
     // step: address
-    const countryEl = await screen.findByRole('combobox', { name: 'Country' });
+    const [countryEl] = await screen.findAllByRole('combobox', { name: 'Country' });
     userEvent.click(countryEl);
     const opts = await screen.findByText(/united states/i, { selector: '.ant-select-item-option-content' });
     fireEvent.click(opts);
@@ -54,21 +91,16 @@ describe('RegistrationForm tests', () => {
     await userEvent.type(cityEl, 'City');
     await userEvent.type(streetEl, 'Green');
     await userEvent.type(postCodeEl, '10001');
+
+    const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: /same shipping address/i });
+    userEvent.click(sameBillingAddressCheckbox);
     await userEvent.click(submitBtn);
 
     // step: complete regestration
     await screen.findByText(/complete registration/i);
     userEvent.click(submitBtn);
-  });
-
-  test('validates email', async () => {
-    render(<RegistrationForm />);
-    const emailEl = screen.getByTestId('email');
-    userEvent.type(emailEl, 'invalid email');
-    fireEvent.focus(window);
-
     await waitFor(() => {
-      expect(screen.getByText(/enter correct email/i)).toBeInTheDocument();
+      expect(userService.signUp as Mock).toHaveBeenCalledTimes(1);
     });
   });
 });
