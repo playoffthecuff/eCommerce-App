@@ -1,4 +1,4 @@
-import Carousel from './components/Carousel/Carousel';
+import Carousel from './subComponents/Carousel/Carousel';
 
 import styles from './Hero.module.css';
 
