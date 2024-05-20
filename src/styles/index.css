@@ -157,3 +157,7 @@ h5.ant-typography {
 .no-scroll {
   overflow: hidden;
 }
+
+.ant-spin-nested-loading {
+  width: 100%;
+}
