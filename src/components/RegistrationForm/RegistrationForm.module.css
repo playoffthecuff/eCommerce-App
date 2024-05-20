@@ -1,6 +1,6 @@
 .steps {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 1.5rem auto;
   padding-left: 1rem;
 }
 
@@ -12,10 +12,26 @@
 .registration-form {
   margin: 0 auto;
   max-width: 500px;
-  padding: 0 0.5rem;
+  padding: 0 1rem 1.5rem;
 }
 
 .finish-form {
-  margin: 3rem auto;
+  margin: 8rem auto 3rem;
   text-align: center;
+}
+
+@media (max-width: 700px) {
+  .registration-form {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 450px) {
+  .steps {
+    display: none;
+  }
+
+  .registration-form {
+    max-width: 330px;
+  }
 }
