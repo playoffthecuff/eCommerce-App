@@ -39,17 +39,20 @@ export function RegistrationForm() {
 
   const checkIfFormValid = (skipBillingFields: boolean = false): void => {
     const fields = form.getFieldsError();
-    const isFormValid = fields.every((fld) => {
+    for (const field of fields) {
       if (
         skipBillingFields &&
-        (fld?.name[0] as string)?.startsWith &&
-        (fld?.name[0] as string)?.startsWith('billing')
+        (field.name[0] as string)?.startsWith &&
+        (field.name[0] as string)?.startsWith('billing')
       ) {
-        return true;
+        continue;
       }
-      return fld.errors.length === 0;
-    });
-    setIsValid(isFormValid);
+      if (field.errors.length > 0) {
+        setIsValid(false);
+        return;
+      }
+    }
+    setIsValid(true);
   };
 
   const submit = async () => {
@@ -110,6 +113,7 @@ export function RegistrationForm() {
             errors: ['User with such email already exists.'],
           },
         ]);
+        setIsValid(false);
         return;
       }
     }
