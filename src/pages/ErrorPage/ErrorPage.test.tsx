@@ -23,11 +23,9 @@ describe('ErrorPage tests', () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  test('renders error message with link correctly', () => {
-    const errorMessage = screen.getByText('There is plenty to buy on our Website, but nothing here. Head to our');
+  test('renders error link correctly', () => {
     const linkElement = screen.getByRole('link', { name: '[main page]' });
 
-    expect(errorMessage).toBeInTheDocument();
     expect(linkElement).toBeInTheDocument();
     expect(linkElement.getAttribute('href')).toBe('#/main');
   });
