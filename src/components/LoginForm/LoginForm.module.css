@@ -16,13 +16,13 @@
     background-color: var(--light-theme-color-bg-container-disabled);
   }
 
-  button:hover:disabled {
-    background-color: var(--light-theme-color-bg-container-disabled);
+  .button-wrapper {
+    button:hover {
+      background-color: var(--light-theme-primary-hover) !important;
+    }
   }
 
-  .button-wrapper.button-wrapper.button-wrapper {
-    button:hover {
-      background-color: var(--light-theme-primary-hover);
-    }
+  button:hover:disabled {
+    background-color: var(--light-theme-color-bg-container-disabled) !important;
   }
 }

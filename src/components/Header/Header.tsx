@@ -43,31 +43,30 @@ function Header() {
 
   const menuItems: MenuItem[] = [
     { label: 'SHOP', key: 'SHOP', icon: <WalletOutlined /> },
-    userStore.isAuthorized
-      ? {
-          label: 'LOG OUT',
-          key: 'LOG OUT',
-          icon: <LogoutOutlined />,
-          onClick: () => {
+    {
+      label: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
+      key: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
+      icon: userStore.isAuthorized ? <LogoutOutlined /> : <LoginOutlined />,
+      onClick: userStore.isAuthorized
+        ? () => {
             userStore.logout();
-          },
-        }
-      : {
-          label: 'SIGN IN',
-          key: 'SIGN IN',
-          icon: <LoginOutlined />,
-          onClick: () => {
+          }
+        : () => {
             navigate('/login');
           },
-        },
+    },
     userStore.isAuthorized
       ? {
-          label: 'PROFILE',
-          key: 'PROFILE',
-          icon: <UserOutlined />,
-          // onClick: () => {
-          //   navigate('/profile');
-          // },
+          label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+          key: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+          icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
+          onClick: userStore.isAuthorized
+            ? () => {
+                navigate('/registration');
+              }
+            : () => {
+                // navigate('/profile');
+              },
         }
       : {
           label: 'SIGN UP',

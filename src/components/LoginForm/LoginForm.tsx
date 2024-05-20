@@ -8,7 +8,6 @@ import { ReactNode, useState } from 'react';
 import { FieldData } from 'rc-field-form/lib/interface';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
-import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
 
 const { Text, Title, Link } = Typography;
 
@@ -121,7 +120,12 @@ export default function LoginForm() {
           <Link
             href="#/login"
             onClick={() => {
-              openNotification('top', 'this feature is not yet available');
+              openNotification(
+                'top',
+                'It seems something went wrong:',
+                'this feature is not yet available',
+                <FrownOutlined />
+              );
             }}
           >
             Forgot your password?

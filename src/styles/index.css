@@ -118,8 +118,8 @@ h5.ant-typography {
   transition: background-color 0.4s;
 }
 
-.ant-btn.ant-btn.ant-btn.ant-btn-primary:hover {
-  background: var(--light-theme-primary);
+.ant-btn:hover {
+  background: var(--light-theme-primary) !important;
 }
 
 .ant-btn-primary:hover::after {
@@ -130,8 +130,8 @@ h5.ant-typography {
   left: -125%;
 }
 
-.ant-spin.ant-spin.ant-spin {
-  max-height: 100%;
+.ant-spin {
+  max-height: 100% !important;
 }
 
 .wrapper-404 {
