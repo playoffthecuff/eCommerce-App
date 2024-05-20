@@ -63,7 +63,7 @@ h2.ant-typography {
 .ant-layout {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .ant-layout-footer {
@@ -142,7 +142,7 @@ h5.ant-typography {
   padding-top: 8rem;
 }
 
-.ant-menu .ant-menu-item .anticon +span {
+.ant-menu .ant-menu-item .anticon + span {
   margin-inline-start: 0.5rem;
 }
 

@@ -81,7 +81,7 @@
   border-radius: 8px;
   z-index: 3;
   cursor: pointer;
-  display: none
+  display: none;
 }
 
 .burger-button {
@@ -92,48 +92,59 @@
   background: transparent;
   width: 24px;
   height: 20px;
-  z-index: 3
+  z-index: 3;
 }
 
-.burger-button:before,.burger-button:after {
-  content: "";
+.burger-button:before,
+.burger-button:after {
+  content: '';
   left: 0;
   position: absolute;
   display: block;
   width: 100%;
   height: 2px;
   border-radius: 2px;
-  background: #333
+  background: #333;
 }
 
 .burger-button:before {
   top: 0;
-  box-shadow: 0 9px #333
+  box-shadow: 0 9px #333;
 }
 
 .burger-button:after {
-  bottom: 0
+  bottom: 0;
 }
 
 .burger-button:before {
-  transition: box-shadow .4s .2s,top .4s .2s,transform .4s
+  transition:
+    box-shadow 0.4s 0.2s,
+    top 0.4s 0.2s,
+    transform 0.4s;
 }
 
 .burger-button:after {
-  transition: bottom .4s .2s,transform .4s
+  transition:
+    bottom 0.4s 0.2s,
+    transform 0.4s;
 }
 
 .burger-button.active:before {
   top: 9px;
   transform: rotate(45deg);
   box-shadow: 0 6px #3330;
-  transition: box-shadow .2s,top .4s,transform .4s .2s
+  transition:
+    box-shadow 0.2s,
+    top 0.4s,
+    transform 0.4s 0.2s;
 }
 
 .burger-button.active:after {
   bottom: 9px;
   transform: rotate(-45deg);
-  transition: bottom .4s,transform .4s .2s
+  transition:
+    bottom 0.4s,
+    transform 0.4s 0.2s;
 }
 
 .logo {
@@ -171,48 +182,63 @@
 }
 
 @-webkit-keyframes rotation {
-  0% {-webkit-transform:rotate(0deg);
-      -moz-transform:rotate(0deg);
-      -o-transform:rotate(0deg);
-      transform:rotate(0deg);}
-  100% {-webkit-transform:rotate(360deg);
-      -moz-transform:rotate(360deg);
-      -o-transform:rotate(360deg);
-      transform:rotate(360deg);}
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 @-moz-keyframes rotation {
-  0% {-webkit-transform:rotate(0deg);
-      -moz-transform:rotate(0deg);
-      -o-transform:rotate(0deg);
-      transform:rotate(0deg);}
-  100% {-webkit-transform:rotate(360deg);
-      -moz-transform:rotate(360deg);
-      -o-transform:rotate(360deg);
-      transform:rotate(360deg);}
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 @-o-keyframes rotation {
-  0% {-webkit-transform:rotate(0deg);
-      -moz-transform:rotate(0deg);
-      -o-transform:rotate(0deg);
-      transform:rotate(0deg);}
-  100% {-webkit-transform:rotate(360deg);
-      -moz-transform:rotate(360deg);
-      -o-transform:rotate(360deg);
-      transform:rotate(360deg);}
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 @keyframes rotation {
-  0% {-webkit-transform:rotate(0deg);
-      -moz-transform:rotate(0deg);
-      -o-transform:rotate(0deg);
-      transform:rotate(0deg);}
-  100% {-webkit-transform:rotate(360deg);
-      -moz-transform:rotate(720deg);
-      -o-transform:rotate(360deg);
-      transform:rotate(360deg);}
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 728px) {
-
   .burger-menu {
     display: none;
   }
@@ -227,10 +253,10 @@
   }
 
   .burger-wrapper.active {
-      left: 0
+    left: 0;
   }
 
   .burger-button-wrapper {
-      display: block
+    display: block;
   }
 }
