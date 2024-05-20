@@ -84,48 +84,46 @@ function Header() {
   };
 
   return (
-    <>
-      <AntHeader className={styles.header}>
-        <div className="layout-container">
-          <Link href="#/">
-            <div className={styles.logo}>
-              <LogoIcon />
-              <Title level={5}>Cycling Dependency</Title>
-            </div>
-          </Link>
-          <div className={styles['burger-wrapper']} onClick={burgerClick}>
-            <div className={styles['burger-button-wrapper']}>
-              <div className={burgerState} />
-            </div>
+    <AntHeader className={styles.header}>
+      <div className="layout-container">
+        <Link href="#/">
+          <div className={styles.logo}>
+            <LogoIcon />
+            <Title level={5}>Cycling Dependency</Title>
           </div>
-          <Menu
-            className={styles['burger-menu']}
-            style={{ lineHeight: '2rem' }}
-            mode="horizontal"
-            items={menuItems}
-            selectedKeys={[current]}
-            onClick={menuClick}
-          />
-          <Menu
-            className={styles.menu}
-            style={{ lineHeight: '2rem' }}
-            mode="horizontal"
-            items={[
-              {
-                key: 'Cart',
-                icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
-              },
-            ]}
-            selectedKeys={[current]}
-            onClick={menuClick}
-          />
-          <Switch onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
+        </Link>
+        <div className={styles['burger-wrapper']} onClick={burgerClick}>
+          <div className={styles['burger-button-wrapper']}>
+            <div className={burgerState} />
+          </div>
         </div>
-      </AntHeader>
+        <Menu
+          className={styles['burger-menu']}
+          style={{ lineHeight: '2rem' }}
+          mode="horizontal"
+          items={menuItems}
+          selectedKeys={[current]}
+          onClick={menuClick}
+        />
+        <Menu
+          className={styles.menu}
+          style={{ lineHeight: '2rem' }}
+          mode="horizontal"
+          items={[
+            {
+              key: 'Cart',
+              icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
+            },
+          ]}
+          selectedKeys={[current]}
+          onClick={menuClick}
+        />
+        <Switch onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
+      </div>
       <Sider width="100%" className={siderState} style={{ position: 'fixed' }}>
         <Menu mode="inline" selectedKeys={[current]} onClick={menuClick} items={menuItems} />
       </Sider>
-    </>
+    </AntHeader>
   );
 }
 

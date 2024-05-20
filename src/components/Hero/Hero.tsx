@@ -1,4 +1,6 @@
-import Carousel from './components/Carousel/Carousel';
+import Carousel from './subComponents/Carousel/Carousel';
+
+import styles from './Hero.module.css';
 
 type HeroProps = {
   style: React.CSSProperties;
@@ -6,7 +8,7 @@ type HeroProps = {
 
 function Hero({ style }: HeroProps) {
   return (
-    <section className="hero" style={style}>
+    <section className={styles.hero} style={style}>
       <Carousel />
     </section>
   );
