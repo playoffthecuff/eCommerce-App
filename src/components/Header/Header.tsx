@@ -54,7 +54,14 @@ function Header() {
     setCurrent(paths[path]);
   }, [path]);
   const menuItems: MenuItem[] = [
-    { label: 'SHOP', key: 'SHOP', icon: <WalletOutlined /> },
+    {
+      label: 'SHOP',
+      key: 'SHOP',
+      icon: <WalletOutlined />,
+      onClick: () => {
+        navigate('/catalog');
+      },
+    },
     {
       label: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
       key: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
@@ -79,7 +86,14 @@ function Header() {
             navigate('/registration');
           },
     },
-    { label: 'ABOUT US', key: 'ABOUT US', icon: <TeamOutlined /> },
+    {
+      label: 'ABOUT US',
+      key: 'ABOUT US',
+      icon: <TeamOutlined />,
+      onClick: () => {
+        navigate('/about');
+      },
+    },
   ];
 
   const menuClick: MenuProps['onClick'] = (e) => {

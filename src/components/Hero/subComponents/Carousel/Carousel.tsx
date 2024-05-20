@@ -17,7 +17,8 @@ function Carousel() {
           <div className={styles['slide-content']}>
             <Title className={styles['hero-title']}>Dear Reviewers!</Title>
             <Paragraph className={styles['hero-description']}>
-              Please note, in this project we use our own Backend and do not use Commercetools API
+              Please note, this is the Full Stack project and here we use our own Backend and do not use Commercetools
+              API
             </Paragraph>
             <div className={styles['buttons-wrapper']}>
               <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>

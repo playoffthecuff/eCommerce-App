@@ -3,6 +3,9 @@ import Root from '../pages/Root/Root';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
 import Main from '../pages/Main/Main';
+import AboutPage from '../pages/About/About';
+import CatalogPage from '../pages/Catalog/Catalog';
+import ProfilePage from '../pages/Profile/Profile';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 const router = createHashRouter([
@@ -26,6 +29,18 @@ const router = createHashRouter([
       {
         path: '/registration',
         element: <Registration />,
+      },
+      {
+        path: '/catalog',
+        element: <CatalogPage />,
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />,
+      },
+      {
+        path: '/about',
+        element: <AboutPage />,
       },
       {
         path: '/not-found',
