@@ -55,27 +55,18 @@ function Header() {
             navigate('/login');
           },
     },
-    userStore.isAuthorized
-      ? {
-          label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
-          key: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
-          icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
-          onClick: userStore.isAuthorized
-            ? () => {
-                navigate('/registration');
-              }
-            : () => {
-                // navigate('/profile');
-              },
-        }
-      : {
-          label: 'SIGN UP',
-          key: 'SIGN UP',
-          icon: <FormOutlined />,
-          onClick: () => {
+    {
+      label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+      key: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+      icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
+      onClick: userStore.isAuthorized
+        ? () => {
             navigate('/registration');
+          }
+        : () => {
+            // navigate('/profile');
           },
-        },
+    },
     { label: 'ABOUT US', key: 'ABOUT US', icon: <TeamOutlined /> },
   ];
 
