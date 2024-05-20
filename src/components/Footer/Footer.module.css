@@ -5,7 +5,7 @@
 }
 
 .footer-copyright {
-  color: #fff;
+  color: var(--light-theme-primary);
   font-size: 1.5rem;
 }
 
@@ -23,17 +23,17 @@
   align-items: center;
   justify-content: center;
   flex-grow: 1;
-  flex-basis: 165px;
+  flex-basis: 10rem;
 }
 
-@media (max-width: 930px) {
+@media (max-width: 58rem) {
   .footer {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 1rem;
     text-align: center;
   }
 
   .footer-link {
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
   }
 }

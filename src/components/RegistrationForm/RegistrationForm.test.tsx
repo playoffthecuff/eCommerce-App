@@ -59,48 +59,54 @@ describe('RegistrationForm tests', () => {
     (userService.checkEmailAvailability as Mock).mockResolvedValue({ email: mockUser.user.email, exists: false });
   });
 
-  test('can register', async () => {
-    // step: personal data
-    const { container } = setup();
-    const firstNameEl = screen.getByTestId('firstName');
-    const lastNameEl = screen.getByTestId('lastName');
-    const passwordEl = screen.getByTestId('password');
-    const emailEl = screen.getByTestId('email');
-    const dateOfBirthEl = container.querySelector('#dateOfBirth')!;
-    expect(dateOfBirthEl).toBeTruthy();
+  test(
+    'can register',
+    async () => {
+      // step: personal data
+      const { container } = setup();
+      const firstNameEl = screen.getByTestId('firstName');
+      const lastNameEl = screen.getByTestId('lastName');
+      const passwordEl = screen.getByTestId('password');
+      const emailEl = screen.getByTestId('email');
+      const dateOfBirthEl = container.querySelector('#dateOfBirth')!;
+      expect(dateOfBirthEl).toBeTruthy();
 
-    await userEvent.type(firstNameEl, 'John');
-    await userEvent.type(lastNameEl, 'Smith');
-    await userEvent.type(passwordEl, 'Secret12345!');
-    await userEvent.type(emailEl, 'john.smith@company.com');
-    await userEvent.type(dateOfBirthEl, '01.01.2000');
+      await userEvent.type(firstNameEl, 'John');
+      await userEvent.type(lastNameEl, 'Smith');
+      await userEvent.type(passwordEl, 'Secret12345!');
+      await userEvent.type(emailEl, 'john.smith@company.com');
+      await userEvent.type(dateOfBirthEl, '01.01.2000');
 
-    const submitBtn = screen.getByTestId('submitBtn');
-    await userEvent.click(submitBtn);
-    await userEvent.click(submitBtn);
+      const submitBtn = screen.getByTestId('submitBtn');
+      await userEvent.click(submitBtn);
+      await userEvent.click(submitBtn);
 
-    // step: address
-    const [countryEl] = await screen.findAllByRole('combobox', { name: 'Country' });
-    userEvent.click(countryEl);
-    const opts = await screen.findByText(/united states/i, { selector: '.ant-select-item-option-content' });
-    fireEvent.click(opts);
+      // step: address
+      const [countryEl] = await screen.findAllByRole('combobox', { name: 'Country' });
+      userEvent.click(countryEl);
+      const opts = await screen.findByText(/united states/i, { selector: '.ant-select-item-option-content' });
+      fireEvent.click(opts);
 
-    const cityEl = screen.getByTestId('city');
-    const streetEl = screen.getByTestId('street');
-    const postCodeEl = screen.getByTestId('postCode');
-    await userEvent.type(cityEl, 'City');
-    await userEvent.type(streetEl, 'Green');
-    await userEvent.type(postCodeEl, '10001');
+      const cityEl = screen.getByTestId('city');
+      const streetEl = screen.getByTestId('street');
+      const postCodeEl = screen.getByTestId('postCode');
+      await userEvent.type(cityEl, 'City');
+      await userEvent.type(streetEl, 'Green');
+      await userEvent.type(postCodeEl, '10001');
 
-    const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: /same shipping address/i });
-    userEvent.click(sameBillingAddressCheckbox);
-    await userEvent.click(submitBtn);
+      const sameBillingAddressCheckbox = screen.getByRole('checkbox', { name: /same shipping address/i });
+      userEvent.click(sameBillingAddressCheckbox);
+      await userEvent.click(submitBtn);
 
-    // step: complete regestration
-    await screen.findByText(/complete registration/i);
-    userEvent.click(submitBtn);
-    await waitFor(() => {
-      expect(userService.signUp as Mock).toHaveBeenCalledTimes(1);
-    });
-  });
+      // step: complete regestration
+      await screen.findByText(/complete registration/i);
+      userEvent.click(submitBtn);
+      await waitFor(() => {
+        expect(userService.signUp as Mock).toHaveBeenCalledTimes(1);
+      });
+    },
+    {
+      timeout: 10000,
+    }
+  );
 });

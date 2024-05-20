@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 41rem;
 }
 
 .text {
@@ -12,7 +12,7 @@
 }
 
 .error-image-wrapper {
-  max-width: 300px;
+  max-width: 20rem;
 
   img {
     width: 100%;

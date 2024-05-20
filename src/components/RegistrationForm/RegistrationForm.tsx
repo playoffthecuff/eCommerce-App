@@ -39,17 +39,20 @@ export function RegistrationForm() {
 
   const checkIfFormValid = (skipBillingFields: boolean = false): void => {
     const fields = form.getFieldsError();
-    const isFormValid = fields.every((fld) => {
+    for (const field of fields) {
       if (
         skipBillingFields &&
-        (fld?.name[0] as string)?.startsWith &&
-        (fld?.name[0] as string)?.startsWith('billing')
+        (field.name[0] as string)?.startsWith &&
+        (field.name[0] as string)?.startsWith('billing')
       ) {
-        return true;
+        continue;
       }
-      return fld.errors.length === 0;
-    });
-    setIsValid(isFormValid);
+      if (field.errors.length > 0) {
+        setIsValid(false);
+        return;
+      }
+    }
+    setIsValid(true);
   };
 
   const submit = async () => {
@@ -57,7 +60,7 @@ export function RegistrationForm() {
     const fields: Fields = form.getFieldsValue(true);
     try {
       await userStore.signUp(mapToSignUpArg(fields, sameAddresses));
-      notificationAPI.error({
+      notificationAPI.success({
         message: `You have successfully created an account! 🥳`,
         placement: 'top',
         icon: <SmileOutlined />,
@@ -110,6 +113,7 @@ export function RegistrationForm() {
             errors: ['User with such email already exists.'],
           },
         ]);
+        setIsValid(false);
         return;
       }
     }
@@ -123,7 +127,7 @@ export function RegistrationForm() {
 
   return (
     <Spin spinning={isLoading}>
-      <Steps className={styles.steps} current={step}>
+      <Steps responsive={false} className={styles.steps} current={step}>
         {steps.map((stp) => (
           <Steps.Step className={styles.step} key={stp.title} title={stp.title} icon={stp.icon} />
         ))}

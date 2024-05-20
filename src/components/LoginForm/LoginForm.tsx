@@ -1,9 +1,9 @@
 import { Button, Form, Input, Typography, FormProps, notification, Spin } from 'antd';
 import type { NotificationArgsProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { FrownOutlined } from '@ant-design/icons';
+import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FieldData } from 'rc-field-form/lib/interface';
 import styles from './LoginForm.module.css';
@@ -35,12 +35,12 @@ export default function LoginForm() {
   };
 
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement: NotificationPlacement, errorMessage: string) => {
+  const openNotification = (placement: NotificationPlacement, msg: string, infoMessage: string, ico: ReactNode) => {
     api.info({
-      message: `It seems something went wrong:`,
-      description: errorMessage,
+      message: msg,
+      description: infoMessage,
       placement,
-      icon: <FrownOutlined />,
+      icon: ico,
     });
   };
   const navigate = useNavigate();
@@ -50,12 +50,15 @@ export default function LoginForm() {
       setFormState(true);
       setSpinState(true);
       await userStore.login(values.email, values.password);
-      navigate('/main');
+      openNotification('top', 'Congratulations:', 'you are successfully logged in! 🥳', <SmileOutlined />);
+      setTimeout(() => {
+        navigate('/main');
+      }, 1600);
     } catch (err) {
       const error = err as Error;
       setFormState(false);
       setSpinState(false);
-      openNotification('top', error.message);
+      openNotification('top', 'It seems something went wrong:', error.message, <FrownOutlined />);
     }
   };
 
@@ -114,7 +117,19 @@ export default function LoginForm() {
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
-          <Link href="#/">Forgot your password?</Link>
+          <Link
+            href="#/login"
+            onClick={() => {
+              openNotification(
+                'top',
+                'It seems something went wrong:',
+                'this feature is not yet available',
+                <FrownOutlined />
+              );
+            }}
+          >
+            Forgot your password?
+          </Link>
         </Paragraph>
         <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block disabled={buttonState}>

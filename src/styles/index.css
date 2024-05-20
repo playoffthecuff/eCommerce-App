@@ -3,9 +3,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --color-primary: #2644ad; /* 112d9f */
-  --color-primary-hover: #111;
-  --colorLink: #2644ad; /* 112d9f */
+  --light-theme-background: #fff;
+  --light-theme-primary: #2644ad; /* 112d9f */
+  --light-theme-primary-hover: #111;
+  --light-theme-error: #ad4426;
+  --light-theme-success: #44ad26;
+  --light-theme-link: #2644ad; /* 112d9f */
+  --light-theme-link-hover: #5875da;
+  --light-theme-text: #111;
+  --light-theme-shadow: 0.5rem #0003;
+  --light-theme-color-bg-container-disabled: #d3d3d3;
 }
 
 @font-face {
@@ -37,6 +44,7 @@
 }
 
 #root {
+  margin: 0 auto;
   height: 100dvh;
 }
 
@@ -98,7 +106,7 @@ h5.ant-typography {
   height: 115%;
   width: 120%;
   transform: skew(-15deg);
-  background: var(--color-primary-hover);
+  background: var(--light-theme-primary-hover);
   left: -125%;
   bottom: -2px;
   transition: left 0.4s;
@@ -107,29 +115,49 @@ h5.ant-typography {
 .ant-btn-primary {
   overflow: hidden;
   border: none;
+  transition: background-color 0.4s;
 }
 
-.ant-btn.ant-btn.ant-btn.ant-btn-primary:hover {
-  background: var(--color-primary);
+.ant-btn:hover {
+  background: var(--light-theme-primary) !important;
 }
 
 .ant-btn-primary:hover::after {
   left: -10%;
 }
 
-.ant-btn-primary.ant-btn-primary:disabled {
-  background-color: #d3d3d3;
-  color: #a9a9a9;
-}
-
-.ant-btn.ant-btn.ant-btn.ant-btn-primary:hover:disabled {
-  background-color: #d3d3d3;
-}
-
 .ant-btn-primary:hover:disabled::after {
   left: -125%;
 }
 
-.ant-spin.ant-spin.ant-spin {
-  max-height: 100%;
+.ant-spin {
+  max-height: 100% !important;
+}
+
+.wrapper-404 {
+  display: grid;
+  grid-template-rows: auto 1fr 3rem;
+  align-items: center;
+  min-height: 41rem;
+  padding-top: 8rem;
+}
+
+.ant-menu .ant-menu-item .anticon + span {
+  margin-inline-start: 0.5rem;
+}
+
+.layout-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.ant-spin-nested-loading {
+  width: 100%;
 }
