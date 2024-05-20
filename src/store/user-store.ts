@@ -39,7 +39,9 @@ class UserStore {
     this._bootState = BootState.InProgress;
     const [response, errorMessage] = await UserService.login(email, password);
     if (errorMessage) {
-      this._bootState = BootState.Failed;
+      runInAction(() => {
+        this._bootState = BootState.Failed;
+      });
       throw Error(errorMessage);
     }
     if (response) {
@@ -70,7 +72,9 @@ class UserStore {
     this._bootState = BootState.InProgress;
     const [response, errorMessage] = await UserService.logout();
     if (errorMessage) {
-      this._bootState = BootState.Failed;
+      runInAction(() => {
+        this._bootState = BootState.Failed;
+      });
       return;
     }
     if (response) {

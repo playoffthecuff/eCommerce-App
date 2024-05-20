@@ -1,13 +1,14 @@
 import { Button, Form, Input, Typography, FormProps, notification, Spin } from 'antd';
 import type { NotificationArgsProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { FrownOutlined } from '@ant-design/icons';
+import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FieldData } from 'rc-field-form/lib/interface';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
+import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
 
 const { Text, Title, Link } = Typography;
 
@@ -35,12 +36,12 @@ export default function LoginForm() {
   };
 
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement: NotificationPlacement, errorMessage: string) => {
+  const openNotification = (placement: NotificationPlacement, msg: string, infoMessage: string, ico: ReactNode) => {
     api.info({
-      message: `It seems something went wrong:`,
-      description: errorMessage,
+      message: msg,
+      description: infoMessage,
       placement,
-      icon: <FrownOutlined />,
+      icon: ico,
     });
   };
   const navigate = useNavigate();
@@ -50,12 +51,15 @@ export default function LoginForm() {
       setFormState(true);
       setSpinState(true);
       await userStore.login(values.email, values.password);
-      navigate('/main');
+      openNotification('top', 'Congratulations:', 'you are successfully logged in! 🥳', <SmileOutlined />);
+      setTimeout(() => {
+        navigate('/main');
+      }, 1600);
     } catch (err) {
       const error = err as Error;
       setFormState(false);
       setSpinState(false);
-      openNotification('top', error.message);
+      openNotification('top', 'It seems something went wrong:', error.message, <FrownOutlined />);
     }
   };
 

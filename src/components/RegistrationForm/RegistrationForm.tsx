@@ -57,7 +57,7 @@ export function RegistrationForm() {
     const fields: Fields = form.getFieldsValue(true);
     try {
       await userStore.signUp(mapToSignUpArg(fields, sameAddresses));
-      notificationAPI.error({
+      notificationAPI.success({
         message: `You have successfully created an account! 🥳`,
         placement: 'top',
         icon: <SmileOutlined />,
