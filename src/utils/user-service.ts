@@ -14,18 +14,15 @@ const UserService = {
     let message: string = '';
     try {
       response = await api.post<AuthorizationResponse>('/users/login', { email, password });
-      console.log(response);
       localStorage.setItem('token', response.data.accessToken);
     } catch (err) {
       error = err as AxiosError | Error;
       if (axios.isAxiosError(error)) {
         const responseData: { message?: string } = error.response?.data ?? {};
-        console.log(error.message);
         message = responseData.message ?? 'connection failed';
       } else {
         message = 'unexplained error';
       }
-      console.log(message);
     }
     return [response, message];
   },
@@ -59,12 +56,10 @@ const UserService = {
       error = err as AxiosError | Error;
       if (axios.isAxiosError(error)) {
         const responseData: { message?: string } = error.response?.data ?? {};
-        console.log(error.message);
         message = responseData.message ?? 'connection failed';
       } else {
         message = 'unexplained error';
       }
-      console.log(message);
     }
     return [response, message];
   },
@@ -82,12 +77,10 @@ const UserService = {
       error = err as AxiosError | Error;
       if (axios.isAxiosError(error)) {
         const responseData: { message?: string } = error.response?.data ?? {};
-        console.log(error.message);
         message = responseData.message ?? 'connection failed';
       } else {
         message = 'unexplained error';
       }
-      console.log(message);
     }
     return [response, message];
   },

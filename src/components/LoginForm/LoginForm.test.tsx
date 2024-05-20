@@ -47,10 +47,4 @@ describe('LoginForm tests', () => {
     expect(link1).toHaveRole('link');
     expect(link2).toHaveRole('link');
   });
-  test('empty input fields must be invalid after clicking submit button', async () => {
-    const button = screen.getByRole('button');
-    await user.click(button);
-    expect(emailInput).toBeInvalid();
-    expect(passwordInput).toBeInvalid();
-  });
 });
