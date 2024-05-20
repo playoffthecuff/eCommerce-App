@@ -1,16 +1,19 @@
 .carousel {
   position: relative;
-  height: 79dvh;
   h3 {
     margin: 0;
   }
+}
+
+.carousel-wrapper {
+  position: relative;
 }
 
 .slide {
   display: flex;
   align-items: center;
   position: relative;
-  height: 80dvh;
+  height: 100dvh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -49,16 +52,15 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 0 16px;
 
   .hero-title {
     color: #fff;
-    font-size: 50px;
+    font-size: 3rem;
     margin: 0;
   }
 
   .hero-description {
-    font-size: 50px;
+    font-size: 3rem;
     color: #fff;
   }
 }
@@ -79,11 +81,11 @@
 @media (max-width: 668px) {
   .slide-content {
     .hero-title {
-      font-size: 24px;
+      font-size: 1.5rem;
     }
 
     .hero-description {
-      font-size: 24px;
+      font-size: 1.5rem;
     }
   }
 }

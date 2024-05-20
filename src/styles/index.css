@@ -74,7 +74,7 @@ h2.ant-typography {
 .container {
   margin: 0 auto;
   padding: 0 16px;
-  max-width: 80rem;
+  max-width: 1440px;
 }
 
 h3.ant-typography {
