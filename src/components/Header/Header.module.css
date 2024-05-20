@@ -1,5 +1,5 @@
 .header {
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   top: 0;
   left: 0;
@@ -39,17 +39,13 @@
 }
 
 .sider {
-  position: fixed;
-  z-index: 1;
-  background-color: var(--light-theme-background);
+  z-index: 2;
   display: flex;
   justify-content: center;
   top: 0;
   left: -100%;
   height: 100lvh;
-  width: 100%;
   font-weight: 600;
-  transition: left 0.8s;
 }
 
 .sider.active {
@@ -57,6 +53,8 @@
 }
 
 .sider.sider.sider {
+  background-color: var(--light-theme-background);
+  transition: left 0.8s;
   ul {
     margin-top: 50lvh;
     transform: translateY(-50%);

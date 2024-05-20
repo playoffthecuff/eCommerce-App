@@ -134,11 +134,12 @@ h5.ant-typography {
   max-height: 100%;
 }
 
-.wrapper {
+.wrapper-404 {
   display: grid;
   grid-template-rows: auto 1fr 3rem;
   align-items: center;
-  min-height: 100%;
+  min-height: 41rem;
+  padding-top: 8rem;
 }
 
 .ant-menu .ant-menu-item .anticon +span {

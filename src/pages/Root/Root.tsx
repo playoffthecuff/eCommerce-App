@@ -10,7 +10,7 @@ function Root() {
   return (
     <Layout style={{ overflow: 'hidden' }}>
       <Header />
-      <Content>
+      <Content style={{ width: '100%' }}>
         <Outlet />
       </Content>
       <Footer />

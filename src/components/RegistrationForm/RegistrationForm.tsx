@@ -122,7 +122,7 @@ export function RegistrationForm() {
   const CurrentStep = steps[step].render;
 
   return (
-    <Spin spinning={isLoading}>
+    <Spin spinning={isLoading} style={{ width: '100%' }}>
       <Steps className={styles.steps} current={step}>
         {steps.map((stp) => (
           <Steps.Step className={styles.step} key={stp.title} title={stp.title} icon={stp.icon} />

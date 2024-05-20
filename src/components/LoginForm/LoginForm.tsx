@@ -114,7 +114,14 @@ export default function LoginForm() {
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
-          <Link href="#/">Forgot your password?</Link>
+          <Link
+            href="#/login"
+            onClick={() => {
+              openNotification('top', 'this feature is not yet available');
+            }}
+          >
+            Forgot your password?
+          </Link>
         </Paragraph>
         <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" block disabled={buttonState}>

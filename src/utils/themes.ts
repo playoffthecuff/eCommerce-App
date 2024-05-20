@@ -40,6 +40,7 @@ const lightTheme: ThemeConfig = {
     },
     Layout: {
       headerBg: '#fff',
+      bodyBg: '#fff',
       headerHeight: 48,
     },
   },

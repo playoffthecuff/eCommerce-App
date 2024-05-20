@@ -7,7 +7,7 @@ class UserStore {
   private _user: User = { id: null, email: null, isActivated: false };
 
   public get user(): User {
-    return { ...this._user };
+    return this._user;
   }
 
   private _isAuthorized: boolean = false;
@@ -86,7 +86,9 @@ class UserStore {
     this._bootState = BootState.InProgress;
     const [response, errorMessage] = await UserService.checkAuthorization();
     if (errorMessage) {
-      this._bootState = BootState.Failed;
+      runInAction(() => {
+        this._bootState = BootState.Failed;
+      });
       return;
     }
     if (response) {

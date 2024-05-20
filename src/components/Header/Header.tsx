@@ -132,7 +132,7 @@ function Header() {
           <Switch onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
         </div>
       </AntHeader>
-      <Sider width="100%" className={siderState}>
+      <Sider width="100%" className={siderState} style={{ position: 'fixed' }}>
         <Menu mode="inline" selectedKeys={[current]} onClick={menuClick} items={menuItems} />
       </Sider>
     </>
