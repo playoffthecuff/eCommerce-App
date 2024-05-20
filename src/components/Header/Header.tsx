@@ -61,10 +61,10 @@ function Header() {
       icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
       onClick: userStore.isAuthorized
         ? () => {
-            navigate('/registration');
+            // navigate('/profile');
           }
         : () => {
-            // navigate('/profile');
+            navigate('/registration');
           },
     },
     { label: 'ABOUT US', key: 'ABOUT US', icon: <TeamOutlined /> },
