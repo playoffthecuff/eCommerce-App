@@ -3,7 +3,7 @@ import type { NotificationArgsProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FieldData } from 'rc-field-form/lib/interface';
 import styles from './LoginForm.module.css';
@@ -44,6 +44,14 @@ export default function LoginForm() {
     });
   };
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(userStore.isAuthorized);
+    if (userStore.isAuthorized) {
+      navigate('/main');
+      console.log('nav to main');
+    }
+  }, [navigate]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
