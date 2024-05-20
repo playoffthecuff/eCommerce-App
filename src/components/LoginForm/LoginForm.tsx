@@ -46,7 +46,6 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userStore.isAuthorized);
     if (userStore.isAuthorized) {
       navigate('/main');
       console.log('nav to main');

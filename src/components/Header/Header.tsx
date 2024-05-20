@@ -23,6 +23,15 @@ const { Title, Link } = Typography;
 const { Header: AntHeader } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
+const paths = {
+  shop: 'SHOP',
+  login: 'SIGN IN',
+  registration: 'SIGN UP',
+  about: 'ABOUT US',
+  profile: 'PROFILE',
+  logout: 'LOGOUT',
+};
+
 function Header() {
   const [current, setCurrent] = useState('');
   const [siderState, setSiderState] = useState(styles.sider);
@@ -40,7 +49,10 @@ function Header() {
     }
   }, [isOpen]);
   const navigate = useNavigate();
-
+  const path = window.location.hash.slice(2) as keyof typeof paths;
+  useEffect(() => {
+    setCurrent(paths[path]);
+  }, [path]);
   const menuItems: MenuItem[] = [
     { label: 'SHOP', key: 'SHOP', icon: <WalletOutlined /> },
     {
@@ -61,7 +73,7 @@ function Header() {
       icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
       onClick: userStore.isAuthorized
         ? () => {
-            // navigate('/profile');
+            navigate('/profile');
           }
         : () => {
             navigate('/registration');
