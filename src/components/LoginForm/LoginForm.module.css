@@ -4,17 +4,25 @@
 
   .button-wrapper {
     button {
-      background-color: var(--color-primary-hover);
+      background-color: var(--light-theme-primary-hover);
     }
 
     button::after {
-      background: var(--color-primary);
+      background: var(--light-theme-primary);
     }
   }
 
-  .button-wrapper.button-wrapper.button-wrapper {
+  button:disabled {
+    background-color: var(--light-theme-color-bg-container-disabled);
+  }
+
+  .button-wrapper {
     button:hover {
-      background-color: var(--color-primary-hover);
+      background-color: var(--light-theme-primary-hover) !important;
     }
+  }
+
+  button:hover:disabled {
+    background-color: var(--light-theme-color-bg-container-disabled) !important;
   }
 }

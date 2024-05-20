@@ -1,6 +1,7 @@
 import { Carousel as AntCarousel, Button, Typography } from 'antd';
-
+import { observer } from 'mobx-react-lite';
 import styles from './Carousel.module.css';
+import userStore from '../../../../store/user-store';
 
 // const contentStyle: React.CSSProperties = {
 //   height: '100%',
@@ -25,7 +26,13 @@ function Carousel() {
               <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>
                 Registration Page
               </Button>
-              <Button type="primary" href="#/login" htmlType="button" block className={styles['hero-button']}>
+              <Button
+                type="primary"
+                href={userStore.isAuthorized ? '#/main' : '#/login'}
+                htmlType="button"
+                block
+                className={styles['hero-button']}
+              >
                 Login Page
               </Button>
             </div>
@@ -43,7 +50,13 @@ function Carousel() {
               <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>
                 Registration Page
               </Button>
-              <Button type="primary" href="#/login" htmlType="button" block className={styles['hero-button']}>
+              <Button
+                type="primary"
+                href={userStore.isAuthorized ? '#/main' : '#/login'}
+                htmlType="button"
+                block
+                className={styles['hero-button']}
+              >
                 Login Page
               </Button>
             </div>
@@ -61,7 +74,13 @@ function Carousel() {
               <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>
                 Registration Page
               </Button>
-              <Button type="primary" href="#/login" htmlType="button" block className={styles['hero-button']}>
+              <Button
+                type="primary"
+                href={userStore.isAuthorized ? '#/main' : '#/login'}
+                htmlType="button"
+                block
+                className={styles['hero-button']}
+              >
                 Login Page
               </Button>
             </div>
@@ -79,7 +98,13 @@ function Carousel() {
               <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>
                 Registration Page
               </Button>
-              <Button type="primary" href="#/login" htmlType="button" block className={styles['hero-button']}>
+              <Button
+                type="primary"
+                href={userStore.isAuthorized ? '#/main' : '#/login'}
+                htmlType="button"
+                block
+                className={styles['hero-button']}
+              >
                 Login Page
               </Button>
             </div>
@@ -90,4 +115,6 @@ function Carousel() {
   );
 }
 
-export default Carousel;
+const observableCarousel = observer(Carousel);
+
+export default observableCarousel;
