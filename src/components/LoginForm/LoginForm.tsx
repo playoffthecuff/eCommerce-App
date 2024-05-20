@@ -19,7 +19,7 @@ type FieldType = {
 };
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log(errorInfo);
+  return errorInfo;
 };
 
 export default function LoginForm() {
@@ -48,7 +48,6 @@ export default function LoginForm() {
   useEffect(() => {
     if (userStore.isAuthorized) {
       navigate('/main');
-      console.log('nav to main');
     }
   }, [navigate]);
 

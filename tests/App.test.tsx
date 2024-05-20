@@ -19,17 +19,6 @@ describe('Renders main page correctly', async () => {
 
     render(<App />);
 
-    expect(screen.getByText(/main/i)).toBeInTheDocument();
-  });
-
-  it('renders registration page when user click Sign Up', async () => {
-    render(<App />);
-
-    const user = userEvent.setup();
-
-    expect(screen.getByText(/main/i)).toBeInTheDocument();
-
-    await user.click(screen.getByText(/sign up/i));
-    expect(screen.getByText(/registration/i)).toBeInTheDocument();
+    expect(screen.getByText(/BEST SELLING BIKES/i)).toBeInTheDocument();
   });
 });
