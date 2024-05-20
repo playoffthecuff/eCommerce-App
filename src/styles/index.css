@@ -55,7 +55,11 @@ h2.ant-typography {
 .ant-layout {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 100%;
+  min-height: 100vh;
+}
+
+.ant-layout-content {
+  padding: 0 16px;
 }
 
 .ant-layout-footer {
@@ -132,12 +136,4 @@ h5.ant-typography {
 
 .ant-spin.ant-spin.ant-spin {
   max-height: 100%;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr 3rem;
-  align-items: center;
-  padding: 0 2rem;
-  min-height: 100%;
 }
