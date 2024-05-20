@@ -58,10 +58,6 @@ h2.ant-typography {
   min-height: 100vh;
 }
 
-.ant-layout-content {
-  padding: 0 16px;
-}
-
 .ant-layout-footer {
   padding: 16px;
   background: #333;
