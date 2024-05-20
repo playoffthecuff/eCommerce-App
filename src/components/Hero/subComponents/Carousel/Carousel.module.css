@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  height: 79dvh;
+  height: 100dvh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -52,7 +52,6 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 0 16px;
 
   .hero-title {
     color: #fff;
