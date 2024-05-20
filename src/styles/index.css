@@ -142,7 +142,7 @@ h5.ant-typography {
   padding-top: 8rem;
 }
 
-.ant-menu .ant-menu-item .anticon +span {
+.ant-menu .ant-menu-item .anticon + span {
   margin-inline-start: 0.5rem;
 }
 
