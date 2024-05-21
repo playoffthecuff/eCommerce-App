@@ -10,7 +10,7 @@ const { Footer: AntFooter } = Layout;
 function Footer() {
   return (
     <AntFooter style={{ textAlign: 'center' }} className={styles.footer}>
-      <div className="footer-logo">
+      <div>
         <a href="https://rs.school/" aria-label="RS School" target="_blank" rel="noreferrer">
           <img src={schoolLogo} alt="RS School Logo" style={{ width: '150px' }} />
         </a>

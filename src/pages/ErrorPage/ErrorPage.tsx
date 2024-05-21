@@ -14,10 +14,10 @@ function ErrorPage() {
         <Title>Not Found</Title>
         <Paragraph>
           <Text className={styles.text}>
-            There is plenty to buy on our Website, but nothing here. Head to our{' '}
+            There is plenty to buy on our Website, but nothing here. Head to our
             <Link href="#/main" className={styles.text}>
               [main page]
-            </Link>{' '}
+            </Link>
             and begin your shopping!
           </Text>
         </Paragraph>

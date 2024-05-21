@@ -29,6 +29,8 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-restricted-syntax': 'off',
     'no-continue': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
   },
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],

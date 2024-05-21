@@ -9,6 +9,8 @@
 
 .text {
   font-size: 1rem;
+  display: inline-flex;
+  gap: 0.5ch;
 }
 
 .error-image-wrapper {
