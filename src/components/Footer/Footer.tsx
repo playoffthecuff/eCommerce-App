@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import { GithubOutlined, FacebookFilled, DiscordFilled, InstagramFilled } from '@ant-design/icons';
+import { GithubOutlined } from '@ant-design/icons';
 
 import { FooterLogo } from './subComponents/FooterLogo/FooterLogo';
 
@@ -51,35 +51,6 @@ function Footer() {
       </div>
       <div className={styles['footer-copyright']}>
         <p className={styles['footer-copyright-text']}>&copy; {new Date().getFullYear()}</p>
-      </div>
-      <div className={styles['footer-socials']}>
-        <a
-          href="https://github.com/kat2709"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub Profile kat2709"
-          className={styles['footer-link']}
-        >
-          <FacebookFilled style={{ fontSize: '42px' }} />
-        </a>
-        <a
-          href="https://github.com/playoffthecuff"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub Profile playoffthecuff"
-          className={styles['footer-link']}
-        >
-          <DiscordFilled style={{ fontSize: '42px' }} />
-        </a>
-        <a
-          href="https://github.com/hrybach-oleksiy"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub Profile hrybach-oleksiy"
-          className={styles['footer-link']}
-        >
-          <InstagramFilled style={{ fontSize: '42px' }} />
-        </a>
       </div>
     </AntFooter>
   );

@@ -1,7 +1,6 @@
 .footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, auto);
   align-items: center;
   row-gap: 20px;
 }
@@ -48,13 +47,6 @@
   flex-basis: 10rem;
   gap: 6px;
   color: var(--light-theme-footer-link);
-}
-
-.footer-socials {
-  display: flex;
-  gap: 10px;
-  justify-self: center;
-  grid-column: span 3;
 }
 
 @media (max-width: 58rem) {
