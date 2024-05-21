@@ -1,6 +1,6 @@
 import Icon from '@ant-design/icons';
 
-export function FooterLogo({ className, color }: { className?: string; color?: string }) {
+export function RSLogo({ className, color }: { className?: string; color?: string }) {
   const footerLogoSvgWithColor = () => (
     <svg width="54" height="54" viewBox="0 0 64 64" fill={color || 'none'} xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_5701_38384)">

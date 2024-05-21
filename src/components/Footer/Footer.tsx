@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 
-import { FooterLogo } from './subComponents/FooterLogo/FooterLogo';
+import { RSLogo } from './subComponents/RSLogo/RSLogo';
 
 import styles from './Footer.module.css';
 
@@ -13,7 +13,7 @@ function Footer() {
       <div className={styles['footer-logo']}>
         <a href="https://rs.school/" aria-label="RS School" target="_blank" rel="noreferrer">
           <div className={styles['logo-wrapper']}>
-            <FooterLogo className={styles['footer-icon']} />
+            <RSLogo className={styles['footer-icon']} />
           </div>
         </a>
       </div>
