@@ -142,7 +142,14 @@ export function RegistrationForm() {
             }}
           />
         </Form>
-        <Button data-testid="submitBtn" type="primary" block disabled={!isValid} onClick={step === 2 ? submit : next}>
+        <Button
+          className={styles['btn-style']}
+          data-testid="submitBtn"
+          type="primary"
+          block
+          disabled={!isValid}
+          onClick={step === 2 ? submit : next}
+        >
           {step === 2 ? 'SUBMIT' : 'NEXT'}
         </Button>
       </div>

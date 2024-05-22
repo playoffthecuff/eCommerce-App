@@ -10,9 +10,11 @@
   --light-theme-success: #44ad26;
   --light-theme-link: #2644ad; /* 112d9f */
   --light-theme-link-hover: #5875da;
+  --light-theme-footer-link: #fff;
   --light-theme-text: #111;
   --light-theme-shadow: 0.5rem #0003;
   --light-theme-color-bg-container-disabled: #d3d3d3;
+  --light-theme-footer-background: #111;
 }
 
 @font-face {
@@ -74,7 +76,7 @@ h2.ant-typography {
 
 .ant-layout-footer {
   padding: 16px;
-  background: #333;
+  background: var(--light-theme-footer-background);
   grid-row-start: 3;
   grid-row-end: 4;
 }

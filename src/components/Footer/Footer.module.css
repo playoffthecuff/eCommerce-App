@@ -2,10 +2,31 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  row-gap: 20px;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-wrapper {
+  width: 58px;
+  height: 58px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.footer-icon svg path {
+  transition: fill 0.3s ease;
+}
+
+.logo-wrapper:hover .footer-icon svg path {
+  fill: var(--light-theme-link-hover);
 }
 
 .footer-copyright {
-  color: var(--light-theme-primary);
+  color: var(--light-theme-footer-link);
   font-size: 1.5rem;
 }
 
@@ -24,6 +45,8 @@
   justify-content: center;
   flex-grow: 1;
   flex-basis: 10rem;
+  gap: 6px;
+  color: var(--light-theme-footer-link);
 }
 
 @media (max-width: 58rem) {
