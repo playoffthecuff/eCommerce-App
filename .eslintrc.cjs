@@ -31,6 +31,7 @@ module.exports = {
     'no-continue': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
+    'prefer-promise-reject-errors': 'off',
   },
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json', './vitest.setup.ts'],

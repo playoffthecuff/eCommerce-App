@@ -1,3 +1,3 @@
-export * from './Address';
-export * from './Finish';
-export * from './PersonalData';
+export { Address } from './Address';
+export { Finish } from './Finish';
+export { PersonalData } from './PersonalData';

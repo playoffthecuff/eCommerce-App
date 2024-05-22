@@ -13,24 +13,18 @@ export const Address = observer(({ sameAddresses, setSameAddresses }: AddressPro
   const [billingCountry, setBillingCountry] = useState<Country | undefined>();
   const [notificationAPI, contextHolder] = notification.useNotification();
 
-  const getCountries = async () => {
-    try {
-      await countriesStore.getCountries();
-    } catch (error) {
+  useEffect(() => {
+    if (countriesStore.error) {
       notificationAPI.error({
-        message: 'Failed to sign up:',
+        message: 'Failed to get supported countries.',
         description: 'Please refresh the page.',
         placement: 'top',
         icon: <FrownOutlined />,
         duration: 0,
       });
     }
-  };
-
-  useEffect(() => {
-    getCountries();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [countriesStore.error]);
 
   return (
     <>
