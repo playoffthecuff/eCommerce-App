@@ -111,7 +111,7 @@ function Header() {
 
   return (
     <AntHeader className={styles.header}>
-      <div className="layout-container">
+      <div className={styles['layout-container']}>
         <Link href="#/">
           <div className={styles.logo}>
             <LogoIcon />
