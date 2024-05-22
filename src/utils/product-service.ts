@@ -9,7 +9,7 @@ export type Country = {
 };
 
 class ProductsService {
-  getProducts = async (): Promise<[Country[], Error | undefined]> => {
+  loadProducts = async (): Promise<[Country[], Error | undefined]> => {
     try {
       const resp = await api.get<Country[]>('/countries');
       return [resp.data, undefined];

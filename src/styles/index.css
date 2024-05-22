@@ -66,9 +66,17 @@ h2.ant-typography {
   min-height: 100vh;
 }
 
+.ant-layout-content {
+  margin-top: 48px;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
 .ant-layout-footer {
   padding: 16px;
   background: #333;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
 .container {

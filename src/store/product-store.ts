@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { Country, productsService } from '../utils/productService';
+import { Country, productsService } from '../utils/product-service';
 import { BootState } from '../enums';
 
 class ProductsStore {
@@ -9,9 +9,13 @@ class ProductsStore {
 
   private _error: string | undefined;
 
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   public get products(): Country[] {
     if (this._state !== BootState.Success && this._state !== BootState.InProgress) {
-      this.getProducts();
+      this.loadProducts();
     }
     return this._products;
   }
@@ -24,14 +28,10 @@ class ProductsStore {
     return this._error;
   }
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  private async getProducts(): Promise<void> {
+  private async loadProducts(): Promise<void> {
     this._state = BootState.InProgress;
 
-    const [products, error] = await productsService.getProducts();
+    const [products, error] = await productsService.loadProducts();
 
     if (error) {
       this._state = BootState.Failed;

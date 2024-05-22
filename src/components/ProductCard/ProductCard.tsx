@@ -4,13 +4,19 @@ import productImage from '../../assets/images/670961_1800x1800.webp';
 
 const { Title, Text } = Typography;
 
-function ProductCard() {
+type ProductCardProps = {
+  abbrev: string;
+  name: string;
+  postalCodePattern: string;
+};
+
+function ProductCard({ abbrev, name, postalCodePattern }: ProductCardProps) {
   return (
     <Card hoverable style={{ width: 280 }} cover={<img alt="City Step-Through 3-Speed" src={productImage} />}>
-      <Title level={4}>CITY STEP-THROUGH 3-SPEED</Title>
-      <Text type="secondary">PURE CYCLES</Text>
+      <Title level={4}>{name}</Title>
+      <Text type="secondary">{abbrev}</Text>
       <Title level={5} style={{ marginTop: 10 }}>
-        US$1,049.00
+        {postalCodePattern}
       </Title>
     </Card>
   );
