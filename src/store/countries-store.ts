@@ -6,8 +6,8 @@ class CountriesStore {
   private _countries: Country[] = [];
 
   public get countries(): Country[] {
-    if (this._state !== BootState.Success && this._state !== BootState.InProgress) {
-      this.getCountries();
+    if (this._state === BootState.None) {
+      this.loadCountries();
     }
     return this._countries;
   }
@@ -28,8 +28,9 @@ class CountriesStore {
     makeAutoObservable(this);
   }
 
-  private async getCountries(): Promise<void> {
+  private async loadCountries(): Promise<void> {
     this._state = BootState.InProgress;
+    this._error = undefined;
     const [countries, error] = await countriesService.getCountries();
     if (error) {
       this._state = BootState.Failed;
