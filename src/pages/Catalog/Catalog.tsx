@@ -10,7 +10,7 @@ const { Title, Text, Link } = Typography;
 export default function CatalogPage() {
   return (
     <div className="container">
-      <div id="profile-page" className={styles.wrapper}>
+      <div id="profile-page" className="wrapper">
         <Title>Page under construction</Title>
         <Paragraph>
           <Text className={styles.text}>
