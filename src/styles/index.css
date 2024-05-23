@@ -3,18 +3,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --light-theme-background: #fff;
-  --light-theme-primary: #2644ad; /* 112d9f */
-  --light-theme-primary-hover: #111;
-  --light-theme-error: #ad4426;
-  --light-theme-success: #44ad26;
-  --light-theme-link: #2644ad; /* 112d9f */
-  --light-theme-link-hover: #5875da;
-  --light-theme-footer-link: #fff;
-  --light-theme-text: #111;
-  --light-theme-shadow: 0.5rem #0003;
-  --light-theme-color-bg-container-disabled: #d3d3d3;
-  --light-theme-footer-background: #111;
+  --color-background: #fff;
+  --color-bg-container-disabled: #d3d3d3;
+  --color-primary: #2644ad;
+  --color-button-background: #111;
+  --color-button-text: #fff;
+  --color-button-hover-text: #fff;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-link: #2644ad;
+  --color-link-hover: #5875da;
+  --color-menu-item-text: #111;
+  --color-menu-item-hover: #2644ad;
+  --color-menu-item-selected: #2644ad;
+  --shadow: 0.5rem #0003;
+  --footer-background: #111;
 }
 
 @font-face {
@@ -93,7 +96,7 @@ h5.ant-typography {
 
 .ant-layout-footer {
   padding: 16px;
-  background: var(--light-theme-footer-background);
+  background: var(--footer-background);
   grid-row-start: 3;
   grid-row-end: 4;
 }

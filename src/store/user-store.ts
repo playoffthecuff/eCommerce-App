@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction } from 'mobx';
+import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { SignUpArg, SignUpResponse, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
 import { BootState } from '../enums';
@@ -31,6 +31,9 @@ class UserStore {
       login: action,
       signUp: action,
       logout: action,
+      user: computed,
+      isAuthorized: computed,
+      bootState: computed,
     });
     this.checkAuthorization();
   }

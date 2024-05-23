@@ -1,5 +1,5 @@
 .header {
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   padding: 0.5rem;
-  box-shadow: 0 0.25rem var(--light-theme-shadow);
+  box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
 
   ul {
@@ -18,13 +18,12 @@
   a {
     position: relative;
     line-height: 1;
-    color: var(--light-theme-link);
     text-decoration: none;
   }
 
   a:hover {
     text-decoration: none;
-    color: var(--light-theme-link);
+    color: var(--color-link);
   }
 
   .menu {
@@ -61,7 +60,7 @@
 }
 
 .sider.sider.sider {
-  background-color: var(--light-theme-background);
+  background-color: var(--color-background);
   transition: left 0.8s;
   ul {
     margin-top: 50lvh;
@@ -82,7 +81,7 @@
 .burger-button-wrapper {
   width: 3rem;
   height: 3rem;
-  background-color: var(--light-theme-background);
+  background-color: var(--color-background);
   position: fixed;
   left: 0;
   top: 0;

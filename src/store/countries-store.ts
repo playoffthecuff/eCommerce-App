@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { Country, countriesService } from '../utils/countries-service';
 import { BootState } from '../enums';
 
@@ -6,6 +6,9 @@ class CountriesStore {
   private _countries: Country[] = [];
 
   public get countries(): Country[] {
+    if (this._state === BootState.None) {
+      this.loadCountries();
+    }
     return this._countries;
   }
 
@@ -15,25 +18,27 @@ class CountriesStore {
     return this._state;
   }
 
-  constructor() {
-    makeObservable<CountriesStore, '_countries' | '_state'>(this, {
-      _countries: observable,
-      _state: observable,
-      getCountries: action,
-    });
+  private _error: string | undefined;
+
+  public get error(): string | undefined {
+    return this._error;
   }
 
-  public async getCountries(): Promise<void> {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  private async loadCountries(): Promise<void> {
     this._state = BootState.InProgress;
-    let resp: Country[];
-    try {
-      resp = await countriesService.getCountries();
-    } catch (error) {
+    this._error = undefined;
+    const [countries, error] = await countriesService.getCountries();
+    if (error) {
       this._state = BootState.Failed;
-      throw error;
+      this._error = (error as Error).toString();
+      return;
     }
     runInAction(() => {
-      this._countries = resp.sort((a, b) => a.name.localeCompare(b.name));
+      this._countries = countries.sort((a, b) => a.name.localeCompare(b.name));
       this._state = BootState.Success;
     });
   }

@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import Root from '../pages/Root/Root';
 import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
@@ -48,7 +48,7 @@ const router = createHashRouter([
       },
       {
         path: '*',
-        element: <Navigate replace to="/not-found" />,
+        element: <ErrorPage />,
       },
     ],
   },

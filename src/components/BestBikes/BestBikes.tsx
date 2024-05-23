@@ -1,7 +1,8 @@
-import { Button, Typography } from 'antd';
+import { Typography } from 'antd';
 import ProductCard from '../ProductCard/ProductCard';
 
 import styles from './BestBikes.module.css';
+import CustomButton from '../CustomButton/CustomButton';
 
 const { Title } = Typography;
 
@@ -17,9 +18,9 @@ function BestBikes() {
         <ProductCard />
         <ProductCard />
       </div>
-      <Button type="primary" htmlType="button" block className={styles['best-bikes-button']}>
-        Load More
-      </Button>
+      <CustomButton variety="common" htmlType="button" style={{ alignSelf: 'center' }}>
+        LOAD MORE
+      </CustomButton>
     </section>
   );
 }

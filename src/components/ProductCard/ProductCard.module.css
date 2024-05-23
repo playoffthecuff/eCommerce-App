@@ -1,0 +1,6 @@
+.product-card {
+}
+
+.product-card div[class~='ant-card-cover'] {
+  background-color: #a09b9b;
+}

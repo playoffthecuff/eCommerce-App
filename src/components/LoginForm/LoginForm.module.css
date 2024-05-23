@@ -1,28 +1,4 @@
 .login-form {
   margin: 0 auto;
-  width: fit-content;
-
-  .button-wrapper {
-    button {
-      background-color: var(--light-theme-primary-hover);
-    }
-
-    button::after {
-      background: var(--light-theme-primary);
-    }
-  }
-
-  button:disabled {
-    background-color: var(--light-theme-color-bg-container-disabled);
-  }
-
-  .button-wrapper {
-    button:hover {
-      background-color: var(--light-theme-primary-hover) !important;
-    }
-  }
-
-  button:hover:disabled {
-    background-color: var(--light-theme-color-bg-container-disabled) !important;
-  }
+  width: 23rem;
 }

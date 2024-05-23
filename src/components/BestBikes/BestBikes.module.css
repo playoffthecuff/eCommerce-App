@@ -9,15 +9,10 @@
   text-transform: uppercase;
   text-align: center;
 }
+
 .product-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   justify-items: center;
   gap: 2rem;
-}
-
-.best-bikes-button {
-  align-self: center;
-  max-width: 200px;
-  text-transform: uppercase;
 }

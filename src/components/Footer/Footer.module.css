@@ -22,11 +22,11 @@
 }
 
 .logo-wrapper:hover .footer-icon svg path {
-  fill: var(--light-theme-link-hover);
+  fill: var(--color-link-hover);
 }
 
 .footer-copyright {
-  color: var(--light-theme-footer-link);
+  color: var(--color-button-text);
   font-size: 1.5rem;
 }
 
@@ -46,7 +46,7 @@
   flex-grow: 1;
   flex-basis: 10rem;
   gap: 6px;
-  color: var(--light-theme-footer-link);
+  color: var(--color-button-text);
 }
 
 @media (max-width: 58rem) {
