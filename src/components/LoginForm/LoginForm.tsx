@@ -3,7 +3,7 @@ import type { NotificationArgsProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import { ReactNode, useLayoutEffect, useState } from 'react';
 import { FieldData } from './types';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';

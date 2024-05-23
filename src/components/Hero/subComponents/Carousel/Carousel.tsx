@@ -22,13 +22,14 @@ function Carousel() {
               API
             </Paragraph>
             <div className={styles['buttons-wrapper']}>
-              <CustomButton variety="common" href="#/registration" htmlType="button">
+              <CustomButton variety="common" href="#/registration" htmlType="button" style={{ width: '170px' }}>
                 Registration Page
               </CustomButton>
-              <CustomButton variety="common" href="#/login" htmlType="button">
+              <CustomButton variety="common" href="#/login" htmlType="button" style={{ width: '170px' }}>
                 Login Page
               </CustomButton>
               <CustomButton
+                style={{ width: '170px' }}
                 variety="common"
                 href="https://codefrondlers.store/jsfe23q4/api-docs/"
                 target="a_blank"

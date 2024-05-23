@@ -64,7 +64,12 @@ function Header() {
       label: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
       key: userStore.isAuthorized ? 'LOG OUT' : 'SIGN IN',
       icon: userStore.isAuthorized ? <LogoutOutlined /> : <LoginOutlined />,
-      onClick: userStore.isAuthorized ? () => userStore.logout() : () => navigate('/login'),
+      onClick: userStore.isAuthorized
+        ? () => {
+            userStore.logout();
+            navigate('/main');
+          }
+        : () => navigate('/login'),
     },
     {
       label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
