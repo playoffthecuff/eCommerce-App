@@ -43,6 +43,11 @@ const lightTheme: ThemeConfig = {
       bodyBg: '#fff',
       headerHeight: 48,
     },
+    Pagination: {
+      itemSize: 42,
+      // itemActiveBg: '#2644ad',
+      // itemLinkBg: '#fff',
+    },
   },
 };
 

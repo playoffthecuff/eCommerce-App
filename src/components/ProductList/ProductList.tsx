@@ -19,7 +19,9 @@ export default function ProductList() {
         onChange: (page) => {
           console.log(page);
         },
-        pageSize: 6,
+        pageSize: 8,
+        showSizeChanger: false,
+        align: 'center',
       }}
       dataSource={products}
       renderItem={(product) => (
