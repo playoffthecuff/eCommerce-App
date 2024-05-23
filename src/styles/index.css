@@ -3,16 +3,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --light-theme-background: #fff;
-  --light-theme-primary: #2644ad; /* 112d9f */
-  --light-theme-primary-hover: #111;
-  --light-theme-error: #ad4426;
-  --light-theme-success: #44ad26;
-  --light-theme-link: #2644ad; /* 112d9f */
-  --light-theme-link-hover: #5875da;
-  --light-theme-text: #111;
-  --light-theme-shadow: 0.5rem #0003;
-  --light-theme-color-bg-container-disabled: #d3d3d3;
+  --color-background: #fff;
+  --color-bg-container-disabled: #d3d3d3;
+  --color-primary: #2644ad;
+  --color-button-background: #111;
+  --color-button-text: #fff;
+  --color-button-hover-text: #fff;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-link: #2644ad;
+  --color-link-hover: #5875da;
+  --color-menu-item-text: #111;
+  --color-menu-item-hover: #2644ad;
+  --color-menu-item-selected: #2644ad;
+  --shadow: 0.5rem #0003;
+  --footer-background: #111;
 }
 
 @font-face {
@@ -52,12 +57,29 @@
   height: 100%;
 }
 
-h1.ant-typography {
+h1.ant-typography,
+h2.ant-typography,
+h3.ant-typography,
+h4.ant-typography,
+h5.ant-typography {
   font-family: 'Futura';
 }
 
-h2.ant-typography {
-  font-family: 'Futura';
+/* Layout */
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1440px;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .ant-layout {
@@ -74,29 +96,12 @@ h2.ant-typography {
 
 .ant-layout-footer {
   padding: 16px;
-  background: #333;
+  background: var(--footer-background);
   grid-row-start: 3;
   grid-row-end: 4;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 16px;
-  max-width: 1440px;
-}
-
-h3.ant-typography {
-  font-family: 'Futura';
-}
-
-h4.ant-typography {
-  font-family: 'Futura';
-}
-
-h5.ant-typography {
-  font-family: 'Futura';
-}
-
+/* Button */
 .ant-btn-primary {
   letter-spacing: 0.8px;
   display: block;
@@ -138,34 +143,20 @@ h5.ant-typography {
   left: -125%;
 }
 
+/* Spin */
 .ant-spin {
   max-height: 100% !important;
 }
 
-.wrapper-404 {
-  display: grid;
-  grid-template-rows: auto 1fr 3rem;
-  align-items: center;
-  min-height: 41rem;
-  padding-top: 8rem;
-}
-
-.ant-menu .ant-menu-item .anticon + span {
-  margin-inline-start: 0.5rem;
-}
-
-.layout-container {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 1440px;
+.ant-spin-nested-loading {
+  width: 100%;
 }
 
 .no-scroll {
   overflow: hidden;
 }
 
-.ant-spin-nested-loading {
-  width: 100%;
+/* TODO: check if we can delete below styles from the general style sheet */
+.ant-menu .ant-menu-item .anticon + span {
+  margin-inline-start: 0.5rem;
 }

@@ -1,4 +1,4 @@
-import { Steps, Button, Form, notification, Spin } from 'antd';
+import { Steps, Form, notification, Spin } from 'antd';
 import { CheckOutlined, EnvironmentOutlined, SmileOutlined, FrownOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { AddressProps, Fields } from './types';
 import { mapToSignUpArg } from './helpers';
 import userStore from '../../store/user-store';
 import userService from '../../utils/user-service';
+import CustomButton from '../CustomButton/CustomButton';
 
 const steps = [
   {
@@ -142,9 +143,15 @@ export function RegistrationForm() {
             }}
           />
         </Form>
-        <Button data-testid="submitBtn" type="primary" block disabled={!isValid} onClick={step === 2 ? submit : next}>
+        <CustomButton
+          variety="common"
+          data-testid="submitBtn"
+          block
+          disabled={!isValid}
+          onClick={step === 2 ? submit : next}
+        >
           {step === 2 ? 'SUBMIT' : 'NEXT'}
-        </Button>
+        </CustomButton>
       </div>
       {contextHolder}
     </Spin>

@@ -1,5 +1,5 @@
 .header {
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   padding: 0.5rem;
-  box-shadow: 0 0.25rem var(--light-theme-shadow);
+  box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
 
   ul {
@@ -18,13 +18,12 @@
   a {
     position: relative;
     line-height: 1;
-    color: var(--light-theme-link);
     text-decoration: none;
   }
 
   a:hover {
     text-decoration: none;
-    color: var(--light-theme-link);
+    color: var(--color-link);
   }
 
   .menu {
@@ -36,6 +35,14 @@
       height: 2rem;
     }
   }
+}
+
+.layout-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1440px;
 }
 
 .sider {
@@ -53,7 +60,7 @@
 }
 
 .sider.sider.sider {
-  background-color: var(--light-theme-background);
+  background-color: var(--color-background);
   transition: left 0.8s;
   ul {
     margin-top: 50lvh;
@@ -74,7 +81,7 @@
 .burger-button-wrapper {
   width: 3rem;
   height: 3rem;
-  background-color: var(--light-theme-background);
+  background-color: var(--color-background);
   position: fixed;
   left: 0;
   top: 0;
@@ -163,18 +170,6 @@
 }
 
 .logo:hover svg {
-  -webkit-animation-name: rotation;
-  -webkit-animation-duration: 1.6s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: rotation;
-  -moz-animation-duration: 1.6s;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  -o-animation-name: rotation;
-  -o-animation-duration: 1.6s;
-  -o-animation-iteration-count: infinite;
-  -o-animation-timing-function: linear;
   animation-name: rotation;
   animation-duration: 1.6s;
   animation-iteration-count: infinite;
@@ -183,57 +178,33 @@
 
 @-webkit-keyframes rotation {
   0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 @-moz-keyframes rotation {
   0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 @-o-keyframes rotation {
   0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 @keyframes rotation {
   0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(720deg);
-    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }

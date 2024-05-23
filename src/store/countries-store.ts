@@ -6,8 +6,8 @@ class CountriesStore {
   private _countries: Country[] = [];
 
   public get countries(): Country[] {
-    if (this._state !== BootState.Success && this._state !== BootState.InProgress) {
-      this.getCountries();
+    if (this._state === BootState.None) {
+      this.loadCountries();
     }
     return this._countries;
   }
@@ -28,18 +28,17 @@ class CountriesStore {
     makeAutoObservable(this);
   }
 
-  public async getCountries(): Promise<void> {
+  private async loadCountries(): Promise<void> {
     this._state = BootState.InProgress;
+    this._error = undefined;
     const [countries, error] = await countriesService.getCountries();
     if (error) {
       this._state = BootState.Failed;
-      // this._error = (error as Error).toString();
+      this._error = (error as Error).toString();
       return;
     }
     runInAction(() => {
-      // this._countries = countries.sort((a, b) => a.name.localeCompare(b.name));
-      // this._countries = countries;
-      console.log(countries);
+      this._countries = countries.sort((a, b) => a.name.localeCompare(b.name));
       this._state = BootState.Success;
     });
   }

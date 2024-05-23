@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Typography, Layout, Menu, MenuProps, Switch } from 'antd';
+import classNames from 'classnames';
 import {
   FormOutlined,
   LoginOutlined,
@@ -12,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Sider from 'antd/es/layout/Sider';
 import { LogoIcon } from '../CustomIcons/CustomIcons';
 
@@ -24,35 +23,34 @@ const { Header: AntHeader } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 const paths = {
-  shop: 'SHOP',
-  login: 'SIGN IN',
-  registration: 'SIGN UP',
-  about: 'ABOUT US',
-  profile: 'PROFILE',
-  logout: 'LOGOUT',
+  '/shop': 'SHOP',
+  '/login': 'SIGN IN',
+  '/registration': 'SIGN UP',
+  '/about': 'ABOUT US',
+  '/profile': 'PROFILE',
+  '/logout': 'LOGOUT',
 };
 
 function Header() {
   const [current, setCurrent] = useState('');
-  const [siderState, setSiderState] = useState(styles.sider);
-  const [burgerState, setBurgerState] = useState(styles['burger-button']);
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('no-scroll');
-      setSiderState(`${styles.sider} ${styles.active}`);
-      setBurgerState(`${styles['burger-button']} ${styles.active}`);
     } else {
       document.body.classList.remove('no-scroll');
-      setSiderState(styles.sider);
-      setBurgerState(styles['burger-button']);
     }
   }, [isOpen]);
-  const navigate = useNavigate();
-  const path = window.location.hash.slice(2) as keyof typeof paths;
+  const location = useLocation();
   useEffect(() => {
-    setCurrent(paths[path]);
-  }, [path]);
+    const path = location.pathname;
+    if (Object.hasOwn(paths, path)) {
+      setCurrent(paths[location.pathname as keyof typeof paths]);
+    } else {
+      setCurrent('');
+    }
+  }, [location.pathname]);
+  const navigate = useNavigate();
   const menuItems: MenuItem[] = [
     {
       label: 'SHOP',
@@ -69,35 +67,25 @@ function Header() {
       onClick: userStore.isAuthorized
         ? () => {
             userStore.logout();
+            navigate('/main');
           }
-        : () => {
-            navigate('/login');
-          },
+        : () => navigate('/login'),
     },
     {
       label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
       key: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
       icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
-      onClick: userStore.isAuthorized
-        ? () => {
-            navigate('/profile');
-          }
-        : () => {
-            navigate('/registration');
-          },
+      onClick: userStore.isAuthorized ? () => navigate('/profile') : () => navigate('/registration'),
     },
     {
       label: 'ABOUT US',
       key: 'ABOUT US',
       icon: <TeamOutlined />,
-      onClick: () => {
-        navigate('/about');
-      },
+      onClick: () => navigate('/about'),
     },
   ];
 
-  const menuClick: MenuProps['onClick'] = (e) => {
-    setCurrent(e.key);
+  const menuClick: MenuProps['onClick'] = () => {
     setIsOpen(false);
   };
 
@@ -111,7 +99,7 @@ function Header() {
 
   return (
     <AntHeader className={styles.header}>
-      <div className="layout-container">
+      <div className={styles['layout-container']}>
         <Link href="#/">
           <div className={styles.logo}>
             <LogoIcon />
@@ -120,7 +108,7 @@ function Header() {
         </Link>
         <div className={styles['burger-wrapper']} onClick={burgerClick}>
           <div className={styles['burger-button-wrapper']}>
-            <div className={burgerState} />
+            <div className={classNames(styles.burgerButton, { [styles.active]: isOpen })} />
           </div>
         </div>
         <Menu
@@ -146,7 +134,11 @@ function Header() {
         />
         <Switch onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
       </div>
-      <Sider width="100%" className={siderState} style={{ position: 'fixed' }}>
+      <Sider
+        width="100%"
+        className={classNames(styles.sider, { [styles.active]: isOpen })}
+        style={{ position: 'fixed' }}
+      >
         <Menu mode="inline" selectedKeys={[current]} onClick={menuClick} items={menuItems} />
       </Sider>
     </AntHeader>

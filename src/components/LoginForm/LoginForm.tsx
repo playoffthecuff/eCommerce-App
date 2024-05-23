@@ -1,13 +1,13 @@
-import { Button, Form, Input, Typography, FormProps, notification, Spin } from 'antd';
+import { Form, Input, Typography, FormProps, notification, Spin } from 'antd';
 import type { NotificationArgsProps } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { ReactNode, useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { FieldData } from 'rc-field-form/lib/interface';
+import { ReactNode, useLayoutEffect, useState } from 'react';
+import { FieldData } from './types';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
+import CustomButton from '../CustomButton/CustomButton';
 
 const { Text, Title, Link } = Typography;
 
@@ -23,15 +23,15 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 };
 
 export default function LoginForm() {
-  const [formState, setFormState] = useState<boolean>(false);
-  const [buttonState, setButtonState] = useState<boolean>(true);
-  const [spinState, setSpinState] = useState<boolean>(false);
+  const [formEnabled, setFormEnabled] = useState<boolean>(false);
+  const [buttonEnabled, setButtonEnabled] = useState<boolean>(true);
+  const [spinRotate, setSpinRotate] = useState<boolean>(false);
 
   const onFieldsChange = (_: FieldData[], allFields: FieldData[]): void => {
     const isFormValid = allFields.every((field) => {
       return !field.errors!.length && field.touched;
     });
-    setButtonState(!isFormValid);
+    setButtonEnabled(!isFormValid);
   };
 
   const [api, contextHolder] = notification.useNotification();
@@ -45,7 +45,7 @@ export default function LoginForm() {
   };
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userStore.isAuthorized) {
       navigate('/main');
     }
@@ -53,8 +53,8 @@ export default function LoginForm() {
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      setFormState(true);
-      setSpinState(true);
+      setFormEnabled(true);
+      setSpinRotate(true);
       await userStore.login(values.email, values.password);
       openNotification('top', 'Congratulations:', 'you are successfully logged in! 🥳', <SmileOutlined />);
       setTimeout(() => {
@@ -62,14 +62,14 @@ export default function LoginForm() {
       }, 1600);
     } catch (err) {
       const error = err as Error;
-      setFormState(false);
-      setSpinState(false);
+      setFormEnabled(false);
+      setSpinRotate(false);
       openNotification('top', 'It seems something went wrong:', error.message, <FrownOutlined />);
     }
   };
 
   return (
-    <Spin spinning={spinState}>
+    <Spin spinning={spinRotate}>
       <Form
         name="login"
         className={styles.loginForm}
@@ -80,7 +80,7 @@ export default function LoginForm() {
         scrollToFirstError
         layout="vertical"
         data-testid="login-form"
-        disabled={formState}
+        disabled={formEnabled}
         onFieldsChange={onFieldsChange}
       >
         {contextHolder}
@@ -137,10 +137,10 @@ export default function LoginForm() {
             Forgot your password?
           </Link>
         </Paragraph>
-        <Form.Item className={styles['button-wrapper']} wrapperCol={{ span: 24 }}>
-          <Button type="primary" htmlType="submit" block disabled={buttonState}>
+        <Form.Item wrapperCol={{ span: 24 }}>
+          <CustomButton variety="inverted" block disabled={buttonEnabled} htmlType="submit">
             SIGN IN
-          </Button>
+          </CustomButton>
         </Form.Item>
       </Form>
     </Spin>

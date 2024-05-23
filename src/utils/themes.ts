@@ -9,38 +9,43 @@ const lightTheme: ThemeConfig = {
     borderRadius: 0,
     controlHeight: 36,
 
-    colorPrimary: '#2644ad', // cd4c1d
+    colorPrimary: '#2644ad',
     colorPrimaryHover: '#111',
-    colorError: '#ad4426', // cd4c1d
+    colorError: '#ad4426',
     colorSuccess: '#44ad26',
     colorLink: '#2644ad',
     colorLinkHover: '#5875da',
     linkDecoration: 'underline',
     linkHoverDecoration: 'underline',
     colorText: '#111',
-    colorBgContainerDisabled: '#d3d3d3',
-    colorTextDisabled: '#a9a9a9',
+    colorBgContainerDisabled: 'var(--color-bg-container-disabled)',
+    colorTextDisabled: 'var(--color-button-disabled-text)',
   },
   components: {
     Button: {
       fontFamily: 'Futura',
       fontWeight: 'bold',
       primaryShadow: 'none',
+      defaultBg: 'var(--color-primary)',
+      defaultHoverBg: 'var(--color-button-background)',
+      defaultColor: 'var(--color-button-text)',
+      defaultHoverColor: 'var(--color-button-hover-text)',
+      defaultActiveColor: 'var(--color-button-active-text)',
     },
     Form: {
       itemMarginBottom: 28,
       verticalLabelPadding: 0,
     },
     Menu: {
-      itemColor: '#111',
-      itemHoverColor: '#2644ad',
+      itemColor: 'var(--color-menu-item-text)',
+      itemHoverColor: 'var(--color-menu-item-hover)',
       itemPaddingInline: 12,
-      horizontalItemSelectedColor: '#2644ad',
+      horizontalItemSelectedColor: 'var(--color-menu-item-selected)',
       fontFamily: 'Futura',
     },
     Layout: {
-      headerBg: '#fff',
-      bodyBg: '#fff',
+      headerBg: 'var(--color-background)',
+      bodyBg: 'var(--color-background)',
       headerHeight: 48,
     },
     Pagination: {

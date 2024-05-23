@@ -9,9 +9,13 @@ export type Country = {
 };
 
 class CountriesService {
-  getCountries = async (): Promise<Country[]> => {
-    const resp = await httpClient.get<Country[]>('/countries');
-    return resp.data;
+  getCountries = async (): Promise<[Country[], Error | undefined]> => {
+    try {
+      const resp = await httpClient.get<Country[]>('/countries');
+      return [resp.data, undefined];
+    } catch (error) {
+      return [[], error as Error];
+    }
   };
 }
 

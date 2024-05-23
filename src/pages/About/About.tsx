@@ -10,14 +10,14 @@ const { Title, Text, Link } = Typography;
 export default function AboutPage() {
   return (
     <div className="container">
-      <div id="profile-page" className={styles.wrapper}>
+      <div id="profile-page" className="wrapper">
         <Title>Page under construction</Title>
         <Paragraph>
           <Text className={styles.text}>
-            Sorry! Head to our{' '}
+            Sorry! Head to our
             <Link href="#/main" className={styles.text}>
               [main page]
-            </Link>{' '}
+            </Link>
             and begin your shopping!
           </Text>
         </Paragraph>

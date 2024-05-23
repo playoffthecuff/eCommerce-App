@@ -6,26 +6,22 @@ import { SignUpArg } from '../../types/authorization-response';
 const MIN_AGE = 12;
 
 export const dateOfBirthValidator = {
-  validator: (_rules: RuleObject, value: unknown, callback: (error?: string | undefined) => void): void => {
+  validator: (_rules: RuleObject, value: unknown) => {
     if (!value) {
-      callback();
-      return;
+      return Promise.resolve();
     }
-
     let date;
     try {
       date = dayjs(value as string);
     } catch {
-      callback('Date has to be valid.');
-      return;
+      return Promise.reject('Date has to be valid.');
     }
     const now = dayjs();
     const diff = now.diff(date, 'years');
     if (diff < MIN_AGE) {
-      callback(`You have to be at least ${MIN_AGE} years old.`);
-      return;
+      return Promise.reject(`You have to be at least ${MIN_AGE} years old.`);
     }
-    callback();
+    return Promise.resolve();
   },
 };
 

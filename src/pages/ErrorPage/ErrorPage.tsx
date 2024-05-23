@@ -10,14 +10,14 @@ const { Title, Text, Link } = Typography;
 function ErrorPage() {
   return (
     <div className="container">
-      <div id="error-page" className={styles.error}>
+      <div id="error-page" className="wrapper">
         <Title>Not Found</Title>
         <Paragraph>
           <Text className={styles.text}>
-            There is plenty to buy on our Website, but nothing here. Head to our{' '}
+            There is plenty to buy on our Website, but nothing here. Head to our
             <Link href="#/main" className={styles.text}>
               [main page]
-            </Link>{' '}
+            </Link>
             and begin your shopping!
           </Text>
         </Paragraph>
