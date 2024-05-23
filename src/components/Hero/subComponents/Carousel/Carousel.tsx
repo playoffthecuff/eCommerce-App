@@ -1,4 +1,4 @@
-import { Carousel as AntCarousel, Button, Typography } from 'antd';
+import { Carousel as AntCarousel, Typography } from 'antd';
 
 import styles from './Carousel.module.css';
 import CustomButton from '../../../CustomButton/CustomButton';
