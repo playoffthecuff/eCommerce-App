@@ -17,6 +17,7 @@
   --color-menu-item-hover: #2644ad;
   --color-menu-item-selected: #2644ad;
   --shadow: 0.5rem #0003;
+  --footer-background: #111;
 }
 
 @font-face {
@@ -56,24 +57,29 @@
   height: 100%;
 }
 
-h1.ant-typography {
-  font-family: 'Futura';
-}
-
-h2.ant-typography {
-  font-family: 'Futura';
-}
-
-h3.ant-typography {
-  font-family: 'Futura';
-}
-
-h4.ant-typography {
-  font-family: 'Futura';
-}
-
+h1.ant-typography,
+h2.ant-typography,
+h3.ant-typography,
+h4.ant-typography,
 h5.ant-typography {
   font-family: 'Futura';
+}
+
+/* Layout */
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1440px;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .ant-layout {
@@ -82,45 +88,75 @@ h5.ant-typography {
   min-height: 100vh;
 }
 
+.ant-layout-content {
+  margin-top: 48px;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
 .ant-layout-footer {
   padding: 16px;
-  background: #333;
+  background: var(--footer-background);
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 16px;
-  max-width: 1440px;
+/* Button */
+.ant-btn-primary {
+  letter-spacing: 0.8px;
+  display: block;
+
+  > span {
+    position: relative;
+    z-index: 1;
+  }
 }
 
+.ant-btn-primary::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 115%;
+  width: 120%;
+  transform: skew(-15deg);
+  background: var(--light-theme-primary-hover);
+  left: -125%;
+  bottom: -2px;
+  transition: left 0.4s;
+}
+
+.ant-btn-primary {
+  overflow: hidden;
+  border: none;
+  transition: background-color 0.4s;
+}
+
+.ant-btn:hover {
+  background: var(--light-theme-primary) !important;
+}
+
+.ant-btn-primary:hover::after {
+  left: -10%;
+}
+
+.ant-btn-primary:hover:disabled::after {
+  left: -125%;
+}
+
+/* Spin */
 .ant-spin {
   max-height: 100% !important;
 }
 
-.wrapper-404 {
-  display: grid;
-  grid-template-rows: auto 1fr 3rem;
-  align-items: center;
-  min-height: 41rem;
-  padding-top: 8rem;
-}
-
-.ant-menu .ant-menu-item .anticon + span {
-  margin-inline-start: 0.5rem;
-}
-
-.layout-container {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 1440px;
+.ant-spin-nested-loading {
+  width: 100%;
 }
 
 .no-scroll {
   overflow: hidden;
 }
 
-.ant-spin-nested-loading {
-  width: 100%;
+/* TODO: check if we can delete below styles from the general style sheet */
+.ant-menu .ant-menu-item .anticon + span {
+  margin-inline-start: 0.5rem;
 }

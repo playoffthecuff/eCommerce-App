@@ -38,6 +38,20 @@ export function PersonalData() {
         <Input data-testid="lastName" placeholder="Enter your email last name..." />
       </Form.Item>
       <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: 'Please enter your Email' },
+          {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: 'Please enter correct Email address',
+          },
+        ]}
+        hasFeedback
+      >
+        <Input data-testid="email" placeholder="Enter your email..." />
+      </Form.Item>
+      <Form.Item
         label="Password"
         name="password"
         rules={[
@@ -54,20 +68,6 @@ export function PersonalData() {
         validateFirst
       >
         <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />
-      </Form.Item>
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[
-          { required: true, message: 'Please enter your Email' },
-          {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: 'Please enter correct Email address',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input data-testid="email" placeholder="Enter your email..." />
       </Form.Item>
       <Form.Item
         label="Date of birth"

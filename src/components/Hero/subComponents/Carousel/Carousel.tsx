@@ -14,30 +14,27 @@ function Carousel() {
         <div className={`${styles.slide} ${styles['slide-4']}`} />
       </AntCarousel>
       <div className={styles.overlay}>
-        <div className="container">
-          <div className={styles['slide-content']}>
-            <Title className={styles['hero-title']}>Dear Reviewers!</Title>
-            <Paragraph className={styles['hero-description']}>
-              Please note, this is the Full Stack project and here we use our own Backend and do not use Commercetools
-              API
-            </Paragraph>
-            <div className={styles['buttons-wrapper']}>
-              <CustomButton variety="common" href="#/registration" htmlType="button" style={{ width: '170px' }}>
-                Registration Page
-              </CustomButton>
-              <CustomButton variety="common" href="#/login" htmlType="button" style={{ width: '170px' }}>
-                Login Page
-              </CustomButton>
-              <CustomButton
-                style={{ width: '170px' }}
-                variety="common"
-                href="https://codefrondlers.store/jsfe23q4/api-docs/"
-                target="a_blank"
-                htmlType="button"
-              >
-                Api Documentation
-              </CustomButton>
-            </div>
+        <div className={styles['slide-content']}>
+          <Title className={styles['hero-title']}>Dear Reviewers!</Title>
+          <Paragraph className={styles['hero-description']}>
+            Please note, this is the Full Stack project and here we use our own Backend and do not use Commercetools API
+          </Paragraph>
+          <div className={styles['buttons-wrapper']}>
+            <CustomButton variety="common" href="#/registration" htmlType="button" style={{ width: '170px' }}>
+              Registration Page
+            </CustomButton>
+            <CustomButton variety="common" href="#/login" htmlType="button" style={{ width: '170px' }}>
+              Login Page
+            </CustomButton>
+            <CustomButton
+              style={{ width: '170px' }}
+              variety="common"
+              href="https://codefrondlers.store/jsfe23q4/api-docs/"
+              target="a_blank"
+              htmlType="button"
+            >
+              Api Documentation
+            </CustomButton>
           </div>
         </div>
       </div>

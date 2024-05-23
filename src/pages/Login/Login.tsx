@@ -1,9 +1,8 @@
 import LoginForm from '../../components/LoginForm/LoginForm';
-import styles from './Login.module.css';
 
 function Login() {
   return (
-    <div className={styles.wrapper}>
+    <div className="wrapper">
       <LoginForm />
     </div>
   );

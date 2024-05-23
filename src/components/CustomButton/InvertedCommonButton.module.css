@@ -1,5 +1,6 @@
-.inverted-button,.inverted-button:hover {
-  background-color:  var(--color-button-background) !important;
+.inverted-button,
+.inverted-button:hover {
+  background-color: var(--color-button-background) !important;
 }
 
 .inverted-button::after {

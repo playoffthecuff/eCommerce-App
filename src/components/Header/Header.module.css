@@ -37,6 +37,14 @@
   }
 }
 
+.layout-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
 .sider {
   z-index: 2;
   display: flex;

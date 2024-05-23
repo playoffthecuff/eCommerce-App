@@ -16,6 +16,10 @@
   padding: 0 1rem 1.5rem;
 }
 
+.btn-style:hover:disabled {
+  background-color: var(--light-theme-color-bg-container-disabled) !important;
+}
+
 .finish-form {
   margin: 8rem auto 3rem;
   text-align: center;
