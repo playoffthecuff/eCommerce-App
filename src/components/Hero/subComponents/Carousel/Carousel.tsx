@@ -1,6 +1,7 @@
 import { Carousel as AntCarousel, Button, Typography } from 'antd';
 
 import styles from './Carousel.module.css';
+import CustomButton from '../../../CustomButton/CustomButton';
 
 const { Title, Paragraph } = Typography;
 function Carousel() {
@@ -21,22 +22,20 @@ function Carousel() {
               API
             </Paragraph>
             <div className={styles['buttons-wrapper']}>
-              <Button type="primary" href="#/registration" htmlType="button" block className={styles['hero-button']}>
+              <CustomButton variety="common" href="#/registration" htmlType="button">
                 Registration Page
-              </Button>
-              <Button type="primary" href="#/login" htmlType="button" block className={styles['hero-button']}>
+              </CustomButton>
+              <CustomButton variety="common" href="#/login" htmlType="button">
                 Login Page
-              </Button>
-              <Button
-                type="primary"
+              </CustomButton>
+              <CustomButton
+                variety="common"
                 href="https://codefrondlers.store/jsfe23q4/api-docs/"
                 target="a_blank"
                 htmlType="button"
-                block
-                className={styles['hero-button']}
               >
                 Api Documentation
-              </Button>
+              </CustomButton>
             </div>
           </div>
         </div>

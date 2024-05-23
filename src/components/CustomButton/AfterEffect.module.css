@@ -1,0 +1,19 @@
+.after-effect::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 115%;
+  width: 130%;
+  transform: skew(-15deg);
+  left: -140%;
+  bottom: -2px;
+  transition: left 0.4s;
+}
+
+.after-effect:hover::after {
+  left: -15%;
+}
+
+.after-effect:hover:disabled::after {
+  left: -140%;
+}

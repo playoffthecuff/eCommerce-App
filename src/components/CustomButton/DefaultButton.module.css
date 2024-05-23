@@ -1,0 +1,22 @@
+.default-button {
+  letter-spacing: 0.8px;
+  display: block;
+  overflow: hidden;
+  border: none;
+  transition: background-color 0.4s;
+
+  > span {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.default-button:disabled {
+  background-color: var(--color-bg-container-disabled) !important;
+  color: var(--color-button-disabled-text);
+  cursor: not-allowed;
+}
+
+.default-button:disabled:hover {
+  background-color: var(--color-bg-container-disabled) !important;
+}

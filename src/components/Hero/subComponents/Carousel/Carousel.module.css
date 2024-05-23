@@ -74,10 +74,6 @@
   width: 100%;
 }
 
-.hero-button {
-  max-width: 180px;
-}
-
 @media (max-width: 668px) {
   .slide-content {
     .hero-title {
