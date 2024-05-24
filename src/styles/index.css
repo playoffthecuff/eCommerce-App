@@ -74,6 +74,7 @@ h5.ant-typography {
 
 .container-inner {
   height: 100%;
+  text-align: center;
 }
 
 .wrapper {
