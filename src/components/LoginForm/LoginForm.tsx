@@ -4,7 +4,6 @@ import Paragraph from 'antd/es/typography/Paragraph';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { ReactNode, useLayoutEffect, useState } from 'react';
-import { FieldData } from './types';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
@@ -27,9 +26,13 @@ export default function LoginForm() {
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(true);
   const [spinRotate, setSpinRotate] = useState<boolean>(false);
 
-  const onFieldsChange = (_: FieldData[], allFields: FieldData[]): void => {
-    const isFormValid = allFields.every((field) => {
-      return !field.errors!.length && field.touched;
+  const [form] = Form.useForm();
+
+  const checkFormValid = (): void => {
+    const errorFields = form.getFieldsError();
+    const isFieldsTouched = form.isFieldsTouched();
+    const isFormValid = errorFields.every((field) => {
+      return !field.errors!.length && isFieldsTouched;
     });
     setButtonEnabled(!isFormValid);
   };
@@ -81,7 +84,8 @@ export default function LoginForm() {
         layout="vertical"
         data-testid="login-form"
         disabled={formEnabled}
-        onFieldsChange={onFieldsChange}
+        form={form}
+        onFieldsChange={checkFormValid}
       >
         {contextHolder}
         <Title level={3}>CUSTOMER INFO</Title>
