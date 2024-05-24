@@ -20,7 +20,7 @@ class ProductsStore {
     return this._products;
   }
 
-  public get state(): BootState {
+  public get productsState(): BootState {
     return this._state;
   }
 
