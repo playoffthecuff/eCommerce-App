@@ -9,7 +9,7 @@ const { Title, Text, Link } = Typography;
 
 export default function AboutPage() {
   return (
-    <div className="container">
+    <div className="container container-inner">
       <div id="profile-page" className="wrapper">
         <Title>Page under construction</Title>
         <Paragraph>

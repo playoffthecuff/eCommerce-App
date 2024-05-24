@@ -1,3 +1,7 @@
 .hero {
-  /* min-height: 79dvh; */
+  height: 80vh;
+  background-image: url('../../assets/images/hero-image.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

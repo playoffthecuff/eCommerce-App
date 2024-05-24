@@ -14,7 +14,7 @@ class ProductsStore {
   }
 
   public get products(): Country[] {
-    if (this._state !== BootState.Success && this._state !== BootState.InProgress) {
+    if (this._state === BootState.None) {
       this.loadProducts();
     }
     return this._products;
@@ -30,6 +30,7 @@ class ProductsStore {
 
   private async loadProducts(): Promise<void> {
     this._state = BootState.InProgress;
+    this._error = undefined;
 
     const [products, error] = await productsService.loadProducts();
 
