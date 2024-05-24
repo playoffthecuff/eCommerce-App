@@ -9,7 +9,7 @@ const { Title, Text, Link } = Typography;
 
 function ErrorPage() {
   return (
-    <div className="container">
+    <div className="container container-inner">
       <div id="error-page" className="wrapper">
         <Title>Not Found</Title>
         <Paragraph>

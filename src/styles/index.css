@@ -70,7 +70,11 @@ h5.ant-typography {
   margin: 0 auto;
   padding: 0 16px;
   max-width: 1440px;
+}
+
+.container-inner {
   height: 100%;
+  text-align: center;
 }
 
 .wrapper {
