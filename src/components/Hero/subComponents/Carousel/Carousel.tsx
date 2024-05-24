@@ -1,4 +1,5 @@
 import { Carousel as AntCarousel, Typography } from 'antd';
+import classNames from 'classnames';
 
 import classNames from 'classnames';
 import styles from './Carousel.module.css';
