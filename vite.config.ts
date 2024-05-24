@@ -13,6 +13,7 @@ export default (args: ViteConfigOutput) => {
   const generateScopedName = args.mode === 'production' ? '[hash:base64:3]' : '[local]_[hash:base64:3]';
 
   return defineConfig({
+    base: '/eCommerceApp/',
     plugins: [react()],
     css: {
       modules: {

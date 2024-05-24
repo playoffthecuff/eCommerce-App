@@ -1,0 +1,7 @@
+.common-button::after {
+  background: var(--color-button-background);
+}
+
+.common-button:hover {
+  background: var(--color-primary) !important;
+}
