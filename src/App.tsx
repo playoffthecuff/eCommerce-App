@@ -1,16 +1,23 @@
-import { useState } from 'react';
-import './App.css';
+import { ConfigProvider, App as AntApp, Spin } from 'antd';
+import { RouterProvider } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import lightTheme from './utils/themes';
+import router from './utils/router';
+import userStore from './store/user-store';
+import { BootState } from './types/boot-state';
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
-    <>
-      <h1>Hello Team!</h1>
-      <button type="button" onClick={() => setCount((prevCount) => prevCount + 1)}>
-        count is {count}
-      </button>
-    </>
+    <ConfigProvider theme={lightTheme}>
+      <Spin size="large" spinning={userStore.bootState === BootState.InProgress}>
+        <AntApp className="app">
+          <RouterProvider router={router} />
+        </AntApp>
+      </Spin>
+    </ConfigProvider>
   );
 }
 
-export default App;
+const observableApp = observer(App);
+
+export default observableApp;

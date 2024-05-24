@@ -1,0 +1,135 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --color-background: #fff;
+  --color-bg-container-disabled: #d3d3d3;
+  --color-primary: #2644ad;
+  --color-button-background: #111;
+  --color-button-text: #fff;
+  --color-button-hover-text: #fff;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-link: #2644ad;
+  --color-link-hover: #5875da;
+  --color-menu-item-text: #111;
+  --color-menu-item-hover: #2644ad;
+  --color-menu-item-selected: #2644ad;
+  --shadow: 0.5rem #0003;
+  --footer-background: #111;
+}
+
+@font-face {
+  font-family: 'Haas';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/NeueHaasUnica-Regular.woff2');
+}
+
+@font-face {
+  font-family: 'Haas';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/NeueHaasUnica-Bold.woff2');
+}
+
+@font-face {
+  font-family: 'Futura';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/FuturaPT-Medium.woff2');
+}
+
+@font-face {
+  font-family: 'Futura';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/FuturaPT-Bold.woff2');
+}
+
+#root {
+  margin: 0 auto;
+  height: 100dvh;
+}
+
+.app {
+  height: 100%;
+}
+
+h1.ant-typography,
+h2.ant-typography,
+h3.ant-typography,
+h4.ant-typography,
+h5.ant-typography {
+  font-family: 'Futura';
+}
+
+/* Layout */
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1440px;
+}
+
+.container-inner {
+  height: 100%;
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.ant-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.ant-layout-content {
+  margin-top: 48px;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.ant-layout-footer {
+  padding: 16px;
+  background: var(--footer-background);
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+/* Button */
+.ant-btn {
+  letter-spacing: 0.8px;
+  display: block;
+
+  > span {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Spin */
+.ant-spin {
+  max-height: 100% !important;
+}
+
+.ant-spin-nested-loading {
+  width: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+/* TODO: check if we can delete below styles from the general style sheet */
+.ant-menu .ant-menu-item .anticon + span {
+  margin-inline-start: 0.5rem;
+}

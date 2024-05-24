@@ -1,0 +1,15 @@
+.text {
+  font-size: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+}
+
+.error-image-wrapper {
+  max-width: 20rem;
+
+  img {
+    width: 100%;
+  }
+}
