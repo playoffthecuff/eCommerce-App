@@ -102,7 +102,7 @@ h5.ant-typography {
 }
 
 /* Button */
-.ant-btn-primary {
+.ant-btn {
   letter-spacing: 0.8px;
   display: block;
 
@@ -110,37 +110,6 @@ h5.ant-typography {
     position: relative;
     z-index: 1;
   }
-}
-
-.ant-btn-primary::after {
-  content: '';
-  display: block;
-  position: absolute;
-  height: 115%;
-  width: 120%;
-  transform: skew(-15deg);
-  background: var(--light-theme-primary-hover);
-  left: -125%;
-  bottom: -2px;
-  transition: left 0.4s;
-}
-
-.ant-btn-primary {
-  overflow: hidden;
-  border: none;
-  transition: background-color 0.4s;
-}
-
-.ant-btn:hover {
-  background: var(--light-theme-primary) !important;
-}
-
-.ant-btn-primary:hover::after {
-  left: -10%;
-}
-
-.ant-btn-primary:hover:disabled::after {
-  left: -125%;
 }
 
 /* Spin */

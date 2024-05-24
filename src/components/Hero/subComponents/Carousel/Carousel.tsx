@@ -1,5 +1,6 @@
 import { Carousel as AntCarousel, Typography } from 'antd';
 
+import classNames from 'classnames';
 import styles from './Carousel.module.css';
 import CustomButton from '../../../CustomButton/CustomButton';
 
@@ -8,10 +9,10 @@ function Carousel() {
   return (
     <div className={styles['carousel-wrapper']}>
       <AntCarousel autoplay autoplaySpeed={5000} className={styles.carousel}>
-        <div className={`${styles.slide} ${styles['slide-1']}`} />
-        <div className={`${styles.slide} ${styles['slide-2']}`} />
-        <div className={`${styles.slide} ${styles['slide-3']}`} />
-        <div className={`${styles.slide} ${styles['slide-4']}`} />
+        <div className={classNames(styles.slide, styles.slide1)} />
+        <div className={classNames(styles.slide, styles.slide2)} />
+        <div className={classNames(styles.slide, styles.slide3)} />
+        <div className={classNames(styles.slide, styles.slide4)} />
       </AntCarousel>
       <div className={styles.overlay}>
         <div className={styles['slide-content']}>
