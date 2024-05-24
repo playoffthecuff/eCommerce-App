@@ -1,6 +1,12 @@
 import { ThemeConfig } from 'antd';
 
-const lightTheme: ThemeConfig = {
+export function getUserTheme() {
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const userTheme = localStorage.getItem('theme') ?? systemTheme;
+  return userTheme;
+}
+
+const theme: ThemeConfig = {
   // cssVar: true,
   // hashed: false,
   token: {
@@ -13,7 +19,7 @@ const lightTheme: ThemeConfig = {
     colorPrimaryHover: '#111',
     colorError: '#ad4426',
     colorSuccess: '#44ad26',
-    colorLink: '#2644ad',
+    colorLink: 'var(--color-link)',
     colorLinkHover: '#5875da',
     linkDecoration: 'underline',
     linkHoverDecoration: 'underline',
@@ -51,4 +57,4 @@ const lightTheme: ThemeConfig = {
   },
 };
 
-export default lightTheme;
+export default theme;

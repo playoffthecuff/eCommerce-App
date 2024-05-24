@@ -3,6 +3,24 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* --color-background: #fff;
+  --color-bg-container-disabled: #d3d3d3;
+  --color-primary: #2644ad;
+  --color-button-background: #111;
+  --color-button-text: #fff;
+  --color-button-hover-text: #fff;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-link: #2644ad;
+  --color-link-hover: #5875da;
+  --color-menu-item-text: #111;
+  --color-menu-item-hover: #2644ad;
+  --color-menu-item-selected: #2644ad;
+  --shadow: 0.5rem #0003;
+  --footer-background: #111; */
+}
+
+:root[data-theme="light"] {
   --color-background: #fff;
   --color-bg-container-disabled: #d3d3d3;
   --color-primary: #2644ad;
@@ -16,6 +34,26 @@
   --color-menu-item-text: #111;
   --color-menu-item-hover: #2644ad;
   --color-menu-item-selected: #2644ad;
+  --shadow: 0.5rem #0003;
+  --footer-background: #111;
+  --color-error: #ad4426;
+}
+
+:root[data-theme="dark"] {
+  --color-background: #202020;
+  --color-bg-container-disabled: #202020;
+  --color-primary: #5875da;
+  --color-button-background: #eee;
+  --color-button-text: #000;
+  --color-button-hover-text: #000;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-link: #5875da;
+  --color-link-hover: #2644ad;
+  --color-error: #ad4426;
+  --color-menu-item-text: #eee;
+  --color-menu-item-hover: #5875da;
+  --color-menu-item-selected: #5875da;
   --shadow: 0.5rem #0003;
   --footer-background: #111;
 }

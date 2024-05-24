@@ -17,6 +17,7 @@ import { LogoIcon } from '../CustomIcons/CustomIcons';
 
 import styles from './Header.module.css';
 import userStore from '../../store/user-store';
+import { getUserTheme } from '../../utils/theme';
 
 const { Title, Link } = Typography;
 const { Header: AntHeader } = Layout;
@@ -32,22 +33,23 @@ const paths = {
 };
 
 function Header() {
-  const [current, setCurrent] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [currentMenuItem, setCurrentMenuItem] = useState('');
+  const [isBurgerOpen, setBurgerOpen] = useState(false);
+  const [themeSwitch, setThemeSwitch] = useState(getUserTheme() === 'dark');
   useEffect(() => {
-    if (isOpen) {
+    if (isBurgerOpen) {
       document.body.classList.add('no-scroll');
     } else {
       document.body.classList.remove('no-scroll');
     }
-  }, [isOpen]);
+  }, [isBurgerOpen]);
   const location = useLocation();
   useEffect(() => {
     const path = location.pathname;
     if (Object.hasOwn(paths, path)) {
-      setCurrent(paths[location.pathname as keyof typeof paths]);
+      setCurrentMenuItem(paths[location.pathname as keyof typeof paths]);
     } else {
-      setCurrent('');
+      setCurrentMenuItem('');
     }
   }, [location.pathname]);
   const navigate = useNavigate();
@@ -86,15 +88,18 @@ function Header() {
   ];
 
   const menuClick: MenuProps['onClick'] = () => {
-    setIsOpen(false);
+    setBurgerOpen(false);
   };
 
   const burgerClick = () => {
-    setIsOpen(!isOpen);
+    setBurgerOpen(!isBurgerOpen);
   };
 
   const changeTheme = (value: boolean) => {
-    return value;
+    setThemeSwitch(value);
+    const theme = value ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.dataset.theme = theme;
   };
 
   return (
@@ -108,7 +113,7 @@ function Header() {
         </Link>
         <div className={styles['burger-wrapper']} onClick={burgerClick}>
           <div className={styles['burger-button-wrapper']}>
-            <div className={classNames(styles.burgerButton, { [styles.active]: isOpen })} />
+            <div className={classNames(styles.burgerButton, { [styles.active]: isBurgerOpen })} />
           </div>
         </div>
         <Menu
@@ -116,7 +121,7 @@ function Header() {
           style={{ lineHeight: '2rem' }}
           mode="horizontal"
           items={menuItems}
-          selectedKeys={[current]}
+          selectedKeys={[currentMenuItem]}
           onClick={menuClick}
         />
         <Menu
@@ -129,17 +134,17 @@ function Header() {
               icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
             },
           ]}
-          selectedKeys={[current]}
+          selectedKeys={[currentMenuItem]}
           onClick={menuClick}
         />
-        <Switch onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
+        <Switch onChange={changeTheme} checked={themeSwitch} checkedChildren="Dark" unCheckedChildren="Light" />
       </div>
       <Sider
         width="100%"
-        className={classNames(styles.sider, { [styles.active]: isOpen })}
+        className={classNames(styles.sider, { [styles.active]: isBurgerOpen })}
         style={{ position: 'fixed' }}
       >
-        <Menu mode="inline" selectedKeys={[current]} onClick={menuClick} items={menuItems} />
+        <Menu mode="inline" selectedKeys={[currentMenuItem]} onClick={menuClick} items={menuItems} />
       </Sider>
     </AntHeader>
   );
