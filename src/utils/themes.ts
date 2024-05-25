@@ -48,6 +48,11 @@ const lightTheme: ThemeConfig = {
       bodyBg: 'var(--color-background)',
       headerHeight: 48,
     },
+    List: {
+      itemPaddingLG: '0px',
+      itemPaddingSM: '0px',
+      itemPadding: '0px',
+    },
   },
 };
 

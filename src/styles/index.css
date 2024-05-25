@@ -133,3 +133,14 @@ h5.ant-typography {
 .ant-menu .ant-menu-item .anticon + span {
   margin-inline-start: 0.5rem;
 }
+
+/* Catalog Product Items */
+.ant-list .ant-list-item .ant-list-item-action {
+  width: 100%;
+  margin: 0;
+}
+
+.ant-list .ant-list-item .ant-list-item-action > li {
+  width: 100%;
+  padding: 0;
+}

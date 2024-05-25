@@ -10,7 +10,7 @@ import { BootState } from '../../enums';
 import ProductLoader from '../ProductCard/subComponents/ProductLoader/ProductLoader';
 
 export default observer(function ProductList() {
-  const PAGE_SIZE = 8;
+  const PAGE_SIZE = 6;
   const { products, productsState } = productsStore;
   console.log(productsState);
 
@@ -39,7 +39,7 @@ export default observer(function ProductList() {
         return (
           <List.Item
             key={product._id || index}
-            actions={[productsState === BootState.InProgress ? <ProductLoader /> : <ProductCard {...product} />]}
+            actions={[productsState !== BootState.InProgress ? <ProductLoader /> : <ProductCard {...product} />]}
           >
             {product.name}
           </List.Item>

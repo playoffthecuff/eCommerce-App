@@ -40,3 +40,15 @@
     color: #fff;
   }
 }
+
+@media (max-width: 668px) {
+  .catalog-description {
+    .catalog-title {
+      font-size: 4rem;
+    }
+
+    .hero-description {
+      font-size: 1.5rem;
+    }
+  }
+}
