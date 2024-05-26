@@ -28,3 +28,44 @@
   cursor: pointer;
   z-index: 3;
 }
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #fff;
+  color: #000;
+}
+
+.menu-title {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.filter-collapse {
+  background: #fff;
+}
+
+.filter-panel {
+  color: #fff;
+  border: none;
+}
+
+.filter-item {
+  padding: 8px 16px;
+}
+
+.apply-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.price-range {
+  text-align: center;
+  margin-top: 8px;
+  color: #000;
+}
