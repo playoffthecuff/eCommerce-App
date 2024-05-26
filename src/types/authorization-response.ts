@@ -2,6 +2,13 @@ export type User = {
   id: string | null;
   email: string | null;
   isActivated: boolean;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  addresses: {
+    shippingAddresses: Address[];
+    billingAddresses: Address[];
+  };
 };
 
 export interface AuthorizationResponse {
@@ -11,6 +18,7 @@ export interface AuthorizationResponse {
 }
 
 type Address = {
+  id: string;
   street: string;
   city: string;
   postalCode: string;
@@ -25,19 +33,15 @@ export type SignUpArg = {
   lastName: string;
   dateOfBirth: string;
   addresses: {
-    shippingAddresses: Address[];
-    billingAddresses?: Address[];
+    shippingAddresses: Omit<Address, 'id'>[];
+    billingAddresses?: Omit<Address, 'id'>[];
   };
 };
 
 export type SignUpResponse = {
   accessToken: string;
   refreshToken: string;
-  user: {
-    email: string;
-    id: string;
-    isActivated: boolean;
-  };
+  user: User;
 };
 
 export type EmailAvailabilityResponse = {
