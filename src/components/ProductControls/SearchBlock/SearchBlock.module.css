@@ -1,0 +1,10 @@
+.search-input {
+  button {
+    /* background-color: aqua; */
+    color: #fff !important;
+
+    &:hover {
+      /* background-color: bisque !important; */
+    }
+  }
+}

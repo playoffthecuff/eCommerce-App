@@ -108,7 +108,7 @@ export default observer(function FiltersBlock() {
       </Sider>
 
       <CustomButton
-        style={{ width: '100px' }}
+        style={{ width: '160px' }}
         variety="filters"
         htmlType="button"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
