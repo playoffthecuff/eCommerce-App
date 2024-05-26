@@ -63,7 +63,6 @@ export default observer(function FiltersBlock() {
         collapsible
         collapsed={collapsed}
         theme="light"
-        width="20%"
         style={{ left: collapsed ? '-100%' : '0', position: 'fixed', height: '100vh', top: '48px' }}
       >
         <div className={styles['menu-header']}>

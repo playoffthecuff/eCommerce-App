@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Country, productsService } from '../utils/product-service';
+// import { Product } from '../types/types';
 import { BootState } from '../enums';
 
 class ProductsStore {
@@ -17,6 +18,7 @@ class ProductsStore {
     if (this._state === BootState.None) {
       this.loadProducts();
     }
+    console.log(this._products);
     return this._products;
   }
 

@@ -4,11 +4,6 @@
 }
 
 .product-list ul[class~='ant-list-items'] {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 394px));
-  justify-items: center;
-  justify-content: center;
-  gap: 1rem; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -16,7 +11,12 @@
 }
 
 .product-list li[class~='ant-list-item'] {
-  flex: 1 1 390px;
-  max-width: 420px;
-  width: 100%;
+  flex: 1 1 320px;
+  max-width: 460px;
+}
+
+@media (max-width: 690px) {
+  .product-list li[class~='ant-list-item'] {
+    max-width: 358px;
+  }
 }

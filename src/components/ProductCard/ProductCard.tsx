@@ -41,11 +41,9 @@ function ProductCard({ abbrev, name, postalCodePattern }: ProductCardProps) {
   return (
     <Card
       hoverable
-      style={{ width: 458 }}
-      // cover={<img alt="City Step-Through 3-Speed" src={productImage} />}
       cover={
         <Image.PreviewGroup items={[image1, image2, image3, image4, productImage]}>
-          <Image width={458} src={image1} />
+          <Image src={image1} />
         </Image.PreviewGroup>
       }
       className={styles['product-card']}
