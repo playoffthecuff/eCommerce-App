@@ -1,0 +1,17 @@
+.productCard {
+  width: 300px;
+  margin: 16px;
+}
+
+.productImage {
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover;
+}
+
+.productPrice {
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
