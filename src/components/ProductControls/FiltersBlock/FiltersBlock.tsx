@@ -1,7 +1,8 @@
 import { Layout, Menu } from 'antd';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  CloseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -38,10 +39,37 @@ export default observer(function FiltersBlock() {
     console.log(category);
   };
 
+  const toggleMenu = () => {
+    setCollapsed(!collapsed);
+    document.body.style.overflow = collapsed ? 'hidden' : 'auto';
+  };
+
+  const closeMenu = () => {
+    setCollapsed(true);
+    document.body.style.overflow = 'auto';
+  };
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto'; // Clean up on component unmount
+    };
+  }, []);
+
   return (
     <div className={styles['filters-block-wrapper']}>
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ left: collapsed ? '-100%' : '0' }}>
+      <div className={`${styles.overlay} ${collapsed ? styles.hidden : ''}`} onClick={closeMenu} />
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        theme="light"
+        width="40%"
+        style={{ left: collapsed ? '-100%' : '0', position: 'fixed', height: '100vh', top: '48px' }}
+      >
         <div className="demo-logo-vertical" />
+        <div className={styles['close-button']} onClick={closeMenu}>
+          <CloseOutlined />
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -67,17 +95,15 @@ export default observer(function FiltersBlock() {
         />
       </Sider>
 
-      <div className="container">
-        <CustomButton
-          style={{ width: '100px' }}
-          variety="filters"
-          htmlType="button"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          Filters
-        </CustomButton>
-      </div>
+      <CustomButton
+        style={{ width: '100px' }}
+        variety="filters"
+        htmlType="button"
+        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        onClick={toggleMenu}
+      >
+        Filters
+      </CustomButton>
     </div>
   );
 });

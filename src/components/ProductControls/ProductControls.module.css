@@ -1,2 +1,10 @@
 .product-controls {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  padding: 3rem 0;
+}
+
+.product-controls-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
