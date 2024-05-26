@@ -1,23 +1,10 @@
 import dayjs from 'dayjs';
-import { Button, DatePicker, Form, Input, Typography } from 'antd';
+import { DatePicker, Form, Input, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import styles from '../ProfileForm.module.css';
-import { dateOfBirthValidator } from '../../RegistrationForm/helpers';
+import CustomButton from '../../CustomButton/CustomButton';
+import { dateOfBirthValidator, emailRules, nameRules } from '../../../utils/fields-validation';
 // import userStore from '../../../store/user-store';
-
-const nameRules = [
-  { required: true, message: 'Please enter your name!' },
-  { min: 1, message: 'Must be at least 1 characters long!' },
-  { pattern: /^[A-Za-z]*$/, message: 'Must contain only English letters!' },
-];
-
-const emailRules = [
-  { required: true, message: 'Please enter your Email' },
-  {
-    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    message: 'Please enter correct Email address',
-  },
-];
 
 const user = {
   email: 'test1000@test.com',
@@ -82,9 +69,9 @@ export const PersonalData = observer(() => {
           <DatePicker data-testid="dateOfBirth" placeholder="DD.MM.YEAR" format="DD.MM.YYYY" />
         </Form.Item>
       </Form>
-      <Button type="primary" htmlType="submit" block>
+      <CustomButton variety="common" htmlType="submit" block>
         EDIT DATA
-      </Button>
+      </CustomButton>
     </div>
   );
 });

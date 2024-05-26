@@ -1,5 +1,6 @@
-import { Button, Form, Input, Typography } from 'antd';
+import { Form, Input, Typography } from 'antd';
 import styles from '../ProfileForm.module.css';
+import CustomButton from '../../CustomButton/CustomButton';
 
 const passwordRules = [
   { required: true, message: 'Please enter your password!' },
@@ -26,10 +27,10 @@ export function PasswordData() {
         <Form.Item label="Confirm new password" name="password" rules={passwordRules} hasFeedback validateFirst>
           <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />
         </Form.Item>
-        <Button type="primary" htmlType="submit" block>
-          CHANGE PASSWORD
-        </Button>
       </Form>
+      <CustomButton variety="common" htmlType="submit" block>
+        CHANGE PASSWORD
+      </CustomButton>
     </div>
   );
 }
