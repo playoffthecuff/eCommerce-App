@@ -39,7 +39,7 @@ export default observer(function ProductList() {
         return (
           <List.Item
             key={product._id || index}
-            actions={[productsState !== BootState.InProgress ? <ProductLoader /> : <ProductCard {...product} />]}
+            actions={[productsState === BootState.InProgress ? <ProductLoader /> : <ProductCard {...product} />]}
           >
             {product.name}
           </List.Item>

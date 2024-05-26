@@ -1,0 +1,7 @@
+.filters-block-wrapper {
+  position: relative;
+}
+
+.filters-block-wrapper aside[class~='ant-layout-sider'] {
+  transition: left 0.5s ease-in-out;
+}

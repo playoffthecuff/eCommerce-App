@@ -1,4 +1,5 @@
 .product-card {
+  width: 100%;
 }
 
 .product-card div[class~='ant-card-cover'] {

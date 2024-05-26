@@ -1,6 +1,7 @@
 import { Typography } from 'antd';
 
 import ProductList from '../../components/ProductList/ProductList';
+import ProductControls from '../../components/ProductControls/ProductControls';
 
 import styles from './Catalog.module.css';
 
@@ -17,9 +18,12 @@ export default function CatalogPage() {
           </div>
         </div>
       </div>
+      <ProductControls />
       <div className="container">
         <div id="profile-page" className="wrapper">
-          <ProductList />
+          <section>
+            <ProductList />
+          </section>
         </div>
       </div>
     </>

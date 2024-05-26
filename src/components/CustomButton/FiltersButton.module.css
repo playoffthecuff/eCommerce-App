@@ -1,0 +1,15 @@
+.filters-button {
+  background-color: transparent !important;
+  color: black;
+  border: 1px solid black;
+}
+
+.filters-button::after {
+  background: transparent;
+  color: black;
+}
+
+.filters-button:hover {
+  background: transparent !important;
+  color: black !important;
+}
