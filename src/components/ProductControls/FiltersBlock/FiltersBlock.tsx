@@ -13,9 +13,11 @@ const { Title } = Typography;
 const { Panel } = Collapse;
 
 export default observer(function FiltersBlock() {
-  const [collapsed, setCollapsed] = useState(true);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
   const { allProducts } = productsStore;
+  const minPrice = Math.min(...allProducts.map((product) => product.price));
+  const maxPrice = Math.max(...allProducts.map((product) => product.price));
+  const [collapsed, setCollapsed] = useState(true);
+  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
 
   const filterData = {
     CATEGORY: [...new Set(allProducts.map((product) => product.category))].map((category, index) => ({
@@ -96,9 +98,10 @@ export default observer(function FiltersBlock() {
             <div className={styles['filter-item']}>
               <Slider
                 range
-                min={0}
-                max={1000}
-                defaultValue={[0, 1000]}
+                min={minPrice}
+                max={maxPrice}
+                step={100}
+                defaultValue={[minPrice, maxPrice]}
                 onChange={handlePriceChange}
                 value={priceRange}
               />
