@@ -7,7 +7,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
 }
 
 .product-list li[class~='ant-list-item'] {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-// import { productsStore } from '../../store/product-store';
+import { productsStore } from '../../../store/product-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 
@@ -12,28 +12,48 @@ const { Sider } = Layout;
 const { Title } = Typography;
 const { Panel } = Collapse;
 
-const filterData = {
-  'PRODUCT TYPE': [
-    { label: 'Bicycles', count: 6, key: 1 },
-    { label: 'Coaster Bikes', count: 1, key: 2 },
-    { label: 'Pure City Bikes', count: 2, key: 3 },
-    { label: 'Urban Bikes', count: 1, key: 4 },
-  ],
-  BRAND: [{ label: 'Pure Cycles', count: 10, key: 5 }],
-  AVAILABILITY: [
-    { label: 'In stock', count: 10, key: 6 },
-    { label: 'Out of stock', count: 1, key: 7 },
-  ],
-  'POSTAL CODE PATTERN': [
-    { label: '9999', count: 10, key: 7 },
-    { label: '99999', count: 5, key: 8 },
-    { label: '999999', count: 8, key: 9 },
-  ],
-};
-
 export default observer(function FiltersBlock() {
   const [collapsed, setCollapsed] = useState(true);
   const [priceRange, setPriceRange] = useState([0, 1000]);
+  const { allProducts } = productsStore;
+
+  const filterData = {
+    CATEGORY: [...new Set(allProducts.map((product) => product.category))].map((category, index) => ({
+      label: category,
+      count: allProducts.filter((product) => product.category === category).length,
+      key: index + 1,
+    })),
+    COLOR: [...new Set(allProducts.map((product) => product.color))].map((color, index) => ({
+      label: color,
+      count: allProducts.filter((product) => product.color === color).length,
+      key: index + 100,
+    })),
+    RATING: [...new Set(allProducts.map((product) => product.rating))].map((rating, index) => ({
+      label: rating.toString(),
+      count: allProducts.filter((product) => product.rating === rating).length,
+      key: index + 200,
+    })),
+    WEIGHT: [...new Set(allProducts.map((product) => product.weight))].map((weight, index) => ({
+      label: `${weight} kg`,
+      count: allProducts.filter((product) => product.weight === weight).length,
+      key: index + 300,
+    })),
+    'WHEEL BASE': [
+      ...new Set(allProducts.flatMap((product) => Object.values(product.sizing).map((s) => s['Wheel Base']))),
+    ].map((wheelBase, index) => ({
+      label: `${wheelBase} mm`,
+      count: allProducts.filter((product) => Object.values(product.sizing).some((s) => s['Wheel Base'] === wheelBase))
+        .length,
+      key: index + 400,
+    })),
+    'FRAME SIZE': [...new Set(allProducts.flatMap((product) => Object.keys(product.sizing)))].map(
+      (frameSize, index) => ({
+        label: frameSize,
+        count: allProducts.filter((product) => Object.keys(product.sizing).includes(frameSize)).length,
+        key: index + 500,
+      })
+    ),
+  };
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);

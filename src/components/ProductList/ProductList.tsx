@@ -13,7 +13,7 @@ import TestCard from '../ProductCard/TestCard';
 
 export default observer(function ProductList() {
   const PAGE_SIZE = 8;
-  const { products, productsState } = productsStore;
+  const { allProducts, productsState } = productsStore;
 
   return (
     <List
@@ -27,9 +27,9 @@ export default observer(function ProductList() {
         showSizeChanger: false,
         align: 'center',
       }}
-      dataSource={products}
+      dataSource={allProducts}
       renderItem={(product) => {
-        return <List.Item key={product._id} actions={[<TestCard {...product} loading={productsState} />]} />;
+        return <List.Item key={String(product._id)} actions={[<TestCard {...product} loading={productsState} />]} />;
       }}
       className={styles['product-list']}
     />

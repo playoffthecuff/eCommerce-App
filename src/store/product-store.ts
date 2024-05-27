@@ -1,10 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { Country, productsService } from '../utils/product-service';
-// import { Product } from '../types/types';
+import { productsService } from '../utils/product-service';
+import { ProductData } from '../types/types';
 import { BootState } from '../enums';
 
 class ProductsStore {
-  private _products: Country[] = [];
+  // private _products: Product[] = [];
+
+  private _allProducts: ProductData[] = [];
 
   private _state: BootState = BootState.None;
 
@@ -14,12 +16,19 @@ class ProductsStore {
     makeAutoObservable(this);
   }
 
-  public get products(): Country[] {
+  // public get products(): Product[] {
+  //   if (this._state === BootState.None) {
+  //     this.loadProducts();
+  //   }
+  //   return this._products;
+  // }
+
+  public get allProducts(): ProductData[] {
     if (this._state === BootState.None) {
-      this.loadProducts();
+      this.loadAllProducts();
     }
-    console.log(this._products);
-    return this._products;
+
+    return this._allProducts;
   }
 
   public get productsState(): BootState {
@@ -30,11 +39,29 @@ class ProductsStore {
     return this._error;
   }
 
-  private async loadProducts(): Promise<void> {
+  // private async loadProducts(): Promise<void> {
+  //   this._state = BootState.InProgress;
+  //   this._error = undefined;
+
+  //   const [products, error] = await productsService.loadProducts();
+
+  //   if (error) {
+  //     this._state = BootState.Failed;
+  //     this._error = (error as Error).toString();
+  //     return;
+  //   }
+
+  //   runInAction(() => {
+  //     this._products = products;
+  //     this._state = BootState.Success;
+  //   });
+  // }
+
+  private async loadAllProducts(): Promise<void> {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    const [products, error] = await productsService.loadProducts();
+    const [products, error] = await productsService.loadAllProducts();
 
     if (error) {
       this._state = BootState.Failed;
@@ -43,7 +70,7 @@ class ProductsStore {
     }
 
     runInAction(() => {
-      this._products = products;
+      this._allProducts = products;
       this._state = BootState.Success;
     });
   }

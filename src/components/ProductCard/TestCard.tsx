@@ -1,5 +1,7 @@
 import { Card, Rate, Skeleton } from 'antd';
+import classNames from 'classnames';
 
+import { Product } from '../../types/types';
 import { BootState } from '../../enums';
 
 import styles from './TestCard.module.css';
@@ -9,29 +11,50 @@ import image1 from '../../assets/images/670961-1_1800x1800.webp';
 const { Meta } = Card;
 
 type ProductCardProps = {
-  abbrev?: string;
-  name?: string;
-  postalCodePattern?: string;
-  loading?: BootState;
-};
+  loading: BootState;
+} & Product;
 
-export default function TestCard({ abbrev, name, postalCodePattern, loading }: ProductCardProps) {
+export default function TestCard({
+  price,
+  rating,
+  title,
+  loading,
+  'discounted price': discountedPrice,
+}: ProductCardProps) {
   return (
     <Card
       className={styles.productCard}
       hoverable
       cover={
-        loading !== BootState.InProgress ? (
+        loading === BootState.InProgress ? (
           <Skeleton.Image className={styles.productImage} active />
         ) : (
-          <img alt={name} src={image1} className={styles.productImage} />
+          <img alt={title} src={image1} className={styles.productImage} />
         )
       }
     >
-      <Skeleton loading={loading !== BootState.InProgress} active>
-        <Meta title={name} description={abbrev} />
-        <div className={styles.productPrice}>${postalCodePattern}</div>
-        <Rate allowHalf defaultValue={4} />
+      <Skeleton loading={loading === BootState.InProgress} active>
+        <Meta title={title} />
+        <div className={styles.productPrice}>
+          {discountedPrice ? (
+            <>
+              <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
+              <span className={styles.discountedPrice}>${discountedPrice}</span>
+            </>
+          ) : (
+            <span>${price}</span>
+          )}
+        </div>
+        <div className={styles['rate-wrapper']}>
+          <Rate
+            allowHalf
+            defaultValue={rating}
+            disabled
+            className={styles.rate}
+            style={{ color: 'black', fontSize: 10 }}
+          />
+          <div className={styles['rate-line']} />
+        </div>
       </Skeleton>
     </Card>
   );
