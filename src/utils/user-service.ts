@@ -5,6 +5,8 @@ import {
   EmailAvailabilityResponse,
   SignUpArg,
   SignUpResponse,
+  UpdateUserArg,
+  User,
 } from '../types/authorization-response';
 
 const UserService = {
@@ -83,6 +85,17 @@ const UserService = {
       }
     }
     return [response, message];
+  },
+
+  async update(arg: UpdateUserArg): Promise<[User, undefined] | [undefined, Error]> {
+    try {
+      const resp = await api.patch('/users', arg, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
   },
 };
 

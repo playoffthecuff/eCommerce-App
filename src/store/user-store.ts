@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { SignUpArg, SignUpResponse, User } from '../types/authorization-response';
+import { SignUpArg, SignUpResponse, UpdateUserArg, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
 import { BootState } from '../enums';
 
@@ -105,6 +105,18 @@ class UserStore {
         this._bootState = BootState.Success;
       });
     }
+  }
+
+  public async update(arg: UpdateUserArg): Promise<void> {
+    const [updatedUser, error] = await UserService.update(arg);
+    if (error) {
+      this._bootState = BootState.Failed;
+      throw error;
+    }
+    runInAction(() => {
+      this._isAuthorized = true;
+      this._user = updatedUser;
+    });
   }
 }
 

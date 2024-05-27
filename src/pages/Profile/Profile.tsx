@@ -1,9 +1,9 @@
-import ProfilePage from '../../components/ProfileForm/ProfileForm';
+import { ProfileForm } from '../../components/ProfileForm/ProfileForm';
 
 function Profile() {
   return (
     <div className="wrapper" style={{ justifyContent: 'start' }}>
-      <ProfilePage />
+      <ProfileForm />
     </div>
   );
 }

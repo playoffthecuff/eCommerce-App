@@ -1,6 +1,6 @@
 export type User = {
-  id: string | null;
-  email: string | null;
+  id: string;
+  email: string;
   isActivated: boolean;
   firstName: string;
   lastName: string;
@@ -46,4 +46,15 @@ export type SignUpResponse = {
 export type EmailAvailabilityResponse = {
   email: string;
   exists: boolean;
+};
+
+export type UpdateUserArg = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  addresses?: {
+    shippingAddresses: Address[];
+    billingAddresses: Address[];
+  };
 };
