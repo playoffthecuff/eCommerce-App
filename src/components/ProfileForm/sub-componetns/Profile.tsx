@@ -1,46 +1,57 @@
-import dayjs from 'dayjs';
+import { useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker, Form, Input, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import styles from '../ProfileForm.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 import { dateOfBirthValidator, emailRules, nameRules } from '../../../utils/fields-validation';
-// import userStore from '../../../store/user-store';
+import userStore from '../../../store/user-store';
 
-const user = {
-  email: 'test1000@test.com',
-  id: '6653096f43ca503628709783',
-  isActivated: false,
-  firstName: 'asdfasd',
-  lastName: 'testest',
-  dateOfBirth: '1999-12-31T22:00:00.000Z',
-  addresses: {
-    shipping: [
-      {
-        street: 'SomeStreet',
-        city: 'SomeCity',
-        postalCode: '9999',
-        country: 'Australia',
-        isDefault: true,
-        id: '6653096f43ca503628709784',
-      },
-    ],
-    billing: [
-      {
-        street: 'SomeStreet',
-        city: 'SomeCity',
-        postalCode: '9999',
-        country: 'Australia',
-        isDefault: true,
-        id: '6653096f43ca503628709785',
-      },
-    ],
-  },
+type Fields = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: Dayjs;
 };
 
 export const PersonalData = observer(() => {
+  const [editing, setEditing] = useState(false);
+  const [form] = Form.useForm();
+  const [isValid, setIsValid] = useState(true);
+  const user = userStore.user!;
+
+  const handleUpdateData = () => {
+    setEditing(false);
+    const fields: Fields = form.getFieldsValue(true);
+    if (
+      fields.firstName === user.firstName &&
+      fields.lastName === user.lastName &&
+      fields.email === user.email &&
+      dayjs(user.dateOfBirth).diff(fields.dateOfBirth) === 0
+    ) {
+      return;
+    }
+    // TODO
+    // updateUserData();
+    console.log(fields, user);
+  };
+
+  const checkIfFormValid = (): void => {
+    const fields = form.getFieldsError();
+    for (const field of fields) {
+      if (field.errors.length > 0) {
+        setIsValid(false);
+        return;
+      }
+    }
+    setIsValid(true);
+  };
+
   return (
     <div className={styles['profile-form']}>
       <Form
+        form={form}
+        onFieldsChange={() => checkIfFormValid()}
         initialValues={{
           firstName: user.firstName,
           lastName: user.lastName,
@@ -48,7 +59,7 @@ export const PersonalData = observer(() => {
           dateOfBirth: dayjs(user.dateOfBirth),
         }}
         layout="vertical"
-        disabled
+        disabled={!editing}
       >
         <Typography.Title level={3}>Personal Data</Typography.Title>
         <Form.Item label="First name" name="firstName" rules={nameRules} hasFeedback>
@@ -69,9 +80,16 @@ export const PersonalData = observer(() => {
           <DatePicker data-testid="dateOfBirth" placeholder="DD.MM.YEAR" format="DD.MM.YYYY" />
         </Form.Item>
       </Form>
-      <CustomButton variety="common" htmlType="submit" block>
-        EDIT DATA
-      </CustomButton>
+      {!editing && (
+        <CustomButton variety="common" htmlType="submit" onClick={() => setEditing(true)} block>
+          EDIT DATA
+        </CustomButton>
+      )}
+      {editing && (
+        <CustomButton variety="common" htmlType="submit" onClick={() => handleUpdateData()} disabled={!isValid} block>
+          UPDATE DATA
+        </CustomButton>
+      )}
     </div>
   );
 });
