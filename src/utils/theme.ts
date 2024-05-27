@@ -1,12 +1,12 @@
 import { ThemeConfig } from 'antd';
 
-export function getUserTheme() {
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const userTheme = localStorage.getItem('theme') ?? systemTheme;
-  return userTheme;
+export type Theme = 'light' | 'dark';
+
+export function getSystemTheme(): Theme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-const theme: ThemeConfig = {
+const customTheme: ThemeConfig = {
   // cssVar: true,
   // hashed: false,
   token: {
@@ -19,11 +19,11 @@ const theme: ThemeConfig = {
     colorPrimaryHover: '#111',
     colorError: '#ad4426',
     colorSuccess: '#44ad26',
-    colorLink: 'var(--color-link)',
+    colorLink: '#2644ad',
     colorLinkHover: '#5875da',
     linkDecoration: 'underline',
     linkHoverDecoration: 'underline',
-    colorText: '#111',
+    colorText: 'var(--color-text)',
     colorBgContainerDisabled: 'var(--color-bg-container-disabled)',
     colorTextDisabled: 'var(--color-button-disabled-text)',
   },
@@ -48,13 +48,15 @@ const theme: ThemeConfig = {
       itemPaddingInline: 12,
       horizontalItemSelectedColor: 'var(--color-menu-item-selected)',
       fontFamily: 'Futura',
+      colorBgContainer: 'var(--color-menu-background)',
     },
     Layout: {
-      headerBg: 'var(--color-background)',
+      headerBg: 'var(--color-header-background)',
       bodyBg: 'var(--color-background)',
       headerHeight: 48,
+      footerBg: 'var(--color-footer-background)',
     },
   },
 };
 
-export default theme;
+export default customTheme;

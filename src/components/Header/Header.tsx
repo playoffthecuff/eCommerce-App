@@ -8,6 +8,8 @@ import {
   UserOutlined,
   TeamOutlined,
   WalletOutlined,
+  MoonFilled,
+  SunFilled,
 } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -17,14 +19,15 @@ import { LogoIcon } from '../CustomIcons/CustomIcons';
 
 import styles from './Header.module.css';
 import userStore from '../../store/user-store';
-import { getUserTheme } from '../../utils/theme';
+import { getSystemTheme } from '../../utils/theme';
+import themeStore from '../../store/theme-store';
 
 const { Title, Link } = Typography;
 const { Header: AntHeader } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 const paths = {
-  '/shop': 'SHOP',
+  '/catalog': 'SHOP',
   '/login': 'SIGN IN',
   '/registration': 'SIGN UP',
   '/about': 'ABOUT US',
@@ -35,7 +38,7 @@ const paths = {
 function Header() {
   const [currentMenuItem, setCurrentMenuItem] = useState('');
   const [isBurgerOpen, setBurgerOpen] = useState(false);
-  const [themeSwitch, setThemeSwitch] = useState(getUserTheme() === 'dark');
+  const [themeSwitch, setThemeSwitch] = useState(themeStore.theme === 'dark');
   useEffect(() => {
     if (isBurgerOpen) {
       document.body.classList.add('no-scroll');
@@ -97,48 +100,57 @@ function Header() {
 
   const changeTheme = (value: boolean) => {
     setThemeSwitch(value);
-    const theme = value ? 'dark' : 'light';
-    localStorage.setItem('theme', theme);
-    document.documentElement.dataset.theme = theme;
+    if (value) {
+      themeStore.setDark();
+    } else {
+      themeStore.setLight();
+    }
   };
 
   return (
-    <AntHeader className={styles.header}>
-      <div className={styles['layout-container']}>
-        <Link href="#/">
-          <div className={styles.logo}>
-            <LogoIcon />
-            <Title level={5}>Cycling Dependency</Title>
+    <>
+      <AntHeader className={styles.header}>
+        <div className={styles['layout-container']}>
+          <Link href="#/">
+            <div className={styles.logo}>
+              <LogoIcon />
+              <Title level={5}>Cycling Dependency</Title>
+            </div>
+          </Link>
+          <div className={styles['burger-wrapper']} onClick={burgerClick}>
+            <div className={styles['burger-button-wrapper']}>
+              <div className={classNames(styles.burgerButton, { [styles.active]: isBurgerOpen })} />
+            </div>
           </div>
-        </Link>
-        <div className={styles['burger-wrapper']} onClick={burgerClick}>
-          <div className={styles['burger-button-wrapper']}>
-            <div className={classNames(styles.burgerButton, { [styles.active]: isBurgerOpen })} />
-          </div>
+          <Menu
+            className={styles['burger-menu']}
+            style={{ lineHeight: '2rem' }}
+            mode="horizontal"
+            items={menuItems}
+            selectedKeys={[currentMenuItem]}
+            onClick={menuClick}
+          />
+          <Menu
+            className={styles.menu}
+            style={{ lineHeight: '2rem' }}
+            mode="horizontal"
+            items={[
+              {
+                key: 'Cart',
+                icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
+              },
+            ]}
+            selectedKeys={[currentMenuItem]}
+            onClick={menuClick}
+          />
+          <Switch
+            onChange={changeTheme}
+            checked={themeSwitch}
+            checkedChildren={<MoonFilled />}
+            unCheckedChildren={<SunFilled />}
+          />
         </div>
-        <Menu
-          className={styles['burger-menu']}
-          style={{ lineHeight: '2rem' }}
-          mode="horizontal"
-          items={menuItems}
-          selectedKeys={[currentMenuItem]}
-          onClick={menuClick}
-        />
-        <Menu
-          className={styles.menu}
-          style={{ lineHeight: '2rem' }}
-          mode="horizontal"
-          items={[
-            {
-              key: 'Cart',
-              icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
-            },
-          ]}
-          selectedKeys={[currentMenuItem]}
-          onClick={menuClick}
-        />
-        <Switch onChange={changeTheme} checked={themeSwitch} checkedChildren="Dark" unCheckedChildren="Light" />
-      </div>
+      </AntHeader>
       <Sider
         width="100%"
         className={classNames(styles.sider, { [styles.active]: isBurgerOpen })}
@@ -146,7 +158,7 @@ function Header() {
       >
         <Menu mode="inline" selectedKeys={[currentMenuItem]} onClick={menuClick} items={menuItems} />
       </Sider>
-    </AntHeader>
+    </>
   );
 }
 
