@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker, Form, Input, Spin, Typography, notification } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { AxiosError } from 'axios';
+import dayjs from 'dayjs';
 import CustomButton from '../../CustomButton/CustomButton';
 import { dateOfBirthValidator, emailRules, nameRules } from '../../../utils/fields-validation';
 import userStore from '../../../store/user-store';
 import styles from '../ProfileForm.module.css';
-
-type Fields = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  dateOfBirth: Dayjs;
-};
+import { Fields } from '../types';
 
 export const PersonalData = observer(() => {
   const [isLoading, setIsLoading] = useState(false);
