@@ -7,7 +7,6 @@ import { passwordRules } from '../../../utils/fields-validation';
 export function PasswordData() {
   const [isValid, setIsValid] = useState(false);
   const [form] = Form.useForm();
-
   const checkIfFormValid = (): void => {
     const fields = form.getFieldsError();
     for (const field of fields) {
@@ -26,7 +25,24 @@ export function PasswordData() {
         <Form.Item label="Enter your password" name="password" rules={passwordRules} hasFeedback validateFirst>
           <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />
         </Form.Item>
-        <Form.Item label="Enter new password" name="newPassword" rules={passwordRules} hasFeedback validateFirst>
+        <Form.Item
+          label="Enter new password"
+          dependencies={['password']}
+          name="newPassword"
+          rules={[
+            ...passwordRules,
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') !== value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('The new password you entered is the same as the previous one!'));
+              },
+            }),
+          ]}
+          hasFeedback
+          validateFirst
+        >
           <Input.Password data-testid="password" type="password" placeholder="Enter new password..." />
         </Form.Item>
         <Form.Item
@@ -49,10 +65,10 @@ export function PasswordData() {
         >
           <Input.Password data-testid="password" type="password" placeholder="Enter new password..." />
         </Form.Item>
+        <CustomButton variety="common" htmlType="submit" disabled={!isValid} block>
+          CHANGE PASSWORD
+        </CustomButton>
       </Form>
-      <CustomButton variety="common" htmlType="submit" disabled={!isValid} block>
-        CHANGE PASSWORD
-      </CustomButton>
     </div>
   );
 }
