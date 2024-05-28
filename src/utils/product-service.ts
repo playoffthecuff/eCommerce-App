@@ -2,17 +2,6 @@ import api from './api';
 import { FiltersData, Payload, ResponseData } from '../types/types';
 
 class ProductsService {
-  // loadProducts = async (filters: FiltersData): Promise<[ProductData[], Error | undefined]> => {
-  //   try {
-  //     const resp = await api.post<ProductData[]>('/products', filters);
-  //     console.log(resp.data);
-
-  //     return [resp.data, undefined];
-  //   } catch (error) {
-  //     return [[], error as Error];
-  //   }
-  // };
-
   loadProducts = async (payload: Payload): Promise<[ResponseData, Error | undefined]> => {
     try {
       const resp = await api.post<ResponseData>('/products', payload);

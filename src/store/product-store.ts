@@ -95,10 +95,11 @@ class ProductsStore {
 
     this._payload.filters = filters;
 
-    const [products, error] = await productsService.loadProducts(this._payload);
+    const [responseData, error] = await productsService.loadProducts(this._payload);
 
     runInAction(() => {
-      this._products = products?.products;
+      this._products = responseData.products;
+      this._totalPage = responseData.total;
       // this._state = BootState.Success;
     });
 
