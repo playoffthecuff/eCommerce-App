@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { productsService } from '../utils/product-service';
-import { ProductData } from '../types/types';
+import { ProductData, Filters } from '../types/types';
 import { BootState } from '../enums';
 
 class ProductsStore {
@@ -62,6 +62,25 @@ class ProductsStore {
     this._error = undefined;
 
     const [products, error] = await productsService.loadAllProducts();
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._allProducts = products;
+      this._state = BootState.Success;
+    });
+  }
+
+  public async applyFilters(filters: Filters) {
+    productsStore._state = BootState.InProgress;
+    console.log('filters', filters);
+
+    const [products, error] = await productsService.loadProducts(filters);
+    console.log('filtered products', products);
 
     if (error) {
       this._state = BootState.Failed;

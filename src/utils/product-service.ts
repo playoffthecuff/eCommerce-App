@@ -1,5 +1,5 @@
 import api from './api';
-import { ProductSummary, ProductData } from '../types/types';
+import { ProductData, Filters } from '../types/types';
 
 // export type Country = {
 //   _id: string;
@@ -10,9 +10,9 @@ import { ProductSummary, ProductData } from '../types/types';
 // };
 
 class ProductsService {
-  loadProducts = async (): Promise<[ProductSummary[], Error | undefined]> => {
+  loadProducts = async (filters: Filters): Promise<[ProductData[], Error | undefined]> => {
     try {
-      const resp = await api.post<ProductSummary[]>('/products');
+      const resp = await api.post<ProductData[]>('/products', filters);
       console.log(resp.data);
 
       return [resp.data, undefined];

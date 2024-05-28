@@ -95,3 +95,15 @@ export interface ProductSummary {
   _id: string;
   'discounted price'?: number;
 }
+
+export type Filters = {
+  category?: string[];
+  color?: string[];
+  rating?: number[];
+  weight?: number[];
+  // minBase?: number;
+  // maxBase?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  // frameSize?: string[];
+} | null;
