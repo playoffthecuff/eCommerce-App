@@ -1,6 +1,6 @@
 import { RegistrationForm } from '../../components/RegistrationForm';
 
-function Registration() {
+function RegistrationPage() {
   return (
     <div className="wrapper">
       <RegistrationForm />
@@ -8,4 +8,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default RegistrationPage;

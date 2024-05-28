@@ -1,7 +1,7 @@
 import Hero from '../../components/Hero/Hero';
 import BestBikes from '../../components/BestBikes/BestBikes';
 
-function Main() {
+function MainPage() {
   return (
     <>
       <Hero style={{ maxWidth: '100vw' }} />
@@ -12,4 +12,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default MainPage;
