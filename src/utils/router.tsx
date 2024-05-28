@@ -7,6 +7,7 @@ import AboutPage from '../pages/About/About';
 import CatalogPage from '../pages/Catalog/Catalog';
 import ProfilePage from '../pages/Profile/Profile';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import ProductPage from '../pages/Product/Product';
 
 const router = createHashRouter([
   {
@@ -41,6 +42,10 @@ const router = createHashRouter([
       {
         path: '/about',
         element: <AboutPage />,
+      },
+      {
+        path: '/product',
+        element: <ProductPage />,
       },
       {
         path: '/not-found',
