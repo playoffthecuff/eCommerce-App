@@ -97,13 +97,12 @@ export interface ProductSummary {
 }
 
 export type Filters = {
-  category?: string[];
-  color?: string[];
-  rating?: number[];
+  categories?: string[];
+  colors?: string[];
+  rating?: number;
   weight?: number[];
-  // minBase?: number;
-  // maxBase?: number;
+  wheelBases?: number[];
   minPrice?: number;
   maxPrice?: number;
-  // frameSize?: string[];
+  frameSizes?: string[];
 } | null;

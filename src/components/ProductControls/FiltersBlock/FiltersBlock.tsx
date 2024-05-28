@@ -4,70 +4,35 @@ import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-// import { CheckboxChangeEvent } from 'antd/es/checkbox';
+// import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { productsStore } from '../../../store/product-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 
-import { Filters } from '../../../types/types';
+// import { Filters } from '../../../types/types';
 
 const { Sider } = Layout;
 const { Title } = Typography;
 const { Panel } = Collapse;
 
-// interface Item {
-//   label: string | string[];
-//   count: number;
-//   key: number;
-// }
-
-// type FilterCategory = 'CATEGORY' | 'COLOR' | 'RATING' | 'WEIGHT' | 'WHEEL BASE' | 'FRAME SIZE';
-
 export default observer(function FiltersBlock() {
-  const { allProducts, applyFilters } = productsStore;
-  const minimumPrice = Math.min(...allProducts.map((product) => product.price));
-  const maximumPrice = Math.max(...allProducts.map((product) => product.price));
-  const [collapsed, setCollapsed] = useState(true);
-  const [priceRange, setPriceRange] = useState([minimumPrice, maximumPrice]);
-  const [filters, setFilters] = useState<Filters>(null);
+  const { allProducts } = productsStore;
 
-  const filterData = {
-    CATEGORY: [...new Set(allProducts.map((product) => product.category))].map((category, index) => ({
-      label: category,
-      count: allProducts.filter((product) => product.category === category).length,
-      key: index + 1,
-    })),
-    COLOR: [...new Set(allProducts.map((product) => product.color))].map((color, index) => ({
-      label: color,
-      count: allProducts.filter((product) => product.color === color).length,
-      key: index + 100,
-    })),
-    RATING: [...new Set(allProducts.map((product) => product.rating))].map((rating, index) => ({
-      label: rating.toString(),
-      count: allProducts.filter((product) => product.rating === rating).length,
-      key: index + 200,
-    })),
-    WEIGHT: [...new Set(allProducts.map((product) => product.weight))].map((weight, index) => ({
-      label: `${weight} kg`,
-      count: allProducts.filter((product) => product.weight === weight).length,
-      key: index + 300,
-    })),
-    // 'WHEEL BASE': [
-    //   ...new Set(allProducts.flatMap((product) => Object.values(product.sizing).map((s) => s['Wheel Base']))),
-    // ].map((wheelBase, index) => ({
-    //   label: `${wheelBase} mm`,
-    //   count: allProducts.filter((product) => Object.values(product.sizing).some((s) => s['Wheel Base'] === wheelBase))
-    //     .length,
-    //   key: index + 400,
-    // })),
-    // 'FRAME SIZE': [...new Set(allProducts.flatMap((product) => Object.keys(product.sizing)))].map(
-    //   (frameSize, index) => ({
-    //     label: frameSize,
-    //     count: allProducts.filter((product) => Object.keys(product.sizing).includes(frameSize)).length,
-    //     key: index + 500,
-    //   })
-    // ),
-  };
+  const [collapsed, setCollapsed] = useState(true);
+
+  // Set Initial Filter Values
+  const [categories, setCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [colors, setColors] = useState<string[]>([]);
+  const [wheelBases, setWheelBases] = useState<number[]>([]);
+  const [frameSizes, setFrameSizes] = useState<string[]>([]);
+  // const [rating, setRating] = useState<[number, number]>([0, 5]);
+
+  // Selected Filter Values
+  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  // const [selectedWheelBases, setSelectedWheelBases] = useState<number[]>([]);
+  // const [selectedFrameSizes, setSelectedFrameSizes] = useState<string[]>([]);
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -79,57 +44,68 @@ export default observer(function FiltersBlock() {
     document.body.style.overflow = 'auto';
   };
 
-  const handlePriceChange = (value: number[]) => {
-    setPriceRange(value);
+  // const onCategoryChange = (checkedValues: string[]) => {
+  //   setSelectedCategories(checkedValues);
+  // };
+
+  const onColorChange = (checkedValues: string[]) => {
+    setSelectedColors(checkedValues);
+    console.log(selectedColors);
+    console.log(frameSizes);
   };
 
-  // const handleCategoryChange = (selectedCategories: string[]): void => {
-  //   setFilters({ ...filters, category: selectedCategories });
+  // const onWheelBaseChange = (checkedValues: number[]) => {
+  //   setSelectedWheelBases(checkedValues);
   // };
 
-  // const handleColorChange = (event: CheckboxChangeEvent): void => {
-  //   const currentCheckbox = event.target as HTMLInputElement;
-
-  //   if (currentCheckbox.checked) {
-  //     const selectedColor = currentCheckbox.value;
-
-  //     if (selectedColor) {
-  //       setFilters({ ...filters, color: [selectedColor] });
-  //     }
-  //   }
-
-  //   console.log(filters);
+  // const onFrameSizeChange = (checkedValues: string[]) => {
+  //   setSelectedFrameSizes(checkedValues);
   // };
 
-  // const handleRatingChange = (selectedRating: number): void => {
-  //   setFilters({ ...filters, rating: selectedRating });
+  // const onPriceChange = (value: [number, number]) => {
+  //   setPriceRange(value);
   // };
 
-  // const handleWeightChange = (selectedWeight: number): void => {
-  //   setFilters({ ...filters, weight: selectedWeight });
+  // const onRatingChange = (value: number) => {
+  //   setRating(value);
   // };
 
-  // const handleWheelBaseChange = (minBase: number, maxBase: number): void => {
-  //   setFilters({ ...filters, minBase, maxBase });
+  // const handleApplyFilters = () => {
+  //   applyFilters(filters);
   // };
 
-  const handleFilterPriceChange = (minPrice: number, maxPrice: number): void => {
-    setFilters({ ...filters, minPrice, maxPrice });
-  };
+  useEffect(() => {
+    const uniqueValues = <T,>(arr: T[]): T[] => [...new Set(arr)];
 
-  // const handleFrameSizeChange = (selectedFrameSizes: string[]): void => {
-  //   setFilters({ ...filters, frameSize: selectedFrameSizes });
-  // };
+    const filtersCategories = uniqueValues(allProducts.map((product) => product.category || ''));
+    const filtersColors = uniqueValues(allProducts.map((product) => product.color || ''));
+    const filtersWheelBases = uniqueValues(
+      allProducts.flatMap((product) => Object.values(product.sizing).map((size) => size['Wheel Base']))
+    );
+    const filtersFrameSizes = uniqueValues(Object.keys(allProducts.flatMap((product) => Object.keys(product.sizing))));
 
-  const handleApplyFilters = () => {
-    applyFilters(filters);
-  };
+    const filtersMinPrice = Math.min(...allProducts.map((product) => product.price || 0));
+    const filtersMaxPrice = Math.max(...allProducts.map((product) => product.price || 0));
+
+    setCategories(filtersCategories);
+    setColors(filtersColors);
+    setWheelBases(filtersWheelBases);
+    setFrameSizes(filtersFrameSizes);
+    setPriceRange([filtersMinPrice, filtersMaxPrice]);
+  }, [allProducts]);
 
   useEffect(() => {
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  const applyFilters = () => {
+    productsStore.applyFilters({
+      colors: selectedColors,
+    });
+    closeMenu();
+  };
 
   return (
     <div className={styles['filters-block-wrapper']}>
@@ -147,7 +123,33 @@ export default observer(function FiltersBlock() {
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>
-        <Collapse bordered={false} defaultActiveKey={['1']} className={styles['filter-collapse']}>
+        <Collapse bordered={false} className={styles['filter-collapse']}>
+          <Panel header="PRICE" key="3" className={styles['filter-panel']}>
+            <Slider range defaultValue={[priceRange[0], priceRange[1]]} min={priceRange[0]} max={priceRange[1]} />
+            <div className={styles['price-range']}>
+              ${priceRange[0]} - ${priceRange[1]}
+            </div>
+          </Panel>
+          <Panel header="CATEGORIES" key="1" className={styles['filter-panel']}>
+            <Checkbox.Group options={categories} className={styles['filter-group']} />
+          </Panel>
+          <Panel header="COLORS" key="2" className={styles['filter-panel']}>
+            <Checkbox.Group options={colors} className={styles['filter-group']} onChange={onColorChange} />
+          </Panel>
+          {/* <Panel header="RATING" key="4" className={styles['filter-panel']}>
+            <Slider min={0} max={5} step={0.1} />
+          </Panel> */}
+          <Panel header="WHEEL BASE" key="5" className={styles['filter-panel']}>
+            <Checkbox.Group options={wheelBases.map(String)} className={styles['filter-group']} />
+          </Panel>
+          {/* <Panel header="FRAME SIZE" key="6" className={styles['filter-panel']}>
+            <Checkbox.Group options={frameSizes} />
+          </Panel> */}
+          {/* <Button type="primary" onClick={applyFilters}>
+                Apply Filters
+            </Button> */}
+        </Collapse>
+        {/* <Collapse bordered={false} defaultActiveKey={['1']} className={styles['filter-collapse']}>
           <Panel header="PRICE" key="0" className={styles['filter-panel']}>
             <div className={styles['filter-item']}>
               <Slider
@@ -178,9 +180,9 @@ export default observer(function FiltersBlock() {
               ))}
             </Panel>
           ))}
-        </Collapse>
+        </Collapse> */}
         <div className={styles['apply-button-wrapper']}>
-          <CustomButton style={{ width: '100px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
+          <CustomButton style={{ width: '100px' }} variety="common" htmlType="button" onClick={applyFilters}>
             Apply
           </CustomButton>
         </div>

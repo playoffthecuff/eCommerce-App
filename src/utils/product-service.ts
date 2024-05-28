@@ -23,7 +23,7 @@ class ProductsService {
 
   loadAllProducts = async (): Promise<[ProductData[], Error | undefined]> => {
     try {
-      const resp = await api.get<ProductData[]>('/products');
+      const resp = await api.post<ProductData[]>('/products');
       console.log(resp.data);
 
       return [resp.data, undefined];
