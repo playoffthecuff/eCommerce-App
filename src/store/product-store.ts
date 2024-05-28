@@ -1,25 +1,46 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { productsService } from '../utils/product-service';
-import { ProductData, Filters } from '../types/types';
+import { FiltersData, ProductSummary, Payload } from '../types/types';
 import { BootState } from '../enums';
 
 class ProductsStore {
-  private _allProducts: ProductData[] = [];
+  private _products: ProductSummary[] = [];
+
+  private _filters: FiltersData = {};
+
+  private _totalPage: number = 0;
 
   private _state: BootState = BootState.None;
 
   private _error: string | undefined;
 
+  private _payload: Payload = {
+    query: '',
+    filters: {},
+    // sorts: [{ field: 'name', order: 'ASC' }],
+    page: 1,
+    pageSize: 8,
+  };
+
   constructor() {
     makeAutoObservable(this);
+    this.loadFilters();
   }
 
-  public get allProducts(): ProductData[] {
+  public get products(): ProductSummary[] {
     if (this._state === BootState.None) {
-      this.loadAllProducts();
+      this.loadProducts();
     }
 
-    return this._allProducts;
+    return this._products;
+  }
+
+  public get filters(): FiltersData {
+    return this._filters;
+  }
+
+  public get totalPage(): number {
+    return this._totalPage;
   }
 
   public get productsState(): BootState {
@@ -30,11 +51,11 @@ class ProductsStore {
     return this._error;
   }
 
-  private async loadAllProducts(): Promise<void> {
+  private async loadProducts(): Promise<void> {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    const [products, error] = await productsService.loadAllProducts();
+    const [responseData, error] = await productsService.loadProducts(this._payload);
 
     if (error) {
       this._state = BootState.Failed;
@@ -43,27 +64,47 @@ class ProductsStore {
     }
 
     runInAction(() => {
-      this._allProducts = products;
+      this._products = responseData.products;
+      this._totalPage = responseData.total;
       this._state = BootState.Success;
     });
   }
 
-  public async applyFilters(filters: Filters) {
-    productsStore._state = BootState.InProgress;
-    console.log('filters', filters);
+  private async loadFilters(): Promise<void> {
+    // this._state = BootState.InProgress;
+    this._error = undefined;
 
-    const [products, error] = await productsService.loadProducts(filters);
-    console.log('filtered products', products);
+    const [filters, error] = await productsService.loadFilters();
 
     if (error) {
-      this._state = BootState.Failed;
-      this._error = (error as Error).toString();
+      runInAction(() => {
+        this._state = BootState.Failed;
+        this._error = (error as Error).toString();
+      });
       return;
     }
 
     runInAction(() => {
-      this._allProducts = products;
-      this._state = BootState.Success;
+      this._filters = filters;
+      // this._state = BootState.Success;
+    });
+  }
+
+  public async applyFilters(filters: FiltersData) {
+    // this._state = BootState.InProgress;
+
+    this._payload.filters = filters;
+
+    const [products, error] = await productsService.loadProducts(this._payload);
+
+    runInAction(() => {
+      this._products = products?.products;
+      // this._state = BootState.Success;
+    });
+
+    runInAction(() => {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
     });
   }
 }

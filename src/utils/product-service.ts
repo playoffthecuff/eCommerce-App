@@ -1,34 +1,36 @@
 import api from './api';
-import { ProductData, Filters } from '../types/types';
-
-// export type Country = {
-//   _id: string;
-//   abbrev: string;
-//   name: string;
-//   postalCodePattern: string;
-//   postalRegex: string;
-// };
+import { FiltersData, Payload, ResponseData } from '../types/types';
 
 class ProductsService {
-  loadProducts = async (filters: Filters): Promise<[ProductData[], Error | undefined]> => {
+  // loadProducts = async (filters: FiltersData): Promise<[ProductData[], Error | undefined]> => {
+  //   try {
+  //     const resp = await api.post<ProductData[]>('/products', filters);
+  //     console.log(resp.data);
+
+  //     return [resp.data, undefined];
+  //   } catch (error) {
+  //     return [[], error as Error];
+  //   }
+  // };
+
+  loadProducts = async (payload: Payload): Promise<[ResponseData, Error | undefined]> => {
     try {
-      const resp = await api.post<ProductData[]>('/products', filters);
+      const resp = await api.post<ResponseData>('/products', payload);
       console.log(resp.data);
 
       return [resp.data, undefined];
     } catch (error) {
-      return [[], error as Error];
+      return [{ products: [], total: 0 }, error as Error];
     }
   };
 
-  loadAllProducts = async (): Promise<[ProductData[], Error | undefined]> => {
+  loadFilters = async (): Promise<[FiltersData, Error | undefined]> => {
     try {
-      const resp = await api.post<ProductData[]>('/products');
-      console.log(resp.data);
+      const resp = await api.post<FiltersData>('/products/filters');
 
       return [resp.data, undefined];
     } catch (error) {
-      return [[], error as Error];
+      return [{}, error as Error];
     }
   };
 }

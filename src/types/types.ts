@@ -96,13 +96,36 @@ export interface ProductSummary {
   'discounted price'?: number;
 }
 
-export type Filters = {
+export interface ResponseData {
+  products: ProductSummary[];
+  total: number;
+}
+
+export type FiltersData = {
   categories?: string[];
   colors?: string[];
-  rating?: number;
+  rating?: number[];
   weight?: number[];
-  wheelBases?: number[];
+  // wheelBases?: number[];
   minPrice?: number;
   maxPrice?: number;
   frameSizes?: string[];
 } | null;
+
+export interface Filter {
+  key: string;
+  value: string[] | number[];
+}
+
+export interface Sort {
+  field: string;
+  order: 'ASC' | 'DESC';
+}
+
+export interface Payload {
+  query: string;
+  filters: FiltersData;
+  // sorts: Sort[];
+  page: number;
+  pageSize: number;
+}

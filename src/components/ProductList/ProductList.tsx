@@ -13,7 +13,7 @@ import TestCard from '../ProductCard/TestCard';
 
 export default observer(function ProductList() {
   const PAGE_SIZE = 8;
-  const { allProducts, productsState } = productsStore;
+  const { products, productsState, totalPage } = productsStore;
 
   return (
     <List
@@ -26,8 +26,9 @@ export default observer(function ProductList() {
         pageSize: PAGE_SIZE,
         showSizeChanger: false,
         align: 'center',
+        total: totalPage,
       }}
-      dataSource={allProducts}
+      dataSource={products}
       renderItem={(product) => {
         return <List.Item key={String(product._id)} actions={[<TestCard {...product} loading={productsState} />]} />;
       }}
