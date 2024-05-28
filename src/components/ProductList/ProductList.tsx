@@ -10,13 +10,17 @@ export default observer(function ProductList() {
   const PAGE_SIZE = 8;
   const { products, productsState, totalPage } = productsStore;
 
+  const handlePageChange = (page: number) => {
+    productsStore.changePage(page);
+  };
+
   return (
     <List
       itemLayout="vertical"
       size="large"
       pagination={{
         onChange: (page) => {
-          console.log(page);
+          handlePageChange(page);
         },
         pageSize: PAGE_SIZE,
         showSizeChanger: false,

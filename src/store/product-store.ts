@@ -90,6 +90,25 @@ class ProductsStore {
     });
   }
 
+  public async changePage(page: number) {
+    // this._state = BootState.InProgress;
+
+    this._payload.page = page;
+
+    const [responseData, error] = await productsService.loadProducts(this._payload);
+
+    runInAction(() => {
+      this._products = responseData.products;
+      this._totalPage = responseData.total;
+      // this._state = BootState.Success;
+    });
+
+    runInAction(() => {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+    });
+  }
+
   public async applyFilters(filters: FiltersData) {
     // this._state = BootState.InProgress;
 
