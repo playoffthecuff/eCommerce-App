@@ -61,6 +61,7 @@ html {
   --color-bg-container-disabled: #d3d3d3;
   --color-error: #ad4426;
   --shadow: 0.5rem #0003;
+  --color-carousel-text: #fff;
 }
 
 :root[data-theme='dark'] {
@@ -83,6 +84,7 @@ html {
   --color-button-disabled-text: #a9a9a9;
   --color-error: #ad4426;
   --shadow: 0.5rem #0003;
+  --color-carousel-text: #000;
 }
 
 input:-webkit-autofill {
@@ -201,4 +203,8 @@ h5.ant-typography {
 .ant-carousel .slick-dots li button,
 .ant-carousel .slick-dots li.slick-active button {
   background-color: var(--bullet-color);
+}
+
+.ant-card-meta-detail .ant-card-meta-title {
+  white-space: normal;
 }

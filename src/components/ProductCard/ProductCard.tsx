@@ -34,7 +34,7 @@ export default function TestCard({
       }
     >
       <Skeleton loading={loading === BootState.InProgress} active>
-        <Meta title={title} />
+        <Meta title={title} className={styles['product-title']} />
         <div className={styles.productPrice}>
           {discountedPrice ? (
             <>
@@ -51,7 +51,7 @@ export default function TestCard({
             defaultValue={rating}
             disabled
             className={styles.rate}
-            style={{ color: 'black', fontSize: 10 }}
+            style={{ color: 'var(--color-text)', fontSize: 10 }}
           />
           <div className={styles['rate-line']} />
         </div>
