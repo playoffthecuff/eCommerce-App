@@ -208,3 +208,15 @@ h5.ant-typography {
 .ant-card-meta-detail .ant-card-meta-title {
   white-space: normal;
 }
+
+.ant-slider .ant-slider-track {
+  background-color: var(--color-primary);
+}
+
+.ant-slider .ant-slider-track {
+  background-color: var(--color-primary);
+}
+
+.ant-slider:hover .ant-slider-track {
+  background-color: var(--color-link);
+}
