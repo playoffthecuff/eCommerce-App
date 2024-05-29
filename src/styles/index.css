@@ -3,51 +3,100 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --color-footer-text: #fff;
+  --color-footer-text: #ddd;
+  --color-footer-background: #111;
+  overflow-y: hidden;
+}
+
+#root {
+  --scrollbar-width: thin;
+  --scrollbar-width-legacy: 0.5rem;
+}
+
+@supports (scrollbar-width: auto) {
+  #root {
+    scrollbar-color: var(--color-primary) var(--color-background);
+    scrollbar-width: var(--scrollbar-width);
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  #root::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+  }
+  #root::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  #root::-webkit-scrollbar {
+    max-width: var(--scrollbar-width-legacy);
+    max-height: var(--scrollbar-width-legacy);
+  }
+}
+
+#root {
+  position: relative;
+  container-type: inline-size;
+
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
 }
 
 :root[data-theme="light"] {
   --color-background: #fff;
-  --color-bg-container-disabled: #d3d3d3;
-  --color-primary: #2644ad;
-  --color-button-background: #111;
-  --color-button-text: #fff;
-  --color-button-hover-text: #fff;
-  --color-button-active-text: #9bace9;
-  --color-button-disabled-text: #a9a9a9;
-  --color-link: #2644ad;
-  --color-link-hover: #5875da;
-  --color-menu-item-text: #111;
-  --color-menu-item-hover: #2644ad;
-  --color-menu-item-selected: #2644ad;
-  --shadow: 0.5rem #0003;
-  --color-footer-background: #111;
   --color-header-background: #fff;
   --color-menu-background: #fff;
-  --color-error: #ad4426;
+  --color-button-text: #fff;
+  --color-button-hover-text: #fff;
+  --bullet-color: #fff;
   --color-text: #111;
+  --color-button-background: #111;
+  --color-menu-item-text: #111;
+  --color-primary: #2644ad;
+  --color-link: #2644ad;
+  --color-menu-item-hover: #2644ad;
+  --color-menu-item-selected: #2644ad;
+  --color-link-hover: #5875da;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
+  --color-bg-container-disabled: #d3d3d3;
+  --color-error: #ad4426;
+  --shadow: 0.5rem #0003;
 }
 
 :root[data-theme="dark"] {
-  --color-background: #444;
-  --color-bg-container-disabled: #444;
-  --color-primary: #5875da;
-  --color-button-background: #eee;
+  --color-background: #202020;
+  --color-header-background: #000;
+  --color-menu-background: #000;
   --color-button-text: #000;
   --color-button-hover-text: #000;
-  --color-button-active-text: #9bace9;
-  --color-button-disabled-text: #a9a9a9;
+  --color-button-background: #ddd;
+  --color-text: #ddd;
+  --color-menu-item-text: #ddd;
+  --bullet-color: #ddd;
+  --color-bg-container-disabled: #4c4c4c;
+  --color-primary: #5875da;
+  --color-menu-item-selected: #5875da;
+  --color-menu-item-hover: #5875da;
   --color-link: #5875da;
   --color-link-hover: #2644ad;
+  --color-button-active-text: #9bace9;
+  --color-button-disabled-text: #a9a9a9;
   --color-error: #ad4426;
-  --color-menu-item-text: #eee;
-  --color-menu-item-hover: #5875da;
-  --color-menu-item-selected: #5875da;
   --shadow: 0.5rem #0003;
-  --color-footer-background: #111;
-  --color-header-background: #111;
-  --color-menu-background: #111;
-  --color-text: #fff;
+}
+
+input:-webkit-autofill { 
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: var(--color-text) !important;
+}
+
+* {
+  transition: color 0.2s, background 0.2s, background-color 0.2s, border-color 0.2s ease;
+}
+
+.ant-input-affix-wrapper {
+  transition: background-color 1s;
 }
 
 @font-face {
@@ -156,4 +205,9 @@ h5.ant-typography {
 /* TODO: check if we can delete below styles from the general style sheet */
 .ant-menu .ant-menu-item .anticon + span {
   margin-inline-start: 0.5rem;
+}
+
+.ant-carousel .slick-dots li button,
+.ant-carousel .slick-dots li.slick-active button {
+  background-color: var(--bullet-color);
 }

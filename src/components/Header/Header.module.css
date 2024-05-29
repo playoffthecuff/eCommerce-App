@@ -10,6 +10,7 @@
   padding: 0.5rem;
   box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
+  user-select: none;
 
   ul {
     border: none;
@@ -160,6 +161,8 @@
   gap: 0.5rem;
   padding: 0.25rem;
 
+  color: var(--color-menu-item-hover);
+
   h5 {
     font-size: 0.75rem;
     line-height: 1.2;
@@ -175,30 +178,6 @@
   animation-timing-function: linear;
 }
 
-@-webkit-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

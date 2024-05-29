@@ -19,7 +19,6 @@ import { LogoIcon } from '../CustomIcons/CustomIcons';
 
 import styles from './Header.module.css';
 import userStore from '../../store/user-store';
-import { getSystemTheme } from '../../utils/theme';
 import themeStore from '../../store/theme-store';
 
 const { Title, Link } = Typography;
