@@ -10,6 +10,8 @@
   padding: 0.5rem;
   box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
+  user-select: none;
+  transition: var(--background-delay);
 
   ul {
     border: none;
@@ -43,11 +45,11 @@
   align-items: center;
   margin: 0 auto;
   max-width: 1440px;
-  z-index: 3;
+  z-index: 17;
 }
 
 .sider {
-  z-index: 2;
+  z-index: 16;
   display: flex;
   justify-content: center;
   top: 0;
@@ -98,7 +100,7 @@
   background: transparent;
   width: 24px;
   height: 16px;
-  z-index: 3;
+  z-index: 17;
 }
 
 .burger-button:before,
@@ -110,7 +112,7 @@
   width: 100%;
   height: 2px;
   border-radius: 2px;
-  background: var(--color-button-background);
+  background-color: var(--color-button-background);
 }
 
 .burger-button:before {
@@ -158,8 +160,12 @@
   align-items: center;
   font-size: 1.5rem;
 
+  font-size: 1.5rem;
+
   gap: 0.5rem;
   padding: 0.25rem;
+
+  color: var(--color-menu-item-hover);
 
   h5 {
     font-size: 0.75rem;
@@ -176,30 +182,6 @@
   animation-timing-function: linear;
 }
 
-@-webkit-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

@@ -110,7 +110,7 @@ function Header() {
     <>
       <AntHeader className={styles.header}>
         <div className={styles['layout-container']}>
-          <Link href="#/">
+          <Link href="#/" onClick={() => setBurgerOpen(false)}>
             <div className={styles.logo}>
               <LogoIcon />
               <Title level={5}>Cycling Dependency</Title>

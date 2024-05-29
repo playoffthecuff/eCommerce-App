@@ -1,4 +1,6 @@
-import { ThemeConfig } from 'antd';
+import { ThemeConfig, theme } from 'antd';
+
+const { darkAlgorithm } = theme;
 
 export type Theme = 'light' | 'dark';
 
@@ -6,21 +8,35 @@ export function getSystemTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-const customTheme: ThemeConfig = {
+const noVarTokenLight = {
+  colorPrimary: '#2644ad',
+  colorPrimaryHover: '#111',
+  colorError: '#ad4426',
+  colorSuccess: '#44ad26',
+  colorLink: '#2644ad',
+  colorLinkHover: '#5875da',
+};
+
+const noVarTokenDark = {
+  colorPrimary: '#5875da',
+  colorPrimaryHover: '#ddd',
+  colorError: '#df856c',
+  colorSuccess: '#85df6c',
+  colorLink: '#5875da',
+  colorLinkHover: '#2644ad',
+};
+
+const lightTheme: ThemeConfig = {
   // cssVar: true,
   // hashed: false,
   token: {
+    ...noVarTokenLight,
+
     fontFamily: 'Haas',
 
     borderRadius: 0,
     controlHeight: 36,
 
-    colorPrimary: '#2644ad',
-    colorPrimaryHover: '#111',
-    colorError: '#ad4426',
-    colorSuccess: '#44ad26',
-    colorLink: '#2644ad',
-    colorLinkHover: '#5875da',
     linkDecoration: 'underline',
     linkHoverDecoration: 'underline',
     colorText: 'var(--color-text)',
@@ -45,7 +61,7 @@ const customTheme: ThemeConfig = {
       itemPaddingInline: 12,
       horizontalItemSelectedColor: 'var(--color-menu-item-selected)',
       fontFamily: 'Futura',
-      colorBgContainer: 'var(--color-menu-background)',
+      colorBgContainer: 'transparent',
     },
     Layout: {
       headerBg: 'var(--color-header-background)',
@@ -61,4 +77,11 @@ const customTheme: ThemeConfig = {
   },
 };
 
-export default customTheme;
+export const darkTheme = {
+  ...lightTheme,
+  algorithm: darkAlgorithm,
+};
+
+darkTheme.token = { ...darkTheme.token, ...noVarTokenDark };
+
+export default lightTheme;
