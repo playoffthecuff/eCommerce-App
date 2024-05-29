@@ -4,6 +4,8 @@
   overflow: hidden;
   border: none;
   transition: background-color 0.4s;
+  background-color: var(--color-primary);
+  color: var(--color-button-text);
 
   > span {
     position: relative;
@@ -17,6 +19,16 @@
   cursor: not-allowed;
 }
 
+.default-button:disabled:active {
+  color: var(--color-button-active-text) !important;
+}
+
+.default-button:hover {
+  background-color: var(--color-button-background);
+  color: var(--color-button-text) !important;
+}
+
 .default-button:disabled:hover {
   background-color: var(--color-bg-container-disabled) !important;
+  color: var(--color-button-disabled-text) !important;
 }

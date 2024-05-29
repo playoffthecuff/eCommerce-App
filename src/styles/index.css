@@ -8,6 +8,7 @@
 
 :root[data-theme="light"] {
   --color-background: #fff;
+  --color-background-secondary: #ebebeb;
   --color-bg-container-disabled: #d3d3d3;
   --color-primary: #2644ad;
   --color-button-background: #111;
@@ -26,6 +27,7 @@
   --color-menu-background: #fff;
   --color-error: #ad4426;
   --color-text: #111;
+  --color-border: #949494;
 }
 
 :root[data-theme="dark"] {
@@ -48,6 +50,7 @@
   --color-header-background: #111;
   --color-menu-background: #111;
   --color-text: #fff;
+  --color-border: #6C6C6C;
 }
 
 @font-face {
@@ -140,6 +143,7 @@ h5.ant-typography {
   > span {
     position: relative;
     z-index: 1;
+    line-height: 1.8;
   }
 }
 
@@ -156,4 +160,13 @@ h5.ant-typography {
 /* TODO: check if we can delete below styles from the general style sheet */
 .ant-menu .ant-menu-item .anticon + span {
   margin-inline-start: 0.5rem;
+}
+
+.ant-rate {
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.ant-typography ul {
+  list-style-type: disc;
 }

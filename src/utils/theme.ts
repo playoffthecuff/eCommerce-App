@@ -26,17 +26,14 @@ const customTheme: ThemeConfig = {
     colorText: 'var(--color-text)',
     colorBgContainerDisabled: 'var(--color-bg-container-disabled)',
     colorTextDisabled: 'var(--color-button-disabled-text)',
+    // colorBorder: 'var(--color-border)',
+    colorSplit: 'var(--color-border)',
   },
   components: {
     Button: {
       fontFamily: 'Futura',
       fontWeight: 'bold',
       primaryShadow: 'none',
-      defaultBg: 'var(--color-primary)',
-      defaultHoverBg: 'var(--color-button-background)',
-      defaultColor: 'var(--color-button-text)',
-      defaultHoverColor: 'var(--color-button-hover-text)',
-      defaultActiveColor: 'var(--color-button-active-text)',
     },
     Form: {
       itemMarginBottom: 28,
@@ -55,6 +52,11 @@ const customTheme: ThemeConfig = {
       bodyBg: 'var(--color-background)',
       headerHeight: 48,
       footerBg: 'var(--color-footer-background)',
+    },
+    Descriptions: {
+      labelBg: 'transparent',
+      titleColor: 'var(--color-text)',
+      titleMarginBottom: 0,
     },
   },
 };

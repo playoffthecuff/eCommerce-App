@@ -1,3 +1,164 @@
-.discounted-price {
-  color: var(--color-error);
+.product-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+}
+
+.left-block {
+  grid-row: 1 / span 2;
+}
+
+.header-block {
+  grid-column: 2;
+  grid-row: 1;
+  padding-top: 2rem;
+
+  h2 {
+    text-transform: uppercase;
+  }
+}
+
+.image-block {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.description-block {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.price-block {
+  margin-bottom: 1rem;
+
+  span {
+    margin-right: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .old-price {
+    text-decoration: line-through;
+    }
+    
+  .discounted-price {
+    color: var(--color-error);
+  }
+}
+
+.rate-block {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.cart-block {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.size-block {
+  margin-bottom: 1rem;
+  button {
+    width: 3rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+}
+
+.product-details-block {
+  margin-top: 4rem;
+}
+
+.product-details-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.flex-gap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.overview-block {
+  display: flex;
+  gap: 2rem;
+
+  div {
+    flex-basis: 50%;
+  }
+}
+
+.warranty-block {
+  display: flex;
+  gap: 1rem;
+  div {
+    flex-basis: content;
+  }
+}
+
+.logo {
+  padding: 1rem;
+  background-color: var(--color-background-secondary);
+  width: fit-content;
+  height: fit-content;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.background-secondary {
+  background-color: var(--color-background-secondary);
+    margin-bottom: 0 !important;
+    padding-left: 0.5rem;
+}
+
+.description-table {
+
+  th {
+    width: clamp(128px, calc(25vw), 400px);
+    vertical-align: top;
+  }
+
+  tr {
+    border: none !important;
+  }
+
+  div {
+    border: none !important;
+  }
+}
+
+.geometry-table {
+  td:first-child {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 728px) {
+  .product-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+  }
+  .image-block {
+      grid-column: 1;
+      grid-row: 2;
+  }
+  .header-block {
+      grid-column: 1;
+      grid-row: 1;
+      padding-top: 0;
+  }
+  .description-block {
+      grid-column: 1;
+      grid-row: 3;
+  }
+  .overview-block {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
