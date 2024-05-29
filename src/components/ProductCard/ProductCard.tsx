@@ -35,7 +35,7 @@ export default function ProductCard({
           )
         }
       >
-        <Skeleton loading={loading === BootState.InProgress} active>
+        <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
           <Meta title={title} className={styles['product-title']} />
           <div className={styles.productPrice}>
             {discountedPrice ? (
