@@ -4,9 +4,9 @@ import UserService from '../utils/user-service';
 import { BootState } from '../enums';
 
 class UserStore {
-  private _user: User = { id: null, email: null, isActivated: false };
+  private _user: User | undefined;
 
-  public get user(): User {
+  public get user(): User | undefined {
     return this._user;
   }
 
@@ -39,7 +39,6 @@ class UserStore {
   }
 
   public async login(email: string, password: string): Promise<void> {
-    this._bootState = BootState.InProgress;
     const [response, errorMessage] = await UserService.login(email, password);
     if (errorMessage) {
       runInAction(() => {
@@ -83,7 +82,7 @@ class UserStore {
     if (response) {
       runInAction(() => {
         this._isAuthorized = false;
-        this._user = { id: null, email: null, isActivated: false };
+        this._user = undefined;
         this._bootState = BootState.Success;
       });
     }
