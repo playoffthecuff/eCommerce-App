@@ -18,6 +18,7 @@ export interface AuthorizationResponse {
 }
 
 type Address = {
+  id: string;
   street: string;
   city: string;
   postalCode: string;
@@ -32,8 +33,8 @@ export type SignUpArg = {
   lastName: string;
   dateOfBirth: string;
   addresses: {
-    shippingAddresses: Address[];
-    billingAddresses?: Address[];
+    shippingAddresses: Omit<Address, 'id'>[];
+    billingAddresses?: Omit<Address, 'id'>[];
   };
 };
 
@@ -53,8 +54,6 @@ export type UpdateUserArg = {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
-  addresses?: {
-    shippingAddresses: Address[];
-    billingAddresses: Address[];
-  };
+  password?: string;
+  newPassword?: string;
 };

@@ -87,9 +87,9 @@ const UserService = {
     return [response, message];
   },
 
-  async update(arg: UpdateUserArg): Promise<[User, undefined] | [undefined, Error]> {
+  async update(userID: string, arg: UpdateUserArg): Promise<[User, undefined] | [undefined, Error]> {
     try {
-      const resp = await api.patch('/users', arg, {
+      const resp = await api.patch(`/users/${userID}`, arg, {
         headers: { 'Content-Type': 'application/json' },
       });
       return [resp.data, undefined];

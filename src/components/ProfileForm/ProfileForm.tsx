@@ -6,6 +6,7 @@ import styles from './ProfileForm.module.css';
 import userStore from '../../store/user-store';
 import { BootState } from '../../enums';
 import { PasswordData, PersonalData } from './sub-componetns';
+import { Addresses } from './sub-componetns/Addresses';
 
 export const ProfileForm = observer(() => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export const ProfileForm = observer(() => {
       items={[
         { icon: <SolutionOutlined />, title: 'Pesonal', children: <PersonalData /> },
         { icon: <UnlockOutlined />, title: 'Password', children: <PasswordData /> },
-        { icon: <MailOutlined />, title: 'Addresses', children: <PersonalData /> },
+        { icon: <MailOutlined />, title: 'Addresses', children: <Addresses /> },
       ].map(({ icon, title, children }) => {
         return {
           key: title,

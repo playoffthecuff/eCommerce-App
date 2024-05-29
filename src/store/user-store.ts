@@ -108,7 +108,8 @@ class UserStore {
   }
 
   public async update(arg: UpdateUserArg): Promise<void> {
-    const [updatedUser, error] = await UserService.update(arg);
+    if (!this._user) return;
+    const [updatedUser, error] = await UserService.update(this._user.id, arg);
     if (error) {
       this._bootState = BootState.Failed;
       throw error;

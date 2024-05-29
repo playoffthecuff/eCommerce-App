@@ -8,7 +8,7 @@ import CustomButton from '../../CustomButton/CustomButton';
 import { dateOfBirthValidator, emailRules, nameRules } from '../../../utils/fields-validation';
 import userStore from '../../../store/user-store';
 import styles from '../ProfileForm.module.css';
-import { Fields } from '../types';
+import { ProfileFormFields } from '../types';
 
 export const PersonalData = observer(() => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ export const PersonalData = observer(() => {
 
   const handleUpdateData = async () => {
     setEditing(false);
-    const fields: Fields = form.getFieldsValue(true);
+    const fields: ProfileFormFields = form.getFieldsValue(true);
     if (
       fields.firstName === user.firstName &&
       fields.lastName === user.lastName &&

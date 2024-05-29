@@ -1,12 +1,40 @@
-import { Form, Input, Typography } from 'antd';
+import { Form, Input, Typography, notification } from 'antd';
 import { useState } from 'react';
-import styles from '../ProfileForm.module.css';
+import { AxiosError } from 'axios';
+import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import { passwordRules } from '../../../utils/fields-validation';
+import userStore from '../../../store/user-store';
+import { PasswordDataFormFields } from '../types';
+import styles from '../ProfileForm.module.css';
 
 export function PasswordData() {
   const [isValid, setIsValid] = useState(false);
   const [form] = Form.useForm();
+  const [notificationAPI, contextHolder] = notification.useNotification();
+
+  const handleSubmit = async () => {
+    const fields: PasswordDataFormFields = form.getFieldsValue(true);
+    try {
+      await userStore.update({ password: fields.password, newPassword: fields.newPassword });
+      form.resetFields();
+      notificationAPI.success({
+        message: `You have successfully updated your password! 🥳`,
+        placement: 'top',
+        icon: <SmileOutlined />,
+        duration: 2.5,
+      });
+    } catch (error) {
+      notificationAPI.success({
+        message: `Failed to update password.`,
+        description: ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2.5,
+      });
+    }
+  };
+
   const checkIfFormValid = (): void => {
     const fields = form.getFieldsError();
     for (const field of fields) {
@@ -65,10 +93,11 @@ export function PasswordData() {
         >
           <Input.Password data-testid="password" type="password" placeholder="Enter new password..." />
         </Form.Item>
-        <CustomButton variety="common" htmlType="submit" disabled={!isValid} block>
+        <CustomButton variety="common" htmlType="submit" onClick={() => handleSubmit()} disabled={!isValid} block>
           CHANGE PASSWORD
         </CustomButton>
       </Form>
+      {contextHolder}
     </div>
   );
 }
