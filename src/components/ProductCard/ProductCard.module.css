@@ -6,6 +6,16 @@
   margin: 16px;
 }
 
+.product-card-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
 .product-card div[class~='ant-card-body'] {
   display: flex;
   flex-direction: column;

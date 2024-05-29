@@ -14,48 +14,51 @@ type ProductCardProps = {
   loading: BootState;
 } & ProductSummary;
 
-export default function TestCard({
+export default function ProductCard({
   price,
   rating,
   title,
   loading,
   'discounted price': discountedPrice,
+  'vendor code': vendorCode,
 }: ProductCardProps) {
   return (
-    <Card
-      className={styles.productCard}
-      hoverable
-      cover={
-        loading === BootState.InProgress ? (
-          <Skeleton.Image className={styles.productImage} active />
-        ) : (
-          <img alt={title} src={image1} className={styles.productImage} />
-        )
-      }
-    >
-      <Skeleton loading={loading === BootState.InProgress} active>
-        <Meta title={title} className={styles['product-title']} />
-        <div className={styles.productPrice}>
-          {discountedPrice ? (
-            <>
-              <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
-              <span className={styles.discountedPrice}>${discountedPrice}</span>
-            </>
+    <a href={`#/product/${String(vendorCode)}`} className={styles['product-card-link']}>
+      <Card
+        className={styles.productCard}
+        hoverable
+        cover={
+          loading === BootState.InProgress ? (
+            <Skeleton.Image className={styles.productImage} active />
           ) : (
-            <span>${price}</span>
-          )}
-        </div>
-        <div className={styles['rate-wrapper']}>
-          <Rate
-            allowHalf
-            defaultValue={rating}
-            disabled
-            className={styles.rate}
-            style={{ color: 'var(--color-text)', fontSize: 10 }}
-          />
-          <div className={styles['rate-line']} />
-        </div>
-      </Skeleton>
-    </Card>
+            <img alt={title} src={image1} className={styles.productImage} />
+          )
+        }
+      >
+        <Skeleton loading={loading === BootState.InProgress} active>
+          <Meta title={title} className={styles['product-title']} />
+          <div className={styles.productPrice}>
+            {discountedPrice ? (
+              <>
+                <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
+                <span className={styles.discountedPrice}>${discountedPrice}</span>
+              </>
+            ) : (
+              <span>${price}</span>
+            )}
+          </div>
+          <div className={styles['rate-wrapper']}>
+            <Rate
+              allowHalf
+              defaultValue={rating}
+              disabled
+              className={styles.rate}
+              style={{ color: 'var(--color-text)', fontSize: 10 }}
+            />
+            <div className={styles['rate-line']} />
+          </div>
+        </Skeleton>
+      </Card>
+    </a>
   );
 }

@@ -94,6 +94,7 @@ export interface ProductSummary {
   title: string;
   _id: string;
   'discounted price'?: number;
+  'vendor code': number;
 }
 
 export interface ResponseData {
