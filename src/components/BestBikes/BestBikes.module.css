@@ -15,4 +15,5 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   justify-items: center;
   gap: 2rem;
+  list-style: none;
 }

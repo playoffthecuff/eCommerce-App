@@ -56,14 +56,14 @@
   padding: 0 16px;
 
   .hero-title {
-    color: #fff;
+    color: var(--bullet-color);
     font-size: 3rem;
     margin: 0;
   }
 
   .hero-description {
     font-size: 2rem;
-    color: #fff;
+    color: var(--bullet-color);
   }
 }
 
