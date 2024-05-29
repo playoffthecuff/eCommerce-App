@@ -1,4 +1,4 @@
-import { ConfigProvider, App as AntApp, Spin, theme } from 'antd';
+import { ConfigProvider, App as AntApp, Spin } from 'antd';
 import { RouterProvider } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import lightTheme, { darkTheme } from './utils/theme';
@@ -9,16 +9,9 @@ import themeStore from './store/theme-store';
 
 function App() {
   return (
-    <ConfigProvider
-      theme={themeStore.theme === 'dark' ? darkTheme : lightTheme}
-      // theme={{
-      //   ...lightTheme,
-      //   algorithm: themeStore.theme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      // }}
-    >
+    <ConfigProvider theme={themeStore.theme === 'dark' ? darkTheme : lightTheme}>
       <Spin size="large" spinning={userStore.bootState === BootState.InProgress}>
         <AntApp className="app">
-          {themeStore.theme}
           <RouterProvider router={router} />
         </AntApp>
       </Spin>

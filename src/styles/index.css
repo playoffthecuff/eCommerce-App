@@ -5,39 +5,35 @@
   -moz-osx-font-smoothing: grayscale;
   --color-footer-text: #ddd;
   --color-footer-background: #111;
-  overflow-y: hidden;
 }
 
-#root {
+html {
   --scrollbar-width: thin;
   --scrollbar-width-legacy: 0.5rem;
 }
 
 @supports (scrollbar-width: auto) {
-  #root {
+  html {
     scrollbar-color: var(--color-primary) var(--color-background);
     scrollbar-width: var(--scrollbar-width);
   }
 }
 
 @supports selector(::-webkit-scrollbar) {
-  #root::-webkit-scrollbar-thumb {
+  html::-webkit-scrollbar-thumb {
     background: var(--color-primary);
   }
-  #root::-webkit-scrollbar-track {
+  html::-webkit-scrollbar-track {
     background: var(--color-background);
   }
-  #root::-webkit-scrollbar {
+  #html::-webkit-scrollbar {
     max-width: var(--scrollbar-width-legacy);
     max-height: var(--scrollbar-width-legacy);
   }
 }
 
-#root {
-  position: relative;
-  container-type: inline-size;
-
-  overflow-y: auto;
+html {
+  /* overflow-y: auto; */
   scroll-behavior: smooth;
   overscroll-behavior: contain;
 }
@@ -91,10 +87,6 @@ input:-webkit-autofill {
   -webkit-text-fill-color: var(--color-text) !important;
 }
 
-* {
-  transition: color 0.2s, background 0.2s, background-color 0.2s, border-color 0.2s ease;
-}
-
 .ant-input-affix-wrapper {
   transition: background-color 1s;
 }
@@ -127,10 +119,6 @@ input:-webkit-autofill {
   src: url('../assets/fonts/FuturaPT-Bold.woff2');
 }
 
-#root {
-  margin: 0 auto;
-  height: 100dvh;
-}
 
 .app {
   height: 100%;
@@ -176,7 +164,7 @@ h5.ant-typography {
 }
 
 .ant-layout-content {
-  margin-top: 26px;
+  margin-top: 3rem;
   grid-row-start: 2;
   grid-row-end: 3;
 }
