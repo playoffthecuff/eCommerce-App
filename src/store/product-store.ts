@@ -8,6 +8,8 @@ class ProductsStore {
 
   private _filters: FiltersData = {};
 
+  private _activeFilters: FiltersData = {};
+
   private _totalPage: number = 0;
 
   private _state: BootState = BootState.None;
@@ -38,6 +40,10 @@ class ProductsStore {
   public get filters(): FiltersData {
     return this._filters;
   }
+
+  // public get activeFilters(): FiltersData {
+  //   return this._activeFilters;
+  // }
 
   public get totalPage(): number {
     return this._totalPage;
@@ -77,10 +83,9 @@ class ProductsStore {
     const [filters, error] = await productsService.loadFilters();
 
     if (error) {
-      runInAction(() => {
-        this._state = BootState.Failed;
-        this._error = (error as Error).toString();
-      });
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+
       return;
     }
 
@@ -97,24 +102,39 @@ class ProductsStore {
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
       // this._state = BootState.Success;
     });
 
-    runInAction(() => {
-      this._state = BootState.Failed;
-      this._error = (error as Error).toString();
-    });
+    // runInAction(() => {
+    //   this._state = BootState.Failed;
+    //   this._error = (error as Error).toString();
+    // });
   }
 
   public async applyFilters(filters: FiltersData) {
     // this._state = BootState.InProgress;
 
     this._payload.filters = filters;
+    this._payload.page = 1;
+
+    // this._activeFilters = filters;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
 
     runInAction(() => {
       this._products = responseData.products;
@@ -122,10 +142,10 @@ class ProductsStore {
       // this._state = BootState.Success;
     });
 
-    runInAction(() => {
-      this._state = BootState.Failed;
-      this._error = (error as Error).toString();
-    });
+    // runInAction(() => {
+    //   this._state = BootState.Failed;
+    //   this._error = (error as Error).toString();
+    // });
   }
 }
 

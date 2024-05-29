@@ -109,7 +109,7 @@ export type FiltersData = {
   // wheelBases?: number[];
   minPrice?: number;
   maxPrice?: number;
-  frameSizes?: string[];
+  // frameSizes?: string[];
 } | null;
 
 export interface Filter {

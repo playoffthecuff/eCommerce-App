@@ -20,6 +20,9 @@ export default observer(function FiltersBlock() {
 
   const [collapsed, setCollapsed] = useState(true);
 
+  // const [initFilters, setInitFilters] = useState({});
+  // const [appliedFilters, setAppliedFilters] = useState({});
+
   // Set Initial Filter Values
   // const [minPrice, setMinPrice] = useState<number>(0);
   // const [maxPrice, setMaxPrice] = useState<number>(1000);
@@ -29,12 +32,15 @@ export default observer(function FiltersBlock() {
   const [weight, setWeight] = useState<number[]>([]);
   const [rating, setRating] = useState<number[]>([]);
   // const [wheelBases, setWheelBases] = useState<number[]>([]);
-  const [frameSizes, setFrameSizes] = useState<string[]>([]);
+  // const [frameSizes, setFrameSizes] = useState<string[]>([]);
   // const [rating, setRating] = useState<[number, number]>([0, 5]);
 
   // Selected Filter Values
-  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = useState<number[]>([]);
+  const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([0, 0]);
   // const [selectedWheelBases, setSelectedWheelBases] = useState<number[]>([]);
   // const [selectedFrameSizes, setSelectedFrameSizes] = useState<string[]>([]);
 
@@ -50,8 +56,22 @@ export default observer(function FiltersBlock() {
 
   const onColorChange = (checkedValues: string[]) => {
     setSelectedColors(checkedValues);
-    console.log(selectedColors);
-    console.log(frameSizes);
+  };
+
+  const onCategoryChange = (checkedValues: string[]) => {
+    setSelectedCategories(checkedValues);
+  };
+
+  const onRatingChange = (checkedValues: number[]) => {
+    setSelectedRating(checkedValues);
+  };
+
+  const onWeightChange = (checkedValues: number[]) => {
+    setSelectedWeight(checkedValues);
+  };
+
+  const onPriceChange = (checkedValues: number[]) => {
+    setSelectedPriceRange(checkedValues);
   };
 
   useEffect(() => {
@@ -59,10 +79,6 @@ export default observer(function FiltersBlock() {
     setColors(filters?.colors || []);
     setWeight(filters?.weight || []);
     setRating(filters?.rating || []);
-    // setWheelBases(filters?.wheelBases || []);
-    setFrameSizes(filters?.frameSizes || []);
-    // setMinPrice(filters?.minPrice || 0);
-    // setMaxPrice(filters?.maxPrice || 1000);
     setPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
   }, [filters]);
 
@@ -75,9 +91,22 @@ export default observer(function FiltersBlock() {
   const applyFilters = () => {
     productsStore.applyFilters({
       colors: selectedColors,
+      categories: selectedCategories,
+      rating: selectedRating,
+      weight: selectedWeight,
+      minPrice: selectedPriceRange[0],
+      maxPrice: selectedPriceRange[1],
     });
+
     closeMenu();
   };
+
+  // const resetFilters = () => {
+  //   // Сбрасываем фильтры до состояния перед применением
+  //   setSelectedColors(appliedFilters.colors || []);
+  //   // Закрываем меню
+  //   closeMenu();
+  // };
 
   return (
     <div className={styles['filters-block-wrapper']}>
@@ -97,25 +126,28 @@ export default observer(function FiltersBlock() {
         </div>
         <Collapse bordered={false} className={styles['filter-collapse']}>
           <Panel header="PRICE" key="1" className={styles['filter-panel']}>
-            <Slider range defaultValue={[priceRange[0], priceRange[1]]} min={priceRange[0]} max={priceRange[1]} />
+            <Slider
+              range
+              defaultValue={[priceRange[0], priceRange[1]]}
+              min={priceRange[0]}
+              max={priceRange[1]}
+              onChange={onPriceChange}
+            />
             <div className={styles['price-range']}>
-              ${priceRange[0]} - ${priceRange[1]}
+              ${selectedPriceRange[0]} - ${selectedPriceRange[1]}
             </div>
           </Panel>
           <Panel header="CATEGORIES" key="2" className={styles['filter-panel']}>
-            <Checkbox.Group options={categories} className={styles['filter-group']} />
+            <Checkbox.Group options={categories} className={styles['filter-group']} onChange={onCategoryChange} />
           </Panel>
           <Panel header="COLORS" key="3" className={styles['filter-panel']}>
             <Checkbox.Group options={colors} className={styles['filter-group']} onChange={onColorChange} />
           </Panel>
           <Panel header="WEIGHT" key="4" className={styles['filter-panel']}>
-            <Checkbox.Group options={weight} className={styles['filter-group']} onChange={onColorChange} />
+            <Checkbox.Group options={weight} className={styles['filter-group']} onChange={onWeightChange} />
           </Panel>
-          {/* <Panel header="RATING" key="4" className={styles['filter-panel']}>
-            <Slider min={0} max={5} step={0.1} />
-          </Panel> */}
           <Panel header="RATING" key="5" className={styles['filter-panel']}>
-            <Checkbox.Group options={rating} className={styles['filter-group']} onChange={onColorChange} />
+            <Checkbox.Group options={rating} className={styles['filter-group']} onChange={onRatingChange} />
           </Panel>
           {/* <Panel header="WHEEL BASE" key="5" className={styles['filter-panel']}>
             <Checkbox.Group options={wheelBases.map(String)} className={styles['filter-group']} />
