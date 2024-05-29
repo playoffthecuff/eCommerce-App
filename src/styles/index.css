@@ -5,6 +5,9 @@
   -moz-osx-font-smoothing: grayscale;
   --color-footer-text: #ddd;
   --color-footer-background: #111;
+  --background-color-delay: background-color 0.8s;
+  --background-delay: background-color 0.8s;
+  --color-delay: background-color 0.8s;
 }
 
 html {
@@ -161,6 +164,7 @@ h5.ant-typography {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  transition: var(--background-color-delay);
 }
 
 .ant-layout-content {
