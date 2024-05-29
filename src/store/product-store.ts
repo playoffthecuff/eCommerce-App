@@ -8,7 +8,7 @@ class ProductsStore {
 
   private _filters: FiltersData = {};
 
-  private _activeFilters: FiltersData = {};
+  // private _activeFilters: FiltersData = {};
 
   private _totalPage: number = 0;
 
@@ -77,7 +77,6 @@ class ProductsStore {
   }
 
   private async loadFilters(): Promise<void> {
-    // this._state = BootState.InProgress;
     this._error = undefined;
 
     const [filters, error] = await productsService.loadFilters();
@@ -91,13 +90,10 @@ class ProductsStore {
 
     runInAction(() => {
       this._filters = filters;
-      // this._state = BootState.Success;
     });
   }
 
   public async changePage(page: number) {
-    // this._state = BootState.InProgress;
-
     this._payload.page = page;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
@@ -111,18 +107,10 @@ class ProductsStore {
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
-      // this._state = BootState.Success;
     });
-
-    // runInAction(() => {
-    //   this._state = BootState.Failed;
-    //   this._error = (error as Error).toString();
-    // });
   }
 
   public async applyFilters(filters: FiltersData) {
-    // this._state = BootState.InProgress;
-
     this._payload.filters = filters;
     this._payload.page = 1;
 
@@ -139,13 +127,27 @@ class ProductsStore {
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
-      // this._state = BootState.Success;
     });
+  }
 
-    // runInAction(() => {
-    //   this._state = BootState.Failed;
-    //   this._error = (error as Error).toString();
-    // });
+  public async resetFilters() {
+    this._payload.filters = {};
+    this._payload.page = 1;
+
+    // this._activeFilters = filters;
+
+    const [responseData, error] = await productsService.loadProducts(this._payload);
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._products = responseData.products;
+      this._totalPage = responseData.total;
+    });
   }
 }
 

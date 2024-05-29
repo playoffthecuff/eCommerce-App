@@ -60,10 +60,11 @@
   padding: 8px 16px;
 }
 
-.apply-button-wrapper {
+.buttons-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  gap: 16px;
 }
 
 .price-range {

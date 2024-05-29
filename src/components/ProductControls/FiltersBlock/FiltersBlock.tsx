@@ -4,12 +4,9 @@ import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-// import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { productsStore } from '../../../store/product-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
-
-// import { Filters } from '../../../types/types';
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -24,16 +21,11 @@ export default observer(function FiltersBlock() {
   // const [appliedFilters, setAppliedFilters] = useState({});
 
   // Set Initial Filter Values
-  // const [minPrice, setMinPrice] = useState<number>(0);
-  // const [maxPrice, setMaxPrice] = useState<number>(1000);
   const [categories, setCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [colors, setColors] = useState<string[]>([]);
   const [weight, setWeight] = useState<number[]>([]);
   const [rating, setRating] = useState<number[]>([]);
-  // const [wheelBases, setWheelBases] = useState<number[]>([]);
-  // const [frameSizes, setFrameSizes] = useState<string[]>([]);
-  // const [rating, setRating] = useState<[number, number]>([0, 5]);
 
   // Selected Filter Values
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -41,8 +33,6 @@ export default observer(function FiltersBlock() {
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([priceRange[0], priceRange[1]]);
-  // const [selectedWheelBases, setSelectedWheelBases] = useState<number[]>([]);
-  // const [selectedFrameSizes, setSelectedFrameSizes] = useState<string[]>([]);
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -89,7 +79,7 @@ export default observer(function FiltersBlock() {
     };
   }, []);
 
-  const applyFilters = () => {
+  const handleApplyFilters = () => {
     productsStore.applyFilters({
       colors: selectedColors,
       categories: selectedCategories,
@@ -102,12 +92,14 @@ export default observer(function FiltersBlock() {
     closeMenu();
   };
 
-  // const resetFilters = () => {
-  //
-  //   setSelectedColors(appliedFilters.colors || []);
-  //
-  //   closeMenu();
-  // };
+  const handleResetFilters = () => {
+    setSelectedCategories([]);
+    setSelectedColors([]);
+    setSelectedWeight([]);
+    setSelectedRating([]);
+    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
+    productsStore.resetFilters();
+  };
 
   return (
     <div className={styles['filters-block-wrapper']}>
@@ -130,7 +122,8 @@ export default observer(function FiltersBlock() {
             <Slider
               range
               step={10}
-              defaultValue={[priceRange[0], priceRange[1]]}
+              defaultValue={selectedPriceRange}
+              value={selectedPriceRange}
               min={priceRange[0]}
               max={priceRange[1]}
               onChange={onPriceChange}
@@ -140,27 +133,44 @@ export default observer(function FiltersBlock() {
             </div>
           </Panel>
           <Panel header="CATEGORIES" key="2" className={styles['filter-panel']}>
-            <Checkbox.Group options={categories} className={styles['filter-group']} onChange={onCategoryChange} />
+            <Checkbox.Group
+              options={categories}
+              className={styles['filter-group']}
+              onChange={onCategoryChange}
+              value={selectedCategories}
+            />
           </Panel>
           <Panel header="COLORS" key="3" className={styles['filter-panel']}>
-            <Checkbox.Group options={colors} className={styles['filter-group']} onChange={onColorChange} />
+            <Checkbox.Group
+              options={colors}
+              className={styles['filter-group']}
+              onChange={onColorChange}
+              value={selectedColors}
+            />
           </Panel>
           <Panel header="WEIGHT" key="4" className={styles['filter-panel']}>
-            <Checkbox.Group options={weight} className={styles['filter-group']} onChange={onWeightChange} />
+            <Checkbox.Group
+              options={weight}
+              className={styles['filter-group']}
+              onChange={onWeightChange}
+              value={selectedWeight}
+            />
           </Panel>
           <Panel header="RATING" key="5" className={styles['filter-panel']}>
-            <Checkbox.Group options={rating} className={styles['filter-group']} onChange={onRatingChange} />
+            <Checkbox.Group
+              options={rating}
+              className={styles['filter-group']}
+              onChange={onRatingChange}
+              value={selectedRating}
+            />
           </Panel>
-          {/* <Panel header="WHEEL BASE" key="5" className={styles['filter-panel']}>
-            <Checkbox.Group options={wheelBases.map(String)} className={styles['filter-group']} />
-          </Panel> */}
-          {/* <Panel header="FRAME SIZE" key="6" className={styles['filter-panel']}>
-            <Checkbox.Group options={frameSizes} />
-          </Panel> */}
         </Collapse>
-        <div className={styles['apply-button-wrapper']}>
-          <CustomButton style={{ width: '100px' }} variety="common" htmlType="button" onClick={applyFilters}>
+        <div className={styles['buttons-wrapper']}>
+          <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
             Apply
+          </CustomButton>
+          <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleResetFilters}>
+            Reset Filters
           </CustomButton>
         </div>
       </Sider>
