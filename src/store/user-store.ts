@@ -39,7 +39,6 @@ class UserStore {
   }
 
   public async login(email: string, password: string): Promise<void> {
-    this._bootState = BootState.InProgress;
     const [response, errorMessage] = await UserService.login(email, password);
     if (errorMessage) {
       runInAction(() => {

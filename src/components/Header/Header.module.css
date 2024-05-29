@@ -1,5 +1,5 @@
 .header {
-  z-index: 4;
+  z-index: 19;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,6 +10,8 @@
   padding: 0.5rem;
   box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
+  user-select: none;
+  transition: var(--background-delay);
 
   ul {
     border: none;
@@ -43,10 +45,11 @@
   align-items: center;
   margin: 0 auto;
   max-width: 1440px;
+  z-index: 17;
 }
 
 .sider {
-  z-index: 2;
+  z-index: 16;
   display: flex;
   justify-content: center;
   top: 0;
@@ -81,12 +84,10 @@
 .burger-button-wrapper {
   width: 3rem;
   height: 3rem;
-  background-color: var(--color-background);
   position: fixed;
   left: 0;
   top: 0;
-  border-radius: 8px;
-  z-index: 3;
+  z-index: 19;
   cursor: pointer;
   display: none;
 }
@@ -94,12 +95,12 @@
 .burger-button {
   position: fixed;
   left: 0.75rem;
-  top: 14px;
+  top: 16px;
   border: none;
   background: transparent;
   width: 24px;
-  height: 20px;
-  z-index: 3;
+  height: 16px;
+  z-index: 17;
 }
 
 .burger-button:before,
@@ -111,12 +112,12 @@
   width: 100%;
   height: 2px;
   border-radius: 2px;
-  background: #333;
+  background-color: var(--color-button-background);
 }
 
 .burger-button:before {
   top: 0;
-  box-shadow: 0 9px #333;
+  box-shadow: 0 7px var(--color-button-background);
 }
 
 .burger-button:after {
@@ -137,9 +138,9 @@
 }
 
 .burger-button.active:before {
-  top: 9px;
+  top: 7px;
   transform: rotate(45deg);
-  box-shadow: 0 6px #3330;
+  box-shadow: 0 6px transparent;
   transition:
     box-shadow 0.2s,
     top 0.4s,
@@ -147,7 +148,7 @@
 }
 
 .burger-button.active:after {
-  bottom: 9px;
+  bottom: 7px;
   transform: rotate(-45deg);
   transition:
     bottom 0.4s,
@@ -158,8 +159,12 @@
   display: flex;
   align-items: center;
 
+  font-size: 1.5rem;
+
   gap: 0.5rem;
   padding: 0.25rem;
+
+  color: var(--color-menu-item-hover);
 
   h5 {
     font-size: 0.75rem;
@@ -176,30 +181,6 @@
   animation-timing-function: linear;
 }
 
-@-webkit-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -230,4 +211,12 @@
   .burger-button-wrapper {
     display: block;
   }
+
 }
+
+@media (min-width: 728px) {
+  .sider.active {
+    left: -100%;
+  }
+}
+
