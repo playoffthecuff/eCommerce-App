@@ -29,7 +29,7 @@
   text-align: center;
 
   .catalog-title {
-    color: #fff;
+    color: var(--bullet-color);
     font-size: 6rem;
     margin: 0;
     text-transform: uppercase;
@@ -37,7 +37,7 @@
 
   .catalog-description {
     font-size: 2rem;
-    color: #fff;
+    color: var(--bullet-color);
   }
 }
 

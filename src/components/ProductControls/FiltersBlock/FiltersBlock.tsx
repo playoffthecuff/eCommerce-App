@@ -40,7 +40,7 @@ export default observer(function FiltersBlock() {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([0, 0]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([priceRange[0], priceRange[1]]);
   // const [selectedWheelBases, setSelectedWheelBases] = useState<number[]>([]);
   // const [selectedFrameSizes, setSelectedFrameSizes] = useState<string[]>([]);
 
@@ -80,6 +80,7 @@ export default observer(function FiltersBlock() {
     setWeight(filters?.weight || []);
     setRating(filters?.rating || []);
     setPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
+    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
   }, [filters]);
 
   useEffect(() => {
@@ -102,9 +103,9 @@ export default observer(function FiltersBlock() {
   };
 
   // const resetFilters = () => {
-  //   // Сбрасываем фильтры до состояния перед применением
+  //
   //   setSelectedColors(appliedFilters.colors || []);
-  //   // Закрываем меню
+  //
   //   closeMenu();
   // };
 
@@ -128,6 +129,7 @@ export default observer(function FiltersBlock() {
           <Panel header="PRICE" key="1" className={styles['filter-panel']}>
             <Slider
               range
+              step={10}
               defaultValue={[priceRange[0], priceRange[1]]}
               min={priceRange[0]}
               max={priceRange[1]}
