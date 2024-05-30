@@ -17,19 +17,11 @@ export default observer(function FiltersBlock() {
 
   const [collapsed, setCollapsed] = useState(true);
 
-  // Set Initial Filter Values
-  const [categories, setCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [colors, setColors] = useState<string[]>([]);
-  const [weight, setWeight] = useState<number[]>([]);
-  const [rating, setRating] = useState<number[]>([]);
-
-  // Selected Filter Values
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([priceRange[0], priceRange[1]]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -62,15 +54,9 @@ export default observer(function FiltersBlock() {
   };
 
   useEffect(() => {
-    setCategories(filters?.categories || []);
-    setColors(filters?.colors || []);
-    setWeight(filters?.weight || []);
-    setRating(filters?.rating || []);
-
     const minPrice = filters?.minPrice || 0;
-    const maxPrice = filters?.maxPrice || 1000;
+    const maxPrice = filters?.maxPrice || 0;
 
-    setPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
     setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
   }, [filters]);
 
@@ -98,7 +84,7 @@ export default observer(function FiltersBlock() {
     setSelectedColors([]);
     setSelectedWeight([]);
     setSelectedRating([]);
-    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
+    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 0]);
     productsStore.resetFilters();
   };
 
@@ -114,12 +100,12 @@ export default observer(function FiltersBlock() {
             tooltip={{ placement: 'topRight' }}
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
-            min={priceRange[0]}
-            max={priceRange[1]}
+            min={Math.floor(filters?.minPrice || 0)}
+            max={Math.ceil(filters?.maxPrice || 0)}
             onChange={onPriceChange}
           />
           <div className={styles['price-range']}>
-            ${selectedPriceRange[0]} - ${selectedPriceRange[1]}
+            ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])}
           </div>
         </>
       ),
@@ -129,7 +115,7 @@ export default observer(function FiltersBlock() {
       label: 'CATEGORIES',
       children: (
         <Checkbox.Group
-          options={categories}
+          options={filters?.categories}
           className={styles['filter-group']}
           onChange={onCategoryChange}
           value={selectedCategories}
@@ -141,7 +127,7 @@ export default observer(function FiltersBlock() {
       label: 'COLORS',
       children: (
         <Checkbox.Group
-          options={colors}
+          options={filters?.colors}
           className={styles['filter-group']}
           onChange={onColorChange}
           value={selectedColors}
@@ -153,7 +139,7 @@ export default observer(function FiltersBlock() {
       label: 'WEIGHT',
       children: (
         <Checkbox.Group
-          options={weight}
+          options={filters?.weight}
           className={styles['filter-group']}
           onChange={onWeightChange}
           value={selectedWeight}
@@ -165,7 +151,7 @@ export default observer(function FiltersBlock() {
       label: 'RATING',
       children: (
         <Checkbox.Group
-          options={rating}
+          options={filters?.rating}
           className={styles['filter-group']}
           onChange={onRatingChange}
           value={selectedRating}

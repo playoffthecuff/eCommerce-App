@@ -109,7 +109,6 @@ export type FiltersData = {
   weight?: number[];
   minPrice?: number;
   maxPrice?: number;
-  // frameSizes?: string[];
 } | null;
 
 export interface Filter {
