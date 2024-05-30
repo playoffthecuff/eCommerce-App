@@ -24,7 +24,6 @@ class CatalogStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.loadFilters();
   }
 
   public get products(): ProductSummary[] {
@@ -36,6 +35,10 @@ class CatalogStore {
   }
 
   public get filters(): FiltersData {
+    if (this._state === BootState.None) {
+      this.loadFilters();
+    }
+
     return this._filters;
   }
 
