@@ -11,10 +11,13 @@ import image1 from '../../assets/images/670961-1_1800x1800.webp';
 const { Meta } = Card;
 
 type ProductCardProps = {
+  product: ProductSummary;
   loading: BootState;
-} & ProductSummary;
+};
 
-export default function ProductCard({ price, rating, title, loading, discountedPrice, vendorCode }: ProductCardProps) {
+export default function ProductCard({ product, loading }: ProductCardProps) {
+  const { title, price, discountedPrice, vendorCode, rating } = product;
+
   return (
     <a href={`${import.meta.env.VITE_API_URL}/products?vc=${vendorCode}`} className={styles['product-card-link']}>
       <Card

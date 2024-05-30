@@ -24,7 +24,7 @@ export default observer(function BestBikes() {
         {shuffledProducts.slice(0, 4).map((product) => {
           return (
             <li key={product._id}>
-              <ProductCard {...product} loading={productsState} />
+              <ProductCard product={product} loading={productsState} />
             </li>
           );
         })}
