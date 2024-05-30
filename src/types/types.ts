@@ -107,7 +107,6 @@ export type FiltersData = {
   colors?: string[];
   rating?: number[];
   weight?: number[];
-  // wheelBases?: number[];
   minPrice?: number;
   maxPrice?: number;
   // frameSizes?: string[];

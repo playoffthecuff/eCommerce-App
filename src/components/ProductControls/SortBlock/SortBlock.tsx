@@ -22,7 +22,6 @@ export default observer(function SortBlock() {
         placeholder="select sort order"
         className={styles.select}
       >
-        {/* <Option value="Best selling">Best selling</Option> */}
         <Option value="Alphabetically, A-Z">Alphabetically, A-Z</Option>
         <Option value="Alphabetically, Z-A">Alphabetically, Z-A</Option>
         <Option value="Price, low to high">Price, low to high</Option>

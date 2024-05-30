@@ -8,8 +8,6 @@ class CatalogStore {
 
   private _filters: FiltersData = {};
 
-  // private _activeFilters: FiltersData = {};
-
   private _totalPage: number = 0;
 
   private _state: BootState = BootState.None;
@@ -40,10 +38,6 @@ class CatalogStore {
   public get filters(): FiltersData {
     return this._filters;
   }
-
-  // public get activeFilters(): FiltersData {
-  //   return this._activeFilters;
-  // }
 
   public get totalPage(): number {
     return this._totalPage;
@@ -114,8 +108,6 @@ class CatalogStore {
     this._payload.filters = filters;
     this._payload.page = 1;
 
-    // this._activeFilters = filters;
-
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
     if (error) {
@@ -133,8 +125,6 @@ class CatalogStore {
   public async resetFilters() {
     this._payload.filters = {};
     this._payload.page = 1;
-
-    // this._activeFilters = filters;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 

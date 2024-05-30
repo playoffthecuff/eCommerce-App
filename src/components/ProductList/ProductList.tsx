@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { List } from 'antd';
 

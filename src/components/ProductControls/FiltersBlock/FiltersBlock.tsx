@@ -2,6 +2,7 @@ import { Layout, Typography, Collapse, Checkbox, Slider, CollapseProps } from 'a
 
 import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
 import { productsStore } from '../../../store/catalog-store';
@@ -15,9 +16,6 @@ export default observer(function FiltersBlock() {
   const { filters } = productsStore;
 
   const [collapsed, setCollapsed] = useState(true);
-
-  // const [initFilters, setInitFilters] = useState({});
-  // const [appliedFilters, setAppliedFilters] = useState({});
 
   // Set Initial Filter Values
   const [categories, setCategories] = useState<string[]>([]);
@@ -178,7 +176,7 @@ export default observer(function FiltersBlock() {
 
   return (
     <div className={styles['filters-block-wrapper']}>
-      <div className={`${styles.overlay} ${collapsed ? styles.hidden : ''}`} onClick={closeMenu} />
+      <div className={classNames(styles.overlay, collapsed ? styles.hidden : '')} onClick={closeMenu} />
       <Sider
         trigger={null}
         collapsible
