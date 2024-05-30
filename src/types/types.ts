@@ -93,8 +93,8 @@ export interface ProductSummary {
   rating: number;
   title: string;
   _id: string;
-  'discounted price'?: number;
-  'vendor code': number;
+  discountedPrice?: number;
+  vendorCode: number;
 }
 
 export interface ResponseData {

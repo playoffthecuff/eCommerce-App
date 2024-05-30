@@ -1,7 +1,7 @@
 import api from './api';
 import { FiltersData, Payload, ResponseData } from '../types/types';
 
-class ProductsService {
+class CatalogService {
   loadProducts = async (payload: Payload): Promise<[ResponseData, Error | undefined]> => {
     try {
       const resp = await api.post<ResponseData>('/products', payload);
@@ -22,4 +22,4 @@ class ProductsService {
   };
 }
 
-export const productsService = new ProductsService();
+export const productsService = new CatalogService();

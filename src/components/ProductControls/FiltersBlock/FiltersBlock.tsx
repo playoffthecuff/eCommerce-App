@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-import { productsStore } from '../../../store/product-store';
+import { productsStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 

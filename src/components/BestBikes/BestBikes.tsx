@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard/ProductCard';
 
 import styles from './BestBikes.module.css';
 import CustomButton from '../CustomButton/CustomButton';
-import { productsStore } from '../../store/product-store';
+import { productsStore } from '../../store/catalog-store';
 
 import shuffleArray from '../../utils/shuffle-array';
 

@@ -36,10 +36,6 @@ const router = createHashRouter([
         element: <CatalogPage />,
       },
       {
-        path: '/product:vendorCode',
-        element: <CatalogPage />,
-      },
-      {
         path: '/profile',
         element: <ProfilePage />,
       },

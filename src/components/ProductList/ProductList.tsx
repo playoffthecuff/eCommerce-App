@@ -2,7 +2,7 @@
 import { observer } from 'mobx-react-lite';
 import { List } from 'antd';
 
-import { productsStore } from '../../store/product-store';
+import { productsStore } from '../../store/catalog-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 

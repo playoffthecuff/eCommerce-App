@@ -14,16 +14,9 @@ type ProductCardProps = {
   loading: BootState;
 } & ProductSummary;
 
-export default function ProductCard({
-  price,
-  rating,
-  title,
-  loading,
-  'discounted price': discountedPrice,
-  'vendor code': vendorCode,
-}: ProductCardProps) {
+export default function ProductCard({ price, rating, title, loading, discountedPrice, vendorCode }: ProductCardProps) {
   return (
-    <a href={`#/product/${String(vendorCode)}`} className={styles['product-card-link']}>
+    <a href={`${import.meta.env.VITE_API_URL}/products?vc=${vendorCode}`} className={styles['product-card-link']}>
       <Card
         className={styles.productCard}
         hoverable

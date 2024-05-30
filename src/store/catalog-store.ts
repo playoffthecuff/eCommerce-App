@@ -1,9 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { productsService } from '../utils/product-service';
+import { productsService } from '../utils/catalog-service';
 import { FiltersData, ProductSummary, Payload } from '../types/types';
 import { BootState } from '../enums';
 
-class ProductsStore {
+class CatalogStore {
   private _products: ProductSummary[] = [];
 
   private _filters: FiltersData = {};
@@ -151,4 +151,4 @@ class ProductsStore {
   }
 }
 
-export const productsStore = new ProductsStore();
+export const productsStore = new CatalogStore();
