@@ -68,8 +68,12 @@ export default observer(function FiltersBlock() {
     setColors(filters?.colors || []);
     setWeight(filters?.weight || []);
     setRating(filters?.rating || []);
-    setPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
-    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 1000]);
+
+    const minPrice = filters?.minPrice || 0;
+    const maxPrice = filters?.maxPrice || 1000;
+
+    setPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
   }, [filters]);
 
   useEffect(() => {
@@ -109,6 +113,7 @@ export default observer(function FiltersBlock() {
           <Slider
             range
             step={10}
+            tooltip={{ placement: 'topRight' }}
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
             min={priceRange[0]}
