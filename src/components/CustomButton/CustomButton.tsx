@@ -1,5 +1,8 @@
 import { Button, ButtonProps } from 'antd';
 import classNames from 'classnames';
+
+import { ButtonVariety } from '../../types/types';
+
 import defaultButtonStyles from './DefaultButton.module.css';
 import commonButtonStyles from './CommonButton.module.css';
 import invertedCommonButtonStyles from './InvertedCommonButton.module.css';
@@ -22,9 +25,9 @@ export default function CustomButton(props: ExtendedButtonProps): JSX.Element {
     <Button
       type="default"
       className={classNames(defaultButtonStyles.defaultButton, afterEffectStyles.afterEffect, {
-        [commonButtonStyles.commonButton]: variety === 'common',
-        [invertedCommonButtonStyles.invertedButton]: variety === 'inverted',
-        [filtersButtonStyles.filtersButton]: variety === 'filters',
+        [commonButtonStyles.commonButton]: variety === ButtonVariety.COMMON,
+        [invertedCommonButtonStyles.invertedButton]: variety === ButtonVariety.INVERTED,
+        [filtersButtonStyles.filtersButton]: variety === ButtonVariety.FILTERS,
       })}
       {...buttonProps}
     />

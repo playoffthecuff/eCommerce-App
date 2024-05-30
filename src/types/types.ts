@@ -130,3 +130,9 @@ export interface Payload {
   page: number;
   pageSize: number;
 }
+
+export enum ButtonVariety {
+  COMMON = 'common',
+  INVERTED = 'inverted',
+  FILTERS = 'filters',
+}

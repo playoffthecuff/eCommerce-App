@@ -23,7 +23,7 @@ export default observer(function BestBikes() {
       <ul className={styles['product-wrapper']}>
         {shuffledProducts.slice(0, 4).map((product) => {
           return (
-            <li key={String(product._id)}>
+            <li key={product._id}>
               <ProductCard {...product} loading={productsState} />
             </li>
           );
