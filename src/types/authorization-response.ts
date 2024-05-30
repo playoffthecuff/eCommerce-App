@@ -17,7 +17,7 @@ export interface AuthorizationResponse {
   user: User;
 }
 
-type Address = {
+export type Address = {
   id: string;
   street: string;
   city: string;
