@@ -109,7 +109,14 @@ export default observer(function FiltersBlock() {
         collapsible
         collapsed={collapsed}
         theme="light"
-        style={{ left: collapsed ? '-100%' : '0', position: 'fixed', height: '100vh', top: '48px' }}
+        className={styles['filters-content']}
+        style={{
+          left: collapsed ? '-100%' : '0',
+          position: 'fixed',
+          height: 'calc(100vh - 48px)',
+          top: '48px',
+          overflow: 'auto',
+        }}
       >
         <div className={styles['menu-header']}>
           <Title level={2} className={styles['menu-title']}>
