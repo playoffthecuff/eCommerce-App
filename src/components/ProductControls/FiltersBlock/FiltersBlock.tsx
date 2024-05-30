@@ -1,4 +1,4 @@
-import { Layout, Typography, Collapse, Checkbox, Slider } from 'antd';
+import { Layout, Typography, Collapse, Checkbox, Slider, CollapseProps } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
@@ -10,7 +10,6 @@ import CustomButton from '../../CustomButton/CustomButton';
 
 const { Sider } = Layout;
 const { Title } = Typography;
-const { Panel } = Collapse;
 
 export default observer(function FiltersBlock() {
   const { filters } = productsStore;
@@ -101,6 +100,77 @@ export default observer(function FiltersBlock() {
     productsStore.resetFilters();
   };
 
+  const items: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: 'PRICE',
+      children: (
+        <>
+          <Slider
+            range
+            step={10}
+            defaultValue={selectedPriceRange}
+            value={selectedPriceRange}
+            min={priceRange[0]}
+            max={priceRange[1]}
+            onChange={onPriceChange}
+          />
+          <div className={styles['price-range']}>
+            ${selectedPriceRange[0]} - ${selectedPriceRange[1]}
+          </div>
+        </>
+      ),
+    },
+    {
+      key: '2',
+      label: 'CATEGORIES',
+      children: (
+        <Checkbox.Group
+          options={categories}
+          className={styles['filter-group']}
+          onChange={onCategoryChange}
+          value={selectedCategories}
+        />
+      ),
+    },
+    {
+      key: '3',
+      label: 'COLORS',
+      children: (
+        <Checkbox.Group
+          options={colors}
+          className={styles['filter-group']}
+          onChange={onColorChange}
+          value={selectedColors}
+        />
+      ),
+    },
+    {
+      key: '4',
+      label: 'WEIGHT',
+      children: (
+        <Checkbox.Group
+          options={weight}
+          className={styles['filter-group']}
+          onChange={onWeightChange}
+          value={selectedWeight}
+        />
+      ),
+    },
+    {
+      key: '5',
+      label: 'RATING',
+      children: (
+        <Checkbox.Group
+          options={rating}
+          className={styles['filter-group']}
+          onChange={onRatingChange}
+          value={selectedRating}
+        />
+      ),
+    },
+  ];
+
   return (
     <div className={styles['filters-block-wrapper']}>
       <div className={`${styles.overlay} ${collapsed ? styles.hidden : ''}`} onClick={closeMenu} />
@@ -124,54 +194,7 @@ export default observer(function FiltersBlock() {
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>
-        <Collapse bordered={false} className={styles['filter-collapse']}>
-          <Panel header="PRICE" key="1" className={styles['filter-panel']}>
-            <Slider
-              range
-              step={10}
-              defaultValue={selectedPriceRange}
-              value={selectedPriceRange}
-              min={priceRange[0]}
-              max={priceRange[1]}
-              onChange={onPriceChange}
-            />
-            <div className={styles['price-range']}>
-              ${selectedPriceRange[0]} - ${selectedPriceRange[1]}
-            </div>
-          </Panel>
-          <Panel header="CATEGORIES" key="2" className={styles['filter-panel']}>
-            <Checkbox.Group
-              options={categories}
-              className={styles['filter-group']}
-              onChange={onCategoryChange}
-              value={selectedCategories}
-            />
-          </Panel>
-          <Panel header="COLORS" key="3" className={styles['filter-panel']}>
-            <Checkbox.Group
-              options={colors}
-              className={styles['filter-group']}
-              onChange={onColorChange}
-              value={selectedColors}
-            />
-          </Panel>
-          <Panel header="WEIGHT" key="4" className={styles['filter-panel']}>
-            <Checkbox.Group
-              options={weight}
-              className={styles['filter-group']}
-              onChange={onWeightChange}
-              value={selectedWeight}
-            />
-          </Panel>
-          <Panel header="RATING" key="5" className={styles['filter-panel']}>
-            <Checkbox.Group
-              options={rating}
-              className={styles['filter-group']}
-              onChange={onRatingChange}
-              value={selectedRating}
-            />
-          </Panel>
-        </Collapse>
+        <Collapse items={items} bordered={false} className={styles['filter-collapse']} />
         <div className={styles['buttons-wrapper']}>
           <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
             Apply
