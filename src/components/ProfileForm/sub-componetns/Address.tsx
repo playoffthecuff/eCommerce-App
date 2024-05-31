@@ -1,5 +1,12 @@
-import { DeleteOutlined, EditOutlined, FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
-import { Card, Checkbox, Form, Modal, Spin, Typography, notification } from 'antd';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EnvironmentOutlined,
+  FrownOutlined,
+  PlusOutlined,
+  SmileOutlined,
+} from '@ant-design/icons';
+import { Badge, Card, Checkbox, Form, Modal, Spin, Typography, notification } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
@@ -18,6 +25,7 @@ export const Addresses = observer(
     const [isModalEditAddressOpen, setIsModalEditAddressOpen] = useState(false);
     const [isModalAddAddrerssOpen, setIsModalAddAddressOpen] = useState(false);
     const [currAddr, setCurrAddr] = useState(addresses[0]);
+    const [notificationAPI, contextHolder] = notification.useNotification();
 
     return (
       <div className={styles['address-form-styles']}>
@@ -29,6 +37,24 @@ export const Addresses = observer(
             onEdit={(addr: Address) => {
               setCurrAddr(addr);
               setIsModalEditAddressOpen(true);
+            }}
+            onDeleteError={(error: Error) => {
+              notificationAPI.error({
+                message: `Something went wrong:`,
+                description:
+                  ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
+                placement: 'top',
+                icon: <FrownOutlined />,
+                duration: 2.5,
+              });
+            }}
+            onDeleteSuccess={() => {
+              notificationAPI.success({
+                message: `You have deleted the address.`,
+                placement: 'top',
+                icon: <SmileOutlined />,
+                duration: 2.5,
+              });
             }}
           />
         ))}
@@ -61,6 +87,7 @@ export const Addresses = observer(
         >
           <AddAddressForm type={type} onSubmit={() => setIsModalAddAddressOpen(false)} />
         </Modal>
+        {contextHolder}
       </div>
     );
   }
@@ -252,51 +279,58 @@ function AddressCard({
   address,
   type,
   onEdit,
+  onDeleteError,
+  onDeleteSuccess,
 }: {
   address: Address;
   type: AddressType;
   onEdit: (addr: Address) => void;
+  onDeleteSuccess: () => void;
+  onDeleteError: (error: Error) => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [notificationAPI, contextHolder] = notification.useNotification();
 
   const handleDeleteAddress = async () => {
     setIsLoading(true);
     try {
       await userStore.deleteAddress(type, address.id);
       setIsLoading(false);
-      notificationAPI.success({
-        message: `You have deleted the address.`,
-        placement: 'top',
-        icon: <SmileOutlined />,
-        duration: 2.5,
-      });
+      onDeleteSuccess();
     } catch (error) {
       setIsLoading(false);
-      notificationAPI.error({
-        message: `Something went wrong:`,
-        description: ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
-        placement: 'top',
-        icon: <FrownOutlined />,
-        duration: 2,
-      });
+      onDeleteError(error as Error);
     }
   };
+
+  if (address.isDefault) {
+    return (
+      <Spin spinning={isLoading}>
+        <Badge.Ribbon text="Default address" className={styles['badge-style']}>
+          <Card
+            style={{ paddingTop: '1rem' }}
+            actions={[
+              <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
+              <EditOutlined key="edit" onClick={() => onEdit(address)} />,
+            ]}
+          >
+            <EnvironmentOutlined /> {address.country}, {address.postalCode}, city: {address.city}, street:{' '}
+            {address.street}
+          </Card>
+        </Badge.Ribbon>
+      </Spin>
+    );
+  }
 
   return (
     <Spin spinning={isLoading}>
       <Card
-        title={address.isDefault ? 'Default address' : ''}
         actions={[
           <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
           <EditOutlined key="edit" onClick={() => onEdit(address)} />,
         ]}
       >
-        {address.country}, {address.postalCode}
-        <br />
-        city: {address.city}, street: {address.street} <br />
+        <EnvironmentOutlined /> {address.country}, {address.postalCode}, city: {address.city}, street: {address.street}
       </Card>
-      {contextHolder}
     </Spin>
   );
 }

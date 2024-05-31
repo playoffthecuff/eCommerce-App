@@ -25,7 +25,11 @@ export const ProfileForm = observer(() => {
     <Tabs
       className={styles.tabs}
       items={[
-        { icon: <SolutionOutlined />, title: 'Pesonal', children: <PersonalData /> },
+        {
+          icon: <SolutionOutlined />,
+          title: 'Pesonal',
+          children: <PersonalData />,
+        },
         { icon: <UnlockOutlined />, title: 'Password', children: <PasswordData /> },
         {
           icon: <MailOutlined />,
