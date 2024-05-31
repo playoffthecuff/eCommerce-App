@@ -1,7 +1,7 @@
 import { Form, Input, Typography, notification } from 'antd';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
-import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
+import { FrownOutlined, SettingOutlined, SmileOutlined } from '@ant-design/icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import { passwordRules } from '../../../utils/fields-validation';
 import userStore from '../../../store/user-store';
@@ -94,7 +94,7 @@ export function PasswordData() {
           <Input.Password data-testid="password" type="password" placeholder="Enter new password..." />
         </Form.Item>
         <CustomButton variety="common" htmlType="submit" onClick={() => handleSubmit()} disabled={!isValid} block>
-          CHANGE PASSWORD
+          <SettingOutlined /> CHANGE PASSWORD
         </CustomButton>
       </Form>
       {contextHolder}

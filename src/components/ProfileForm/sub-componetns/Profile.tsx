@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DatePicker, Form, Input, Spin, Typography, notification } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
+import { DiffOutlined, EditOutlined, FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { AxiosError } from 'axios';
 import dayjs from 'dayjs';
 import CustomButton from '../../CustomButton/CustomButton';
@@ -104,7 +104,7 @@ export const PersonalData = observer(() => {
           </Form>
           {!editing && (
             <CustomButton variety="common" htmlType="submit" onClick={() => setEditing(true)} block>
-              EDIT DATA
+              <EditOutlined /> EDIT DATA
             </CustomButton>
           )}
           {editing && (
@@ -115,7 +115,7 @@ export const PersonalData = observer(() => {
               disabled={!isValid}
               block
             >
-              UPDATE DATA
+              <DiffOutlined /> UPDATE DATA
             </CustomButton>
           )}
         </div>

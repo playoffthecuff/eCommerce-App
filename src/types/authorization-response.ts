@@ -17,6 +17,11 @@ export interface AuthorizationResponse {
   user: User;
 }
 
+export enum AddressType {
+  SHIPPING = 'shipping',
+  BILLING = 'billing',
+}
+
 export type Address = {
   id: string;
   street: string;

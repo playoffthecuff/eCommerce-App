@@ -12,3 +12,11 @@ export type PasswordDataFormFields = {
   newPassword: string;
   confirmPassword: string;
 };
+
+export type AddressFields = {
+  country: string;
+  city: string;
+  street: string;
+  postCode: string;
+  setAsDefaultShippingAddress: boolean;
+};

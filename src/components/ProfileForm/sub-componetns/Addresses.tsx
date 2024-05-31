@@ -1,128 +1,336 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Card, Checkbox, Form, Input, Modal, Select, Typography } from 'antd';
+import { DeleteOutlined, EditOutlined, FrownOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
+import { Card, Checkbox, Form, Modal, Spin, Typography, notification } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { AxiosError } from 'axios';
 import userStore from '../../../store/user-store';
-import { Address } from '../../../types/authorization-response';
+import { Address, AddressType } from '../../../types/authorization-response';
 import { Country } from '../../../utils/countries-service';
 import { countriesStore } from '../../../store/countries-store';
-import styles from '../ProfileForm.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
+import { AddressForm } from '../../RegistrationForm/sub-components/AddressForm';
+import styles from '../ProfileForm.module.css';
+import { AddressFields } from '../types';
 
 export const Addresses = observer(() => {
+  const { shippingAddresses, billingAddresses } = userStore.user!.addresses;
+  const [isModalEditAddressOpen, setIsModalEditAddressOpen] = useState(false);
+  const [isModalAddAddrerssOpen, setIsModalAddAddressOpen] = useState(false);
+  const [currAddr, setCurrAddr] = useState(shippingAddresses[0]);
+  const [currAddrType, setCurrAddrType] = useState(AddressType.SHIPPING);
+
   return (
-    <div>
-      <Typography.Title level={3}>Shipping Address</Typography.Title>
-      {userStore.user?.addresses.shippingAddresses.map((address) => (
-        <AddressBlock address={address} countries={countriesStore.countries} />
+    <div style={{ padding: '0rem 1rem' }}>
+      <Typography.Title level={3}>Shipping Addresses:</Typography.Title>
+      {shippingAddresses.map((address) => (
+        <AddressCard
+          address={address}
+          type={AddressType.SHIPPING}
+          onEdit={(addr: Address) => {
+            setCurrAddr(addr);
+            setCurrAddrType(AddressType.SHIPPING);
+            setIsModalEditAddressOpen(true);
+          }}
+        />
       ))}
+      <CustomButton
+        variety="common"
+        htmlType="submit"
+        onClick={() => {
+          setCurrAddrType(AddressType.SHIPPING);
+          setIsModalAddAddressOpen(true);
+        }}
+        block
+      >
+        <PlusOutlined /> ADD NEW ADDRESS
+      </CustomButton>
+      <Typography.Title level={3}>Billing Addresses:</Typography.Title>
+      {billingAddresses.map((address) => (
+        <AddressCard
+          address={address}
+          type={AddressType.BILLING}
+          onEdit={(addr: Address) => {
+            setCurrAddr(addr);
+            setCurrAddrType(AddressType.BILLING);
+            setIsModalEditAddressOpen(true);
+          }}
+        />
+      ))}
+      <CustomButton
+        variety="common"
+        htmlType="submit"
+        onClick={() => {
+          setCurrAddrType(AddressType.BILLING);
+          setIsModalAddAddressOpen(true);
+        }}
+        block
+      >
+        <PlusOutlined /> ADD NEW ADDRESS
+      </CustomButton>
+      <Modal
+        className={styles['modal-form']}
+        title="Edit Address"
+        open={isModalEditAddressOpen}
+        onCancel={() => setIsModalEditAddressOpen(false)}
+        footer=""
+      >
+        <EditForm address={currAddr} type={currAddrType} onSubmit={() => setIsModalEditAddressOpen(false)} />
+      </Modal>
+      <Modal
+        className={styles['modal-form']}
+        title="Add New Address"
+        open={isModalAddAddrerssOpen}
+        onCancel={() => setIsModalAddAddressOpen(false)}
+        footer=""
+      >
+        <AddAddressForm type={currAddrType} onSubmit={() => setIsModalAddAddressOpen(false)} />
+      </Modal>
     </div>
   );
 });
 
-function AddressBlock({ address, countries }: { address: Address; countries: Country[] }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const EditForm = observer(
+  ({ address, type, onSubmit }: { address: Address; type: AddressType; onSubmit: () => void }) => {
+    const [form] = Form.useForm();
+    const [country, setCountry] = useState<Country | undefined>(
+      countriesStore.countries.find((c) => c.name === address.country)
+    );
+    const [notificationAPI, contextHolder] = notification.useNotification();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isValid, setIsValid] = useState(true);
+
+    useEffect(() => {
+      form.resetFields();
+      setCountry(countriesStore.countries.find((c) => c.name === address.country));
+    }, [countriesStore.state, address.id]);
+
+    const checkIfFormValid = (): void => {
+      const fields = form.getFieldsError();
+      for (const field of fields) {
+        if (field.errors.length > 0) {
+          setIsValid(false);
+          return;
+        }
+      }
+      setIsValid(true);
+    };
+
+    const handleEditAddress = async () => {
+      setIsLoading(true);
+      await form.validateFields().catch(() => {});
+      const fields = form.getFieldsError();
+      if (!fields.every((fld) => fld.errors.length === 0)) {
+        setIsLoading(false);
+        return;
+      }
+
+      const values: AddressFields = form.getFieldsValue(true);
+      const updatedAddress = {
+        id: address.id,
+        city: values.city,
+        street: values.street,
+        country: values.country,
+        postalCode: values.postCode,
+        isDefault: Boolean(values.setAsDefaultShippingAddress),
+      };
+      if (addressesAreEqual(address, updatedAddress)) {
+        setIsLoading(false);
+        if (onSubmit) {
+          onSubmit();
+        }
+        return;
+      }
+      try {
+        await userStore.editAddress(type, updatedAddress);
+        setIsLoading(false);
+        form.resetFields();
+        notificationAPI.success({
+          message: `You have successfully updated the address! 🥳`,
+          placement: 'top',
+          icon: <SmileOutlined />,
+          duration: 2.5,
+        });
+      } catch (error) {
+        setIsLoading(false);
+        notificationAPI.error({
+          message: `Something went wrong:`,
+          description: ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
+          placement: 'top',
+          icon: <FrownOutlined />,
+          duration: 2,
+        });
+        return;
+      }
+      if (onSubmit) {
+        onSubmit();
+      }
+    };
+
+    return (
+      <Spin spinning={isLoading}>
+        <Form
+          layout="vertical"
+          style={{ marginTop: '1.5rem' }}
+          initialValues={{
+            country: address.country,
+            city: address.city,
+            street: address.street,
+            postCode: address.postalCode,
+            setAsDefaultShippingAddress: address.isDefault,
+          }}
+          form={form}
+          onFieldsChange={checkIfFormValid}
+        >
+          <AddressForm countries={countriesStore.countries} country={country} setCountry={setCountry} />
+          <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
+            <Checkbox>Set as default this address</Checkbox>
+          </Form.Item>
+        </Form>
+        <CustomButton variety="common" htmlType="submit" block onClick={() => handleEditAddress()} disabled={!isValid}>
+          UPDATE EDITING
+        </CustomButton>
+        {contextHolder}
+      </Spin>
+    );
+  }
+);
+
+const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubmit?: () => void }) => {
+  const [country, setCountry] = useState<Country | undefined>();
+  const [form] = Form.useForm();
+  const [notificationAPI, contextHolder] = notification.useNotification();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+
+  const checkIfFormValid = (): void => {
+    const fields = form.getFieldsError();
+    for (const field of fields) {
+      if (field.errors.length > 0) {
+        setIsValid(false);
+        return;
+      }
+    }
+    setIsValid(true);
+  };
+
+  const handleAddAddress = async () => {
+    setIsLoading(true);
+    await form.validateFields().catch(() => {});
+    const fields = form.getFieldsError();
+    if (!fields.every((fld) => fld.errors.length === 0)) {
+      setIsLoading(false);
+      return;
+    }
+
+    const values: AddressFields = form.getFieldsValue(true);
+    try {
+      await userStore.addAddress(type, {
+        city: values.city,
+        country: values.country,
+        street: values.street,
+        postalCode: values.postCode,
+        isDefault: Boolean(values.setAsDefaultShippingAddress),
+      });
+      setIsLoading(false);
+      form.resetFields();
+      notificationAPI.success({
+        message: `You have successfully added a new address! 🥳`,
+        placement: 'top',
+        icon: <SmileOutlined />,
+        duration: 2.5,
+      });
+    } catch (error) {
+      setIsLoading(false);
+      notificationAPI.error({
+        message: `Something went wrong:`,
+        description: ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2,
+      });
+      return;
+    }
+    if (onSubmit) {
+      onSubmit();
+    }
+  };
 
   return (
-    <>
+    <Spin spinning={isLoading}>
+      <Form layout="vertical" form={form} style={{ marginTop: '1.5rem' }} onFieldsChange={checkIfFormValid}>
+        <AddressForm countries={countriesStore.countries} country={country} setCountry={setCountry} />
+        <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
+          <Checkbox>Set as default this address</Checkbox>
+        </Form.Item>
+        <CustomButton variety="common" htmlType="submit" onClick={() => handleAddAddress()} block disabled={!isValid}>
+          CREATE ADDRESS
+        </CustomButton>
+      </Form>
+      {contextHolder}
+    </Spin>
+  );
+});
+
+function AddressCard({
+  address,
+  type,
+  onEdit,
+}: {
+  address: Address;
+  type: AddressType;
+  onEdit: (addr: Address) => void;
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [notificationAPI, contextHolder] = notification.useNotification();
+
+  const handleDeleteAddress = async () => {
+    setIsLoading(true);
+    try {
+      await userStore.deleteAddress(type, address.id);
+      setIsLoading(false);
+      notificationAPI.success({
+        message: `You have deleted the address.`,
+        placement: 'top',
+        icon: <SmileOutlined />,
+        duration: 2.5,
+      });
+    } catch (error) {
+      setIsLoading(false);
+      notificationAPI.error({
+        message: `Something went wrong:`,
+        description: ((error as AxiosError)?.response?.data as { message: string })?.message || 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2,
+      });
+    }
+  };
+
+  return (
+    <Spin spinning={isLoading}>
       <Card
         className={styles['address-card']}
         title={address.isDefault ? 'Default address' : ''}
-        actions={[<DeleteOutlined key="setting" />, <EditOutlined key="edit" onClick={() => setIsModalOpen(true)} />]}
+        actions={[
+          <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
+          <EditOutlined key="edit" onClick={() => onEdit(address)} />,
+        ]}
       >
         {address.country}, {address.postalCode}
         <br />
         city: {address.city}, street: {address.street} <br />
       </Card>
-      <Modal
-        className={styles['modal-form']}
-        title="Edit Address"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        footer=""
-      >
-        <EditForm address={address} countries={countries} />
-      </Modal>
-    </>
+      {contextHolder}
+    </Spin>
   );
 }
 
-function EditForm({ address, countries }: { address: Address; countries: Country[] }) {
-  const [country, setCountry] = useState<Country | undefined>(countries.find((c) => c.name === address.country));
-
-  return (
-    <Form
-      layout="vertical"
-      style={{ marginTop: '1.5rem' }}
-      initialValues={{
-        country: address.country,
-        city: address.city,
-        street: address.street,
-        postCode: address.postalCode,
-      }}
-    >
-      <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please enter your country!' }]}>
-        <Select
-          showSearch
-          placeholder="Choose your country..."
-          onChange={(v) => {
-            setCountry(countries.find((c) => c.name === v));
-          }}
-        >
-          {countries.length > 0 &&
-            countries.map((c) => {
-              return (
-                <Select.Option key={c._id} value={c.name}>
-                  {c.name}
-                </Select.Option>
-              );
-            })}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label="City"
-        name="city"
-        rules={[
-          { required: true, message: 'Please enter your city!' },
-          { pattern: /^[A-Za-z ]*$/, message: 'Must not contain special characters or numbers!' },
-        ]}
-        hasFeedback
-        validateFirst
-      >
-        <Input data-testid="city" placeholder="Enter your city..." />
-      </Form.Item>
-      <Form.Item
-        label="Street"
-        name="street"
-        rules={[
-          { required: true, message: 'Please enter your street!' },
-          { pattern: /[A-Za-z]/, message: 'Must contain at list one English letter' },
-          { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters, numbers and symbols!' },
-        ]}
-        hasFeedback
-        validateFirst
-      >
-        <Input data-testid="street" placeholder="Enter your street..." />
-      </Form.Item>
-      <Form.Item
-        tooltip={(country && `format: ${country?.postalCodePattern}`) || 'choose your country'}
-        label="Post Code"
-        name="postCode"
-        dependencies={['country']}
-        rules={[
-          { required: true, message: 'Please enter your post code!' },
-          { pattern: new RegExp(country?.postalRegex || /^[0-9]{5}$/), message: 'Post code is invalid' },
-        ]}
-        hasFeedback
-      >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
-      </Form.Item>
-      <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
-        <Checkbox>Set as default this address</Checkbox>
-      </Form.Item>
-      <CustomButton variety="common" htmlType="submit" block>
-        UPDATE EDITING
-      </CustomButton>
-    </Form>
-  );
+function addressesAreEqual(a: Address, b: Address): boolean {
+  for (const k in a) {
+    const key = k as keyof Address;
+    if (b[key] !== a[key]) {
+      return false;
+    }
+  }
+  return true;
 }
