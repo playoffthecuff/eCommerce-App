@@ -29,7 +29,9 @@ export default observer(function ProductList() {
       dataSource={products}
       renderItem={(product) => {
         return (
-          <List.Item key={String(product._id)} actions={[<ProductCard product={product} loading={productsState} />]} />
+          <List.Item>
+            <ProductCard product={product} loading={productsState} />
+          </List.Item>
         );
       }}
       className={styles['product-list']}
