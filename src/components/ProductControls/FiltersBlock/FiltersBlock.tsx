@@ -5,6 +5,7 @@ import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
+import { useLocation } from 'react-router-dom';
 import { productsStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
@@ -14,6 +15,7 @@ const { Title } = Typography;
 
 export default observer(function FiltersBlock() {
   const { filters } = productsStore;
+  const location = useLocation();
 
   const [collapsed, setCollapsed] = useState(true);
 
@@ -65,6 +67,10 @@ export default observer(function FiltersBlock() {
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  useEffect(() => {
+    productsStore.resetFilters();
+  }, [location.pathname]);
 
   const handleApplyFilters = () => {
     productsStore.applyFilters({
