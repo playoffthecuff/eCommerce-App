@@ -8,14 +8,3 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-
-.product-list li[class~='ant-list-item'] {
-  flex: 1 1 320px;
-  max-width: 460px;
-}
-
-@media (max-width: 690px) {
-  .product-list li[class~='ant-list-item'] {
-    max-width: 358px;
-  }
-}
