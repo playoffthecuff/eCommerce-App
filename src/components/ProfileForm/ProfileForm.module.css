@@ -7,14 +7,28 @@
 
 .tabs {
   padding: 1rem 1rem 0rem;
-}
-
-.address-card {
-  margin: 2rem 0rem;
-  max-width: 330px;
+  max-width: 100%;
 }
 
 .modal-form {
   max-width: 320px;
   width: 100%;
+}
+
+.address-form-styles {
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .tabs {
+    max-width: 370px;
+  }
+
+  .address-form-styles {
+    padding: 0rem 0.5rem;
+  }
 }

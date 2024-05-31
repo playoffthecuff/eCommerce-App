@@ -11,83 +11,60 @@ import CustomButton from '../../CustomButton/CustomButton';
 import { AddressForm } from '../../RegistrationForm/sub-components/AddressForm';
 import styles from '../ProfileForm.module.css';
 import { AddressFields } from '../types';
+import { addressesAreEqual } from '../helpers';
 
-export const Addresses = observer(() => {
-  const { shippingAddresses, billingAddresses } = userStore.user!.addresses;
-  const [isModalEditAddressOpen, setIsModalEditAddressOpen] = useState(false);
-  const [isModalAddAddrerssOpen, setIsModalAddAddressOpen] = useState(false);
-  const [currAddr, setCurrAddr] = useState(shippingAddresses[0]);
-  const [currAddrType, setCurrAddrType] = useState(AddressType.SHIPPING);
+export const Addresses = observer(
+  ({ addresses, type, title }: { addresses: Address[]; type: AddressType; title: string }) => {
+    const [isModalEditAddressOpen, setIsModalEditAddressOpen] = useState(false);
+    const [isModalAddAddrerssOpen, setIsModalAddAddressOpen] = useState(false);
+    const [currAddr, setCurrAddr] = useState(addresses[0]);
 
-  return (
-    <div style={{ padding: '0rem 1rem' }}>
-      <Typography.Title level={3}>Shipping Addresses:</Typography.Title>
-      {shippingAddresses.map((address) => (
-        <AddressCard
-          address={address}
-          type={AddressType.SHIPPING}
-          onEdit={(addr: Address) => {
-            setCurrAddr(addr);
-            setCurrAddrType(AddressType.SHIPPING);
-            setIsModalEditAddressOpen(true);
+    return (
+      <div className={styles['address-form-styles']}>
+        <Typography.Title level={3}>{title}</Typography.Title>
+        {addresses.map((address) => (
+          <AddressCard
+            address={address}
+            type={type}
+            onEdit={(addr: Address) => {
+              setCurrAddr(addr);
+              setIsModalEditAddressOpen(true);
+            }}
+          />
+        ))}
+        <CustomButton
+          style={{ margin: '1rem 0' }}
+          variety="common"
+          htmlType="submit"
+          onClick={() => {
+            setIsModalAddAddressOpen(true);
           }}
-        />
-      ))}
-      <CustomButton
-        variety="common"
-        htmlType="submit"
-        onClick={() => {
-          setCurrAddrType(AddressType.SHIPPING);
-          setIsModalAddAddressOpen(true);
-        }}
-        block
-      >
-        <PlusOutlined /> ADD NEW ADDRESS
-      </CustomButton>
-      <Typography.Title level={3}>Billing Addresses:</Typography.Title>
-      {billingAddresses.map((address) => (
-        <AddressCard
-          address={address}
-          type={AddressType.BILLING}
-          onEdit={(addr: Address) => {
-            setCurrAddr(addr);
-            setCurrAddrType(AddressType.BILLING);
-            setIsModalEditAddressOpen(true);
-          }}
-        />
-      ))}
-      <CustomButton
-        variety="common"
-        htmlType="submit"
-        onClick={() => {
-          setCurrAddrType(AddressType.BILLING);
-          setIsModalAddAddressOpen(true);
-        }}
-        block
-      >
-        <PlusOutlined /> ADD NEW ADDRESS
-      </CustomButton>
-      <Modal
-        className={styles['modal-form']}
-        title="Edit Address"
-        open={isModalEditAddressOpen}
-        onCancel={() => setIsModalEditAddressOpen(false)}
-        footer=""
-      >
-        <EditForm address={currAddr} type={currAddrType} onSubmit={() => setIsModalEditAddressOpen(false)} />
-      </Modal>
-      <Modal
-        className={styles['modal-form']}
-        title="Add New Address"
-        open={isModalAddAddrerssOpen}
-        onCancel={() => setIsModalAddAddressOpen(false)}
-        footer=""
-      >
-        <AddAddressForm type={currAddrType} onSubmit={() => setIsModalAddAddressOpen(false)} />
-      </Modal>
-    </div>
-  );
-});
+          block
+        >
+          <PlusOutlined /> ADD NEW ADDRESS
+        </CustomButton>
+        <Modal
+          className={styles['modal-form']}
+          title="Edit Address"
+          open={isModalEditAddressOpen}
+          onCancel={() => setIsModalEditAddressOpen(false)}
+          footer=""
+        >
+          <EditForm address={currAddr} type={type} onSubmit={() => setIsModalEditAddressOpen(false)} />
+        </Modal>
+        <Modal
+          className={styles['modal-form']}
+          title="Add New Address"
+          open={isModalAddAddrerssOpen}
+          onCancel={() => setIsModalAddAddressOpen(false)}
+          footer=""
+        >
+          <AddAddressForm type={type} onSubmit={() => setIsModalAddAddressOpen(false)} />
+        </Modal>
+      </div>
+    );
+  }
+);
 
 const EditForm = observer(
   ({ address, type, onSubmit }: { address: Address; type: AddressType; onSubmit: () => void }) => {
@@ -309,7 +286,6 @@ function AddressCard({
   return (
     <Spin spinning={isLoading}>
       <Card
-        className={styles['address-card']}
         title={address.isDefault ? 'Default address' : ''}
         actions={[
           <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
@@ -323,14 +299,4 @@ function AddressCard({
       {contextHolder}
     </Spin>
   );
-}
-
-function addressesAreEqual(a: Address, b: Address): boolean {
-  for (const k in a) {
-    const key = k as keyof Address;
-    if (b[key] !== a[key]) {
-      return false;
-    }
-  }
-  return true;
 }
