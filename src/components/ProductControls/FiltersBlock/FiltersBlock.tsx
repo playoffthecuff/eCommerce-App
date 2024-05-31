@@ -97,7 +97,7 @@ export default observer(function FiltersBlock() {
           <Slider
             range
             step={10}
-            tooltip={{ placement: 'topRight' }}
+            tooltip={{ placement: 'top' }}
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
             min={Math.floor(filters?.minPrice || 0)}
@@ -179,7 +179,7 @@ export default observer(function FiltersBlock() {
         style={{
           left: collapsed ? '-100%' : '0',
           position: 'fixed',
-          height: 'calc(100vh - 48px)',
+          height: '100vh',
           top: '48px',
           overflow: 'auto',
         }}

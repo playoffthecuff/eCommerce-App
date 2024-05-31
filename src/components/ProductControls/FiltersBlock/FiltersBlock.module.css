@@ -1,4 +1,5 @@
 .filters-block-wrapper aside[class~='ant-layout-sider'] {
+  padding: 0 0.5rem;
   transition: left 0.5s ease-in-out;
   z-index: 2;
   max-width: none !important;
@@ -69,7 +70,10 @@
   justify-content: center;
   gap: 16px;
   margin-top: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 5rem;
+}
+
+.price-slider-wrapper aside[class~='ant-layout-sider'] {
 }
 
 .price-range {
@@ -78,9 +82,15 @@
   color: var(--color-menu-item-text);
 }
 
-@media (max-width: 998px) {
+@media (max-width: 1399px) {
   .filters-block-wrapper aside[class~='ant-layout-sider'] {
     width: 50% !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .filters-block-wrapper aside[class~='ant-layout-sider'] {
+    width: 70% !important;
   }
 }
 
