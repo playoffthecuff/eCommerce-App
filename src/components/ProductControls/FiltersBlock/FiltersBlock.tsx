@@ -136,7 +136,7 @@ export default observer(function FiltersBlock() {
     },
     {
       key: '4',
-      label: 'WEIGHT',
+      label: 'WEIGHT(KG)',
       children: (
         <Checkbox.Group
           options={filters?.weight}
