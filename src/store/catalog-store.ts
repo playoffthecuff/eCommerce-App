@@ -29,6 +29,7 @@ class CatalogStore {
   public get products(): ProductSummary[] {
     if (this._state === BootState.None) {
       this.loadProducts();
+      this.loadFilters();
     }
 
     return this._products;
