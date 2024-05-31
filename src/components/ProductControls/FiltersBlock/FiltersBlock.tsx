@@ -1,7 +1,7 @@
-import { Layout, Typography, Collapse, Checkbox, Slider, CollapseProps } from 'antd';
+import { Layout, Typography, Collapse, Checkbox, Slider, CollapseProps, Tooltip } from 'antd';
 
 import { useEffect, useState } from 'react';
-import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
@@ -136,7 +136,14 @@ export default observer(function FiltersBlock() {
     },
     {
       key: '4',
-      label: 'WEIGHT(KG)',
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          WEIGHT
+          <Tooltip title="Maximum weight of the rider" placement="top">
+            <InfoCircleOutlined style={{ marginLeft: 8 }} />
+          </Tooltip>
+        </div>
+      ),
       children: (
         <Checkbox.Group
           options={filters?.weight}
