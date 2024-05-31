@@ -43,6 +43,10 @@ class CatalogStore {
     return this._filters;
   }
 
+  public get payload(): Payload {
+    return this._payload;
+  }
+
   public get totalPage(): number {
     return this._totalPage;
   }
@@ -108,8 +112,9 @@ class CatalogStore {
     });
   }
 
-  public async applyFilters(filters: FiltersData) {
-    this._payload.filters = filters;
+  public async applyFilters(payload: Payload) {
+    this._payload.filters = payload.filters;
+    this._payload.query = payload.query;
     this._payload.page = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);

@@ -74,12 +74,14 @@ export default observer(function FiltersBlock() {
 
   const handleApplyFilters = () => {
     productsStore.applyFilters({
-      colors: selectedColors,
-      categories: selectedCategories,
-      rating: selectedRating,
-      weight: selectedWeight,
-      minPrice: selectedPriceRange[0],
-      maxPrice: selectedPriceRange[1],
+      filters: {
+        colors: selectedColors,
+        categories: selectedCategories,
+        rating: selectedRating,
+        weight: selectedWeight,
+        minPrice: selectedPriceRange[0],
+        maxPrice: selectedPriceRange[1],
+      },
     });
 
     closeMenu();
