@@ -4,7 +4,7 @@
   padding: 0.5rem 1rem;
   grid-row-start: 3;
   grid-row-end: 4;
-  z-index: 19;
+  /* z-index: 19; */
 }
 
 .container {
@@ -45,5 +45,5 @@
 }
 
 .rss:hover {
-  color: #FFDB20;
+  color: #ffdb20;
 }

@@ -1,0 +1,10 @@
+.product-list {
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.product-list ul[class~='ant-list-items'] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

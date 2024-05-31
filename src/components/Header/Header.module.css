@@ -211,7 +211,6 @@
   .burger-button-wrapper {
     display: block;
   }
-
 }
 
 @media (min-width: 728px) {
@@ -219,4 +218,3 @@
     left: -100%;
   }
 }
-

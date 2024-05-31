@@ -72,6 +72,11 @@ const lightTheme: ThemeConfig = {
       headerHeight: 48,
       footerBg: 'var(--color-footer-background)',
     },
+    List: {
+      itemPaddingLG: '0px',
+      itemPaddingSM: '0px',
+      itemPadding: '0px',
+    },
   },
 };
 
