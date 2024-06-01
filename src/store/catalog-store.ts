@@ -6,7 +6,7 @@ import { BootState } from '../enums';
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
-  private _filters: FiltersData = {};
+  private _filtersData: FiltersData = {};
 
   private _totalPage: number = 0;
 
@@ -27,20 +27,11 @@ class CatalogStore {
   }
 
   public get products(): ProductSummary[] {
-    if (this._state === BootState.None) {
-      this.loadProducts();
-      this.loadFilters();
-    }
-
     return this._products;
   }
 
-  public get filters(): FiltersData {
-    if (this._state === BootState.None) {
-      this.loadFilters();
-    }
-
-    return this._filters;
+  public get filtersData(): FiltersData {
+    return this._filtersData;
   }
 
   public get payload(): Payload {
@@ -59,7 +50,7 @@ class CatalogStore {
     return this._error;
   }
 
-  private async loadProducts(): Promise<void> {
+  public loadProducts = async (): Promise<void> => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
@@ -76,12 +67,12 @@ class CatalogStore {
       this._totalPage = responseData.total;
       this._state = BootState.Success;
     });
-  }
+  };
 
-  private async loadFilters(): Promise<void> {
+  public loadFiltersData = async (): Promise<void> => {
     this._error = undefined;
 
-    const [filters, error] = await productsService.loadFilters();
+    const [filtersData, error] = await productsService.loadFiltersData();
 
     if (error) {
       this._state = BootState.Failed;
@@ -91,11 +82,11 @@ class CatalogStore {
     }
 
     runInAction(() => {
-      this._filters = filters;
+      this._filtersData = filtersData;
     });
-  }
+  };
 
-  public async changePage(page: number) {
+  public changePage = async (page: number) => {
     this._payload.page = page;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
@@ -110,9 +101,9 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 
-  public async applyFilters(payload: Payload) {
+  public applyFilters = async (payload: Payload) => {
     this._payload.filters = payload.filters;
     this._payload.query = payload.query;
     this._payload.page = 1;
@@ -129,9 +120,9 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 
-  public async resetFilters() {
+  public resetFilters = async () => {
     this._payload.filters = {};
     this._payload.page = 1;
 
@@ -147,7 +138,7 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 }
 
 export const productsStore = new CatalogStore();

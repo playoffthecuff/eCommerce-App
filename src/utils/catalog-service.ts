@@ -11,7 +11,7 @@ class CatalogService {
     }
   };
 
-  loadFilters = async (): Promise<[FiltersData, Error | undefined]> => {
+  loadFiltersData = async (): Promise<[FiltersData, Error | undefined]> => {
     try {
       const resp = await api.post<FiltersData>('/products/filters');
 

@@ -1,12 +1,13 @@
 import { Input } from 'antd';
 import type { SearchProps } from 'antd/es/input/Search';
 
+import { observer } from 'mobx-react-lite';
 import styles from './SearchBlock.module.css';
 import { productsStore } from '../../../store/catalog-store';
 
 const { Search } = Input;
 
-export default function SearchBlock() {
+export default observer(function SearchBlock() {
   const { payload } = productsStore;
 
   const onSearch: SearchProps['onSearch'] = (value: string) => {
@@ -27,4 +28,4 @@ export default function SearchBlock() {
       className={styles['search-input']}
     />
   );
-}
+});

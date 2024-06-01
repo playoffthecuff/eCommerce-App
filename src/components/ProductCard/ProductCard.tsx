@@ -1,6 +1,7 @@
 import { Card, Rate, Skeleton } from 'antd';
 import classNames from 'classnames';
 
+import { observer } from 'mobx-react-lite';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 
@@ -15,7 +16,7 @@ type ProductCardProps = {
   loading: BootState;
 };
 
-export default function ProductCard({ product, loading }: ProductCardProps) {
+export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating } = product;
 
   return (
@@ -57,4 +58,4 @@ export default function ProductCard({ product, loading }: ProductCardProps) {
       </Card>
     </a>
   );
-}
+});
