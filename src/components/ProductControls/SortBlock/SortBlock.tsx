@@ -7,7 +7,7 @@ import styles from './SortBlock.module.css';
 const { Option } = Select;
 
 export default observer(function SortBlock() {
-  const [sortOption, setSortOption] = useState('Best selling');
+  const [sortOption, setSortOption] = useState('');
 
   const handleSortChange = (value: string) => {
     setSortOption(value);
