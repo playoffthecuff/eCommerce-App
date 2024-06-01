@@ -58,7 +58,7 @@ export function AddressForm({ countries, country, setCountry }: AddressFormProps
         ]}
         hasFeedback
       >
-        <Input data-testid="postCode" placeholder={country?.postalCodePattern || 'Enter valid post code...'} />
+        <Input data-testid="postCode" placeholder={country?.postalCodePattern || '12345'} />
       </Form.Item>
     </>
   );

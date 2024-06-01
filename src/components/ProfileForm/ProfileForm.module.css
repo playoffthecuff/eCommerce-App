@@ -1,0 +1,38 @@
+.profile-form {
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+  max-width: 320px;
+  width: 100%;
+}
+
+.tabs {
+  padding: 1rem 1rem 0rem;
+  max-width: 100%;
+}
+
+.modal-form {
+  max-width: 320px;
+  width: 100%;
+}
+
+.address-form-styles {
+  max-width: 360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.badge-style {
+  background-color: var(--color-primary);
+}
+
+@media (max-width: 500px) {
+  .tabs {
+    max-width: 370px;
+  }
+
+  .address-form-styles {
+    padding: 0rem 0.5rem;
+  }
+}

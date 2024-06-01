@@ -1,10 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import api from './api';
 import {
+  Address,
+  AddressType,
   AuthorizationResponse,
   EmailAvailabilityResponse,
   SignUpArg,
   SignUpResponse,
+  UpdateUserArg,
+  User,
 } from '../types/authorization-response';
 
 const UserService = {
@@ -83,6 +87,58 @@ const UserService = {
       }
     }
     return [response, message];
+  },
+
+  async update(userID: string, arg: UpdateUserArg): Promise<[User, undefined] | [undefined, Error]> {
+    try {
+      const resp = await api.patch(`/users/${userID}`, arg, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
+  },
+
+  async addAddress(
+    userID: string,
+    type: AddressType,
+    addr: Omit<Address, 'id'>
+  ): Promise<[Address, undefined] | [undefined, Error]> {
+    try {
+      const resp = await api.post(`/users/${userID}/addresses/${type}`, addr, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
+  },
+
+  async editAddress(
+    userID: string,
+    type: AddressType,
+    addr: Address
+  ): Promise<[Address, undefined] | [undefined, Error]> {
+    try {
+      const resp = await api.put(`/users/${userID}/addresses/${type}/${addr.id}`, addr, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
+  },
+
+  async delteAddress(userID: string, type: AddressType, addressID: string): Promise<Error | undefined> {
+    try {
+      await api.delete(`/users/${userID}/addresses/${type}/${addressID}`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      return undefined;
+    } catch (error) {
+      return error as Error;
+    }
   },
 };
 

@@ -7,6 +7,7 @@ import { ReactNode, useLayoutEffect, useState } from 'react';
 import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
+import { emailRules, passwordRules } from '../../utils/fields-validation';
 
 const { Text, Title, Link } = Typography;
 
@@ -94,36 +95,10 @@ export default function LoginForm() {
           <Link href="#/registration">Create Account</Link>
           <Text> to continue.</Text>
         </Paragraph>
-        <Form.Item<FieldType>
-          name="email"
-          label="Email"
-          rules={[
-            { required: true, message: 'Please enter your Email' },
-            {
-              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Please enter correct Email address',
-            },
-          ]}
-          hasFeedback
-        >
+        <Form.Item<FieldType> name="email" label="Email" rules={emailRules} hasFeedback>
           <Input placeholder="Enter your email..." />
         </Form.Item>
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[
-            { required: true, message: 'Please enter your password' },
-            { pattern: /^\S(?:.*\S)?$/, message: 'Must not contain leading or trailing spaces!' },
-            { pattern: /^[^а-яА-Я]*$/, message: 'Must contain only English letters!' },
-            { pattern: /[a-z]/, message: 'Must contain at least one lowercase letter!' },
-            { pattern: /[A-Z]/, message: 'Must contain at least one uppercase letter!' },
-            { pattern: /\d/, message: 'Must contain at least one digit!' },
-            { pattern: /[^A-Za-zА-Яа-я\s0-9]/, message: 'Must contain at least one special character!' },
-            { min: 8, message: 'Must be at least 8 characters long!' },
-          ]}
-          hasFeedback
-          validateFirst
-        >
+        <Form.Item<FieldType> label="Password" name="password" rules={passwordRules} hasFeedback validateFirst>
           <Input.Password placeholder="Enter your password..." />
         </Form.Item>
         <Paragraph>
