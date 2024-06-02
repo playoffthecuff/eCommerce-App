@@ -14,7 +14,7 @@ const { Sider } = Layout;
 const { Title } = Typography;
 
 export default observer(function FiltersBlock() {
-  const { filtersData, loadFiltersData, resetFilters, applyFilters } = catalogStore;
+  const { filtersData, loadFiltersData, resetFilters, applyFilters, payload } = catalogStore;
 
   const location = useLocation();
 
@@ -71,12 +71,14 @@ export default observer(function FiltersBlock() {
   }, []);
 
   useEffect(() => {
-    resetFilters();
-  }, [resetFilters, location.pathname]);
-
-  useEffect(() => {
     loadFiltersData();
   }, [loadFiltersData]);
+
+  useEffect(() => {
+    if (!payload.filters || Object.keys(payload.filters).length !== 0) {
+      resetFilters();
+    }
+  }, [resetFilters, location.pathname, payload.filters]);
 
   const handleApplyFilters = () => {
     applyFilters({
