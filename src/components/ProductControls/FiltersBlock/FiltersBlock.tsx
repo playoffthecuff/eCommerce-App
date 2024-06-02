@@ -154,8 +154,8 @@ export default observer(function FiltersBlock() {
       key: '4',
       label: (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          WEIGHT
-          <Tooltip title="Maximum weight of the rider (kg)" placement="top">
+          WEIGHT (KG)
+          <Tooltip title="Maximum weight of the rider" placement="top">
             <InfoCircleOutlined style={{ marginLeft: 8 }} />
           </Tooltip>
         </div>
