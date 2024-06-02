@@ -1,15 +1,20 @@
 import { observer } from 'mobx-react-lite';
 import { Typography } from 'antd';
+import { useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 
-import { productsStore } from '../../store/catalog-store';
+import { catalogStore } from '../../store/catalog-store';
 
 import styles from './BestBikes.module.css';
 
 const { Title } = Typography;
 
 export default observer(function BestBikes() {
-  const { products, productsState } = productsStore;
+  const { loadProducts, products, productsState } = catalogStore;
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   return (
     <section className={styles['best-bikes']}>

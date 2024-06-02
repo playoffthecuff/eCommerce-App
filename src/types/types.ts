@@ -27,11 +27,11 @@ export interface Sort {
 }
 
 export interface Payload {
-  query: string;
-  filters: FiltersData;
-  // sorts: Sort[];
-  page: number;
-  pageSize: number;
+  query?: string;
+  filters?: FiltersData;
+  sorts?: Sort[];
+  page?: number;
+  pageSize?: number;
 }
 
 export enum ButtonVariety {

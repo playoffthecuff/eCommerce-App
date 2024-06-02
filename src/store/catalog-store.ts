@@ -6,7 +6,7 @@ import { BootState } from '../enums';
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
-  private _filters: FiltersData = {};
+  private _filtersData: FiltersData = {};
 
   private _totalPage: number = 0;
 
@@ -17,30 +17,27 @@ class CatalogStore {
   private _payload: Payload = {
     query: '',
     filters: {},
-    // sorts: [{ field: 'name', order: 'ASC' }],
+    sorts: [{ field: '', order: 'ASC' }],
     page: 1,
     pageSize: 8,
   };
+
+  public currentPage: number = 1;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   public get products(): ProductSummary[] {
-    if (this._state === BootState.None) {
-      this.loadProducts();
-      this.loadFilters();
-    }
-
     return this._products;
   }
 
-  public get filters(): FiltersData {
-    if (this._state === BootState.None) {
-      this.loadFilters();
-    }
+  public get filtersData(): FiltersData {
+    return this._filtersData;
+  }
 
-    return this._filters;
+  public get payload(): Payload {
+    return this._payload;
   }
 
   public get totalPage(): number {
@@ -55,7 +52,7 @@ class CatalogStore {
     return this._error;
   }
 
-  private async loadProducts(): Promise<void> {
+  public loadProducts = async (): Promise<void> => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
@@ -72,12 +69,12 @@ class CatalogStore {
       this._totalPage = responseData.total;
       this._state = BootState.Success;
     });
-  }
+  };
 
-  private async loadFilters(): Promise<void> {
+  public loadFiltersData = async (): Promise<void> => {
     this._error = undefined;
 
-    const [filters, error] = await productsService.loadFilters();
+    const [filtersData, error] = await productsService.loadFiltersData();
 
     if (error) {
       this._state = BootState.Failed;
@@ -87,12 +84,13 @@ class CatalogStore {
     }
 
     runInAction(() => {
-      this._filters = filters;
+      this._filtersData = filtersData;
     });
-  }
+  };
 
-  public async changePage(page: number) {
+  public changePage = async (page: number) => {
     this._payload.page = page;
+    this.currentPage = page;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -106,11 +104,14 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 
-  public async applyFilters(filters: FiltersData) {
-    this._payload.filters = filters;
+  public applyFilters = async (payload: Payload) => {
+    this._payload.filters = payload.filters;
+    this._payload.query = payload.query;
+    this._payload.sorts = payload.sorts;
     this._payload.page = 1;
+    this.currentPage = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -124,11 +125,12 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 
-  public async resetFilters() {
+  public resetFilters = async () => {
     this._payload.filters = {};
     this._payload.page = 1;
+    this.currentPage = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -142,7 +144,7 @@ class CatalogStore {
       this._products = responseData.products;
       this._totalPage = responseData.total;
     });
-  }
+  };
 }
 
-export const productsStore = new CatalogStore();
+export const catalogStore = new CatalogStore();
