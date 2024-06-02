@@ -10,11 +10,11 @@ import styles from './BestBikes.module.css';
 const { Title } = Typography;
 
 export default observer(function BestBikes() {
-  const { loadProducts, products, productsState } = catalogStore;
+  const { loadBestSellingProducts, bestSellingProducts, productsState } = catalogStore;
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    loadBestSellingProducts();
+  }, [loadBestSellingProducts]);
 
   return (
     <section className={styles['best-bikes']}>
@@ -22,7 +22,7 @@ export default observer(function BestBikes() {
         Best Selling Bikes
       </Title>
       <ul className={styles['product-wrapper']}>
-        {products.slice(0, 4).map((product) => {
+        {bestSellingProducts.slice(0, 4).map((product) => {
           return (
             <li key={product._id}>
               <ProductCard product={product} loading={productsState} />

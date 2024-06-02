@@ -6,6 +6,8 @@ import { BootState } from '../enums';
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
+  private _besSellingProducts: ProductSummary[] = [];
+
   private _filtersData: FiltersData = {};
 
   private _totalPage: number = 0;
@@ -30,6 +32,10 @@ class CatalogStore {
 
   public get products(): ProductSummary[] {
     return this._products;
+  }
+
+  public get bestSellingProducts(): ProductSummary[] {
+    return this._besSellingProducts;
   }
 
   public get filtersData(): FiltersData {
@@ -67,6 +73,24 @@ class CatalogStore {
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
+      this._state = BootState.Success;
+    });
+  };
+
+  public loadBestSellingProducts = async (): Promise<void> => {
+    this._state = BootState.InProgress;
+    this._error = undefined;
+
+    const [responseData, error] = await productsService.loadBestSellingProducts();
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._besSellingProducts = responseData.products;
       this._state = BootState.Success;
     });
   };

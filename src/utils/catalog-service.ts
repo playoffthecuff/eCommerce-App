@@ -11,6 +11,15 @@ class CatalogService {
     }
   };
 
+  loadBestSellingProducts = async (): Promise<[ResponseData, Error | undefined]> => {
+    try {
+      const resp = await api.get<ResponseData>('/products/best-selling');
+      return [resp.data, undefined];
+    } catch (error) {
+      return [{ products: [], total: 0 }, error as Error];
+    }
+  };
+
   loadFiltersData = async (): Promise<[FiltersData, Error | undefined]> => {
     try {
       const resp = await api.post<FiltersData>('/products/filters');
