@@ -1,6 +1,5 @@
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
 
 import { catalogStore } from '../../../store/catalog-store';
 
@@ -10,13 +9,9 @@ import { Payload } from '../../../types/types';
 const { Option } = Select;
 
 export default observer(function SortBlock() {
-  const [sortOption, setSortOption] = useState('');
-
   const { payload, applyFilters } = catalogStore;
 
   const handleSortChange = (value: string) => {
-    setSortOption(value);
-
     let sortField: string = '';
     let sortOrder: 'ASC' | 'DESC' = 'ASC';
 
@@ -47,8 +42,6 @@ export default observer(function SortBlock() {
         sorts: [{ field: sortField, order: sortOrder }],
       };
 
-      console.log(updatedPayload);
-
       applyFilters(updatedPayload);
     }
   };
@@ -60,7 +53,6 @@ export default observer(function SortBlock() {
         onChange={handleSortChange}
         placeholder="select sort order"
         className={styles.select}
-        value={sortOption}
       >
         <Option value="Alphabetically, A-Z">Alphabetically, A-Z</Option>
         <Option value="Alphabetically, Z-A">Alphabetically, Z-A</Option>

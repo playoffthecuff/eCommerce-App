@@ -22,6 +22,8 @@ class CatalogStore {
     pageSize: 8,
   };
 
+  public currentPage: number = 1;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -88,6 +90,7 @@ class CatalogStore {
 
   public changePage = async (page: number) => {
     this._payload.page = page;
+    this.currentPage = page;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -108,6 +111,7 @@ class CatalogStore {
     this._payload.query = payload.query;
     this._payload.sorts = payload.sorts;
     this._payload.page = 1;
+    this.currentPage = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -126,6 +130,7 @@ class CatalogStore {
   public resetFilters = async () => {
     this._payload.filters = {};
     this._payload.page = 1;
+    this.currentPage = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 

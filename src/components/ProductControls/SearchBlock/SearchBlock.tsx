@@ -18,6 +18,7 @@ export default observer(function SearchBlock() {
       applyFilters({
         ...payload,
         query: value,
+        page: 1,
       });
     }, 750),
     [payload.filters, payload.page, payload.pageSize]

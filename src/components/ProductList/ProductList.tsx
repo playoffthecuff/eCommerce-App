@@ -7,10 +7,10 @@ import styles from './ProductList.module.css';
 
 export default observer(function ProductList() {
   const PAGE_SIZE = 8;
-  const { products, productsState, totalPage } = catalogStore;
+  const { products, productsState, totalPage, changePage, currentPage } = catalogStore;
 
   const handlePageChange = (page: number) => {
-    catalogStore.changePage(page);
+    changePage(page);
   };
 
   return (
@@ -25,6 +25,7 @@ export default observer(function ProductList() {
         showSizeChanger: false,
         align: 'center',
         total: totalPage,
+        current: currentPage,
       }}
       dataSource={products}
       renderItem={(product) => {
