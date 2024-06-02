@@ -26,7 +26,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
         hoverable
         cover={
           loading === BootState.InProgress ? (
-            <Skeleton.Image className={styles.productImage} active />
+            <Skeleton.Image className={styles.skeletonImage} active />
           ) : (
             <img
               alt={title}

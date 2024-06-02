@@ -36,6 +36,11 @@
   object-fit: cover;
 }
 
+.skeleton-image {
+  width: 100% !important;
+  height: 200px !important;
+}
+
 .product-title {
   flex: 1;
 }
