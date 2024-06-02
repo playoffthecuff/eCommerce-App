@@ -5,6 +5,7 @@ export interface ProductSummary {
   _id: string;
   discountedPrice?: number;
   vendorCode: number;
+  thumbs: string;
 }
 
 export interface ResponseData {

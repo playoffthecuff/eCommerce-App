@@ -17,7 +17,7 @@ type ProductCardProps = {
 };
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
-  const { title, price, discountedPrice, vendorCode, rating } = product;
+  const { title, price, discountedPrice, vendorCode, rating, thumbs } = product;
 
   return (
     <a href={`${import.meta.env.VITE_API_URL}/products?vc=${vendorCode}`} className={styles['product-card-link']}>
@@ -28,7 +28,11 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
           loading === BootState.InProgress ? (
             <Skeleton.Image className={styles.productImage} active />
           ) : (
-            <img alt={title} src={image1} className={styles.productImage} />
+            <img
+              alt={title}
+              src={thumbs ? `data:image/jpeg;base64,${thumbs}` : image1}
+              className={styles.productImage}
+            />
           )
         }
       >
