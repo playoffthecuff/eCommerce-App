@@ -47,7 +47,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
           <div className={styles['rate-wrapper']}>
             <Rate
               allowHalf
-              defaultValue={rating}
+              value={rating}
               disabled
               className={styles.rate}
               style={{ color: 'var(--color-text)', fontSize: 10 }}
