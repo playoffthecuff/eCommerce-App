@@ -29,7 +29,7 @@ export interface Sort {
 export interface Payload {
   query?: string;
   filters?: FiltersData;
-  // sorts: Sort[];
+  sorts?: Sort[];
   page?: number;
   pageSize?: number;
 }

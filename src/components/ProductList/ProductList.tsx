@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import { List } from 'antd';
 
-import { productsStore } from '../../store/catalog-store';
+import { catalogStore } from '../../store/catalog-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 
 export default observer(function ProductList() {
   const PAGE_SIZE = 8;
-  const { products, productsState, totalPage } = productsStore;
+  const { products, productsState, totalPage } = catalogStore;
 
   const handlePageChange = (page: number) => {
-    productsStore.changePage(page);
+    catalogStore.changePage(page);
   };
 
   return (

@@ -5,21 +5,19 @@ import type { SearchProps } from 'antd/es/input/Search';
 import { observer } from 'mobx-react-lite';
 import { useCallback } from 'react';
 import styles from './SearchBlock.module.css';
-import { productsStore } from '../../../store/catalog-store';
+import { catalogStore } from '../../../store/catalog-store';
 
 const { Search } = Input;
 
 export default observer(function SearchBlock() {
-  const { payload } = productsStore;
+  const { payload, applyFilters } = catalogStore;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((value: string) => {
-      productsStore.applyFilters({
+      applyFilters({
+        ...payload,
         query: value,
-        filters: payload.filters,
-        page: payload.page,
-        pageSize: payload.pageSize,
       });
     }, 750),
     [payload.filters, payload.page, payload.pageSize]

@@ -17,7 +17,7 @@ class CatalogStore {
   private _payload: Payload = {
     query: '',
     filters: {},
-    // sorts: [{ field: 'name', order: 'ASC' }],
+    sorts: [{ field: '', order: 'ASC' }],
     page: 1,
     pageSize: 8,
   };
@@ -106,6 +106,7 @@ class CatalogStore {
   public applyFilters = async (payload: Payload) => {
     this._payload.filters = payload.filters;
     this._payload.query = payload.query;
+    this._payload.sorts = payload.sorts;
     this._payload.page = 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
@@ -141,4 +142,4 @@ class CatalogStore {
   };
 }
 
-export const productsStore = new CatalogStore();
+export const catalogStore = new CatalogStore();

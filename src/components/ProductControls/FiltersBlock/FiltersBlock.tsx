@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
 import { useLocation } from 'react-router-dom';
-import { productsStore } from '../../../store/catalog-store';
+import { catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 
@@ -14,7 +14,7 @@ const { Sider } = Layout;
 const { Title } = Typography;
 
 export default observer(function FiltersBlock() {
-  const { filtersData, loadFiltersData, resetFilters } = productsStore;
+  const { filtersData, loadFiltersData, resetFilters, applyFilters } = catalogStore;
 
   const location = useLocation();
 
@@ -79,7 +79,7 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   const handleApplyFilters = () => {
-    productsStore.applyFilters({
+    applyFilters({
       filters: {
         colors: selectedColors,
         categories: selectedCategories,
@@ -99,7 +99,7 @@ export default observer(function FiltersBlock() {
     setSelectedWeight([]);
     setSelectedRating([]);
     setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || 0]);
-    productsStore.resetFilters();
+    resetFilters();
   };
 
   const items: CollapseProps['items'] = [
