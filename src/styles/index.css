@@ -263,3 +263,7 @@ h5.ant-typography {
 button {
   text-transform: uppercase;
 }
+
+.ant-image-preview-footer {
+  color: var(--color-link);
+}

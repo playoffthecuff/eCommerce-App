@@ -1,10 +1,11 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/no-array-index-key */
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
-import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image } from 'antd';
+import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -18,6 +19,15 @@ import productStore from '../../store/product-store';
 import { WARRANTY_TEXT } from '../../utils/product-service';
 import { BootState } from '../../types/boot-state';
 import styles from './Product.module.css';
+import {
+  DownloadOutlined,
+  SwapOutlined,
+  RotateLeftOutlined,
+  RotateRightOutlined,
+  ZoomOutOutlined,
+  ZoomInOutlined,
+  UndoOutlined,
+} from '@ant-design/icons';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -40,7 +50,17 @@ function ProductPage() {
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
               {/* <ProductSwiper /> */} {/* back to swiper next sprint */}
-              <Image.PreviewGroup items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}>
+              <Image.PreviewGroup
+                items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
+                preview={{
+                  toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
+                    <Space size={12} className="toolbar-wrapper">
+                      <ZoomOutOutlined disabled={scale === 1} onClick={onZoomOut} />
+                      <ZoomInOutlined disabled={scale === 50} onClick={onZoomIn} />
+                    </Space>
+                  ),
+                }}
+              >
                 <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
               </Image.PreviewGroup>
             </div>
