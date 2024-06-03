@@ -75,9 +75,16 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   useEffect(() => {
-    return () => {
+    const query = new URLSearchParams(location.search);
+    const categories = query.getAll('category');
+    if (categories) {
+      applyFilters({ filters: { categories } });
+    } else {
       resetFilters();
-    };
+    }
+    // return () => {
+    //   resetFilters();
+    // };
   }, [location.pathname]);
 
   const handleApplyFilters = () => {
