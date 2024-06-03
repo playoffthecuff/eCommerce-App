@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
 import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
+import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -19,15 +20,6 @@ import productStore from '../../store/product-store';
 import { WARRANTY_TEXT } from '../../utils/product-service';
 import { BootState } from '../../types/boot-state';
 import styles from './Product.module.css';
-import {
-  DownloadOutlined,
-  SwapOutlined,
-  RotateLeftOutlined,
-  RotateRightOutlined,
-  ZoomOutOutlined,
-  ZoomInOutlined,
-  UndoOutlined,
-} from '@ant-design/icons';
 
 const { Paragraph, Text, Title } = Typography;
 
