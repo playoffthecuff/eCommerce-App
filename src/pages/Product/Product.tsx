@@ -56,9 +56,9 @@ function ProductPage() {
                 <Text
                   className={productStore.product?.discountedPrice ? styles['old-price'] : ''}
                 >{`$${productStore.product?.price}`}</Text>
-                <Text className={styles['discounted-price']}>
-                  {productStore.product?.discountedPrice ? `$${productStore.product.discountedPrice}` : ''}
-                </Text>
+                {!!productStore.product?.discountedPrice && (
+                  <Text className={styles['discounted-price']}>{`$${productStore.product.discountedPrice}`}</Text>
+                )}
               </div>
               <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>
                 {productStore.product?.description}

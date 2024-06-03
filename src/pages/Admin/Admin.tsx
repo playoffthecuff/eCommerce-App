@@ -39,26 +39,9 @@ function AdminPage() {
           id: productStore.product?._id,
           fileContent: base64,
         });
-
-        // const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/${typeImgRef.current}`, {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ fileContent: base64, fileName: file.name }),
-        // });
-
-        // if (!response.ok) {
-        //   throw new Error('Upload failed');
-        // }
-
         if (resp.status !== 200) {
           throw new Error('Upload failed');
         }
-
-        const res = resp.statusText;
-        // const result = await response.text();
-        console.log(res);
         message.success(`${file.name} file uploaded successfully`);
       } catch (error) {
         const e = error as Error;
@@ -120,15 +103,15 @@ function AdminPage() {
           showSearch
           placeholder="Choose product..."
           onChange={(title) => {
-            const entry = productStore.titlesAndColors.find((item) => item.title === title);
+            const entry = productStore.shortInfo.find((item) => item.title === title);
             if (entry) {
               setColor(entry.color);
               productStore.loadProduct(entry.vendorCode.toString());
             }
           }}
         >
-          {productStore.titlesAndColors.length > 0 &&
-            productStore.titlesAndColors.map((p) => {
+          {productStore.shortInfo.length > 0 &&
+            productStore.shortInfo.map((p) => {
               return (
                 <Select.Option key={p._id} value={p.title}>
                   {p.title}

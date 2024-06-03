@@ -12,7 +12,7 @@ class ProductStore {
 
   private _shortInfo: ShortInfoResponse[] = [];
 
-  public get titlesAndColors(): ShortInfoResponse[] {
+  public get shortInfo(): ShortInfoResponse[] {
     return this._shortInfo;
   }
 

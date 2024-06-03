@@ -11,7 +11,15 @@ import { Sizing } from '../../types/product-response';
 
 const { Title } = Typography;
 
-function getSizingData() {
+type SizingDataType = {
+  key: string;
+  name: string;
+  small: number;
+  medium: number;
+  large: number;
+};
+
+function getSizingData(): SizingDataType[] | undefined {
   const sizingData = productStore.product?.sizing;
   if (!sizingData) return undefined;
 
@@ -52,7 +60,7 @@ function Geometry() {
       <Title level={2}>SIZING & GEOMETRY</Title>
       <Divider style={{ marginTop: 0 }} />
       <div className={classNames(styles.container)}>
-        <div className={styles.drawing} style={{ transform: `translateX(${bicyclePosition}px` }}>
+        <div className={styles.drawing} style={{ transform: `translateX${bicyclePosition}px` }}>
           <img className={styles.image} alt="drawing" src={drawing} />
         </div>
         <Table
