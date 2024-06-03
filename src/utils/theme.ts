@@ -26,7 +26,7 @@ const noVarTokenDark = {
   colorLinkHover: '#2644ad',
 };
 
-const lightTheme: ThemeConfig = {
+export const lightTheme: ThemeConfig = {
   // cssVar: true,
   // hashed: false,
   token: {
@@ -68,11 +68,22 @@ const lightTheme: ThemeConfig = {
       bodyBg: 'var(--color-background)',
       headerHeight: 48,
       footerBg: 'var(--color-footer-background)',
+      siderBg: 'red',
     },
     Descriptions: {
       labelBg: 'transparent',
       titleColor: 'var(--color-text)',
       titleMarginBottom: 0,
+    },
+    Table: {
+      headerBg: 'var(--color-background-secondary)',
+      borderColor: 'var(--color-background-secondary)',
+      rowHoverBg: 'var(--color-background-secondary)',
+    },
+    Collapse: {
+      headerBg: 'transparent',
+      headerPadding: '0.5rem',
+      contentPadding: '0.5rem 1rem 1rem 1.25rem',
     },
   },
 };
@@ -83,5 +94,3 @@ export const darkTheme = {
 };
 
 darkTheme.token = { ...darkTheme.token, ...noVarTokenDark };
-
-export default lightTheme;

@@ -8,6 +8,7 @@
   --background-color-delay: background-color 0.8s;
   --background-delay: background-color 0.8s;
   --color-delay: background-color 0.8s;
+  --scrollbar-color-delay: scrollbar-color 0.8s;
 }
 
 html {
@@ -19,6 +20,7 @@ html {
   html {
     scrollbar-color: var(--color-primary) var(--color-background);
     scrollbar-width: var(--scrollbar-width);
+    transition: var(--scrollbar-color-delay);
   }
 }
 
@@ -29,29 +31,32 @@ html {
   html::-webkit-scrollbar-track {
     background: var(--color-background);
   }
-  #html::-webkit-scrollbar {
+  html::-webkit-scrollbar {
     max-width: var(--scrollbar-width-legacy);
     max-height: var(--scrollbar-width-legacy);
   }
 }
 
 html {
-  /* overflow-y: auto; */
   scroll-behavior: smooth;
   overscroll-behavior: contain;
+}
+
+html:hover::-webkit-scrollbar-thumb {
+  background: red;
+  background-color: red;
 }
 
 :root[data-theme="light"] {
   --color-background: #fff;
   --color-background-secondary: #ebebeb;
-  --color-footer-background: #111;
   --color-header-background: #fff;
   --color-menu-background: #fff;
   --color-button-text: #fff;
   --color-button-hover-text: #fff;
+  --color-gallery-background: #fff;
   --bullet-color: #fff;
   --color-text: #111;
-  --color-border: #949494;
   --color-button-background: #111;
   --color-menu-item-text: #111;
   --color-primary: #2644ad;
@@ -64,14 +69,18 @@ html {
   --color-bg-container-disabled: #d3d3d3;
   --color-error: #ad4426;
   --shadow: 0.5rem #0003;
+  --color-border: #949494;
+  --reverse-filter: none;
 }
 
 :root[data-theme="dark"] {
   --color-background: #202020;
+  --color-background-secondary: #000;
   --color-header-background: #000;
   --color-menu-background: #000;
   --color-button-text: #000;
   --color-button-hover-text: #000;
+  --color-gallery-background: #000;
   --color-button-background: #ddd;
   --color-text: #ddd;
   --color-menu-item-text: #ddd;
@@ -86,11 +95,11 @@ html {
   --color-button-disabled-text: #a9a9a9;
   --color-error: #ad4426;
   --shadow: 0.5rem #0003;
-  --color-footer-background: #111;
   --color-border: #6C6C6C;
+  --reverse-filter: invert();
 }
 
-input:-webkit-autofill { 
+input:-webkit-autofill {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: var(--color-text) !important;
 }
@@ -217,4 +226,23 @@ h5.ant-typography {
 .ant-carousel .slick-dots li button,
 .ant-carousel .slick-dots li.slick-active button {
   background-color: var(--bullet-color);
+}
+
+.ant-image-preview-img {
+  background-color: var(--color-gallery-background);
+}
+
+.ant-image-preview-footer {
+  color: var(--color-text);
+}
+
+.ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon {
+  height: 2rem;
+  padding-inline-end: 0.5rem;
+}
+.ant-collapse>.ant-collapse-item >.ant-collapse-header {
+  line-height: 1.3;
+}
+.ant-descriptions-item-content {
+  font-weight: 400;
 }

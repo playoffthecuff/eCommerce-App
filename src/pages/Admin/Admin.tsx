@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Form, Image, InputNumber, Upload } from 'antd';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import { Form, Image, Radio, Select, Statistic, Upload, message } from 'antd';
+import type { GetProp, RadioChangeEvent, UploadFile, UploadProps } from 'antd';
+import { observer } from 'mobx-react-lite';
 import axios from 'axios';
+import productStore from '../../store/product-store';
+import { BootState } from '../../types/boot-state';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -22,30 +25,65 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export default function AdminPage() {
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [uploadUrl, setUploadUrl] = useState(`${import.meta.env.VITE_API_URL}/products/123/images/`);
+function AdminPage() {
+  const typeImgRef = useRef('thumb');
 
-  const fetchData = async () => {
-    try {
-      // const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?vc=671296`);
-      const filter = {
-        category: 'bikes',
-        minPrice: 100,
-        maxPrice: 2000,
-        weight: 275,
-        minBase: 1000,
-        maxBase: 1100,
-        frameSize: 450,
-      };
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/`, filter);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+  const uploadImg = (file: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const result = reader.result as string;
+      const base64 = result.split(',')[1];
+      try {
+        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/products/${typeImgRef.current}`, {
+          id: productStore.product?._id,
+          fileContent: base64,
+        });
+
+        // const response = await fetch(`${import.meta.env.VITE_API_URL}/upload/${typeImgRef.current}`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({ fileContent: base64, fileName: file.name }),
+        // });
+
+        // if (!response.ok) {
+        //   throw new Error('Upload failed');
+        // }
+
+        if (resp.status !== 200) {
+          throw new Error('Upload failed');
+        }
+
+        const res = resp.statusText;
+        // const result = await response.text();
+        console.log(res);
+        message.success(`${file.name} file uploaded successfully`);
+      } catch (error) {
+        const e = error as Error;
+        const msg = e.message;
+        message.error(`${file.name} file upload failed: ${msg}`);
+      }
+    };
+    return false;
   };
+
+  const [previewThumbOpen, setPreviewOpen] = useState(false);
+  const [previewThumbImage, setPreviewImage] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [typeImgRadioValue, setTypeImgRadioValue] = useState(1);
+  const onTypeImgRadioChange = (e: RadioChangeEvent) => {
+    setTypeImgRadioValue(e.target.value);
+    typeImgRef.current = e.target.value === 1 ? 'thumb' : 'gallery';
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      await productStore.loadShortInfo();
+    }
+    fetchData();
+  }, []);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -59,50 +97,79 @@ export default function AdminPage() {
 
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
 
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
+  const uploadThumbsButton = (
+    <button
+      style={{ border: 0, background: 'none' }}
+      type="button"
+      disabled={productStore.bootState !== BootState.Success}
+    >
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
+      <div style={{ marginTop: 8 }}>UPLOAD</div>
     </button>
   );
+
+  const [color, setColor] = useState('');
+
   return (
     <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal" style={{ maxWidth: 600 }}>
-      <Form.Item label="Vendor code">
-        <InputNumber
-          onChange={() => {
-            setUploadUrl(`${import.meta.env.VITE_API_URL}/products/123/images/`);
+      <Form.Item label="Color">
+        <Statistic value={color} />
+      </Form.Item>
+      <Form.Item label="Product Name">
+        <Select
+          showSearch
+          placeholder="Choose product..."
+          onChange={(title) => {
+            const entry = productStore.titlesAndColors.find((item) => item.title === title);
+            if (entry) {
+              setColor(entry.color);
+              productStore.loadProduct(entry.vendorCode.toString());
+            }
           }}
-        />
+        >
+          {productStore.titlesAndColors.length > 0 &&
+            productStore.titlesAndColors.map((p) => {
+              return (
+                <Select.Option key={p._id} value={p.title}>
+                  {p.title}
+                </Select.Option>
+              );
+            })}
+        </Select>
+      </Form.Item>
+      <Form.Item label="Img Type">
+        <Radio.Group onChange={onTypeImgRadioChange} value={typeImgRadioValue}>
+          <Radio value={1}>Thumbs</Radio>
+          <Radio value={2}>Gallery</Radio>
+        </Radio.Group>
       </Form.Item>
       <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
         <Upload
-          accept="image/png, image/webp"
-          action={uploadUrl}
+          accept="image/png, image/webp, image/svg+xml"
+          beforeUpload={uploadImg}
           listType="picture-card"
           fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
-          maxCount={1}
+          maxCount={4}
         >
-          {fileList.length >= 8 ? null : uploadButton}
+          {fileList.length >= 4 ? null : uploadThumbsButton}
         </Upload>
-        {previewImage && (
+        {previewThumbImage && (
           <Image
             wrapperStyle={{ display: 'none' }}
             preview={{
-              visible: previewOpen,
+              visible: previewThumbOpen,
               onVisibleChange: (visible) => setPreviewOpen(visible),
               afterOpenChange: (visible) => !visible && setPreviewImage(''),
             }}
-            src={previewImage}
+            src={previewThumbImage}
           />
         )}
-      </Form.Item>
-      <Form.Item label="Button">
-        <Button htmlType="submit" onClick={fetchData}>
-          Submit
-        </Button>
       </Form.Item>
     </Form>
   );
 }
+
+const observableAdminPage = observer(AdminPage);
+export default observableAdminPage;

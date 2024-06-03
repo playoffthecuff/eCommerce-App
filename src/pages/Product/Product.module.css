@@ -1,40 +1,48 @@
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: min(calc(100vw - 2rem), 1408px);
+}
+
 .product-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 0.5rem;
+  display: flex;
+  flex-shrink: 1;
+  gap: 2rem;
 }
 
-.left-block {
-  grid-row: 1 / span 2;
-}
-
-.header-block {
-  grid-column: 2;
-  grid-row: 1;
-  padding-top: 2rem;
-
+.info-block {
+  flex-basis: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 2rem);
   h2 {
     text-transform: uppercase;
   }
 }
 
 .image-block {
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  margin-top: 1rem;
+  min-width: 0;
+  flex-basis: 65%;
+  max-height: 600px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--color-gallery-background);
+  transition: var(--background-color-delay);
+  user-select: none;
 }
 
-.description-block {
-  grid-column: 2;
-  grid-row: 2;
+.header-block {
+  margin-top: 1vw;
+  h2 {
+  text-transform: uppercase;
+  }
 }
 
 .price-block {
-  margin-bottom: 1rem;
-
   span {
     margin-right: 1.5rem;
     font-size: 1.5rem;
@@ -56,32 +64,22 @@
 }
 
 .cart-block {
+  margin-top: 1rem;
   display: flex;
   gap: 0.5rem;
 }
 
 .size-block {
-  margin-bottom: 1rem;
-  button {
-    width: 3rem;
+  span {
+    width: 2.7rem;
     display: inline-block;
-    margin-right: 0.5rem;
+    text-align: center;
   }
 }
 
-.product-details-block {
-  margin-top: 4rem;
-}
-
 .product-details-container {
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto;
-}
-
-.flex-gap-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
 .overview-block {
@@ -140,25 +138,16 @@
 
 @media (max-width: 728px) {
   .product-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-  }
-  .image-block {
-      grid-column: 1;
-      grid-row: 2;
+    flex-direction: column;
   }
   .header-block {
-      grid-column: 1;
-      grid-row: 1;
       padding-top: 0;
-  }
-  .description-block {
-      grid-column: 1;
-      grid-row: 3;
   }
   .overview-block {
     flex-direction: column;
     gap: 1rem;
+  }
+  .image-block {
+    order: 2;
   }
 }
