@@ -1,19 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { List, Spin } from 'antd';
 
-import { useEffect } from 'react';
 import { catalogStore } from '../../store/catalog-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
 
-export default observer(function ProductList() {
-  const PAGE_SIZE = 8;
-  const { loadProducts, products, productsState, totalPage, changePage, currentPage } = catalogStore;
+const PAGE_SIZE = 8;
 
-  useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+export default observer(function ProductList() {
+  const { products, productsState, totalPage, changePage, currentPage } = catalogStore;
 
   const handlePageChange = (page: number) => {
     changePage(page);

@@ -5,7 +5,7 @@ import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
-import { useLocation } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
@@ -25,6 +25,8 @@ export default observer(function FiltersBlock() {
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
+  const [query] = useSearchParams();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -75,30 +77,49 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const categories = query.getAll('category');
-    if (categories) {
-      applyFilters({ filters: { categories } });
-    } else {
-      resetFilters();
-    }
-    // return () => {
-    //   resetFilters();
-    // };
-  }, [location.pathname]);
-
-  const handleApplyFilters = () => {
+    const categories = query.getAll('category') || [];
+    const colors = query.getAll('color') || [];
+    const rating = query
+      .getAll('rating')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const weight = query
+      .getAll('weight')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const minPrice =
+      (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
+    const maxPrice =
+      (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) || filtersData?.maxPrice || 0;
     applyFilters({
       filters: {
-        colors: selectedColors,
-        categories: selectedCategories,
-        rating: selectedRating,
-        weight: selectedWeight,
-        minPrice: selectedPriceRange[0],
-        maxPrice: selectedPriceRange[1],
+        colors,
+        categories,
+        rating,
+        weight,
+        minPrice,
+        maxPrice,
       },
     });
+    setSelectedCategories(categories);
+    setSelectedColors(colors);
+    setSelectedRating(rating);
+    setSelectedWeight(weight);
+    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+  }, [location.pathname, location.search]);
 
+  const handleApplyFilters = () => {
+    navigate({
+      pathname: location.pathname,
+      search: createSearchParams({
+        category: selectedCategories,
+        color: selectedColors,
+        rating: selectedRating.map((num) => String(num)),
+        weight: selectedWeight.map((num) => String(num)),
+        min_price: String(selectedPriceRange[0]),
+        max_price: String(selectedPriceRange[1]),
+      }).toString(),
+    });
     closeMenu();
   };
 
@@ -109,6 +130,8 @@ export default observer(function FiltersBlock() {
     setSelectedRating([]);
     setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || 0]);
     resetFilters();
+    navigate({ pathname: location.pathname, search: '' });
+    closeMenu();
   };
 
   const items: CollapseProps['items'] = [
