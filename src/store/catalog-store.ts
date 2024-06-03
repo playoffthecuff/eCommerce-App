@@ -5,13 +5,14 @@ import { BootState } from '../enums';
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 8;
+export const MAX_PRODUCT_PRICE = 2_000;
 
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
   private _besSellingProducts: ProductSummary[] = [];
 
-  private _filtersData: FiltersData = {};
+  private _filtersData: FiltersData | undefined;
 
   private _totalPage: number = 0;
 
@@ -42,7 +43,7 @@ class CatalogStore {
   }
 
   public get filtersData(): FiltersData {
-    return this._filtersData;
+    return this._filtersData || {};
   }
 
   public get payload(): Payload {
