@@ -20,7 +20,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
   const { title, price, discountedPrice, vendorCode, rating, thumbs } = product;
 
   return (
-    <a href={`${import.meta.env.VITE_API_URL}/products?vc=${vendorCode}`} className={styles['product-card-link']}>
+    <a href={`${import.meta.env.BASE_URL}#/product?vc=${vendorCode}`} className={styles['product-card-link']}>
       <Card
         className={styles.productCard}
         hoverable
