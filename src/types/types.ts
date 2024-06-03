@@ -5,6 +5,7 @@ export interface ProductSummary {
   _id: string;
   discountedPrice?: number;
   vendorCode: number;
+  thumbs: string;
 }
 
 export interface ResponseData {
@@ -27,11 +28,11 @@ export interface Sort {
 }
 
 export interface Payload {
-  query: string;
-  filters: FiltersData;
-  // sorts: Sort[];
-  page: number;
-  pageSize: number;
+  query?: string;
+  filters?: FiltersData;
+  sorts?: Sort[];
+  page?: number;
+  pageSize?: number;
 }
 
 export enum ButtonVariety {

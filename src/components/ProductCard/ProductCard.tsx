@@ -1,6 +1,7 @@
 import { Card, Rate, Skeleton } from 'antd';
 import classNames from 'classnames';
 
+import { observer } from 'mobx-react-lite';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 
@@ -15,8 +16,8 @@ type ProductCardProps = {
   loading: BootState;
 };
 
-export default function ProductCard({ product, loading }: ProductCardProps) {
-  const { title, price, discountedPrice, vendorCode, rating } = product;
+export default observer(function ProductCard({ product, loading }: ProductCardProps) {
+  const { title, price, discountedPrice, vendorCode, rating, thumbs } = product;
 
   return (
     <a href={`${import.meta.env.VITE_API_URL}/products?vc=${vendorCode}`} className={styles['product-card-link']}>
@@ -25,9 +26,13 @@ export default function ProductCard({ product, loading }: ProductCardProps) {
         hoverable
         cover={
           loading === BootState.InProgress ? (
-            <Skeleton.Image className={styles.productImage} active />
+            <Skeleton.Image className={styles.skeletonImage} active />
           ) : (
-            <img alt={title} src={image1} className={styles.productImage} />
+            <img
+              alt={title}
+              src={thumbs ? `data:image/jpeg;base64,${thumbs}` : image1}
+              className={styles.productImage}
+            />
           )
         }
       >
@@ -46,7 +51,7 @@ export default function ProductCard({ product, loading }: ProductCardProps) {
           <div className={styles['rate-wrapper']}>
             <Rate
               allowHalf
-              defaultValue={rating}
+              value={rating}
               disabled
               className={styles.rate}
               style={{ color: 'var(--color-text)', fontSize: 10 }}
@@ -57,4 +62,4 @@ export default function ProductCard({ product, loading }: ProductCardProps) {
       </Card>
     </a>
   );
-}
+});

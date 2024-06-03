@@ -1,17 +1,49 @@
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+
+import { catalogStore } from '../../../store/catalog-store';
 
 import styles from './SortBlock.module.css';
+import { Payload } from '../../../types/types';
 
 const { Option } = Select;
 
 export default observer(function SortBlock() {
-  const [sortOption, setSortOption] = useState('Best selling');
+  const { payload, applyFilters } = catalogStore;
 
   const handleSortChange = (value: string) => {
-    setSortOption(value);
-    console.log('Selected Sort Option:', sortOption);
+    let sortField: string = '';
+    let sortOrder: 'ASC' | 'DESC' = 'ASC';
+
+    switch (value) {
+      case 'Alphabetically, A-Z':
+        sortField = 'title';
+        sortOrder = 'ASC';
+        break;
+      case 'Alphabetically, Z-A':
+        sortField = 'title';
+        sortOrder = 'DESC';
+        break;
+      case 'Price, low to high':
+        sortField = 'price';
+        sortOrder = 'ASC';
+        break;
+      case 'Price, high to low':
+        sortField = 'price';
+        sortOrder = 'DESC';
+        break;
+      default:
+        break;
+    }
+
+    if (sortField) {
+      const updatedPayload: Payload = {
+        ...payload,
+        sorts: [{ field: sortField, order: sortOrder }],
+      };
+
+      applyFilters(updatedPayload);
+    }
   };
 
   return (

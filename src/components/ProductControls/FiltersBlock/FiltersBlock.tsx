@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
 import { useLocation } from 'react-router-dom';
-import { productsStore } from '../../../store/catalog-store';
+import { catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 
@@ -14,7 +14,8 @@ const { Sider } = Layout;
 const { Title } = Typography;
 
 export default observer(function FiltersBlock() {
-  const { filters } = productsStore;
+  const { filtersData, loadFiltersData, resetFilters, applyFilters } = catalogStore;
+
   const location = useLocation();
 
   const [collapsed, setCollapsed] = useState(true);
@@ -44,6 +45,7 @@ export default observer(function FiltersBlock() {
   };
 
   const onRatingChange = (checkedValues: number[]) => {
+    console.log(checkedValues);
     setSelectedRating(checkedValues);
   };
 
@@ -56,11 +58,11 @@ export default observer(function FiltersBlock() {
   };
 
   useEffect(() => {
-    const minPrice = filters?.minPrice || 0;
-    const maxPrice = filters?.maxPrice || 0;
+    const minPrice = filtersData?.minPrice || 0;
+    const maxPrice = filtersData?.maxPrice || 0;
 
     setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-  }, [filters]);
+  }, [filtersData]);
 
   useEffect(() => {
     return () => {
@@ -69,17 +71,25 @@ export default observer(function FiltersBlock() {
   }, []);
 
   useEffect(() => {
-    productsStore.resetFilters();
+    loadFiltersData();
+  }, [loadFiltersData]);
+
+  useEffect(() => {
+    return () => {
+      resetFilters();
+    };
   }, [location.pathname]);
 
   const handleApplyFilters = () => {
-    productsStore.applyFilters({
-      colors: selectedColors,
-      categories: selectedCategories,
-      rating: selectedRating,
-      weight: selectedWeight,
-      minPrice: selectedPriceRange[0],
-      maxPrice: selectedPriceRange[1],
+    applyFilters({
+      filters: {
+        colors: selectedColors,
+        categories: selectedCategories,
+        rating: selectedRating,
+        weight: selectedWeight,
+        minPrice: selectedPriceRange[0],
+        maxPrice: selectedPriceRange[1],
+      },
     });
 
     closeMenu();
@@ -90,8 +100,8 @@ export default observer(function FiltersBlock() {
     setSelectedColors([]);
     setSelectedWeight([]);
     setSelectedRating([]);
-    setSelectedPriceRange([filters?.minPrice || 0, filters?.maxPrice || 0]);
-    productsStore.resetFilters();
+    setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || 0]);
+    resetFilters();
   };
 
   const items: CollapseProps['items'] = [
@@ -106,8 +116,8 @@ export default observer(function FiltersBlock() {
             tooltip={{ placement: 'top' }}
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
-            min={Math.floor(filters?.minPrice || 0)}
-            max={Math.ceil(filters?.maxPrice || 0)}
+            min={Math.floor(filtersData?.minPrice || 0)}
+            max={Math.ceil(filtersData?.maxPrice || 0)}
             onChange={onPriceChange}
           />
           <div className={styles['price-range']}>
@@ -121,7 +131,7 @@ export default observer(function FiltersBlock() {
       label: 'CATEGORIES',
       children: (
         <Checkbox.Group
-          options={filters?.categories}
+          options={filtersData?.categories}
           className={styles['filter-group']}
           onChange={onCategoryChange}
           value={selectedCategories}
@@ -133,7 +143,7 @@ export default observer(function FiltersBlock() {
       label: 'COLORS',
       children: (
         <Checkbox.Group
-          options={filters?.colors}
+          options={filtersData?.colors}
           className={styles['filter-group']}
           onChange={onColorChange}
           value={selectedColors}
@@ -144,15 +154,15 @@ export default observer(function FiltersBlock() {
       key: '4',
       label: (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          WEIGHT
-          <Tooltip title="Maximum weight of the rider (kg)" placement="top">
+          WEIGHT (KG)
+          <Tooltip title="Maximum weight of the rider" placement="top">
             <InfoCircleOutlined style={{ marginLeft: 8 }} />
           </Tooltip>
         </div>
       ),
       children: (
         <Checkbox.Group
-          options={filters?.weight}
+          options={filtersData?.weight}
           className={styles['filter-group']}
           onChange={onWeightChange}
           value={selectedWeight}
@@ -164,7 +174,7 @@ export default observer(function FiltersBlock() {
       label: 'RATING',
       children: (
         <Checkbox.Group
-          options={filters?.rating}
+          options={filtersData?.rating}
           className={styles['filter-group']}
           onChange={onRatingChange}
           value={selectedRating}
