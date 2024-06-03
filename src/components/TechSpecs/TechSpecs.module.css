@@ -4,7 +4,6 @@
 }
 
 .description-table {
-
   th {
     width: clamp(128px, calc(25vw), 400px);
     vertical-align: top;
@@ -18,4 +17,3 @@
     border: none !important;
   }
 }
-

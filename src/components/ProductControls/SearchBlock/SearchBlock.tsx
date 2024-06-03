@@ -1,21 +1,19 @@
 import { Input } from 'antd';
 import type { SearchProps } from 'antd/es/input/Search';
-
 import { observer } from 'mobx-react-lite';
+import { useSearchParams } from 'react-router-dom';
+import { DEFAULT_PAGE } from '../../../store/catalog-store';
 import styles from './SearchBlock.module.css';
-import { catalogStore } from '../../../store/catalog-store';
 
 const { Search } = Input;
 
 export default observer(function SearchBlock() {
-  const { payload, applyFilters } = catalogStore;
+  const [query, setQuery] = useSearchParams();
 
   const onSearch: SearchProps['onSearch'] = (value: string) => {
-    applyFilters({
-      ...payload,
-      query: value,
-      page: 1,
-    });
+    query.set('page', DEFAULT_PAGE.toString(10));
+    query.set('query', value);
+    setQuery(query);
   };
 
   return (

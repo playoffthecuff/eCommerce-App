@@ -7,7 +7,6 @@
 }
 
 .description-table {
-
   th {
     width: clamp(128px, calc(25vw), 400px);
     vertical-align: top;
@@ -42,7 +41,7 @@
 @media (max-width: 728px) {
   .flex-wrap-container {
     flex-direction: column;
-  } 
+  }
 }
 
 .image {
@@ -60,6 +59,6 @@
     width: 100%;
   }
   .drawing {
-    width: max(358px, calc(100% - 20vw))
+    width: max(358px, calc(100% - 20vw));
   }
 }

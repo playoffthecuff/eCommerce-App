@@ -27,7 +27,7 @@ export const ProfileForm = observer(() => {
       items={[
         {
           icon: <SolutionOutlined />,
-          title: 'Pesonal',
+          title: 'Personal',
           children: <PersonalData />,
         },
         { icon: <UnlockOutlined />, title: 'Password', children: <PasswordData /> },
