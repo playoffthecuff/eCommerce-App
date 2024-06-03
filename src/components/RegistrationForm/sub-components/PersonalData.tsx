@@ -1,12 +1,14 @@
 import Paragraph from 'antd/es/typography/Paragraph';
 import { DatePicker, Form, Input, Typography } from 'antd';
 import { dateOfBirthValidator, emailRules, nameRules, passwordRules } from '../../../utils/fields-validation';
+import BreadCrumb from '../../BreadCrumb/BreadCrumb';
 
 const { Text, Link } = Typography;
 
 export function PersonalData() {
   return (
     <>
+      <BreadCrumb />
       <Typography.Title level={3}>SIGN UP</Typography.Title>
       <Paragraph>
         <Text>Already have an account? Click </Text>
