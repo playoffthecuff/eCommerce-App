@@ -31,6 +31,7 @@ html {
   html::-webkit-scrollbar-track {
     background: var(--color-background);
   }
+
   html::-webkit-scrollbar {
     max-width: var(--scrollbar-width-legacy);
     max-height: var(--scrollbar-width-legacy);
@@ -40,11 +41,6 @@ html {
 html {
   scroll-behavior: smooth;
   overscroll-behavior: contain;
-}
-
-html:hover::-webkit-scrollbar-thumb {
-  background: red;
-  background-color: red;
 }
 
 :root[data-theme="light"] {
@@ -76,6 +72,7 @@ html:hover::-webkit-scrollbar-thumb {
 :root[data-theme="dark"] {
   --color-background: #202020;
   --color-background-secondary: #000;
+  --color-carousel-text: #fff;
   --color-header-background: #000;
   --color-menu-background: #000;
   --color-button-text: #000;
@@ -97,6 +94,7 @@ html:hover::-webkit-scrollbar-thumb {
   --shadow: 0.5rem #0003;
   --color-border: #6C6C6C;
   --reverse-filter: invert();
+  --color-carousel-text: #000;
 }
 
 input:-webkit-autofill {
@@ -135,7 +133,6 @@ input:-webkit-autofill {
   font-weight: bold;
   src: url('../assets/fonts/FuturaPT-Bold.woff2');
 }
-
 
 .app {
   height: 100%;
@@ -245,4 +242,20 @@ h5.ant-typography {
 }
 .ant-descriptions-item-content {
   font-weight: 400;
+}
+
+.ant-card-meta-detail .ant-card-meta-title {
+  white-space: normal;
+}
+
+.ant-slider .ant-slider-track {
+  background-color: var(--color-primary);
+}
+
+.ant-slider .ant-slider-track {
+  background-color: var(--color-primary);
+}
+
+.ant-slider:hover .ant-slider-track {
+  background-color: var(--color-link);
 }

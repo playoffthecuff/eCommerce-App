@@ -23,7 +23,6 @@ export const Address = observer(({ sameAddresses, setSameAddresses }: AddressPro
         duration: 0,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countriesStore.error]);
 
   return (

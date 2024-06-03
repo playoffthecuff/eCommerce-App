@@ -50,6 +50,11 @@ export const lightTheme: ThemeConfig = {
       fontFamily: 'Futura',
       fontWeight: 'bold',
       primaryShadow: 'none',
+      defaultBg: 'var(--color-primary)',
+      defaultHoverBg: 'var(--color-button-background)',
+      defaultColor: 'var(--color-button-text)',
+      defaultHoverColor: 'var(--color-button-hover-text)',
+      defaultActiveColor: 'var(--color-button-active-text)',
     },
     Form: {
       itemMarginBottom: 28,
@@ -84,6 +89,11 @@ export const lightTheme: ThemeConfig = {
       headerBg: 'transparent',
       headerPadding: '0.5rem',
       contentPadding: '0.5rem 1rem 1rem 1.25rem',
+    },
+    List: {
+      itemPaddingLG: '0px',
+      itemPaddingSM: '0px',
+      itemPadding: '0px',
     },
   },
 };

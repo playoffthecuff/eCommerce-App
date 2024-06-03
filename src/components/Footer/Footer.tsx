@@ -1,6 +1,5 @@
 import { Layout } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
-
 import classNames from 'classnames';
 import { RSSIcon } from '../CustomIcons/CustomIcons';
 

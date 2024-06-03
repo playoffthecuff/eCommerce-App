@@ -1,30 +1,31 @@
 import { Typography } from 'antd';
-import Paragraph from 'antd/es/typography/Paragraph';
 
-import pageLogo from '../../assets/images/monkeys.svg';
+import ProductList from '../../components/ProductList/ProductList';
+import ProductControls from '../../components/ProductControls/ProductControls';
 
 import styles from './Catalog.module.css';
 
-const { Title, Text, Link } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function CatalogPage() {
   return (
-    <div className="container container-inner">
-      <div id="profile-page" className="wrapper">
-        <Title>Page under construction</Title>
-        <Paragraph>
-          <Text className={styles.text}>
-            Sorry! Head to our
-            <Link href="#/main" className={styles.text}>
-              [main page]
-            </Link>
-            and begin your shopping!
-          </Text>
-        </Paragraph>
-        <div className={styles['error-image-wrapper']}>
-          <img src={pageLogo} alt="Monkeys Icon" />
+    <>
+      <div className={styles['catalog-background']}>
+        <div className={styles.overlay}>
+          <div className={styles['catalog-description']}>
+            <Title className={styles['catalog-title']}>Bicycles</Title>
+            <Paragraph className={styles['catalog-description']}>Bicycles for all occasions</Paragraph>
+          </div>
         </div>
       </div>
-    </div>
+      <ProductControls />
+      <div className="container">
+        <div id="profile-page" className="wrapper">
+          <section>
+            <ProductList />
+          </section>
+        </div>
+      </div>
+    </>
   );
 }

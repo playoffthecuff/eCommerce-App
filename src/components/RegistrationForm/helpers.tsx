@@ -1,29 +1,5 @@
-import dayjs from 'dayjs';
-import { RuleObject } from 'antd/es/form';
 import { Fields } from './types';
 import { SignUpArg } from '../../types/authorization-response';
-
-const MIN_AGE = 12;
-
-export const dateOfBirthValidator = {
-  validator: (_rules: RuleObject, value: unknown) => {
-    if (!value) {
-      return Promise.resolve();
-    }
-    let date;
-    try {
-      date = dayjs(value as string);
-    } catch {
-      return Promise.reject('Date has to be valid.');
-    }
-    const now = dayjs();
-    const diff = now.diff(date, 'years');
-    if (diff < MIN_AGE) {
-      return Promise.reject(`You have to be at least ${MIN_AGE} years old.`);
-    }
-    return Promise.resolve();
-  },
-};
 
 export function mapToSignUpArg(fields: Fields, sameAddresses: boolean): SignUpArg {
   const shippingAddress = {
