@@ -47,7 +47,6 @@ export default observer(function FiltersBlock() {
   };
 
   const onRatingChange = (checkedValues: number[]) => {
-    console.log(checkedValues);
     setSelectedRating(checkedValues);
   };
 

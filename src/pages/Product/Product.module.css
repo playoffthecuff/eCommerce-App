@@ -38,7 +38,7 @@
 .header-block {
   margin-top: 1vw;
   h2 {
-  text-transform: uppercase;
+    text-transform: uppercase;
   }
 }
 
@@ -50,8 +50,8 @@
 
   .old-price {
     text-decoration: line-through;
-    }
-    
+  }
+
   .discounted-price {
     color: var(--color-error);
   }
@@ -113,7 +113,7 @@
     flex-direction: column;
   }
   .header-block {
-      padding-top: 0;
+    padding-top: 0;
   }
   .overview-block {
     flex-direction: column;

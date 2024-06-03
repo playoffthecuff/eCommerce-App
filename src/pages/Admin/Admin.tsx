@@ -70,7 +70,6 @@ function AdminPage() {
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
-      // eslint-disable-next-line no-param-reassign
       file.preview = await getBase64(file.originFileObj as FileType);
     }
 
