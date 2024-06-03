@@ -192,7 +192,7 @@ h5.ant-typography {
   > span {
     position: relative;
     z-index: 1;
-    line-height: 1.8;
+    line-height: 1.9;
   }
 }
 
@@ -258,4 +258,8 @@ h5.ant-typography {
 
 .ant-slider:hover .ant-slider-track {
   background-color: var(--color-link);
+}
+
+button {
+  text-transform: uppercase;
 }

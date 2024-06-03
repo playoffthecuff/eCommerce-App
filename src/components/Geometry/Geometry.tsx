@@ -30,10 +30,10 @@ function getSizingData() {
 
 function Geometry() {
   const scrollToTarget =
-    1600 -
+    1500 -
     window.innerWidth ** 0.5 +
     (window.innerWidth > 1023 ? 0 : 1250 - window.innerWidth) +
-    (window.innerWidth > 727 ? 0 : 300);
+    (window.innerWidth > 727 ? 0 : 0); // remove magic next sprint
   const [bicyclePosition, setBicyclePosition] = useState(-scrollToTarget);
   const [tablePosition, setTablePosition] = useState(scrollToTarget);
   useEffect(() => {

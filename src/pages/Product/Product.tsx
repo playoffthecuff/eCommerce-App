@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
-import { Rate, Typography, InputNumber, Divider, Radio, Spin } from 'antd';
+import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image } from 'antd';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
-import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+// import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 import BestBikes from '../../components/BestBikes/BestBikes';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { LogoIcon } from '../../components/CustomIcons/CustomIcons';
@@ -39,7 +39,10 @@ function ProductPage() {
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
-              <ProductSwiper />
+              {/* <ProductSwiper /> */} {/* back to swiper next sprint */}
+              <Image.PreviewGroup items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}>
+                <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
+              </Image.PreviewGroup>
             </div>
             <div className={styles['info-block']}>
               <div className={styles['header-block']}>

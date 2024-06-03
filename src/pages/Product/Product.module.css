@@ -108,34 +108,6 @@
   line-height: 1;
 }
 
-.background-secondary {
-  background-color: var(--color-background-secondary);
-    margin-bottom: 0 !important;
-    padding-left: 0.5rem;
-}
-
-.description-table {
-
-  th {
-    width: clamp(128px, calc(25vw), 400px);
-    vertical-align: top;
-  }
-
-  tr {
-    border: none !important;
-  }
-
-  div {
-    border: none !important;
-  }
-}
-
-.geometry-table {
-  td:first-child {
-    font-weight: 600;
-  }
-}
-
 @media (max-width: 728px) {
   .product-container {
     flex-direction: column;
