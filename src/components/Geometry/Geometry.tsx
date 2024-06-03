@@ -38,7 +38,7 @@ function getSizingData(): SizingDataType[] | undefined {
 
 function Geometry() {
   const scrollToTarget =
-    1500 -
+    1550 -
     window.innerWidth ** 0.5 +
     (window.innerWidth > 1023 ? 0 : 1250 - window.innerWidth) +
     (window.innerWidth > 727 ? 0 : 0); // remove magic next sprint
@@ -48,6 +48,7 @@ function Geometry() {
     const handleScroll = () => {
       setBicyclePosition(bicyclePosition < 0 ? -scrollToTarget + window.scrollY : 0);
       setTablePosition(tablePosition > 0 ? scrollToTarget - window.scrollY : 0);
+      console.log(bicyclePosition, tablePosition);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -60,7 +61,7 @@ function Geometry() {
       <Title level={2}>SIZING & GEOMETRY</Title>
       <Divider style={{ marginTop: 0 }} />
       <div className={classNames(styles.container)}>
-        <div className={styles.drawing} style={{ transform: `translateX${bicyclePosition}px` }}>
+        <div className={styles.drawing} style={{ transform: `translateX(${bicyclePosition}px` }}>
           <img className={styles.image} alt="drawing" src={drawing} />
         </div>
         <Table
