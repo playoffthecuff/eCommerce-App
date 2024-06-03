@@ -5,10 +5,11 @@ import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { catalogStore } from '../../../store/catalog-store';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
+import { Sort } from '../../../types/types';
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -25,7 +26,7 @@ export default observer(function FiltersBlock() {
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
-  const [query] = useSearchParams();
+  const [query, setQuery] = useSearchParams();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -59,13 +60,6 @@ export default observer(function FiltersBlock() {
   };
 
   useEffect(() => {
-    const minPrice = filtersData?.minPrice || 0;
-    const maxPrice = filtersData?.maxPrice || 0;
-
-    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-  }, [filtersData]);
-
-  useEffect(() => {
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -76,49 +70,62 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   useEffect(() => {
-    const categories = query.getAll('category') || [];
-    const colors = query.getAll('color') || [];
-    const rating = query
-      .getAll('rating')
-      .map((str) => Number(str))
-      .filter((num) => !Number.isNaN(num) && num >= 0);
-    const weight = query
-      .getAll('weight')
-      .map((str) => Number(str))
-      .filter((num) => !Number.isNaN(num) && num >= 0);
-    const minPrice =
-      (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
-    const maxPrice =
-      (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) || filtersData?.maxPrice || 0;
-    applyFilters({
-      filters: {
-        colors,
-        categories,
-        rating,
-        weight,
-        minPrice,
-        maxPrice,
-      },
-    });
-    setSelectedCategories(categories);
-    setSelectedColors(colors);
-    setSelectedRating(rating);
-    setSelectedWeight(weight);
-    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+    if (query.size === 0) {
+      resetFilters();
+    } else {
+      const categories = query.getAll('category').map((cat) => cat.toLowerCase());
+      const colors = query.getAll('color');
+      const rating = query
+        .getAll('rating')
+        .map((str) => Number(str))
+        .filter((num) => !Number.isNaN(num) && num >= 0);
+      const weight = query
+        .getAll('weight')
+        .map((str) => Number(str))
+        .filter((num) => !Number.isNaN(num) && num >= 0);
+      const minPrice =
+        (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
+      const maxPrice =
+        (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) || filtersData?.maxPrice || 0;
+      const q = query.get('query') || undefined;
+      const page = Number(query.get('page')) || DEFAULT_PAGE;
+      const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
+      const sortBy = query.get('sort_by') || '';
+      const sortOrder = query.get('sort_order') || 'ASC';
+      applyFilters({
+        filters: {
+          colors,
+          categories,
+          rating,
+          weight,
+          minPrice,
+          maxPrice,
+        },
+        page: Number.isNaN(page) ? DEFAULT_PAGE : page,
+        pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
+        query: q || '',
+        sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
+      });
+      setSelectedCategories(categories);
+      setSelectedColors(colors);
+      setSelectedRating(rating);
+      setSelectedWeight(weight);
+      setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+    }
   }, [location.pathname, location.search]);
 
   const handleApplyFilters = () => {
-    navigate({
-      pathname: location.pathname,
-      search: createSearchParams({
-        category: selectedCategories,
-        color: selectedColors,
-        rating: selectedRating.map((num) => String(num)),
-        weight: selectedWeight.map((num) => String(num)),
-        min_price: String(selectedPriceRange[0]),
-        max_price: String(selectedPriceRange[1]),
-      }).toString(),
-    });
+    query.delete('category');
+    selectedCategories.forEach((cat) => query.append('category', cat));
+    query.delete('color');
+    selectedColors.forEach((color) => query.append('color', color));
+    query.delete('rating');
+    selectedRating.forEach((rating) => query.append('rating', String(rating)));
+    query.delete('weight');
+    selectedWeight.forEach((weight) => query.append('weight', String(weight)));
+    query.set('min_price', String(selectedPriceRange[0]));
+    query.set('max_price', String(selectedPriceRange[1]));
+    setQuery(query);
     closeMenu();
   };
 
