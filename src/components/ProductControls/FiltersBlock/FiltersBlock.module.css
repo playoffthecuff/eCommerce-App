@@ -99,3 +99,9 @@
     width: 100% !important;
   }
 }
+
+.filter-collapse {
+  span {
+    line-height: 2.25;
+  }
+}

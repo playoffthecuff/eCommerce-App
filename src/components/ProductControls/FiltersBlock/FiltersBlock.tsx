@@ -108,6 +108,7 @@ export default observer(function FiltersBlock() {
     {
       key: '1',
       label: 'PRICE',
+      className: styles['filter-collapse'],
       children: (
         <>
           <Slider
