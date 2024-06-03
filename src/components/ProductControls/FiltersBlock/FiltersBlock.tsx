@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, catalogStore } from '../../../store/catalog-store';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PRODUCT_PRICE, catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 import { Sort } from '../../../types/types';
@@ -70,48 +70,46 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   useEffect(() => {
-    if (query.size === 0) {
-      resetFilters();
-    } else {
-      const categories = query.getAll('category').map((cat) => cat.toLowerCase());
-      const colors = query.getAll('color');
-      const rating = query
-        .getAll('rating')
-        .map((str) => Number(str))
-        .filter((num) => !Number.isNaN(num) && num >= 0);
-      const weight = query
-        .getAll('weight')
-        .map((str) => Number(str))
-        .filter((num) => !Number.isNaN(num) && num >= 0);
-      const minPrice =
-        (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
-      const maxPrice =
-        (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) || filtersData?.maxPrice || 0;
-      const q = query.get('query') || undefined;
-      const page = Number(query.get('page')) || DEFAULT_PAGE;
-      const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
-      const sortBy = query.get('sort_by') || '';
-      const sortOrder = query.get('sort_order') || 'ASC';
-      applyFilters({
-        filters: {
-          colors,
-          categories,
-          rating,
-          weight,
-          minPrice,
-          maxPrice,
-        },
-        page: Number.isNaN(page) ? DEFAULT_PAGE : page,
-        pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
-        query: q || '',
-        sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
-      });
-      setSelectedCategories(categories);
-      setSelectedColors(colors);
-      setSelectedRating(rating);
-      setSelectedWeight(weight);
-      setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-    }
+    const categories = query.getAll('category').map((cat) => cat.toLowerCase());
+    const colors = query.getAll('color');
+    const rating = query
+      .getAll('rating')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const weight = query
+      .getAll('weight')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const minPrice =
+      (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
+    const maxPrice =
+      (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) ||
+      filtersData?.maxPrice ||
+      MAX_PRODUCT_PRICE;
+    const q = query.get('query') || undefined;
+    const page = Number(query.get('page')) || DEFAULT_PAGE;
+    const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
+    const sortBy = query.get('sort_by') || '';
+    const sortOrder = query.get('sort_order') || 'ASC';
+    applyFilters({
+      filters: {
+        colors,
+        categories,
+        rating,
+        weight,
+        minPrice,
+        maxPrice,
+      },
+      page: Number.isNaN(page) ? DEFAULT_PAGE : page,
+      pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
+      query: q || '',
+      sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
+    });
+    setSelectedCategories(categories);
+    setSelectedColors(colors);
+    setSelectedRating(rating);
+    setSelectedWeight(weight);
+    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
   }, [location.pathname, location.search]);
 
   const handleApplyFilters = () => {
@@ -134,7 +132,7 @@ export default observer(function FiltersBlock() {
     setSelectedColors([]);
     setSelectedWeight([]);
     setSelectedRating([]);
-    setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || 0]);
+    setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || MAX_PRODUCT_PRICE]);
     resetFilters();
     navigate({ pathname: location.pathname, search: '' });
     closeMenu();
@@ -154,7 +152,7 @@ export default observer(function FiltersBlock() {
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
             min={Math.floor(filtersData?.minPrice || 0)}
-            max={Math.ceil(filtersData?.maxPrice || 0)}
+            max={Math.ceil(filtersData?.maxPrice || MAX_PRODUCT_PRICE)}
             onChange={onPriceChange}
           />
           <div className={styles['price-range']}>
