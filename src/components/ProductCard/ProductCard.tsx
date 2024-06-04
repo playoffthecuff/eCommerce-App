@@ -7,7 +7,7 @@ import { BootState } from '../../enums';
 
 import styles from './ProductCard.module.css';
 
-import image1 from '../../assets/images/670961-1_1800x1800.webp';
+import placeholder from '../../assets/images/load_failed.webp';
 
 const { Meta } = Card;
 
@@ -30,7 +30,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
           ) : (
             <img
               alt={title}
-              src={thumbs ? `data:image/jpeg;base64,${thumbs}` : image1}
+              src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder}
               className={styles.productImage}
             />
           )
