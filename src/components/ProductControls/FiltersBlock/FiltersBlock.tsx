@@ -66,10 +66,6 @@ export default observer(function FiltersBlock() {
   }, []);
 
   useEffect(() => {
-    loadFiltersData();
-  }, [loadFiltersData]);
-
-  useEffect(() => {
     const categories = query.getAll('category').map((cat) => cat.toLowerCase());
     const colors = query.getAll('color');
     const rating = query
@@ -137,6 +133,10 @@ export default observer(function FiltersBlock() {
     navigate({ pathname: location.pathname, search: '' });
     closeMenu();
   };
+
+  useEffect(() => {
+    loadFiltersData();
+  }, [loadFiltersData]);
 
   const items: CollapseProps['items'] = [
     {
