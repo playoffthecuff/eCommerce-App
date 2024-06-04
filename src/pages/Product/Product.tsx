@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
 import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
+import { ZoomOutOutlined, ZoomInOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -44,14 +44,16 @@ function ProductPage() {
                 items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
                 preview={{
                   toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
-                    <Space size={12} className="toolbar-wrapper">
-                      <ZoomOutOutlined disabled={scale === 1} onClick={onZoomOut} />
-                      <ZoomInOutlined disabled={scale === 50} onClick={onZoomIn} />
+                    <Space size={24} className="toolbar-wrapper">
+                      <ZoomOutOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 1} onClick={onZoomOut} />
+                      <ZoomInOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 50} onClick={onZoomIn} />
                     </Space>
                   ),
                 }}
               >
-                <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
+                <Image
+                  src={`data:image/png;base64,${productStore.product?.gallery![0]}`}
+                />
               </Image.PreviewGroup>
             </div>
             <div className={styles['info-block']}>
