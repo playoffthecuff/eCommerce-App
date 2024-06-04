@@ -142,7 +142,6 @@ export default observer(function FiltersBlock() {
     {
       key: '1',
       label: 'PRICE',
-      className: styles['filter-collapse'],
       children: (
         <>
           <Slider
@@ -241,7 +240,7 @@ export default observer(function FiltersBlock() {
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>
-        <Collapse items={items} bordered={false} className={styles['filter-collapse']} />
+        <Collapse items={items} bordered={false} />
         <div className={styles['buttons-wrapper']}>
           <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
             Apply

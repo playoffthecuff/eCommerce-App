@@ -38,7 +38,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background: var(--color-background);
   color: var(--color-menu-item-text);
 }
 
@@ -47,10 +46,6 @@
   font-size: 18px;
   color: var(--color-button-text);
   text-transform: uppercase;
-}
-
-.filter-collapse {
-  background: var(--color-background);
 }
 
 .filter-panel {
