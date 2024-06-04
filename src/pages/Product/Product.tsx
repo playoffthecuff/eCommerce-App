@@ -34,14 +34,12 @@ function ProductPage() {
   }, [location.search]);
 
   switch (productStore.bootState) {
-    case BootState.Failed:
-      return <NoProductResult />;
     case BootState.Success:
       return (
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
-              {/* <ProductSwiper /> */} {/* back to swiper next sprint */}
+              {/* <ProductSwiper /> */} {/* TODO: back to swiper next sprint */}
               <Image.PreviewGroup
                 items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
                 preview={{
