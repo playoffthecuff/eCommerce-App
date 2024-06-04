@@ -17,6 +17,7 @@ export type FiltersData = {
   categories?: string[];
   colors?: string[];
   rating?: number[];
+  // rating?: number;
   weight?: number[];
   minPrice?: number;
   maxPrice?: number;

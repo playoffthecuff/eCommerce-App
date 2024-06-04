@@ -24,6 +24,7 @@ export default observer(function FiltersBlock() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
+  // const [selectedRating, setSelectedRating] = useState<number>(0);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
   const [query, setQuery] = useSearchParams();
@@ -51,6 +52,10 @@ export default observer(function FiltersBlock() {
     setSelectedRating(checkedValues);
   };
 
+  // const onRatingChange = (checkedValue: number) => {
+  //   setSelectedRating(checkedValue);
+  // };
+
   const onWeightChange = (checkedValues: number[]) => {
     setSelectedWeight(checkedValues);
   };
@@ -72,6 +77,7 @@ export default observer(function FiltersBlock() {
       .getAll('rating')
       .map((str) => Number(str))
       .filter((num) => !Number.isNaN(num) && num >= 0);
+    // const rating = Number(query.get('rating')) || 1;
     const weight = query
       .getAll('weight')
       .map((str) => Number(str))
@@ -87,6 +93,7 @@ export default observer(function FiltersBlock() {
     const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
     const sortBy = query.get('sort_by') || '';
     const sortOrder = query.get('sort_order') || 'ASC';
+
     applyFilters({
       filters: {
         colors,
@@ -115,6 +122,8 @@ export default observer(function FiltersBlock() {
     selectedColors.forEach((color) => query.append('color', color));
     query.delete('rating');
     selectedRating.forEach((rating) => query.append('rating', String(rating)));
+    // query.delete('rating');
+    // query.append('rating', String(selectedRating));
     query.delete('weight');
     selectedWeight.forEach((weight) => query.append('weight', String(weight)));
     query.set('min_price', String(selectedPriceRange[0]));
@@ -128,6 +137,7 @@ export default observer(function FiltersBlock() {
     setSelectedColors([]);
     setSelectedWeight([]);
     setSelectedRating([]);
+    // setSelectedRating(1);
     setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || MAX_PRODUCT_PRICE]);
     resetFilters();
     navigate({ pathname: location.pathname, search: '' });
@@ -215,6 +225,33 @@ export default observer(function FiltersBlock() {
         />
       ),
     },
+    // {
+    //   key: '5',
+    //   label: 'RATING',
+    //   children: (
+    //     <Radio.Group
+    //       onChange={(e) => onRatingChange(e.target.value)}
+    //       value={selectedRating}
+    //       className={styles['filter-group']}
+    //     >
+    //       <Radio value={1}>
+    //         <Rate disabled defaultValue={1} /> and Up
+    //       </Radio>
+    //       <Radio value={2}>
+    //         <Rate disabled defaultValue={2} /> and Up
+    //       </Radio>
+    //       <Radio value={3}>
+    //         <Rate disabled defaultValue={3} /> and Up
+    //       </Radio>
+    //       <Radio value={4}>
+    //         <Rate disabled defaultValue={4} /> and Up
+    //       </Radio>
+    //       <Radio value={5}>
+    //         <Rate disabled defaultValue={5} />
+    //       </Radio>
+    //     </Radio.Group>
+    //   ),
+    // },
   ];
 
   return (
@@ -240,7 +277,7 @@ export default observer(function FiltersBlock() {
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>
-        <Collapse items={items} bordered={false} />
+        <Collapse items={items} bordered={false} className={styles['filter-collapse']} />
         <div className={styles['buttons-wrapper']}>
           <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
             Apply

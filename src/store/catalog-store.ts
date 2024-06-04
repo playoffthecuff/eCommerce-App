@@ -122,6 +122,7 @@ class CatalogStore {
     this._payload.sorts = payload.sorts;
     this._payload.page = payload.page || this._payload.page;
     this._payload.pageSize = payload.pageSize || this._payload.pageSize;
+    // FIXME: fix the current page state when zero filters applies
     this.currentPage = this._payload.page || 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);

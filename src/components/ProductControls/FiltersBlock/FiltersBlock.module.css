@@ -41,6 +41,10 @@
   color: var(--color-menu-item-text);
 }
 
+.filter-collapse {
+  align-items: center;
+}
+
 .menu-title {
   margin: 0;
   font-size: 18px;
