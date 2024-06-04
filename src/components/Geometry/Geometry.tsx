@@ -48,7 +48,6 @@ function Geometry() {
     const handleScroll = () => {
       setBicyclePosition(bicyclePosition < 0 ? -scrollToTarget + window.scrollY : 0);
       setTablePosition(tablePosition > 0 ? scrollToTarget - window.scrollY : 0);
-      console.log(bicyclePosition, tablePosition);
     };
 
     window.addEventListener('scroll', handleScroll);

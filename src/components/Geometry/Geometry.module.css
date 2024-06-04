@@ -33,7 +33,6 @@
   align-items: center;
   width: 50%;
   position: relative;
-  background-color: var(--color-gallery-background);
   transition: var(--background-color-delay);
   padding: 4vw;
 }
