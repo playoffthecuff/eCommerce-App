@@ -4,7 +4,7 @@ import { DescriptionsItemType } from 'antd/es/descriptions';
 import productStore from '../../store/product-store';
 import styles from './TechSpecs.module.css';
 import { Brakes, Components, Drivetrain, Frameset, Wheels } from '../../types/product-response';
-import { toTitleCase } from '../../utils/string-functions';
+import { toTitleCaseWithSpaces } from '../../utils/string-functions';
 
 const { Title } = Typography;
 
@@ -17,7 +17,7 @@ function getCollapseItems<T>(items: T, key: string, label: string) {
       const field = item as keyof T;
       return {
         key: String(index + 1),
-        label: toTitleCase(item),
+        label: toTitleCaseWithSpaces(item),
         children: items[field],
       };
     });

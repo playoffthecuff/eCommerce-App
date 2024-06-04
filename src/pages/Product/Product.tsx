@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
 import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -51,9 +51,7 @@ function ProductPage() {
                   ),
                 }}
               >
-                <Image
-                  src={`data:image/png;base64,${productStore.product?.gallery![0]}`}
-                />
+                <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
               </Image.PreviewGroup>
             </div>
             <div className={styles['info-block']}>
