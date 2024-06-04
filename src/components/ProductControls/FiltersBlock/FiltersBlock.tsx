@@ -5,10 +5,11 @@ import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
-import { useLocation } from 'react-router-dom';
-import { catalogStore } from '../../../store/catalog-store';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PRODUCT_PRICE, catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
+import { Sort } from '../../../types/types';
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -25,6 +26,8 @@ export default observer(function FiltersBlock() {
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
+  const [query, setQuery] = useSearchParams();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -45,7 +48,6 @@ export default observer(function FiltersBlock() {
   };
 
   const onRatingChange = (checkedValues: number[]) => {
-    console.log(checkedValues);
     setSelectedRating(checkedValues);
   };
 
@@ -58,13 +60,6 @@ export default observer(function FiltersBlock() {
   };
 
   useEffect(() => {
-    const minPrice = filtersData?.minPrice || 0;
-    const maxPrice = filtersData?.maxPrice || 0;
-
-    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-  }, [filtersData]);
-
-  useEffect(() => {
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -75,23 +70,60 @@ export default observer(function FiltersBlock() {
   }, [loadFiltersData]);
 
   useEffect(() => {
-    return () => {
-      resetFilters();
-    };
-  }, [location.pathname]);
-
-  const handleApplyFilters = () => {
+    const categories = query.getAll('category').map((cat) => cat.toLowerCase());
+    const colors = query.getAll('color');
+    const rating = query
+      .getAll('rating')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const weight = query
+      .getAll('weight')
+      .map((str) => Number(str))
+      .filter((num) => !Number.isNaN(num) && num >= 0);
+    const minPrice =
+      (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
+    const maxPrice =
+      (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) ||
+      filtersData?.maxPrice ||
+      MAX_PRODUCT_PRICE;
+    const q = query.get('query') || undefined;
+    const page = Number(query.get('page')) || DEFAULT_PAGE;
+    const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
+    const sortBy = query.get('sort_by') || '';
+    const sortOrder = query.get('sort_order') || 'ASC';
     applyFilters({
       filters: {
-        colors: selectedColors,
-        categories: selectedCategories,
-        rating: selectedRating,
-        weight: selectedWeight,
-        minPrice: selectedPriceRange[0],
-        maxPrice: selectedPriceRange[1],
+        colors,
+        categories,
+        rating,
+        weight,
+        minPrice,
+        maxPrice,
       },
+      page: Number.isNaN(page) ? DEFAULT_PAGE : page,
+      pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
+      query: q || '',
+      sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
     });
+    setSelectedCategories(categories);
+    setSelectedColors(colors);
+    setSelectedRating(rating);
+    setSelectedWeight(weight);
+    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+  }, [location.pathname, location.search]);
 
+  const handleApplyFilters = () => {
+    query.delete('category');
+    selectedCategories.forEach((cat) => query.append('category', cat));
+    query.delete('color');
+    selectedColors.forEach((color) => query.append('color', color));
+    query.delete('rating');
+    selectedRating.forEach((rating) => query.append('rating', String(rating)));
+    query.delete('weight');
+    selectedWeight.forEach((weight) => query.append('weight', String(weight)));
+    query.set('min_price', String(selectedPriceRange[0]));
+    query.set('max_price', String(selectedPriceRange[1]));
+    setQuery(query);
     closeMenu();
   };
 
@@ -100,14 +132,17 @@ export default observer(function FiltersBlock() {
     setSelectedColors([]);
     setSelectedWeight([]);
     setSelectedRating([]);
-    setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || 0]);
+    setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || MAX_PRODUCT_PRICE]);
     resetFilters();
+    navigate({ pathname: location.pathname, search: '' });
+    closeMenu();
   };
 
   const items: CollapseProps['items'] = [
     {
       key: '1',
       label: 'PRICE',
+      className: styles['filter-collapse'],
       children: (
         <>
           <Slider
@@ -117,7 +152,7 @@ export default observer(function FiltersBlock() {
             defaultValue={selectedPriceRange}
             value={selectedPriceRange}
             min={Math.floor(filtersData?.minPrice || 0)}
-            max={Math.ceil(filtersData?.maxPrice || 0)}
+            max={Math.ceil(filtersData?.maxPrice || MAX_PRODUCT_PRICE)}
             onChange={onPriceChange}
           />
           <div className={styles['price-range']}>

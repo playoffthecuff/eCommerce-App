@@ -1,0 +1,60 @@
+.drawing {
+  enable-background: new 0 0 1144.5 680.5;
+  .st0 {
+    fill: none;
+    stroke: #a7a7a8;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 500;
+  }
+  .st1 {
+    fill: none;
+    stroke: #a7a7a8;
+    stroke-width: 3;
+  }
+  .st2 {
+    fill: none;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+  }
+  .st3 {
+    fill: none;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 12.0405, 12.0405;
+  }
+  .st4 {
+    fill: none;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 11.7236, 11.7236;
+  }
+  .st5 {
+    fill: none;
+  }
+  .st6 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2.805;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .st7 {
+    font-family: 'Haas';
+  }
+  .st8 {
+    font-size: 30px;
+  }
+  .st9 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2.805;
+  }
+  .st10 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2.805;
+    stroke-miterlimit: 10;
+  }
+}

@@ -1,0 +1,19 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.description-table {
+  th {
+    width: clamp(128px, calc(25vw), 400px);
+    vertical-align: top;
+  }
+
+  tr {
+    border: none !important;
+  }
+
+  div {
+    border: none !important;
+  }
+}

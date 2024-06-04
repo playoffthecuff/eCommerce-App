@@ -8,6 +8,8 @@ import CatalogPage from '../pages/Catalog/Catalog';
 import ProfilePage from '../pages/Profile/Profile';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import DevPage from '../pages/Develop/Develop';
+import ProductPage from '../pages/Product/Product';
+// import AdminPage from '../pages/Admin/Admin';
 
 const router = createHashRouter([
   {
@@ -51,6 +53,14 @@ const router = createHashRouter([
         path: '/dev',
         element: <DevPage />,
       },
+      {
+        path: '/product',
+        element: <ProductPage />,
+      },
+      // {
+      //   path: '/admin',
+      //   element: <AdminPage />,
+      // },
       {
         path: '*',
         element: <ErrorPage />,

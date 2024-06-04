@@ -1,8 +1,5 @@
 import { Layout } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
-
-// import { RSLogo } from './subComponents/RSLogo/RSLogo';
-
 import classNames from 'classnames';
 import { RSSIcon } from '../CustomIcons/CustomIcons';
 

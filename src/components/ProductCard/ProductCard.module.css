@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 300px;
   height: 350px;
-  margin: 16px;
+  margin: 1.25rem;
   overflow: hidden;
 
   & img {
@@ -46,17 +46,16 @@
 }
 
 .product-price {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .discounted-price {
-  color: #cd4c1d;
-  margin-left: 8px;
+  color: var(--color-error);
+  margin-left: 1rem;
 }
 
 .original-price {
-  color: #888;
+  color: var(--color-text);
 }
 
 .line-through {

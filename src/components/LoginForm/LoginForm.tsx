@@ -1,6 +1,5 @@
 import { Form, Input, Typography, FormProps, notification, Spin } from 'antd';
 import type { NotificationArgsProps } from 'antd';
-import Paragraph from 'antd/es/typography/Paragraph';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { ReactNode, useLayoutEffect, useState } from 'react';
@@ -9,7 +8,7 @@ import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
 import { emailRules, passwordRules } from '../../utils/fields-validation';
 
-const { Text, Title, Link } = Typography;
+const { Text, Title, Link, Paragraph } = Typography;
 
 type NotificationPlacement = NotificationArgsProps['placement'];
 

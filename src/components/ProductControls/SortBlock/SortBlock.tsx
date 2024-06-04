@@ -1,15 +1,14 @@
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
-
-import { catalogStore } from '../../../store/catalog-store';
-
+import { useSearchParams } from 'react-router-dom';
 import styles from './SortBlock.module.css';
-import { Payload } from '../../../types/types';
+import { DEFAULT_PAGE, catalogStore } from '../../../store/catalog-store';
+import { Sort } from '../../../types/types';
 
 const { Option } = Select;
 
 export default observer(function SortBlock() {
-  const { payload, applyFilters } = catalogStore;
+  const [query, setQuery] = useSearchParams();
 
   const handleSortChange = (value: string) => {
     let sortField: string = '';
@@ -37,12 +36,10 @@ export default observer(function SortBlock() {
     }
 
     if (sortField) {
-      const updatedPayload: Payload = {
-        ...payload,
-        sorts: [{ field: sortField, order: sortOrder }],
-      };
-
-      applyFilters(updatedPayload);
+      query.set('sort_by', sortField);
+      query.set('sort_order', sortOrder);
+      query.set('page', DEFAULT_PAGE.toString(10));
+      setQuery(query);
     }
   };
 
@@ -53,6 +50,7 @@ export default observer(function SortBlock() {
         onChange={handleSortChange}
         placeholder="select sort order"
         className={styles.select}
+        value={sortToValue(catalogStore.payload.sorts?.[0])}
       >
         <Option value="Alphabetically, A-Z">Alphabetically, A-Z</Option>
         <Option value="Alphabetically, Z-A">Alphabetically, Z-A</Option>
@@ -62,3 +60,15 @@ export default observer(function SortBlock() {
     </div>
   );
 });
+
+function sortToValue(sort: Sort | undefined): string | undefined {
+  if (!sort) return undefined;
+  const { field, order } = sort;
+  if (field === 'title') {
+    return order === 'ASC' ? 'Alphabetically, A-Z' : 'Alphabetically, Z-A';
+  }
+  if (field === 'price') {
+    return order === 'ASC' ? 'Price, low to high' : 'Price, high to low';
+  }
+  return undefined;
+}

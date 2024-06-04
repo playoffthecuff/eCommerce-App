@@ -3,12 +3,16 @@ import { productsService } from '../utils/catalog-service';
 import { FiltersData, ProductSummary, Payload } from '../types/types';
 import { BootState } from '../enums';
 
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 8;
+export const MAX_PRODUCT_PRICE = 2_000;
+
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
   private _besSellingProducts: ProductSummary[] = [];
 
-  private _filtersData: FiltersData = {};
+  private _filtersData: FiltersData | undefined;
 
   private _totalPage: number = 0;
 
@@ -20,11 +24,11 @@ class CatalogStore {
     query: '',
     filters: {},
     sorts: [{ field: '', order: 'ASC' }],
-    page: 1,
-    pageSize: 8,
+    page: DEFAULT_PAGE,
+    pageSize: DEFAULT_PAGE_SIZE,
   };
 
-  public currentPage: number = 1;
+  public currentPage: number = DEFAULT_PAGE;
 
   constructor() {
     makeAutoObservable(this);
@@ -39,7 +43,7 @@ class CatalogStore {
   }
 
   public get filtersData(): FiltersData {
-    return this._filtersData;
+    return this._filtersData || {};
   }
 
   public get payload(): Payload {
@@ -112,30 +116,13 @@ class CatalogStore {
     });
   };
 
-  public changePage = async (page: number) => {
-    this._payload.page = page;
-    this.currentPage = page;
-
-    const [responseData, error] = await productsService.loadProducts(this._payload);
-
-    if (error) {
-      this._state = BootState.Failed;
-      this._error = (error as Error).toString();
-      return;
-    }
-
-    runInAction(() => {
-      this._products = responseData.products;
-      this._totalPage = responseData.total;
-    });
-  };
-
   public applyFilters = async (payload: Payload) => {
     this._payload.filters = payload.filters;
     this._payload.query = payload.query;
     this._payload.sorts = payload.sorts;
-    this._payload.page = 1;
-    this.currentPage = 1;
+    this._payload.page = payload.page || this._payload.page;
+    this._payload.pageSize = payload.pageSize || this._payload.pageSize;
+    this.currentPage = this._payload.page || 1;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 
@@ -153,8 +140,9 @@ class CatalogStore {
 
   public resetFilters = async () => {
     this._payload.filters = {};
-    this._payload.page = 1;
-    this.currentPage = 1;
+    this._payload.page = DEFAULT_PAGE;
+    this.currentPage = DEFAULT_PAGE;
+    this._payload.pageSize = DEFAULT_PAGE_SIZE;
 
     const [responseData, error] = await productsService.loadProducts(this._payload);
 

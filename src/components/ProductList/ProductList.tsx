@@ -1,22 +1,19 @@
-import { observer } from 'mobx-react-lite';
 import { List, Spin } from 'antd';
+import { observer } from 'mobx-react-lite';
+import { useSearchParams } from 'react-router-dom';
 
-import { useEffect } from 'react';
-import { catalogStore } from '../../store/catalog-store';
+import { DEFAULT_PAGE_SIZE, catalogStore } from '../../store/catalog-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
 
 export default observer(function ProductList() {
-  const PAGE_SIZE = 8;
-  const { loadProducts, products, productsState, totalPage, changePage, currentPage } = catalogStore;
-
-  useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+  const { products, productsState, totalPage, currentPage } = catalogStore;
+  const [query, setQuery] = useSearchParams();
 
   const handlePageChange = (page: number) => {
-    changePage(page);
+    query.set('page', page.toString(10));
+    setQuery(query);
   };
 
   return (
@@ -28,7 +25,7 @@ export default observer(function ProductList() {
           onChange: (page) => {
             handlePageChange(page);
           },
-          pageSize: PAGE_SIZE,
+          pageSize: DEFAULT_PAGE_SIZE,
           showSizeChanger: false,
           align: 'center',
           total: totalPage,
