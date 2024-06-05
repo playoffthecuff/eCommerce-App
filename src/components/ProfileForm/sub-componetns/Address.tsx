@@ -137,6 +137,24 @@ const EditForm = observer(
         postalCode: values.postCode,
         isDefault: Boolean(values.setAsDefaultShippingAddress),
       };
+      const addressExists = userStore.user?.addresses[`${type}Addresses`].find((addr) => {
+        return (
+          addr.city === updatedAddress.city &&
+          addr.country === updatedAddress.country &&
+          addr.postalCode === updatedAddress.postalCode &&
+          addr.street === updatedAddress.street
+        );
+      });
+      if (addressExists) {
+        setIsLoading(false);
+        notificationAPI.success({
+          message: `This address already exists`,
+          placement: 'top',
+          icon: <FrownOutlined />,
+          duration: 2.5,
+        });
+        return;
+      }
       if (addressesAreEqual(address, updatedAddress)) {
         setIsLoading(false);
         if (onSubmit) {
@@ -228,13 +246,32 @@ const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubm
 
     const values: AddressFields = form.getFieldsValue(true);
     try {
-      await userStore.addAddress(type, {
+      const newAddress = {
         city: values.city,
         country: values.country,
         street: values.street,
         postalCode: values.postCode,
         isDefault: Boolean(values.setAsDefaultShippingAddress),
+      };
+      const addressExists = userStore.user?.addresses[`${type}Addresses`].find((addr) => {
+        return (
+          addr.city === newAddress.city &&
+          addr.country === newAddress.country &&
+          addr.postalCode === newAddress.postalCode &&
+          addr.street === newAddress.street
+        );
       });
+      if (addressExists) {
+        setIsLoading(false);
+        notificationAPI.success({
+          message: `This address already exists`,
+          placement: 'top',
+          icon: <FrownOutlined />,
+          duration: 2.5,
+        });
+        return;
+      }
+      await userStore.addAddress(type, newAddress);
       setIsLoading(false);
       form.resetFields();
       notificationAPI.success({

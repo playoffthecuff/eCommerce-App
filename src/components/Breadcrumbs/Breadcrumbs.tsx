@@ -29,28 +29,24 @@ export const Breadcrumbs = observer(() => {
       <Link to="/">
         <LogoIcon /> Home
       </Link>
-      <Separator />
+      <span> / </span>
       {isProductDetailsPage || currentCategory ? <Link to="/catalog">Catalog</Link> : 'Catalog'}
       {currentCategory && (
         <>
-          <Separator />
+          <span> / </span>
           {currentCategory[0].toUpperCase() + currentCategory.slice(1)}
         </>
       )}
       {isProductDetailsPage && (
         <>
-          <Separator />
+          <span> / </span>
           <Link to={`/catalog?category=${product.category}`}>
             {product.category[0].toUpperCase() + product.category.slice(1)}
           </Link>
-          <Separator />
+          <span> / </span>
           {product.title}
         </>
       )}
     </div>
   );
 });
-
-function Separator() {
-  return <> / </>;
-}
