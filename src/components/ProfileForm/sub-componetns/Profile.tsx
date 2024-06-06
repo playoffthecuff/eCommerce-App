@@ -70,7 +70,7 @@ export const PersonalData = observer(() => {
   return (
     <>
       <Spin spinning={isLoading}>
-        <div className={styles['profile-form']}>
+        <div style={{ margin: '5.5rem' }} className={styles['profile-form']}>
           <Form
             form={form}
             onFieldsChange={() => checkIfFormValid()}

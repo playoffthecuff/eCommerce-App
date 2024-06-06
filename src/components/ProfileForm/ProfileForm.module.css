@@ -5,6 +5,9 @@
 }
 
 .tabs {
+  background-color: var(--color-background);
+  position: fixed;
+  z-index: 10;
   margin: 0 auto;
   cursor: pointer;
   padding: 1.5rem 1rem 0.5rem;
@@ -31,7 +34,7 @@
   padding: 0 1rem;
   max-width: 500px;
   width: 100%;
-  margin: 0 auto 2rem;
+  margin: 4rem auto 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
