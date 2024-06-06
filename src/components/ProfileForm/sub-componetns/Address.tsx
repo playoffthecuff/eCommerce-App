@@ -140,24 +140,6 @@ const EditForm = observer(
         postalCode: values.postCode,
         isDefault: Boolean(values.setAsDefaultShippingAddress),
       };
-      const addressExists = userStore.user?.addresses[`${type}Addresses`].find((addr) => {
-        return (
-          addr.city === updatedAddress.city &&
-          addr.country === updatedAddress.country &&
-          addr.postalCode === updatedAddress.postalCode &&
-          addr.street === updatedAddress.street
-        );
-      });
-      if (addressExists) {
-        setIsLoading(false);
-        notificationAPI.success({
-          message: `This address already exists`,
-          placement: 'top',
-          icon: <FrownOutlined />,
-          duration: 2.5,
-        });
-        return;
-      }
       if (addressesAreEqual(address, updatedAddress)) {
         setIsLoading(false);
         if (onSubmit) {
