@@ -59,9 +59,9 @@ export function PasswordData() {
 
   return (
     <div className={styles['profile-form']}>
-      <Spin spinning={isLoading}>
+      <Spin spinning={isLoading} style={{ width: '360px' }} wrapperClassName={styles.spin}>
         <Form form={form} layout="vertical" onFieldsChange={() => checkIfFormValid()}>
-          <Typography.Title level={3}>Change Password</Typography.Title>
+          <Typography.Title level={4}>Change Password</Typography.Title>
           <Form.Item label="Enter your password" name="password" rules={passwordRules} hasFeedback validateFirst>
             <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />
           </Form.Item>

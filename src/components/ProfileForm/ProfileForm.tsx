@@ -23,7 +23,9 @@ export const ProfileForm = observer(() => {
 
   return (
     <Tabs
+      tabPosition="left"
       className={styles.tabs}
+      centered
       items={[
         {
           icon: <SolutionOutlined />,

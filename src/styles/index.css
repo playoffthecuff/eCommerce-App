@@ -198,9 +198,9 @@ h5.ant-typography {
 
 /* Spin */
 
-.ant-spin-nested-loading {
+/* .ant-spin-nested-loading {
   width: 100%;
-}
+} */
 
 .ant-spin.ant-spin-lg.ant-spin-spinning {
   max-height: 100dvh;
@@ -266,4 +266,27 @@ button {
 
 .ant-image-preview-footer {
   color: var(--color-link);
+}
+
+.ant-card .ant-card-body {
+  padding: 1rem;
+}
+
+.ant-tabs-nav-wrap .ant-tabs-nav-list .ant-tabs-tab {
+  padding: 0.5rem;
+  padding-left: 0;
+}
+
+.ant-tabs.ant-tabs-left .ant-tabs-nav {
+  margin-top: 110px;
+  position: fixed;
+  z-index: 1;
+}
+
+.ant-tabs-left >.ant-tabs-content-holder .ant-tabs-tabpane.ant-tabs-tabpane-active {
+  padding-left: 0;
+}
+
+.ant-tabs-left >.ant-tabs-content-holder {
+  border: none;
 }

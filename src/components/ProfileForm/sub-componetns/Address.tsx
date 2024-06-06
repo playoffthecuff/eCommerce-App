@@ -3,6 +3,9 @@ import {
   EditOutlined,
   EnvironmentOutlined,
   FrownOutlined,
+  GlobalOutlined,
+  HomeOutlined,
+  MailOutlined,
   PlusOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
@@ -29,7 +32,7 @@ export const Addresses = observer(
 
     return (
       <div className={styles['address-form-styles']}>
-        <Typography.Title level={3}>{title}</Typography.Title>
+        <Typography.Title level={4}>{title}</Typography.Title>
         {addresses.map((address) => (
           <AddressCard
             address={address}
@@ -59,7 +62,7 @@ export const Addresses = observer(
           />
         ))}
         <CustomButton
-          style={{ margin: '1rem 0' }}
+          style={{ width: '212px', marginBottom: '2rem' }}
           variety="common"
           htmlType="submit"
           onClick={() => {
@@ -189,7 +192,7 @@ const EditForm = observer(
     };
 
     return (
-      <Spin spinning={isLoading}>
+      <Spin spinning={isLoading} style={{ width: '212px' }}>
         <Form
           layout="vertical"
           style={{ marginTop: '1.5rem' }}
@@ -272,6 +275,7 @@ const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubm
         return;
       }
       await userStore.addAddress(type, newAddress);
+      console.log(type, newAddress);
       setIsLoading(false);
       form.resetFields();
       notificationAPI.success({
@@ -297,7 +301,7 @@ const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubm
   };
 
   return (
-    <Spin spinning={isLoading}>
+    <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
       <Form layout="vertical" form={form} style={{ marginTop: '1.5rem' }} onFieldsChange={checkIfFormValid}>
         <AddressForm countries={countriesStore.countries} country={country} setCountry={setCountry} />
         <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
@@ -341,17 +345,34 @@ function AddressCard({
 
   if (address.isDefault) {
     return (
-      <Spin spinning={isLoading}>
+      <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
         <Badge.Ribbon text="Default address" className={styles['badge-style']}>
           <Card
-            style={{ paddingTop: '1rem' }}
+            style={{ paddingTop: '1.25rem', width: '212px' }}
             actions={[
               <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
               <EditOutlined key="edit" onClick={() => onEdit(address)} />,
             ]}
           >
-            <EnvironmentOutlined /> {address.country}, {address.postalCode}, city: {address.city}, street:{' '}
-            {address.street}
+            <div style={{ width: '100%', height: '2rem' }}>
+              <GlobalOutlined style={{ marginRight: '0.5rem' }} />
+              Country: {address.country}
+            </div>
+            <div style={{ width: '100%', height: '2rem' }}>
+              <EnvironmentOutlined style={{ marginRight: '0.5rem' }} />
+              <Typography.Text style={{ width: '136px' }} ellipsis>
+                City: {address.city}
+              </Typography.Text>
+            </div>
+            <div style={{ width: '100%', height: '2rem' }}>
+              <MailOutlined style={{ marginRight: '0.5rem' }} /> Post Code: {address.postalCode}
+            </div>
+            <div style={{ width: '100%', height: '2rem' }}>
+              <HomeOutlined style={{ marginRight: '0.5rem' }} />
+              <Typography.Text style={{ width: '136px' }} ellipsis>
+                Street: {address.street}
+              </Typography.Text>
+            </div>
           </Card>
         </Badge.Ribbon>
       </Spin>
@@ -359,14 +380,36 @@ function AddressCard({
   }
 
   return (
-    <Spin spinning={isLoading}>
+    <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
       <Card
+        style={{ width: '212px', paddingTop: '1.25rem' }}
         actions={[
           <DeleteOutlined key="setting" onClick={handleDeleteAddress} />,
           <EditOutlined key="edit" onClick={() => onEdit(address)} />,
         ]}
       >
-        <EnvironmentOutlined /> {address.country}, {address.postalCode}, city: {address.city}, street: {address.street}
+        <div style={{ width: '100%', height: '2rem' }}>
+          <GlobalOutlined style={{ marginRight: '0.5rem' }} />
+          Country: {address.country}
+        </div>
+        <div style={{ width: '100%', height: '2rem' }}>
+          <EnvironmentOutlined style={{ marginRight: '0.5rem' }} />
+          <Typography.Text style={{ width: '136px' }} ellipsis>
+            City: {address.city}
+          </Typography.Text>
+        </div>
+        <div style={{ width: '100%', height: '2rem' }}>
+          <MailOutlined style={{ marginRight: '0.5rem' }} />
+          <Typography.Text style={{ width: '136px' }} ellipsis>
+            Post Code: {address.postalCode}
+          </Typography.Text>
+        </div>
+        <div style={{ width: '100%', height: '2rem' }}>
+          <HomeOutlined style={{ marginRight: '0.5rem' }} />
+          <Typography.Text style={{ width: '136px' }} ellipsis>
+            Street: {address.street}
+          </Typography.Text>
+        </div>
       </Card>
     </Spin>
   );

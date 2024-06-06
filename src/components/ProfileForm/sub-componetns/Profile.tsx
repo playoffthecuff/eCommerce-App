@@ -83,7 +83,7 @@ export const PersonalData = observer(() => {
             layout="vertical"
             disabled={!editing}
           >
-            <Typography.Title level={3}>Personal Data</Typography.Title>
+            <Typography.Title level={4}>Personal Data</Typography.Title>
             <Form.Item label="First name" name="firstName" rules={nameRules} hasFeedback>
               <Input data-testid="firstName" placeholder="Enter your name..." />
             </Form.Item>
