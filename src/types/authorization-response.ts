@@ -1,7 +1,14 @@
 export type User = {
-  id: string | null;
-  email: string | null;
+  id: string;
+  email: string;
   isActivated: boolean;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  addresses: {
+    shippingAddresses: Address[];
+    billingAddresses: Address[];
+  };
 };
 
 export interface AuthorizationResponse {
@@ -10,7 +17,13 @@ export interface AuthorizationResponse {
   user: User;
 }
 
-type Address = {
+export enum AddressType {
+  SHIPPING = 'shipping',
+  BILLING = 'billing',
+}
+
+export type Address = {
+  id: string;
   street: string;
   city: string;
   postalCode: string;
@@ -25,22 +38,27 @@ export type SignUpArg = {
   lastName: string;
   dateOfBirth: string;
   addresses: {
-    shippingAddresses: Address[];
-    billingAddresses?: Address[];
+    shippingAddresses: Omit<Address, 'id'>[];
+    billingAddresses?: Omit<Address, 'id'>[];
   };
 };
 
 export type SignUpResponse = {
   accessToken: string;
   refreshToken: string;
-  user: {
-    email: string;
-    id: string;
-    isActivated: boolean;
-  };
+  user: User;
 };
 
 export type EmailAvailabilityResponse = {
   email: string;
   exists: boolean;
+};
+
+export type UpdateUserArg = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  password?: string;
+  newPassword?: string;
 };

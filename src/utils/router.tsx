@@ -1,12 +1,15 @@
 import { createHashRouter } from 'react-router-dom';
 import Root from '../pages/Root/Root';
-import Login from '../pages/Login/Login';
-import Registration from '../pages/Registration/Registration';
-import Main from '../pages/Main/Main';
+import LoginPage from '../pages/Login/Login';
+import RegistrationPage from '../pages/Registration/Registration';
+import MainPage from '../pages/Main/Main';
 import AboutPage from '../pages/About/About';
 import CatalogPage from '../pages/Catalog/Catalog';
 import ProfilePage from '../pages/Profile/Profile';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import DevPage from '../pages/Develop/Develop';
+import ProductPage from '../pages/Product/Product';
+// import AdminPage from '../pages/Admin/Admin';
 
 const router = createHashRouter([
   {
@@ -16,19 +19,19 @@ const router = createHashRouter([
     children: [
       {
         index: true,
-        element: <Main />,
+        element: <MainPage />,
       },
       {
         path: '/main',
-        element: <Main />,
+        element: <MainPage />,
       },
       {
         path: '/login',
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: '/registration',
-        element: <Registration />,
+        element: <RegistrationPage />,
       },
       {
         path: '/catalog',
@@ -46,6 +49,18 @@ const router = createHashRouter([
         path: '/not-found',
         element: <ErrorPage />,
       },
+      {
+        path: '/dev',
+        element: <DevPage />,
+      },
+      {
+        path: '/product',
+        element: <ProductPage />,
+      },
+      // {
+      //   path: '/admin',
+      //   element: <AdminPage />,
+      // },
       {
         path: '*',
         element: <ErrorPage />,
