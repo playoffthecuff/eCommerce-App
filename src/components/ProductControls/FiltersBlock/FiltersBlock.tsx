@@ -128,6 +128,7 @@ export default observer(function FiltersBlock() {
     selectedWeight.forEach((weight) => query.append('weight', String(weight)));
     query.set('min_price', String(selectedPriceRange[0]));
     query.set('max_price', String(selectedPriceRange[1]));
+    query.set('page', String(DEFAULT_PAGE));
     setQuery(query);
     closeMenu();
   };
