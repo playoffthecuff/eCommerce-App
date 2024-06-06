@@ -45,6 +45,11 @@
   background-color: var(--color-primary);
 }
 
+.tabs div:hover {
+  border-bottom: 2px solid var(--color-menu-item-selected);
+  color: var(--color-menu-item-selected);
+}
+
 .add-new-btn {
   width: 213px;
   height: 230px;
