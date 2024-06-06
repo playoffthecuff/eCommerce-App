@@ -33,6 +33,14 @@ export const Addresses = observer(
     return (
       <div className={styles['address-form-styles']}>
         <Typography.Title level={4}>{title}</Typography.Title>
+        <div
+          className={styles['add-new-btn']}
+          onClick={() => {
+            setIsModalAddAddressOpen(true);
+          }}
+        >
+          <PlusOutlined /> ADD NEW ADDRESS
+        </div>
         {addresses.map((address) => (
           <AddressCard
             address={address}
@@ -61,17 +69,6 @@ export const Addresses = observer(
             }}
           />
         ))}
-        <CustomButton
-          style={{ width: '212px', marginBottom: '2rem' }}
-          variety="common"
-          htmlType="submit"
-          onClick={() => {
-            setIsModalAddAddressOpen(true);
-          }}
-          block
-        >
-          <PlusOutlined /> ADD NEW ADDRESS
-        </CustomButton>
         <Modal
           className={styles['modal-form']}
           title="Edit Address"
