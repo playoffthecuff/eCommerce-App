@@ -32,6 +32,7 @@ const paths = {
   '/about': 'ABOUT US',
   '/profile': 'PROFILE',
   '/logout': 'LOGOUT',
+  '/cart': 'CART',
 };
 
 function Header() {
@@ -136,7 +137,14 @@ function Header() {
             items={[
               {
                 key: 'Cart',
-                icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
+                icon: (
+                  <ShoppingCartOutlined
+                    style={{ fontSize: '24px' }}
+                    onClick={() => {
+                      navigate('/cart');
+                    }}
+                  />
+                ),
               },
             ]}
             selectedKeys={[currentMenuItem]}
