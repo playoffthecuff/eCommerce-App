@@ -1,14 +1,28 @@
+.cart-section {
+  margin: 2rem 0;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+
 .product-card {
-  margin-top: 1.5rem;
+  height: 148px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.17);
   display: flex;
-  padding: 1rem;
-  width: 800px;
+  padding: 1.5rem;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .product-box {
   display: flex;
+}
+
+.product-container {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-img {
@@ -27,22 +41,30 @@
 }
 
 .product-prop {
-  margin-top: 1.5rem;
-  font-size: 18px;
+  margin-top: 1rem;
+  font-size: 16px;
+  p {
+    margin: 0;
+  }
+}
+
+.vendor-code {
+  font-size: 16px;
+  margin: 0 !important;
 }
 
 .product-counter {
   width: 130px;
-  height: 30px;
   display: flex;
   font-size: 20px;
 }
 
 .product-controller {
-  background-color: rgb(207, 207, 207);
+  background-color: var(--color-primary);
   cursor: pointer;
   width: 40px;
   text-align: center;
+  color: var(--color-background);
 }
 
 .quantity {
@@ -70,4 +92,74 @@
   font-size: 20px;
   text-align: center;
   cursor: pointer;
+  color: var(--color-primary);
+}
+
+.order-box {
+  height: fit-content;
+  padding: 1rem 1.5rem;
+  max-width: 500px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.17);
+  width: 100%;
+}
+
+.order-saving-box {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin: 1rem 0 1.5rem;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+.order-saving-item {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+}
+
+.collapse {
+  align-items: center;
+  line-height: 1.5;
+}
+
+.collapse-into {
+  margin-top: 0.5rem;
+  display: flex;
+}
+
+.collapse-text {
+  font-size: 13px;
+  margin: 0.5rem 0 0;
+}
+
+.estimated-total {
+  font-weight: bold;
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.estimated-total-under {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.order-saving-under {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 0;
 }

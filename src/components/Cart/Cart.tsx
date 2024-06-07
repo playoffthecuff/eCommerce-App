@@ -1,12 +1,26 @@
-import { Typography } from 'antd';
+import { Typography, Collapse, Input } from 'antd';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './Cart.module.css';
+import CustomButton from '../CustomButton/CustomButton';
 
 export function CartPage() {
   return (
-    <div style={{ marginLeft: '2rem' }}>
+    <div style={{ padding: '0 3rem' }}>
       <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
-      <ProductItem />
+      <div className={styles['cart-section']}>
+        <div style={{ marginBottom: 0 }} className={styles['product-container']}>
+          <ProductItem />
+          <ProductItem />
+          <div className={styles['order-saving-under']}>
+            <OrderSaving />
+          </div>
+          <div className={styles['estimated-total-under']}>
+            <p>Estimated Total</p>
+            <p>$30.00</p>
+          </div>
+        </div>
+        <OrderSummary />
+      </div>
     </div>
   );
 }
@@ -21,10 +35,10 @@ function ProductItem() {
             ITEM TITLE
           </Typography.Title>
           <div className={styles['product-prop']}>
-            <Typography.Paragraph style={{ margin: 0 }} copyable>
+            <Typography.Paragraph className={styles['vendor-code']} copyable>
               #643423
             </Typography.Paragraph>
-            <Typography.Text>Unit Price: $35</Typography.Text>
+            <p>Unit Price: $35</p>
           </div>
         </div>
       </div>
@@ -46,5 +60,61 @@ function ProductItem() {
         </div>
       </div>
     </div>
+  );
+}
+
+function OrderSummary() {
+  return (
+    <div className={styles['order-box']}>
+      <Typography.Title style={{ margin: '0' }} level={2}>
+        ORDER SUMMARY
+      </Typography.Title>
+      <div className={styles['order-saving-box']}>
+        <OrderSaving />
+      </div>
+
+      <Collapse
+        items={[
+          {
+            key: '1',
+            label: 'Promo Code',
+            children: (
+              <>
+                <div className={styles['collapse-into']}>
+                  <Input placeholder="Enter promo code" />
+                  <CustomButton style={{ width: '100px' }} variety="common" block>
+                    APPLY
+                  </CustomButton>
+                </div>
+                <p className={styles['collapse-text']}>Only one code allowed per order.</p>
+              </>
+            ),
+          },
+        ]}
+        style={{ fontFamily: 'Futura', fontWeight: 600, fontSize: '1.5rem' }}
+      />
+      <div className={styles['estimated-total']}>
+        <p>Estimated Total</p>
+        <p>$30.00</p>
+      </div>
+      <CustomButton variety="common" block>
+        PLACE ORDER
+      </CustomButton>
+    </div>
+  );
+}
+
+function OrderSaving() {
+  return (
+    <>
+      <div className={styles['order-saving-item']}>
+        <p>Order Subtotal</p>
+        <p>$35.00</p>
+      </div>
+      <div className={styles['order-saving-item']}>
+        <p>Savings/Promo</p>
+        <p>-$5.00</p>
+      </div>
+    </>
   );
 }
