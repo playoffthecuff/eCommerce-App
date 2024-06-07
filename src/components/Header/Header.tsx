@@ -137,6 +137,7 @@ function Header() {
               {
                 key: 'Cart',
                 icon: <ShoppingCartOutlined style={{ fontSize: '24px' }} />,
+                onClick: () => navigate('/cart'),
               },
             ]}
             selectedKeys={[currentMenuItem]}
