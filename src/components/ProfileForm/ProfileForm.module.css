@@ -68,6 +68,11 @@
   cursor: pointer;
 }
 
+.address-card {
+  width: 212px;
+  padding-top: 1.25rem;
+}
+
 @media (max-width: 528px) {
   .tabs {
     font-size: 15px;

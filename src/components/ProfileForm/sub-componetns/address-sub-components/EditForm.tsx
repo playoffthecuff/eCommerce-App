@@ -6,7 +6,7 @@ import { Checkbox, Form, Spin, notification } from 'antd';
 import { Address, AddressType } from '../../../../types/authorization-response';
 import { countriesStore } from '../../../../store/countries-store';
 import { AddressFields } from '../../types';
-import { addressesAreEqual } from '../../helpers';
+import { addressesAreEqual, checkIfFormValid } from '../../helpers';
 import { AddressForm } from '../../../RegistrationForm/sub-components/AddressForm';
 import CustomButton from '../../../CustomButton/CustomButton';
 import { Country } from '../../../../utils/countries-service';
@@ -26,17 +26,6 @@ export const EditForm = observer(
       form.resetFields();
       setCountry(countriesStore.countries.find((c) => c.name === address.country));
     }, [countriesStore.state, address.id]);
-
-    const checkIfFormValid = (): void => {
-      const fields = form.getFieldsError();
-      for (const field of fields) {
-        if (field.errors.length > 0) {
-          setIsValid(false);
-          return;
-        }
-      }
-      setIsValid(true);
-    };
 
     const handleEditAddress = async () => {
       setIsLoading(true);
@@ -103,7 +92,7 @@ export const EditForm = observer(
             setAsDefaultShippingAddress: address.isDefault,
           }}
           form={form}
-          onFieldsChange={checkIfFormValid}
+          onFieldsChange={() => checkIfFormValid(form, setIsValid)}
         >
           <AddressForm countries={countriesStore.countries} country={country} setCountry={setCountry} />
           <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">

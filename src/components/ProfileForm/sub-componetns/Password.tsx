@@ -7,6 +7,7 @@ import { passwordRules } from '../../../utils/fields-validation';
 import userStore from '../../../store/user-store';
 import { PasswordDataFormFields } from '../types';
 import styles from '../ProfileForm.module.css';
+import { checkIfFormValid } from '../helpers';
 
 export function PasswordData() {
   const [isValid, setIsValid] = useState(true);
@@ -46,21 +47,10 @@ export function PasswordData() {
     }
   };
 
-  const checkIfFormValid = (): void => {
-    const fields = form.getFieldsError();
-    for (const field of fields) {
-      if (field.errors.length > 0) {
-        setIsValid(false);
-        return;
-      }
-    }
-    setIsValid(true);
-  };
-
   return (
     <div style={{ margin: '4rem auto' }} className={styles['profile-form']}>
       <Spin spinning={isLoading} style={{ width: '360px' }} wrapperClassName={styles.spin}>
-        <Form form={form} layout="vertical" onFieldsChange={() => checkIfFormValid()}>
+        <Form form={form} layout="vertical" onFieldsChange={() => checkIfFormValid(form, setIsValid)}>
           <Typography.Title level={4}>Change Password</Typography.Title>
           <Form.Item label="Enter your password" name="password" rules={passwordRules} hasFeedback validateFirst>
             <Input.Password data-testid="password" type="password" placeholder="Enter your password..." />

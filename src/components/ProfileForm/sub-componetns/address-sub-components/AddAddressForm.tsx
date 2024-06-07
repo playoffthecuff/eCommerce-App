@@ -11,6 +11,7 @@ import { AddressForm } from '../../../RegistrationForm/sub-components/AddressFor
 import CustomButton from '../../../CustomButton/CustomButton';
 import { countriesStore } from '../../../../store/countries-store';
 import styles from '../../ProfileForm.module.css';
+import { checkIfFormValid } from '../../helpers';
 
 export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubmit?: () => void }) => {
   const [country, setCountry] = useState<Country | undefined>();
@@ -18,17 +19,6 @@ export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType;
   const [notificationAPI, contextHolder] = notification.useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [isValid, setIsValid] = useState(true);
-
-  const checkIfFormValid = (): void => {
-    const fields = form.getFieldsError();
-    for (const field of fields) {
-      if (field.errors.length > 0) {
-        setIsValid(false);
-        return;
-      }
-    }
-    setIsValid(true);
-  };
 
   const handleAddAddress = async () => {
     setIsLoading(true);
@@ -67,7 +57,6 @@ export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType;
         return;
       }
       await userStore.addAddress(type, newAddress);
-      console.log(type, newAddress);
       setIsLoading(false);
       form.resetFields();
       notificationAPI.success({
@@ -94,7 +83,12 @@ export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType;
 
   return (
     <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
-      <Form layout="vertical" form={form} style={{ marginTop: '1.5rem' }} onFieldsChange={checkIfFormValid}>
+      <Form
+        layout="vertical"
+        form={form}
+        style={{ marginTop: '1.5rem' }}
+        onFieldsChange={() => checkIfFormValid(form, setIsValid)}
+      >
         <AddressForm countries={countriesStore.countries} country={country} setCountry={setCountry} />
         <Form.Item name="setAsDefaultShippingAddress" valuePropName="checked">
           <Checkbox>Set as default this address</Checkbox>

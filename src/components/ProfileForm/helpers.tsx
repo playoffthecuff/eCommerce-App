@@ -1,3 +1,4 @@
+import { FormInstance } from 'antd';
 import { Address } from '../../types/authorization-response';
 
 export function addressesAreEqual(addressCur: Address, addressUpdated: Address): boolean {
@@ -8,3 +9,14 @@ export function addressesAreEqual(addressCur: Address, addressUpdated: Address):
   }
   return true;
 }
+
+export const checkIfFormValid = (form: FormInstance<unknown>, callback: (valid: boolean) => void): void => {
+  const fields = form.getFieldsError();
+  for (const field of fields) {
+    if (field.errors.length > 0) {
+      callback(false);
+      return;
+    }
+  }
+  callback(true);
+};
