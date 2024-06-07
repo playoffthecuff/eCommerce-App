@@ -2,9 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { Spin, Typography } from 'antd';
 import { useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
-
 import { catalogStore } from '../../store/catalog-store';
-
 import styles from './BestBikes.module.css';
 import { BootState } from '../../types/boot-state';
 
