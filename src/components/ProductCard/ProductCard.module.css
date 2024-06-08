@@ -45,6 +45,13 @@
   flex: 1;
 }
 
+.card-body-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .product-price {
   font-size: 1.25rem;
 }

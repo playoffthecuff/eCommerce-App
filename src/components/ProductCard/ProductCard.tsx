@@ -1,9 +1,12 @@
 import { Card, Rate, Skeleton } from 'antd';
 import classNames from 'classnames';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
+import userStore from '../../store/user-store';
+import { cartStore } from '../../store/cart-store';
 
 import styles from './ProductCard.module.css';
 
@@ -17,7 +20,22 @@ type ProductCardProps = {
 };
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
-  const { title, price, discountedPrice, vendorCode, rating, thumbs } = product;
+  const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
+
+  const handleAddToCart = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const payload = {
+      ...cartStore.payload,
+      userId: userStore.user?.id,
+      productId: id,
+    };
+
+    cartStore.addToCart(payload);
+
+    console.log(`Adding product ${id} to cart`);
+  };
 
   return (
     <a href={`${import.meta.env.BASE_URL}#/product?vc=${vendorCode}`} className={styles['product-card-link']}>
@@ -38,15 +56,20 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
       >
         <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
           <Meta title={title} className={styles['product-title']} />
-          <div className={styles.productPrice}>
-            {discountedPrice ? (
-              <>
-                <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
-                <span className={styles.discountedPrice}>${discountedPrice}</span>
-              </>
-            ) : (
-              <span>${price}</span>
-            )}
+          <div className={styles['card-body-wrapper']}>
+            <div className={styles.productPrice}>
+              {discountedPrice ? (
+                <>
+                  <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
+                  <span className={styles.discountedPrice}>${discountedPrice}</span>
+                </>
+              ) : (
+                <span>${price}</span>
+              )}
+            </div>
+            <div>
+              <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+            </div>
           </div>
           <div className={styles['rate-wrapper']}>
             <Rate

@@ -283,10 +283,10 @@ button {
   z-index: 1;
 }
 
-.ant-tabs-left >.ant-tabs-content-holder .ant-tabs-tabpane.ant-tabs-tabpane-active {
+.ant-tabs-left > .ant-tabs-content-holder .ant-tabs-tabpane.ant-tabs-tabpane-active {
   padding-left: 0;
 }
 
-.ant-tabs-left >.ant-tabs-content-holder {
+.ant-tabs-left > .ant-tabs-content-holder {
   border: none;
 }

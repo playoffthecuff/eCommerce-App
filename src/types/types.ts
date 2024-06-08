@@ -52,6 +52,7 @@ export interface CartPayload {
   productId?: string;
   userId?: string;
   quantity?: number;
+  size?: string;
 }
 
 export enum ButtonVariety {
