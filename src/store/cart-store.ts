@@ -41,7 +41,7 @@ class CartStore {
     return this._payload;
   }
 
-  public get productsState(): BootState {
+  public get cartState(): BootState {
     return this._state;
   }
 
@@ -49,7 +49,7 @@ class CartStore {
     return this._error;
   }
 
-  public async addToCart({ userId, productId, quantity, size }: CartPayload) {
+  public addToCart = async ({ userId, productId, quantity, size }: CartPayload) => {
     if (userId) {
       this._state = BootState.InProgress;
       this._error = undefined;
@@ -87,6 +87,34 @@ class CartStore {
     } else {
       console.log('User not login');
     }
+  };
+
+  public removeFromCart = async (productId: string, userId: string | undefined) => {
+    if (userId) {
+      this._state = BootState.InProgress;
+      this._error = undefined;
+
+      const [responseData, error] = await cartService.removeFromCart({ productId, userId });
+
+      if (error) {
+        this._state = BootState.Failed;
+        this._error = (error as Error).toString();
+        return;
+      }
+
+      runInAction(() => {
+        this._items = responseData.items;
+        this._totalItems = responseData.totalItems;
+        this._totalPrice = responseData.totalPrice;
+        this._state = BootState.Success;
+      });
+    } else {
+      console.log('User not logged in');
+    }
+  };
+
+  public isInCart(productId: string): boolean {
+    return this._items.some((item) => item._id === productId);
   }
 
   // async removeFromCart(productId, userId) {

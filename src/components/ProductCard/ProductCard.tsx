@@ -1,8 +1,9 @@
 import { Card, Rate, Skeleton } from 'antd';
 import classNames from 'classnames';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { CheckOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
+import { useState } from 'react';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import userStore from '../../store/user-store';
@@ -22,19 +23,27 @@ type ProductCardProps = {
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
 
-  const handleAddToCart = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+  const [inCart, setInCart] = useState<boolean>(cartStore.isInCart(id));
+
+  const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
     event.preventDefault();
 
-    const payload = {
-      ...cartStore.payload,
-      userId: userStore.user?.id,
-      productId: id,
-    };
+    if (inCart) {
+      console.log(`Removing product ${id} from cart`);
+      await cartStore.removeFromCart(id, userStore.user?.id);
+      setInCart(false);
+    } else {
+      console.log(`Adding product ${id} to cart`);
+      const payload = {
+        ...cartStore.payload,
+        userId: userStore.user?.id,
+        productId: id,
+      };
 
-    cartStore.addToCart(payload);
-
-    console.log(`Adding product ${id} to cart`);
+      await cartStore.addToCart(payload);
+      setInCart(true);
+    }
   };
 
   return (
@@ -68,7 +77,11 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               )}
             </div>
             <div>
-              <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+              {inCart ? (
+                <CheckOutlined style={{ fontSize: '24px', color: 'green' }} onClick={handleAddToCart} />
+              ) : (
+                <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+              )}
             </div>
           </div>
           <div className={styles['rate-wrapper']}>
