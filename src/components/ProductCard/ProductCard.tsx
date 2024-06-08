@@ -1,6 +1,6 @@
-import { Card, Rate, Skeleton } from 'antd';
+import { Card, Rate, Skeleton, notification } from 'antd';
 import classNames from 'classnames';
-import { CheckOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { CheckOutlined, ShoppingCartOutlined, StopOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -30,11 +30,17 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
     event.preventDefault();
 
     if (inCart) {
-      console.log(`Removing product ${id} from cart`);
       await cartStore.removeFromCart(id, userStore.user?.id);
       setInCart(false);
+      notification.success({
+        message: 'Item removed from cart',
+        description: `${title} was removed from your cart.`,
+        duration: 3,
+        placement: 'top',
+        icon: <StopOutlined style={{ color: 'red' }} />,
+        className: styles['product-card-notification'],
+      });
     } else {
-      console.log(`Adding product ${id} to cart`);
       const payload = {
         ...cartStore.payload,
         userId: userStore.user?.id,
@@ -43,6 +49,13 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
 
       await cartStore.addToCart(payload);
       setInCart(true);
+      notification.success({
+        message: 'Item added to cart',
+        description: `${title} was added to your cart.`,
+        duration: 3,
+        placement: 'top',
+        className: styles['product-card-notification'],
+      });
     }
   };
 
@@ -94,6 +107,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
             />
             <div className={styles['rate-line']} />
           </div>
+          <div className={styles['product-card-notification-container']} />
         </Skeleton>
       </Card>
     </a>
