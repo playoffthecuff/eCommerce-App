@@ -42,6 +42,8 @@ jobs:
     - name: Deploy to GitHub Pages
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
+        USERNAME: github-actions[bot]
       run: |
         eval $(ssh-agent -s)
         echo "${DEPLOY_KEY}" | ssh-add -
@@ -53,3 +55,4 @@ jobs:
         git add .
         git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
         git push origin gh-pages
+        git push https://$USERNAME:$PUSH_TOKEN@github.com:playoffthecuff/eCommerceApp.git
