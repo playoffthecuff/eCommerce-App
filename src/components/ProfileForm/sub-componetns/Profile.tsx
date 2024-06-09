@@ -9,6 +9,7 @@ import { dateOfBirthValidator, emailRules, nameRules } from '../../../utils/fiel
 import userStore from '../../../store/user-store';
 import styles from '../ProfileForm.module.css';
 import { ProfileFormFields } from '../types';
+import { checkIfFormValid } from '../helpers';
 
 export const PersonalData = observer(() => {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,24 +57,13 @@ export const PersonalData = observer(() => {
     setIsLoading(false);
   };
 
-  const checkIfFormValid = (): void => {
-    const fields = form.getFieldsError();
-    for (const field of fields) {
-      if (field.errors.length > 0) {
-        setIsValid(false);
-        return;
-      }
-    }
-    setIsValid(true);
-  };
-
   return (
     <>
       <Spin spinning={isLoading}>
-        <div className={styles['profile-form']}>
+        <div style={{ margin: '5.5rem auto 0' }} className={styles['profile-form']}>
           <Form
             form={form}
-            onFieldsChange={() => checkIfFormValid()}
+            onFieldsChange={() => checkIfFormValid(form, setIsValid)}
             initialValues={{
               firstName: user.firstName,
               lastName: user.lastName,
