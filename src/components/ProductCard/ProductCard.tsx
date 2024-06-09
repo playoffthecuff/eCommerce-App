@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { CheckOutlined, ShoppingCartOutlined, StopOutlined } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import userStore from '../../store/user-store';
@@ -24,6 +24,10 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
 
   const [inCart, setInCart] = useState<boolean>(cartStore.isInCart(id));
+
+  useEffect(() => {
+    setInCart(cartStore.isInCart(id));
+  }, []);
 
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
