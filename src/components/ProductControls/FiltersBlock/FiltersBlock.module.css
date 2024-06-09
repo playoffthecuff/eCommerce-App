@@ -1,5 +1,4 @@
 .filters-block-wrapper aside[class~='ant-layout-sider'] {
-  padding: 0 0.5rem;
   transition: left 0.5s ease-in-out;
   z-index: 2;
   max-width: none !important;
@@ -27,8 +26,8 @@
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 1rem;
   cursor: pointer;
   z-index: 3;
 }
@@ -37,19 +36,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 1rem 0.5rem;
   color: var(--color-menu-item-text);
+
+  .menu-title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
 }
 
 .filter-collapse {
   align-items: center;
-}
-
-.menu-title {
-  margin: 0;
-  font-size: 18px;
-  color: var(--color-button-text);
-  text-transform: uppercase;
 }
 
 .filter-panel {
@@ -62,23 +59,28 @@
 }
 
 .filter-item {
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
 }
 
 .buttons-wrapper {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  gap: 1.25rem;
   margin-top: 1rem;
-  padding-bottom: 5rem;
+  margin-left: 1.25rem;
+  padding-bottom: 4rem;
 }
 
 .price-slider-wrapper aside[class~='ant-layout-sider'] {
 }
 
+.price-slider {
+  margin-left: 10px;
+  margin-right: 7px;
+}
+
 .price-range {
   text-align: center;
-  margin-top: 8px;
+  margin-bottom: 0.5rem;
   color: var(--color-menu-item-text);
 }
 
@@ -102,6 +104,6 @@
 
 .filter-collapse {
   span {
-    line-height: 2.25;
+    line-height: 1.6;
   }
 }
