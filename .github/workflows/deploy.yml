@@ -53,8 +53,11 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/noexist.git deploy-repo
-        rsync -av --delete dist/ deploy-repo/
         cd deploy-repo
+        rsync -av --delete ../dist/ .
         git add .
         git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
+        git remote set-url origin git@github.com:playoffthecuff/noexist.git
+        # Debug information
+        git remote -v
         git push origin gh-pages
