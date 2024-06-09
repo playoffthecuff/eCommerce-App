@@ -25,6 +25,9 @@ jobs:
     - name: Create .env file
       run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
 
+    - name: Remove existing deploy directory
+      run: rm -rf deploy-repo
+
     - name: Remove node_modules and package-lock.json
       run: |
         rm -rf node_modules
@@ -36,9 +39,6 @@ jobs:
     - name: Build App
       run: npm run build
 
-    - name: Remove existing deploy directory
-      run: rm -rf deploy-repo
-
     - name: Deploy to GitHub Pages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,7 +46,6 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git clone --depth 1 --branch gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/playoffthecuff/eCommerceApp.git deploy-repo
-        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/eCommerceApp.git deploy-repo
         rsync -av --delete dist/ deploy-repo/
         cd deploy-repo
         git add .
