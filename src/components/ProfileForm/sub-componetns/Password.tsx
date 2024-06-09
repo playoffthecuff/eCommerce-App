@@ -48,7 +48,7 @@ export function PasswordData() {
   };
 
   return (
-    <div style={{ margin: '4rem auto' }} className={styles['profile-form']}>
+    <div className={styles['profile-form']}>
       <Spin spinning={isLoading} style={{ width: '360px' }} wrapperClassName={styles.spin}>
         <Form form={form} layout="vertical" onFieldsChange={() => checkIfFormValid(form, setIsValid)}>
           <Typography.Title level={4}>Change Password</Typography.Title>

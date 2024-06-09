@@ -2,14 +2,11 @@
   color: var(--color-footer-text);
   font-size: 0.75rem;
   padding: 0;
-  /* z-index: 19; */
 }
 
 .container {
-  /* gap: 0 min(calc((100vw - 992px) / 5), 236px); */
   display: grid;
   grid-template: auto auto auto / 1fr clamp(304px, calc(304px + (100vw - 992px) / 3), 470px) clamp(320px, calc(320px + (100vw - 992px) / 3), 480px) clamp(368px, calc(368px + (100vw - 992px) / 3), 512px) 1fr;
-  /* 304px 320px 368px */
 }
 
 .middle-block {

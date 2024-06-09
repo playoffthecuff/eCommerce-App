@@ -48,6 +48,10 @@ html {
   overscroll-behavior: contain;
 }
 
+body {
+  overflow: unset;
+}
+
 :root[data-theme='light'] {
   --color-background: #fff;
   --color-background-secondary: #ebebeb;
@@ -188,6 +192,7 @@ h5.ant-typography {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: calc(100lvh - 176px);
   height: 100%;
   width: 100%;
 }
@@ -219,9 +224,9 @@ h5.ant-typography {
 
 /* Spin */
 
-/* .ant-spin-nested-loading {
+.ant-spin-nested-loading {
   width: 100%;
-} */
+}
 
 .ant-spin.ant-spin-lg.ant-spin-spinning {
   max-height: 100dvh;
