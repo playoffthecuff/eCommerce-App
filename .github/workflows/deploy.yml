@@ -43,11 +43,13 @@ jobs:
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
-        
         USERNAME: github-actions[bot]
       run: |
+        mkdir -p ~/.ssh
+        echo "${DEPLOY_KEY}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
         eval $(ssh-agent -s)
-        echo "${DEPLOY_KEY}" | ssh-add -
+        ssh-add ~/.ssh/deploy_key
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/eCommerceApp.git deploy-repo
@@ -56,4 +58,3 @@ jobs:
         git add .
         git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
         git push origin gh-pages
-        git push https://$USERNAME:$PUSH_TOKEN@github.com/playoffthecuff/eCommerceApp.git
