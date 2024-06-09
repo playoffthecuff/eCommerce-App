@@ -5,8 +5,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
-import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
+import { Rate, Typography, InputNumber, Divider, Radio, Spin } from 'antd';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -20,6 +19,7 @@ import productStore from '../../store/product-store';
 import { WARRANTY_TEXT } from '../../utils/product-service';
 import { BootState } from '../../types/boot-state';
 import styles from './Product.module.css';
+import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -39,20 +39,7 @@ function ProductPage() {
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
-              {/* <ProductSwiper /> */} {/* TODO: back to swiper next sprint */}
-              <Image.PreviewGroup
-                items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
-                preview={{
-                  toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
-                    <Space size={24} className="toolbar-wrapper">
-                      <ZoomOutOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 1} onClick={onZoomOut} />
-                      <ZoomInOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 50} onClick={onZoomIn} />
-                    </Space>
-                  ),
-                }}
-              >
-                <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
-              </Image.PreviewGroup>
+              <ProductSwiper />
             </div>
             <div className={styles['info-block']}>
               <div className={styles['header-block']}>

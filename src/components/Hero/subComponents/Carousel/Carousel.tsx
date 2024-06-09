@@ -22,10 +22,10 @@ function Carousel() {
           </Paragraph>
           <div className={styles['buttons-wrapper']}>
             <CustomButton variety="common" href="#/registration" htmlType="button" style={{ width: '170px' }}>
-              Registration Page
+              REGISTRATION
             </CustomButton>
             <CustomButton variety="common" href="#/login" htmlType="button" style={{ width: '170px' }}>
-              Login Page
+              LOGIN
             </CustomButton>
             <CustomButton
               style={{ width: '170px' }}
@@ -34,7 +34,7 @@ function Carousel() {
               target="a_blank"
               htmlType="button"
             >
-              Api Documentation
+              API DOC
             </CustomButton>
           </div>
         </div>
