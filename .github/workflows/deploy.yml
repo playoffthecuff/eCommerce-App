@@ -25,6 +25,11 @@ jobs:
     - name: Create .env file
       run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
 
+    - name: Remove node_modules and package-lock.json
+      run: |
+        rm -rf node_modules
+        rm -f package-lock.json
+
     - name: Install dependencies
       run: npm install
 
