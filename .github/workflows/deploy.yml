@@ -41,13 +41,15 @@ jobs:
 
     - name: Deploy to GitHub Pages
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
       run: |
+        eval $(ssh-agent -s)
+        echo "${DEPLOY_KEY}" | ssh-add -
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git clone --depth 1 --branch gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/playoffthecuff/eCommerceApp.git deploy-repo
+        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/eCommerceApp.git deploy-repo
         rsync -av --delete dist/ deploy-repo/
         cd deploy-repo
         git add .
         git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/playoffthecuff/eCommerceApp.git
+        git push origin gh-pages
