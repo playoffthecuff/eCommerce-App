@@ -55,4 +55,4 @@ jobs:
         git add .
         git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
         git push origin gh-pages
-        git push https://$USERNAME:$PUSH_TOKEN@github.com:playoffthecuff/eCommerceApp.git
+        git push https://$USERNAME:$PUSH_TOKEN@github.com/playoffthecuff/eCommerceApp.git
