@@ -61,5 +61,7 @@ jobs:
         git remote set-url origin git@github.com:playoffthecuff/noexist.git
         # Debug information
         git remote -v
+        git add .
+        git commit -m "temp"
         git pull --rebase origin gh-pages
         git push --force origin gh-pages
