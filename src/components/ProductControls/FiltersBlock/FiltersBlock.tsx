@@ -178,7 +178,7 @@ export default observer(function FiltersBlock() {
       label: 'CATEGORIES',
       children: (
         <Checkbox.Group
-          options={filtersData?.categories!.map((category) => toTitleCase(category))}
+          options={filtersData?.categories?.map((category) => toTitleCase(category)) || []}
           className={styles['filter-group']}
           onChange={onCategoryChange}
           value={selectedCategories}
@@ -209,7 +209,7 @@ export default observer(function FiltersBlock() {
       ),
       children: (
         <Checkbox.Group
-          options={filtersData?.weight?.map((weight) => `${weight} kg`)}
+          options={filtersData?.weight?.map((weight) => `${weight} kg`) || []}
           className={styles['filter-group']}
           onChange={onWeightChange}
           value={selectedWeight}

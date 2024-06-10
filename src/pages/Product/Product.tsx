@@ -9,7 +9,7 @@ import { Rate, Typography, InputNumber, Divider, Radio, Spin } from 'antd';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
-// import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 import BestBikes from '../../components/BestBikes/BestBikes';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { LogoIcon } from '../../components/CustomIcons/CustomIcons';
@@ -19,7 +19,6 @@ import productStore from '../../store/product-store';
 import { WARRANTY_TEXT } from '../../utils/product-service';
 import { BootState } from '../../types/boot-state';
 import styles from './Product.module.css';
-import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 
 const { Paragraph, Text, Title } = Typography;
 

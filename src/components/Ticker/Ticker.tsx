@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import classNames from 'classnames';
 import styles from './Ticker.module.css';
 
@@ -19,10 +20,10 @@ export default function Ticker({
   duration = '10s',
 }: Props) {
   return (
-    <div className={classNames(styles.ticker, styles.neo, className, { [styles.stoppable]: stoppable })}>
+    <div className={classNames(styles.ticker, className, { [styles.stoppable]: stoppable })}>
       <ul className={classNames(styles.content, { [styles.reverse]: reverse })} style={{ animationDuration: duration }}>
-        {new Array(repeat).fill(0).map(() => (
-          <li>{content}</li>
+        {new Array(repeat).fill(0).map((_, i) => (
+          <li key={i}>{content}</li>
         ))}
       </ul>
       <ul
@@ -30,8 +31,8 @@ export default function Ticker({
         className={classNames(styles.content, { [styles.reverse]: reverse })}
         style={{ animationDuration: duration }}
       >
-        {new Array(repeat).fill(0).map(() => (
-          <li>{content}</li>
+        {new Array(repeat).fill(0).map((_, i) => (
+          <li key={i}>{content}</li>
         ))}
       </ul>
     </div>
