@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Form, Image, Radio, Select, Statistic, Upload, message } from 'antd';
+import { PlusOutlined, RedoOutlined } from '@ant-design/icons';
+import { Form, Image, Radio, Select, Statistic, Upload, message, Input, Space, Button } from 'antd';
 import type { GetProp, RadioChangeEvent, UploadFile, UploadProps } from 'antd';
 import { observer } from 'mobx-react-lite';
 import axios from 'axios';
@@ -52,21 +52,53 @@ function AdminPage() {
     return false;
   };
 
-  const [previewThumbOpen, setPreviewOpen] = useState(false);
-  const [previewThumbImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [typeImgRadioValue, setTypeImgRadioValue] = useState(1);
-  const onTypeImgRadioChange = (e: RadioChangeEvent) => {
-    setTypeImgRadioValue(e.target.value);
-    typeImgRef.current = e.target.value === 1 ? 'thumb' : 'gallery';
-  };
-
   useEffect(() => {
     async function fetchData() {
       await productStore.loadShortInfo();
     }
     fetchData();
   }, []);
+
+  const [previewThumbOpen, setPreviewOpen] = useState(false);
+  const [previewThumbImage, setPreviewImage] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [typeImgRadioValue, setTypeImgRadioValue] = useState(1);
+  const [color, setColor] = useState('');
+  const [desc, setDesc] = useState('');
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (productStore.product) {
+      setDesc(productStore.product.description || '');
+    }
+  }, [productStore.product]);
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    form.setFieldsValue({ description: e.target.value });
+    setDesc(e.target.value);
+  };
+
+  const updateDescription = async () => {
+    try {
+      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/products/description`, {
+        id: productStore.product?._id,
+        description: form.getFieldValue('description'),
+      });
+      if (resp.status !== 200) {
+        throw new Error('Upload failed');
+      }
+      message.success(`description updated successfully`);
+    } catch (error) {
+      const e = error as Error;
+      const msg = e.message;
+      message.error(`description update failed: ${msg}`);
+    }
+  };
+
+  const onTypeImgRadioChange = (e: RadioChangeEvent) => {
+    setTypeImgRadioValue(e.target.value);
+    typeImgRef.current = e.target.value === 1 ? 'thumb' : 'gallery';
+  };
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -90,10 +122,17 @@ function AdminPage() {
     </button>
   );
 
-  const [color, setColor] = useState('');
-
   return (
-    <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal" style={{ maxWidth: 600 }}>
+    <Form
+      initialValues={{
+        description: productStore.product?.description,
+      }}
+      form={form}
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 14 }}
+      layout="horizontal"
+      style={{ maxWidth: 600 }}
+    >
       <Form.Item label="Color">
         <Statistic value={color} />
       </Form.Item>
@@ -127,7 +166,7 @@ function AdminPage() {
       </Form.Item>
       <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
         <Upload
-          accept="image/png, image/webp, image/svg+xml"
+          accept="image/png"
           beforeUpload={uploadImg}
           listType="picture-card"
           fileList={fileList}
@@ -148,6 +187,22 @@ function AdminPage() {
             src={previewThumbImage}
           />
         )}
+      </Form.Item>
+      <Form.Item label="Description">
+        <Space.Compact style={{ width: '100%' }}>
+          <Input.TextArea
+            name="description"
+            style={{ height: '5rem' }}
+            value={desc}
+            onChange={handleDescriptionChange}
+          />
+          <Button
+            type="primary"
+            icon={<RedoOutlined />}
+            onClick={updateDescription}
+            disabled={productStore.bootState !== BootState.Success}
+          />
+        </Space.Compact>
       </Form.Item>
     </Form>
   );

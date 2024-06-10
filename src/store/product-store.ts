@@ -65,7 +65,7 @@ class ProductStore {
     if (response) {
       runInAction(() => {
         this._shortInfo = response.data;
-        this._bootState = BootState.Success;
+        this._bootState = BootState.None;
       });
     }
   }
