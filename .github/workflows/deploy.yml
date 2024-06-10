@@ -47,7 +47,7 @@ jobs:
         ssh-add ~/.ssh/deploy_key
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/noexist.git deploy-repo
+        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/eCommerceApp.git deploy-repo
         cp -r dist/* deploy-repo
         cd deploy-repo
         git add .
