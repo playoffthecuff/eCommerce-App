@@ -53,7 +53,7 @@ jobs:
         ssh-add ~/.ssh/deploy_key
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git clone --depth 1 --branch main git@github.com:playoffthecuff/noexist.git deploy-repo
+        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/noexist.git deploy-repo
         cd deploy-repo
         rsync -av --delete ../dist/ .
         git add .
@@ -61,4 +61,4 @@ jobs:
         git remote set-url origin git@github.com:playoffthecuff/noexist.git
         # Debug information
         git remote -v
-        git push origin main
+        git push origin HEAD:gh-pages
