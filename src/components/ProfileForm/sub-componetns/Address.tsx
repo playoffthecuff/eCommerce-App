@@ -12,7 +12,7 @@ import { AddressCard } from './address-sub-components/AddressCard';
 export const Addresses = observer(
   ({ addresses, type, title }: { addresses: Address[]; type: AddressType; title: string }) => {
     const [isModalEditAddressOpen, setIsModalEditAddressOpen] = useState(false);
-    const [isModalAddAddrerssOpen, setIsModalAddAddressOpen] = useState(false);
+    const [isModalAddAddressOpen, setIsModalAddAddressOpen] = useState(false);
     const [currAddr, setCurrAddr] = useState(addresses[0]);
     const [notificationAPI, contextHolder] = notification.useNotification();
 
@@ -67,7 +67,7 @@ export const Addresses = observer(
         <Modal
           className={styles['modal-form']}
           title="Add New Address"
-          open={isModalAddAddrerssOpen}
+          open={isModalAddAddressOpen}
           onCancel={() => setIsModalAddAddressOpen(false)}
           footer=""
         >

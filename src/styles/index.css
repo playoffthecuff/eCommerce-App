@@ -322,4 +322,7 @@ button {
   border: none;
 }
 
+.ant-ribbon-wrapper {
+  width: fit-content;
+}
 
