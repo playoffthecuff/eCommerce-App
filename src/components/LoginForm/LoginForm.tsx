@@ -7,7 +7,6 @@ import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
 import { emailRules, passwordRules } from '../../utils/fields-validation';
-import Ticker from '../Ticker/Ticker';
 
 const { Text, Title, Link, Paragraph } = Typography;
 
