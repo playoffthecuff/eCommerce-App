@@ -259,8 +259,16 @@ h5.ant-typography {
   color: var(--color-text);
 }
 
-.ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon {
-  padding-inline-end: 0.5rem;
+.ant-collapse>.ant-collapse-item >.ant-collapse-header {
+  align-items: center;
+  
+  .ant-collapse-expand-icon {
+    padding-inline-end: 0.5rem;
+  }
+}
+
+.ant-collapse-expand-icon {
+  height: 100%;
 }
 
 .ant-descriptions-item-content {
@@ -313,3 +321,5 @@ button {
 .ant-tabs-left > .ant-tabs-content-holder {
   border: none;
 }
+
+

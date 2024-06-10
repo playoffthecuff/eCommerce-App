@@ -70,7 +70,7 @@ function TechSpecs() {
       <Divider style={{ marginTop: 0 }} />
       <div className={styles.container}>
         <div className={styles['description-table']}>
-          <Collapse items={items} style={{ fontFamily: 'Futura', fontWeight: 600, fontSize: '1.5rem' }} />
+          <Collapse items={items} className={styles.collapse} />
         </div>
       </div>
     </div>
