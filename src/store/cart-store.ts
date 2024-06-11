@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
 import { CartItem, CartPayload } from '../types/types';
 import { BootState } from '../enums';
+import userStore from './user-store';
 
 class CartStore {
   private _items: CartItem[] = [];
@@ -15,10 +16,11 @@ class CartStore {
   private _error: string | undefined;
 
   private _payload: CartPayload = {
-    productId: '',
-    userId: '',
+    productId: null,
+    userId: null,
     quantity: 1,
     size: 'M',
+    tempCartId: null,
   };
 
   constructor() {
@@ -50,102 +52,106 @@ class CartStore {
   }
 
   public addToCart = async ({ userId, productId, quantity, size }: CartPayload) => {
-    if (userId) {
-      this._state = BootState.InProgress;
-      this._error = undefined;
+    this._state = BootState.InProgress;
+    this._error = undefined;
 
-      this._payload.productId = productId;
-      this._payload.userId = userId;
-      this._payload.quantity = quantity;
-      this._payload.size = size;
+    this._payload.productId = productId;
+    this._payload.userId = userId;
+    this._payload.quantity = quantity;
+    this._payload.size = size;
 
-      const [responseData, error] = await cartService.addToCart(this._payload);
+    const [responseData, error] = await cartService.addToCart(this._payload);
 
-      if (error) {
-        this._state = BootState.Failed;
-        this._error = (error as Error).toString();
-        return;
-      }
-
-      runInAction(() => {
-        this._items = responseData.items;
-        this._totalItems = responseData.totalItems;
-        this._totalPrice = responseData.totalPrice;
-        this._state = BootState.Success;
-      });
-
-      //   const response = await axios.post('/api/cart', {
-      //     userId,
-      //     productId: product._id,
-      //     quantity: 1,
-      //   });
-      //   this.items = response.data.items;
-      // } else {
-      //   addToLocalCart(product, 1);
-      //   this.items = getLocalCart();
-      // }
-    } else {
-      console.log('User not login');
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
     }
+
+    runInAction(() => {
+      this._items = responseData.items;
+      this._totalItems = responseData.totalItems;
+      this._totalPrice = responseData.totalPrice;
+      this._state = BootState.Success;
+    });
   };
 
-  public removeFromCart = async (productId: string, userId: string | undefined) => {
-    if (userId) {
-      this._state = BootState.InProgress;
-      this._error = undefined;
+  public removeFromCart = async (productId: string, userId: string | undefined, tempCartId: string | null) => {
+    this._state = BootState.InProgress;
+    this._error = undefined;
 
-      const [responseData, error] = await cartService.removeFromCart({ productId, userId });
+    const [responseData, error] = await cartService.removeFromCart({ productId, userId, tempCartId });
 
-      if (error) {
-        this._state = BootState.Failed;
-        this._error = (error as Error).toString();
-        return;
-      }
-
-      runInAction(() => {
-        this._items = responseData.items;
-        this._totalItems = responseData.totalItems;
-        this._totalPrice = responseData.totalPrice;
-        this._state = BootState.Success;
-      });
-    } else {
-      console.log('User not logged in');
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
     }
+
+    runInAction(() => {
+      this._items = responseData.items;
+      this._totalItems = responseData.totalItems;
+      this._totalPrice = responseData.totalPrice;
+      this._state = BootState.Success;
+    });
   };
 
   public isInCart(productId: string): boolean {
     return this._items.some((item) => item._id === productId);
   }
 
-  // async removeFromCart(productId, userId) {
-  //   if (userId) {
-  //     const response = await axios.delete('/api/cart', {
-  //       data: {
-  //         userId,
-  //         productId,
-  //       },
-  //     });
-  //     this.items = response.data.items;
-  //   } else {
-  //     removeFromLocalCart(productId);
-  //     this.items = getLocalCart();
-  //   }
-  // }
-
-  // async mergeLocalCartToUserCart(userId) {
-  //   const localCart = getLocalCart();
-  //   if (localCart.length > 0) {
-  //     const response = await axios.post('/api/cart/merge', { userId, localCart });
-  //     this.items = response.data.items;
-  //     localStorage.removeItem('cart'); // Очищаємо локальний кошик після перенесення
-  //   }
-  // }
-
-  public loadItems = async (userId: string): Promise<void> => {
+  public loadItems = async (): Promise<void> => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    const [responseData, error] = await cartService.loadItems(userId);
+    this._payload.userId = userStore.user?.id || null;
+    this._payload.tempCartId = localStorage.getItem('temp_cart_id');
+
+    const [responseData, error] = await cartService.loadItems(this._payload);
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._items = responseData.items;
+      this._totalItems = responseData.totalItems;
+      this._totalPrice = responseData.totalPrice;
+      this._state = BootState.Success;
+    });
+  };
+
+  public createTempCart = async () => {
+    this._state = BootState.InProgress;
+    this._error = undefined;
+
+    let tempCartId = localStorage.getItem('temp_cart_id');
+
+    if (!tempCartId) {
+      const [responseData, error] = await cartService.createTempCart();
+
+      if (error) {
+        this._state = BootState.Failed;
+        this._error = (error as Error).toString();
+        return;
+      }
+
+      tempCartId = responseData._id;
+      localStorage.setItem('temp_cart_id', tempCartId);
+      this._payload.tempCartId = tempCartId;
+      this.loadItems();
+    }
+
+    this._payload.tempCartId = tempCartId;
+  };
+
+  public mergeCarts = async (tempCartId: string, userId: string) => {
+    this._state = BootState.InProgress;
+    this._error = undefined;
+
+    const [responseData, error] = await cartService.mergeCarts(userId, tempCartId);
 
     if (error) {
       this._state = BootState.Failed;

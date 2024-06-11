@@ -10,7 +10,7 @@ const Cart = observer(() => {
   // };
 
   useEffect(() => {
-    cartStore.loadItems('664ca87e87c2f53b2e48b30a');
+    cartStore.loadItems();
   }, []);
 
   return (

@@ -49,10 +49,11 @@ export interface Payload {
 }
 
 export interface CartPayload {
-  productId?: string;
-  userId?: string;
+  productId?: string | null;
+  userId?: string | null;
   quantity?: number;
   size?: string;
+  tempCartId?: string | null;
 }
 
 export enum ButtonVariety {

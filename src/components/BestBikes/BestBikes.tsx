@@ -23,13 +23,19 @@ export default observer(function BestBikes() {
   useEffect(() => {
     const disposer = autorun(() => {
       const currentUser = userStore.user?.id;
-      if (currentUser) {
-        cartStore.loadItems(currentUser);
+      if (!currentUser) {
+        cartStore.createTempCart();
+      } else {
+        cartStore.loadItems();
       }
     });
 
     return () => disposer();
   }, []);
+
+  // useEffect(() => {
+  //   cartStore.loadItems();
+  // }, []);
 
   return (
     <section className={styles['best-bikes']}>

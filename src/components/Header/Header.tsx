@@ -20,6 +20,7 @@ import { LogoIcon } from '../CustomIcons/CustomIcons';
 import styles from './Header.module.css';
 import userStore from '../../store/user-store';
 import themeStore from '../../store/theme-store';
+import { cartStore } from '../../store/cart-store';
 
 const { Title, Link } = Typography;
 const { Header: AntHeader } = Layout;
@@ -72,6 +73,7 @@ function Header() {
         ? () => {
             userStore.logout();
             navigate('/main');
+            cartStore.createTempCart();
           }
         : () => navigate('/login'),
     },

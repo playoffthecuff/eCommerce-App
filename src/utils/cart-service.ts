@@ -20,9 +20,27 @@ class CartService {
     }
   };
 
-  loadItems = async (userId: string): Promise<[CartResponseData, Error | undefined]> => {
+  loadItems = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
     try {
-      const resp = await api.get<CartResponseData>(`/cart/${userId}`);
+      const resp = await api.post<CartResponseData>('/cart/load-cart', payload);
+      return [resp.data, undefined];
+    } catch (error) {
+      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+    }
+  };
+
+  createTempCart = async (): Promise<[CartResponseData, Error | undefined]> => {
+    try {
+      const resp = await api.post<CartResponseData>(`/cart/temp-cart`);
+      return [resp.data, undefined];
+    } catch (error) {
+      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+    }
+  };
+
+  mergeCarts = async (tempCartId: string, userId: string): Promise<[CartResponseData, Error | undefined]> => {
+    try {
+      const resp = await api.post<CartResponseData>('/cart/merge-cart', { tempCartId, userId });
       return [resp.data, undefined];
     } catch (error) {
       return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];

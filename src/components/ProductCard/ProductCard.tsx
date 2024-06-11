@@ -29,12 +29,15 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
     setInCart(cartStore.isInCart(id));
   }, []);
 
+  // const inCart = cartStore.isInCart(id);
+
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
     event.preventDefault();
 
     if (inCart) {
-      await cartStore.removeFromCart(id, userStore.user?.id);
+      const tempCartId = localStorage.getItem('temp_cart_id');
+      await cartStore.removeFromCart(id, userStore.user?.id, tempCartId);
       setInCart(false);
       notification.success({
         message: 'Item removed from cart',
