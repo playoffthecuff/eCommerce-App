@@ -105,9 +105,9 @@ class CartStore {
     });
   };
 
-  public isInCart(productId: string): boolean {
+  public isInCart = (productId: string): boolean => {
     return this._items.some((item) => item._id === productId);
-  }
+  };
 
   public loadItems = async (): Promise<void> => {
     this._state = BootState.InProgress;

@@ -2,14 +2,13 @@ import { List, Spin } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useSearchParams } from 'react-router-dom';
 
-// import { useEffect } from 'react';
-// import { autorun } from 'mobx';
+import { useEffect } from 'react';
 import { DEFAULT_PAGE_SIZE, catalogStore } from '../../store/catalog-store';
-// import { cartStore } from '../../store/cart-store';
+import { cartStore } from '../../store/cart-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
-// import userStore from '../../store/user-store';
+import userStore from '../../store/user-store';
 
 export default observer(function ProductList() {
   const { products, productsState, totalPage, currentPage } = catalogStore;
@@ -20,18 +19,14 @@ export default observer(function ProductList() {
     setQuery(query);
   };
 
-  // useEffect(() => {
-  //   const disposer = autorun(() => {
-  //     const currentUser = userStore.user?.id;
-  //     if (!currentUser) {
-  //       cartStore.createTempCart();
-  //     } else {
-  //       cartStore.loadItems();
-  //     }
-  //   });
+  useEffect(() => {
+    const currentUser = userStore.user?.id;
+    const tempCartId = localStorage.getItem('temp_cart_id');
 
-  //   return () => disposer();
-  // }, []);
+    if (currentUser || tempCartId) {
+      cartStore.loadItems();
+    }
+  }, []);
 
   return (
     <Spin spinning={productsState === BootState.InProgress}>
@@ -48,7 +43,7 @@ export default observer(function ProductList() {
           total: totalPage,
           current: currentPage,
         }}
-        dataSource={products}
+        dataSource={products.slice(0, 2)}
         renderItem={(product) => {
           return (
             <List.Item>

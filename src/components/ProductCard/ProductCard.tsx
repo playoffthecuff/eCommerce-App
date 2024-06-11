@@ -1,9 +1,9 @@
-import { Card, Rate, Skeleton, notification } from 'antd';
+import { Card, Rate, Skeleton, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { CheckOutlined, ShoppingCartOutlined, StopOutlined } from '@ant-design/icons';
+import { ShoppingFilled, ShoppingTwoTone } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import userStore from '../../store/user-store';
@@ -23,11 +23,11 @@ type ProductCardProps = {
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
 
-  const [inCart, setInCart] = useState<boolean>(cartStore.isInCart(id));
+  // const [inLocalCart, setInLocalCart] = useState<boolean>(cartStore.isInCart(id));
 
-  useEffect(() => {
-    setInCart(cartStore.isInCart(id));
-  }, []);
+  // useEffect(() => {
+  //   setInCart(cartStore.isInCart(id));
+  // }, []);
 
   // const inCart = cartStore.isInCart(id);
 
@@ -35,18 +35,9 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
     event.stopPropagation();
     event.preventDefault();
 
-    if (inCart) {
+    if (cartStore.isInCart(id)) {
       const tempCartId = localStorage.getItem('temp_cart_id');
       await cartStore.removeFromCart(id, userStore.user?.id, tempCartId);
-      setInCart(false);
-      notification.success({
-        message: 'Item removed from cart',
-        description: `${title} was removed from your cart.`,
-        duration: 3,
-        placement: 'top',
-        icon: <StopOutlined style={{ color: 'red' }} />,
-        className: styles['product-card-notification'],
-      });
     } else {
       const payload = {
         ...cartStore.payload,
@@ -55,14 +46,6 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
       };
 
       await cartStore.addToCart(payload);
-      setInCart(true);
-      notification.success({
-        message: 'Item added to cart',
-        description: `${title} was added to your cart.`,
-        duration: 3,
-        placement: 'top',
-        className: styles['product-card-notification'],
-      });
     }
   };
 
@@ -97,10 +80,14 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               )}
             </div>
             <div>
-              {inCart ? (
-                <CheckOutlined style={{ fontSize: '24px', color: 'green' }} onClick={handleAddToCart} />
+              {cartStore.isInCart(id) ? (
+                <Tooltip title="Remove from Cart">
+                  <ShoppingFilled style={{ fontSize: '24px', color: 'green' }} onClick={handleAddToCart} />
+                </Tooltip>
               ) : (
-                <ShoppingCartOutlined style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+                <Tooltip title="Add to Cart">
+                  <ShoppingTwoTone style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+                </Tooltip>
               )}
             </div>
           </div>
