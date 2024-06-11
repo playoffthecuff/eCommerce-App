@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
 import { CartItem, CartPayload } from '../types/types';
 import { BootState } from '../enums';
@@ -25,6 +25,15 @@ class CartStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    autorun(() => {
+      const currentUser = userStore.user?.id;
+      if (!currentUser) {
+        this.createTempCart();
+      } else {
+        this.loadItems();
+      }
+    });
   }
 
   public get items(): CartItem[] {

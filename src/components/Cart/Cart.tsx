@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { cartStore } from '../../store/cart-store';
 
 import placeholder from '../../assets/images/load_failed.webp';
+import userStore from '../../store/user-store';
 
 const Cart = observer(() => {
   // const handleRemove = (productId) => {
@@ -10,7 +11,12 @@ const Cart = observer(() => {
   // };
 
   useEffect(() => {
-    cartStore.loadItems();
+    const currentUser = userStore.user?.id;
+    const tempCartId = localStorage.getItem('temp_cart_id');
+
+    if (currentUser || tempCartId) {
+      cartStore.loadItems();
+    }
   }, []);
 
   return (

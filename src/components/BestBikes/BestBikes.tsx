@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { Spin, Typography } from 'antd';
 import { useEffect } from 'react';
-import { autorun } from 'mobx';
+// import { autorun } from 'mobx';
 import ProductCard from '../ProductCard/ProductCard';
 
 import { catalogStore } from '../../store/catalog-store';
 
 import styles from './BestBikes.module.css';
 import { BootState } from '../../types/boot-state';
-import userStore from '../../store/user-store';
-import { cartStore } from '../../store/cart-store';
+// import userStore from '../../store/user-store';
+// import { cartStore } from '../../store/cart-store';
 
 const { Title } = Typography;
 
@@ -20,18 +20,18 @@ export default observer(function BestBikes() {
     loadBestSellingProducts();
   }, [loadBestSellingProducts]);
 
-  useEffect(() => {
-    const disposer = autorun(() => {
-      const currentUser = userStore.user?.id;
-      if (!currentUser) {
-        cartStore.createTempCart();
-      } else {
-        cartStore.loadItems();
-      }
-    });
+  // useEffect(() => {
+  //   const disposer = autorun(() => {
+  //     const currentUser = userStore.user?.id;
+  //     if (!currentUser) {
+  //       cartStore.createTempCart();
+  //     } else {
+  //       cartStore.loadItems();
+  //     }
+  //   });
 
-    return () => disposer();
-  }, []);
+  //   return () => disposer();
+  // }, []);
 
   // useEffect(() => {
   //   cartStore.loadItems();
