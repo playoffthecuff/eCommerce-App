@@ -5,7 +5,7 @@ import CustomButton from '../CustomButton/CustomButton';
 
 export function CartPage() {
   return (
-    <div style={{ padding: '0 3rem' }}>
+    <div className={styles['cart-container']}>
       <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
       <div className={styles['cart-section']}>
         <div style={{ marginBottom: 0 }} className={styles['product-container']}>
@@ -46,11 +46,11 @@ function ProductItem() {
         <div className={styles['counter-box']}>
           <div className={styles['product-counter']}>
             <div className={styles['product-controller']}>
-              <PlusOutlined />
+              <MinusOutlined />
             </div>
             <div className={styles.quantity}>1</div>
             <div className={styles['product-controller']}>
-              <MinusOutlined />
+              <PlusOutlined />
             </div>
           </div>
         </div>
@@ -66,9 +66,7 @@ function ProductItem() {
 function OrderSummary() {
   return (
     <div className={styles['order-box']}>
-      <Typography.Title style={{ margin: '0' }} level={2}>
-        ORDER SUMMARY
-      </Typography.Title>
+      <h2 className={styles['order-box-title']}>ORDER SUMMARY</h2>
       <div className={styles['order-saving-box']}>
         <OrderSaving />
       </div>
