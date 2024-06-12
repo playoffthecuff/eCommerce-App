@@ -1,0 +1,87 @@
+.product-card {
+  position: relative;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.17);
+  display: flex;
+  gap: 2.5rem;
+  padding: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.product-box {
+  display: flex;
+  width: 225px;
+}
+
+.product-img {
+  background-color: rgb(227, 229, 230);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-prop {
+  margin-top: 1rem;
+  font-size: 16px;
+  p {
+    margin: 0;
+  }
+}
+
+.vendor-code {
+  font-size: 16px;
+  margin: 0 !important;
+}
+
+.counter-box {
+  width: 150px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.product-counter {
+  width: 130px;
+  display: flex;
+  font-size: 20px;
+}
+
+.product-setting-box {
+  display: flex;
+  gap: 2rem;
+}
+
+.product-controller {
+  background-color: var(--color-primary);
+  cursor: pointer;
+  width: 40px;
+  text-align: center;
+  color: var(--color-background);
+}
+
+.price-box {
+  display: flex;
+  align-items: flex-end;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.quantity {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cross {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--color-primary);
+}

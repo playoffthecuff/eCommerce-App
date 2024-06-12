@@ -3,9 +3,7 @@ import { Spin, Typography } from 'antd';
 import { useEffect } from 'react';
 // import { autorun } from 'mobx';
 import ProductCard from '../ProductCard/ProductCard';
-
 import { catalogStore } from '../../store/catalog-store';
-
 import styles from './BestBikes.module.css';
 import { BootState } from '../../types/boot-state';
 // import userStore from '../../store/user-store';
