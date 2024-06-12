@@ -43,7 +43,7 @@ export default observer(function ProductList() {
           total: totalPage,
           current: currentPage,
         }}
-        dataSource={products.slice(0, 2)}
+        dataSource={products}
         renderItem={(product) => {
           return (
             <List.Item>

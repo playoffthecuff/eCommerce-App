@@ -106,7 +106,7 @@ class CartStore {
   };
 
   public isInCart = (productId: string): boolean => {
-    return this._items.some((item) => item._id === productId);
+    return this._items.some((item) => item.productId === productId);
   };
 
   public loadItems = async (): Promise<void> => {

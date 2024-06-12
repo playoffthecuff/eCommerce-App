@@ -28,7 +28,7 @@ const Cart = observer(() => {
         ) : (
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {cartStore.items.map((item) => (
-              <li key={item._id} style={styles.cartItem}>
+              <li key={item.productId} style={styles.cartItem}>
                 <div>
                   <h3>{item.title}</h3>
                   <p>Quantity: {item.quantity}</p>

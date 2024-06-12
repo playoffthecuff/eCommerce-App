@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { ShoppingFilled, ShoppingTwoTone } from '@ant-design/icons';
 
 import { observer } from 'mobx-react-lite';
-// import { useEffect, useState } from 'react';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import userStore from '../../store/user-store';
@@ -22,14 +21,6 @@ type ProductCardProps = {
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
-
-  // const [inLocalCart, setInLocalCart] = useState<boolean>(cartStore.isInCart(id));
-
-  // useEffect(() => {
-  //   setInCart(cartStore.isInCart(id));
-  // }, []);
-
-  // const inCart = cartStore.isInCart(id);
 
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
