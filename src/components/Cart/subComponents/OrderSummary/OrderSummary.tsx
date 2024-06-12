@@ -1,6 +1,7 @@
 import { Collapse, Input } from 'antd';
 import CustomButton from '../../../CustomButton/CustomButton';
 import OrderSaving from '../OrderSaving/OrderSaving';
+import { cartStore } from '../../../../store/cart-store';
 
 import styles from './OrderSummary.module.css';
 
@@ -34,7 +35,7 @@ function OrderSummary() {
       />
       <div className={styles['estimated-total']}>
         <p>Estimated Total</p>
-        <p>$30.00</p>
+        <p>${cartStore.totalPrice}</p>
       </div>
       <CustomButton variety="common" block>
         PLACE ORDER

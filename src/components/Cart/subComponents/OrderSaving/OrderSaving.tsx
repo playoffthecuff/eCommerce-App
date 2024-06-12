@@ -1,3 +1,5 @@
+import { cartStore } from '../../../../store/cart-store';
+
 import styles from './OrderSaving.module.css';
 
 function OrderSaving() {
@@ -5,7 +7,7 @@ function OrderSaving() {
     <>
       <div className={styles['order-saving-item']}>
         <p>Order Subtotal</p>
-        <p>$35.00</p>
+        <p>${cartStore.totalPrice}</p>
       </div>
       <div className={styles['order-saving-item']}>
         <p>Savings/Promo</p>

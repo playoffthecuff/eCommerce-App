@@ -46,14 +46,17 @@ const Cart = observer(() => {
       <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
       <div className={styles['cart-section']}>
         <div style={{ marginBottom: 0 }} className={styles['product-container']}>
-          <CartItem />
-          <CartItem />
+          <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
+            {cartStore.items.map((item) => {
+              return <CartItem key={item.productId} item={item} />;
+            })}
+          </ul>
           <div className={styles['order-saving-under']}>
             <OrderSaving />
           </div>
           <div className={styles['estimated-total-under']}>
             <p>Estimated Total</p>
-            <p>$30.00</p>
+            <p>${cartStore.totalPrice}</p>
           </div>
         </div>
         <OrderSummary />
@@ -77,29 +80,29 @@ const Cart = observer(() => {
   //         {cartStore.items.length === 0 ? (
   //           <p>Your cart is empty.</p>
   //         ) : (
-  //           <ul style={{ listStyle: 'none', padding: 0 }}>
-  //             {cartStore.items.map((item) => (
-  //               <li key={item.productId} style={styles.cartItem}>
-  //                 <div>
-  //                   <h3>{item.title}</h3>
-  //                   <p>Quantity: {item.quantity}</p>
-  //                   {item.discountedPrice ? (
-  //                     <>
-  //                       <span style={{ marginRight: '10px' }}>Price: ${item.price}</span>
-  //                       <span>Discounted Price: ${item.discountedPrice}</span>
-  //                     </>
-  //                   ) : (
-  //                     <span>Price: ${item.price}</span>
-  //                   )}
-  //                   <p>Size: {item.size}</p>
-  //                   <p>Item#: {item.vendorCode}</p>
-  //                   <div>
-  //                     <img src={item.thumbs ? `data:image/jpeg;base64,${item.thumbs}` : placeholder} alt={item.title} />
-  //                   </div>
-  //                 </div>
-  //               </li>
-  //             ))}
-  //           </ul>
+  // <ul style={{ listStyle: 'none', padding: 0 }}>
+  //   {cartStore.items.map((item) => (
+  //     <li key={item.productId} style={styles.cartItem}>
+  //       <div>
+  //         <h3>{item.title}</h3>
+  //         <p>Quantity: {item.quantity}</p>
+  //         {item.discountedPrice ? (
+  //           <>
+  //             <span style={{ marginRight: '10px' }}>Price: ${item.price}</span>
+  //             <span>Discounted Price: ${item.discountedPrice}</span>
+  //           </>
+  //         ) : (
+  //           <span>Price: ${item.price}</span>
+  //         )}
+  //         <p>Size: {item.size}</p>
+  //         <p>Item#: {item.vendorCode}</p>
+  //         <div>
+  //           <img src={item.thumbs ? `data:image/jpeg;base64,${item.thumbs}` : placeholder} alt={item.title} />
+  //         </div>
+  //       </div>
+  //     </li>
+  //   ))}
+  // </ul>
   //         )}
   //       </div>
   //       <div>Total Items: {cartStore.totalItems}</div>
