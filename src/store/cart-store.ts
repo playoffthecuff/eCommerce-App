@@ -31,7 +31,9 @@ class CartStore {
       if (!currentUser) {
         this.createTempCart();
       } else {
-        this.loadItems();
+        runInAction(() => {
+          this.loadItems();
+        });
       }
     });
   }
@@ -165,8 +167,6 @@ class CartStore {
 
     runInAction(() => {
       this._items = responseData.items;
-      this._totalItems = responseData.totalItems;
-      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
       this._state = BootState.Success;
     });
   };
@@ -174,6 +174,9 @@ class CartStore {
   public updateItemQuantity = async ({ productId, userId, tempCartId, quantity, size }: CartPayload) => {
     this._state = BootState.InProgress;
     this._error = undefined;
+
+    this._payload.quantity = 1;
+    this._payload.size = 'M';
 
     this._payload.productId = productId;
     this._payload.userId = userId;

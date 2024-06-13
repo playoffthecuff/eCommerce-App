@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import { Spin, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import styles from './Cart.module.css';
@@ -7,6 +7,7 @@ import CartItem from './subComponents/ProductItem/CartItem';
 import OrderSummary from './subComponents/OrderSummary/OrderSummary';
 import userStore from '../../store/user-store';
 import { cartStore } from '../../store/cart-store';
+import { BootState } from '../../types/boot-state';
 
 export default observer(function Cart() {
   useEffect(() => {
@@ -21,23 +22,25 @@ export default observer(function Cart() {
   return (
     <div className={styles['cart-container']}>
       <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
-      <div className={styles['cart-section']}>
-        <div style={{ marginBottom: 0 }} className={styles['product-container']}>
-          <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
-            {cartStore.items.map((item) => {
-              return <CartItem key={item.productId} item={item} />;
-            })}
-          </ul>
-          <div className={styles['order-saving-under']}>
-            <OrderSaving />
+      <Spin spinning={cartStore.cartState === BootState.InProgress}>
+        <div className={styles['cart-section']}>
+          <div style={{ marginBottom: 0 }} className={styles['product-container']}>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
+              {cartStore.items.map((item) => {
+                return <CartItem key={item.productId} item={item} />;
+              })}
+            </ul>
+            <div className={styles['order-saving-under']}>
+              <OrderSaving />
+            </div>
+            <div className={styles['estimated-total-under']}>
+              <p>Estimated Total</p>
+              <p>${cartStore.totalPrice}</p>
+            </div>
           </div>
-          <div className={styles['estimated-total-under']}>
-            <p>Estimated Total</p>
-            <p>${cartStore.totalPrice}</p>
-          </div>
+          <OrderSummary />
         </div>
-        <OrderSummary />
-      </div>
+      </Spin>
     </div>
   );
 });
