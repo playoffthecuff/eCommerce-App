@@ -46,6 +46,15 @@ class CartService {
       return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
     }
   };
+
+  updateItemQuantity = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
+    try {
+      const resp = await api.post<CartResponseData>(`/cart/update-quantity`, payload);
+      return [resp.data, undefined];
+    } catch (error) {
+      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+    }
+  };
 }
 
 export const cartService = new CartService();

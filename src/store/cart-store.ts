@@ -60,13 +60,12 @@ class CartStore {
     return this._error;
   }
 
-  public addToCart = async ({ userId, productId, quantity, size }: CartPayload) => {
+  public addToCart = async ({ userId, productId, size }: CartPayload) => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
     this._payload.productId = productId;
     this._payload.userId = userId;
-    this._payload.quantity = quantity;
     this._payload.size = size;
 
     const [responseData, error] = await cartService.addToCart(this._payload);
@@ -79,8 +78,6 @@ class CartStore {
 
     runInAction(() => {
       this._items = responseData.items;
-      this._totalItems = responseData.totalItems;
-      this._totalPrice = responseData.totalPrice;
       this._state = BootState.Success;
     });
   };
@@ -99,8 +96,6 @@ class CartStore {
 
     runInAction(() => {
       this._items = responseData.items;
-      this._totalItems = responseData.totalItems;
-      this._totalPrice = responseData.totalPrice;
       this._state = BootState.Success;
     });
   };
@@ -127,7 +122,7 @@ class CartStore {
     runInAction(() => {
       this._items = responseData.items;
       this._totalItems = responseData.totalItems;
-      this._totalPrice = responseData.totalPrice;
+      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
       this._state = BootState.Success;
     });
   };
@@ -171,7 +166,33 @@ class CartStore {
     runInAction(() => {
       this._items = responseData.items;
       this._totalItems = responseData.totalItems;
-      this._totalPrice = responseData.totalPrice;
+      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
+      this._state = BootState.Success;
+    });
+  };
+
+  public updateItemQuantity = async ({ productId, userId, tempCartId, quantity, size }: CartPayload) => {
+    this._state = BootState.InProgress;
+    this._error = undefined;
+
+    this._payload.productId = productId;
+    this._payload.userId = userId;
+    this._payload.quantity = quantity;
+    this._payload.size = size;
+    this._payload.tempCartId = tempCartId;
+
+    const [responseData, error] = await cartService.updateItemQuantity(this._payload);
+
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._items = responseData.items;
+      this._totalItems = responseData.totalItems;
+      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
       this._state = BootState.Success;
     });
   };

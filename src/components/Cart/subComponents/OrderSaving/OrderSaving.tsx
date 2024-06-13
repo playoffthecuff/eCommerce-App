@@ -1,8 +1,9 @@
+import { observer } from 'mobx-react-lite';
 import { cartStore } from '../../../../store/cart-store';
 
 import styles from './OrderSaving.module.css';
 
-function OrderSaving() {
+export default observer(function OrderSaving() {
   return (
     <>
       <div className={styles['order-saving-item']}>
@@ -15,6 +16,4 @@ function OrderSaving() {
       </div>
     </>
   );
-}
-
-export default OrderSaving;
+});

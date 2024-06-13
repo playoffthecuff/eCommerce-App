@@ -1,11 +1,12 @@
 import { Collapse, Input } from 'antd';
+import { observer } from 'mobx-react-lite';
 import CustomButton from '../../../CustomButton/CustomButton';
 import OrderSaving from '../OrderSaving/OrderSaving';
 import { cartStore } from '../../../../store/cart-store';
 
 import styles from './OrderSummary.module.css';
 
-function OrderSummary() {
+export default observer(function OrderSummary() {
   return (
     <div className={styles['order-box']}>
       <h2 className={styles['order-box-title']}>ORDER SUMMARY</h2>
@@ -42,6 +43,4 @@ function OrderSummary() {
       </CustomButton>
     </div>
   );
-}
-
-export default OrderSummary;
+});

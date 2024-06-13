@@ -40,15 +40,6 @@
 }
 
 @media (max-width: 1100px) {
-  .order-box-title {
-    font-size: 24px;
-  }
-
-  .product-setting-box {
-    gap: 0.5rem;
-  }
-
-  .estimated-total,
   .estimated-total-under {
     font-size: 19px;
   }
@@ -64,61 +55,13 @@
     flex-direction: column;
   }
 
-  .order-box {
-    max-width: 100%;
-  }
-
   .product-container {
     max-width: 100%;
-  }
-
-  .estimated-total {
-    font-size: 24px;
   }
 }
 
 @media (max-width: 660px) {
   .cart-container {
     padding: 0 1.5rem;
-  }
-
-  .product-controller {
-    width: 30px;
-  }
-
-  .product-counter {
-    width: 100px;
-  }
-
-  .quantity {
-    width: 30px;
-    font-size: 17px;
-  }
-
-  .price-box {
-    font-size: 17px;
-  }
-
-  .counter-box {
-    width: auto;
-  }
-
-  .product-card {
-    gap: 0;
-  }
-}
-
-@media (max-width: 500px) {
-  .product-card {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .product-setting-box {
-    justify-content: space-between;
-  }
-
-  .estimated-total {
-    font-size: 18px;
   }
 }

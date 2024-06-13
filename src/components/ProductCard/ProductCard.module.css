@@ -99,3 +99,14 @@
   width: 200px;
   margin-bottom: 8px;
 }
+
+.size-block {
+  span {
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+.size-radio-wrapper {
+  margin-bottom: 0.5rem;
+}

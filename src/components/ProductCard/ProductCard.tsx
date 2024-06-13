@@ -1,8 +1,8 @@
-import { Card, Rate, Skeleton, Tooltip } from 'antd';
+import { Card, Radio, RadioChangeEvent, Rate, Skeleton, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { ShoppingFilled, ShoppingTwoTone } from '@ant-design/icons';
-
 import { observer } from 'mobx-react-lite';
+import { useState } from 'react';
 import { ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import userStore from '../../store/user-store';
@@ -22,6 +22,12 @@ type ProductCardProps = {
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
 
+  const [sizeValue, setSizeValue] = useState('M');
+
+  const onChange = (event: RadioChangeEvent) => {
+    setSizeValue(event.target.value);
+  };
+
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -31,9 +37,9 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
       await cartStore.removeFromCart(id, userStore.user?.id, tempCartId);
     } else {
       const payload = {
-        ...cartStore.payload,
         userId: userStore.user?.id,
         productId: id,
+        size: sizeValue,
       };
 
       await cartStore.addToCart(payload);
@@ -59,6 +65,14 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
       >
         <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
           <Meta title={title} className={styles['product-title']} />
+          <div className={styles['size-block']}>
+            <span>Size:</span>
+            <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
+              <Radio.Button value="S">S</Radio.Button>
+              <Radio.Button value="M">M</Radio.Button>
+              <Radio.Button value="L">L</Radio.Button>
+            </Radio.Group>
+          </div>
           <div className={styles['card-body-wrapper']}>
             <div className={styles.productPrice}>
               {discountedPrice ? (
