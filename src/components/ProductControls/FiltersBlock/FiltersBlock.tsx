@@ -1,33 +1,49 @@
-import { Layout, Typography, Collapse, Checkbox, Slider, CollapseProps, Tooltip, Radio, Rate } from 'antd';
+import { Layout, Typography, Collapse } from 'antd';
 
-import { useEffect, useState } from 'react';
-import { CloseOutlined, InfoCircleOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { useCallback, useEffect, useState } from 'react';
+import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 
 import { observer } from 'mobx-react-lite';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PRODUCT_PRICE, catalogStore } from '../../../store/catalog-store';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { DEFAULT_PAGE, MAX_PRODUCT_PRICE, catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
-import { Sort } from '../../../types/types';
+// import { Sort } from '../../../types/types';
+import { getFilterItems } from './subComponents/FilterItems';
+import { useFilters } from './useFilters';
 
 const { Sider } = Layout;
 const { Title } = Typography;
 
 export default observer(function FiltersBlock() {
-  const { filtersData, loadFiltersData, resetFilters, applyFilters } = catalogStore;
+  const { filtersData, loadFiltersData, resetFilters } = catalogStore;
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [collapsed, setCollapsed] = useState(true);
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
-  const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
-  const [query, setQuery] = useSearchParams();
-  const navigate = useNavigate();
+  const {
+    selectedCategories,
+    setSelectedCategories,
+    selectedColors,
+    setSelectedColors,
+    selectedRating,
+    setSelectedRating,
+    selectedWeight,
+    setSelectedWeight,
+    selectedPriceRange,
+    setSelectedPriceRange,
+    updateQuery,
+  } = useFilters(filtersData);
+
+  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  // const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  // const [selectedRating, setSelectedRating] = useState<number>(0);
+  // const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
+  // const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
+  // const [query, setQuery] = useSearchParams();
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -39,25 +55,25 @@ export default observer(function FiltersBlock() {
     document.body.style.overflow = 'auto';
   };
 
-  const onColorChange = (checkedValues: string[]) => {
-    setSelectedColors(checkedValues);
-  };
+  // const onColorChange = (checkedValues: string[]) => {
+  //   setSelectedColors(checkedValues);
+  // };
 
-  const onCategoryChange = (checkedValues: string[]) => {
-    setSelectedCategories(checkedValues);
-  };
+  // const onCategoryChange = (checkedValues: string[]) => {
+  //   setSelectedCategories(checkedValues);
+  // };
 
-  const onRatingChange = (checkedValue: number) => {
-    setSelectedRating(checkedValue);
-  };
+  // const onRatingChange = (checkedValue: number) => {
+  //   setSelectedRating(checkedValue);
+  // };
 
-  const onWeightChange = (checkedValues: number[]) => {
-    setSelectedWeight(checkedValues);
-  };
+  // const onWeightChange = (checkedValues: number[]) => {
+  //   setSelectedWeight(checkedValues);
+  // };
 
-  const onPriceChange = (checkedValues: number[]) => {
-    setSelectedPriceRange(checkedValues);
-  };
+  // const onPriceChange = (checkedValues: number[]) => {
+  //   setSelectedPriceRange(checkedValues);
+  // };
 
   useEffect(() => {
     return () => {
@@ -65,64 +81,86 @@ export default observer(function FiltersBlock() {
     };
   }, []);
 
-  useEffect(() => {
-    const categories = query.getAll('category').map((cat) => cat.toLowerCase());
-    const colors = query.getAll('color');
-    const rating = Number(query.get('rating')) || 1;
-    const weight = query
-      .getAll('weight')
-      .map((str) => Number(str))
-      .filter((num) => !Number.isNaN(num) && num >= 0);
-    const minPrice =
-      (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
-    const maxPrice =
-      (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) ||
-      filtersData?.maxPrice ||
-      MAX_PRODUCT_PRICE;
-    const q = query.get('query') || undefined;
-    const page = Number(query.get('page')) || DEFAULT_PAGE;
-    const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
-    const sortBy = query.get('sort_by') || '';
-    const sortOrder = query.get('sort_order') || 'ASC';
+  // useEffect(() => {
+  //   const categories = query.getAll('category').map((cat) => cat.toLowerCase());
+  //   const colors = query.getAll('color');
+  //   const rating = Number(query.get('rating')) || 1;
+  //   const weight = query
+  //     .getAll('weight')
+  //     .map((str) => Number(str))
+  //     .filter((num) => !Number.isNaN(num) && num >= 0);
+  //   const minPrice =
+  //     (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
+  //   const maxPrice =
+  //     (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) ||
+  //     filtersData?.maxPrice ||
+  //     MAX_PRODUCT_PRICE;
+  //   const q = query.get('query') || undefined;
+  //   const page = Number(query.get('page')) || DEFAULT_PAGE;
+  //   const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
+  //   const sortBy = query.get('sort_by') || '';
+  //   const sortOrder = query.get('sort_order') || 'ASC';
 
-    applyFilters({
-      filters: {
-        colors,
-        categories,
-        rating,
-        weight,
-        minPrice,
-        maxPrice,
-      },
-      page: Number.isNaN(page) ? DEFAULT_PAGE : page,
-      pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
-      query: q || '',
-      sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
-    });
-    setSelectedCategories(categories);
-    setSelectedColors(colors);
-    setSelectedRating(rating);
-    setSelectedWeight(weight);
-    setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-  }, [location.pathname, location.search]);
+  //   applyFilters({
+  //     filters: {
+  //       colors,
+  //       categories,
+  //       rating,
+  //       weight,
+  //       minPrice,
+  //       maxPrice,
+  //     },
+  //     page: Number.isNaN(page) ? DEFAULT_PAGE : page,
+  //     pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
+  //     query: q || '',
+  //     sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
+  //   });
+  //   setSelectedCategories(categories);
+  //   setSelectedColors(colors);
+  //   setSelectedRating(rating);
+  //   setSelectedWeight(weight);
+  //   setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
+  // }, [location.pathname, location.search]);
+
+  // const handleApplyFilters = () => {
+  //   query.delete('category');
+  //   selectedCategories.forEach((cat) => query.append('category', cat));
+  //   query.delete('color');
+  //   selectedColors.forEach((color) => query.append('color', color));
+  //   query.delete('rating');
+  //   query.append('rating', String(selectedRating));
+  //   query.delete('weight');
+  //   selectedWeight.forEach((weight) => query.append('weight', String(weight)));
+  //   query.set('min_price', String(selectedPriceRange[0]));
+  //   query.set('max_price', String(selectedPriceRange[1]));
+  //   query.set('page', String(DEFAULT_PAGE));
+  //   setQuery(query);
+  //   closeMenu();
+  // };
+
+  // const handleResetFilters = () => {
+  //   setSelectedCategories([]);
+  //   setSelectedColors([]);
+  //   setSelectedWeight([]);
+  //   setSelectedRating(1);
+  //   setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || MAX_PRODUCT_PRICE]);
+  //   resetFilters();
+  //   navigate({ pathname: location.pathname, search: '' });
+  //   closeMenu();
+  // };
 
   const handleApplyFilters = () => {
-    query.delete('category');
-    selectedCategories.forEach((cat) => query.append('category', cat));
-    query.delete('color');
-    selectedColors.forEach((color) => query.append('color', color));
-    query.delete('rating');
-    query.append('rating', String(selectedRating));
-    query.delete('weight');
-    selectedWeight.forEach((weight) => query.append('weight', String(weight)));
-    query.set('min_price', String(selectedPriceRange[0]));
-    query.set('max_price', String(selectedPriceRange[1]));
-    query.set('page', String(DEFAULT_PAGE));
-    setQuery(query);
+    updateQuery('category', selectedCategories.join(','));
+    updateQuery('color', selectedColors.join(','));
+    updateQuery('rating', String(selectedRating));
+    updateQuery('weight', selectedWeight.join(','));
+    updateQuery('min_price', String(selectedPriceRange[0]));
+    updateQuery('max_price', String(selectedPriceRange[1]));
+    updateQuery('page', String(DEFAULT_PAGE));
     closeMenu();
   };
 
-  const handleResetFilters = () => {
+  const handleResetFilters = useCallback(() => {
     setSelectedCategories([]);
     setSelectedColors([]);
     setSelectedWeight([]);
@@ -131,105 +169,25 @@ export default observer(function FiltersBlock() {
     resetFilters();
     navigate({ pathname: location.pathname, search: '' });
     closeMenu();
-  };
+  }, [filtersData, location.pathname, navigate]);
 
   useEffect(() => {
     loadFiltersData();
   }, [loadFiltersData]);
 
-  const items: CollapseProps['items'] = [
-    {
-      key: '1',
-      label: 'PRICE',
-      children: (
-        <>
-          <Slider
-            range
-            step={10}
-            tooltip={{ placement: 'top' }}
-            defaultValue={selectedPriceRange}
-            value={selectedPriceRange}
-            min={Math.floor(filtersData?.minPrice || 0)}
-            max={Math.ceil(filtersData?.maxPrice || MAX_PRODUCT_PRICE)}
-            onChange={onPriceChange}
-          />
-          <div className={styles['price-range']}>
-            ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])}
-          </div>
-        </>
-      ),
-    },
-    {
-      key: '2',
-      label: 'CATEGORIES',
-      children: (
-        <Checkbox.Group
-          options={filtersData?.categories}
-          className={styles['filter-group']}
-          onChange={onCategoryChange}
-          value={selectedCategories}
-        />
-      ),
-    },
-    {
-      key: '3',
-      label: 'COLORS',
-      children: (
-        <Checkbox.Group
-          options={filtersData?.colors}
-          className={styles['filter-group']}
-          onChange={onColorChange}
-          value={selectedColors}
-        />
-      ),
-    },
-    {
-      key: '4',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          WEIGHT (KG)
-          <Tooltip title="Maximum weight of the rider" placement="top">
-            <InfoCircleOutlined style={{ marginLeft: 8 }} />
-          </Tooltip>
-        </div>
-      ),
-      children: (
-        <Checkbox.Group
-          options={filtersData?.weight}
-          className={styles['filter-group']}
-          onChange={onWeightChange}
-          value={selectedWeight}
-        />
-      ),
-    },
-    {
-      key: '5',
-      label: 'RATING',
-      children: (
-        <Radio.Group
-          onChange={(e) => onRatingChange(e.target.value)}
-          value={selectedRating}
-          className={styles['filter-group']}
-        >
-          <Radio value={1}>
-            <Rate disabled defaultValue={1} /> and Up
-          </Radio>
-          <Radio value={2}>
-            <Rate disabled defaultValue={2} /> and Up
-          </Radio>
-          <Radio value={3}>
-            <Rate disabled defaultValue={3} /> and Up
-          </Radio>
-          <Radio value={4}>
-            <Rate disabled defaultValue={4} /> and Up
-          </Radio>
-          <Radio value={5}>
-            <Rate disabled defaultValue={5} />
-          </Radio>
-        </Radio.Group>
-      ),
-    },
-  ];
+  const items = getFilterItems({
+    selectedPriceRange,
+    onPriceChange: setSelectedPriceRange,
+    selectedCategories,
+    onCategoryChange: setSelectedCategories,
+    filtersData,
+    selectedColors,
+    onColorChange: setSelectedColors,
+    selectedWeight,
+    onWeightChange: setSelectedWeight,
+    selectedRating,
+    onRatingChange: setSelectedRating,
+  });
 
   return (
     <div className={styles['filters-block-wrapper']}>
