@@ -52,7 +52,11 @@ export const useFilters = (filtersData: FiltersData) => {
   }, [query, filtersData]);
 
   const updateQuery = (key: string, value: string) => {
-    query.set(key, value);
+    if (value) {
+      query.set(key, value);
+    } else {
+      query.delete(key);
+    }
     setQuery(query);
   };
 

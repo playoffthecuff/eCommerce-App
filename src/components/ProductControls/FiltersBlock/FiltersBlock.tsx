@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DEFAULT_PAGE, MAX_PRODUCT_PRICE, catalogStore } from '../../../store/catalog-store';
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
-// import { Sort } from '../../../types/types';
 import { getFilterItems } from './subComponents/FilterItems';
 import { useFilters } from './useFilters';
 
@@ -38,13 +37,6 @@ export default observer(function FiltersBlock() {
     updateQuery,
   } = useFilters(filtersData);
 
-  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  // const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  // const [selectedRating, setSelectedRating] = useState<number>(0);
-  // const [selectedWeight, setSelectedWeight] = useState<number[]>([]);
-  // const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
-  // const [query, setQuery] = useSearchParams();
-
   const toggleMenu = () => {
     setCollapsed(!collapsed);
     document.body.style.overflow = collapsed ? 'hidden' : 'auto';
@@ -55,99 +47,15 @@ export default observer(function FiltersBlock() {
     document.body.style.overflow = 'auto';
   };
 
-  // const onColorChange = (checkedValues: string[]) => {
-  //   setSelectedColors(checkedValues);
-  // };
-
-  // const onCategoryChange = (checkedValues: string[]) => {
-  //   setSelectedCategories(checkedValues);
-  // };
-
-  // const onRatingChange = (checkedValue: number) => {
-  //   setSelectedRating(checkedValue);
-  // };
-
-  // const onWeightChange = (checkedValues: number[]) => {
-  //   setSelectedWeight(checkedValues);
-  // };
-
-  // const onPriceChange = (checkedValues: number[]) => {
-  //   setSelectedPriceRange(checkedValues);
-  // };
-
   useEffect(() => {
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, []);
 
-  // useEffect(() => {
-  //   const categories = query.getAll('category').map((cat) => cat.toLowerCase());
-  //   const colors = query.getAll('color');
-  //   const rating = Number(query.get('rating')) || 1;
-  //   const weight = query
-  //     .getAll('weight')
-  //     .map((str) => Number(str))
-  //     .filter((num) => !Number.isNaN(num) && num >= 0);
-  //   const minPrice =
-  //     (Number(query.get('min_price')) >= 0 && Number(query.get('min_price'))) || filtersData?.minPrice || 0;
-  //   const maxPrice =
-  //     (Number(query.get('max_price')) >= 0 && Number(query.get('max_price'))) ||
-  //     filtersData?.maxPrice ||
-  //     MAX_PRODUCT_PRICE;
-  //   const q = query.get('query') || undefined;
-  //   const page = Number(query.get('page')) || DEFAULT_PAGE;
-  //   const pageSize = Number(query.get('page_size')) || DEFAULT_PAGE_SIZE;
-  //   const sortBy = query.get('sort_by') || '';
-  //   const sortOrder = query.get('sort_order') || 'ASC';
-
-  //   applyFilters({
-  //     filters: {
-  //       colors,
-  //       categories,
-  //       rating,
-  //       weight,
-  //       minPrice,
-  //       maxPrice,
-  //     },
-  //     page: Number.isNaN(page) ? DEFAULT_PAGE : page,
-  //     pageSize: Number.isNaN(pageSize) ? DEFAULT_PAGE_SIZE : pageSize,
-  //     query: q || '',
-  //     sorts: [{ field: sortBy.toLowerCase(), order: sortOrder.toUpperCase() } as Sort],
-  //   });
-  //   setSelectedCategories(categories);
-  //   setSelectedColors(colors);
-  //   setSelectedRating(rating);
-  //   setSelectedWeight(weight);
-  //   setSelectedPriceRange([Math.floor(minPrice), Math.ceil(maxPrice)]);
-  // }, [location.pathname, location.search]);
-
-  // const handleApplyFilters = () => {
-  //   query.delete('category');
-  //   selectedCategories.forEach((cat) => query.append('category', cat));
-  //   query.delete('color');
-  //   selectedColors.forEach((color) => query.append('color', color));
-  //   query.delete('rating');
-  //   query.append('rating', String(selectedRating));
-  //   query.delete('weight');
-  //   selectedWeight.forEach((weight) => query.append('weight', String(weight)));
-  //   query.set('min_price', String(selectedPriceRange[0]));
-  //   query.set('max_price', String(selectedPriceRange[1]));
-  //   query.set('page', String(DEFAULT_PAGE));
-  //   setQuery(query);
-  //   closeMenu();
-  // };
-
-  // const handleResetFilters = () => {
-  //   setSelectedCategories([]);
-  //   setSelectedColors([]);
-  //   setSelectedWeight([]);
-  //   setSelectedRating(1);
-  //   setSelectedPriceRange([filtersData?.minPrice || 0, filtersData?.maxPrice || MAX_PRODUCT_PRICE]);
-  //   resetFilters();
-  //   navigate({ pathname: location.pathname, search: '' });
-  //   closeMenu();
-  // };
+  useEffect(() => {
+    loadFiltersData();
+  }, [loadFiltersData]);
 
   const handleApplyFilters = () => {
     updateQuery('category', selectedCategories.join(','));
@@ -170,10 +78,6 @@ export default observer(function FiltersBlock() {
     navigate({ pathname: location.pathname, search: '' });
     closeMenu();
   }, [filtersData, location.pathname, navigate]);
-
-  useEffect(() => {
-    loadFiltersData();
-  }, [loadFiltersData]);
 
   const items = getFilterItems({
     selectedPriceRange,
