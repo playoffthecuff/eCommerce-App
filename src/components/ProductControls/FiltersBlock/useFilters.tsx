@@ -51,12 +51,17 @@ export const useFilters = (filtersData: FiltersData) => {
     setSelectedPriceRange([minPrice, maxPrice]);
   }, [query, filtersData]);
 
-  const updateQuery = (key: string, value: string) => {
-    if (value) {
-      query.set(key, value);
+  const updateQuery = (key: string, values: string | string[]) => {
+    query.delete(key);
+
+    if (Array.isArray(values)) {
+      values.forEach((value) => query.append(key, value));
+    } else if (values) {
+      query.set(key, values);
     } else {
       query.delete(key);
     }
+
     setQuery(query);
   };
 

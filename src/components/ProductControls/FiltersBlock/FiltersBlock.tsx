@@ -1,6 +1,6 @@
 import { Layout, Typography, Collapse } from 'antd';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 
@@ -57,16 +57,16 @@ export default observer(function FiltersBlock() {
     loadFiltersData();
   }, [loadFiltersData]);
 
-  const handleApplyFilters = () => {
-    updateQuery('category', selectedCategories.join(','));
-    updateQuery('color', selectedColors.join(','));
+  const handleApplyFilters = useCallback(() => {
+    updateQuery('category', selectedCategories);
+    updateQuery('color', selectedColors);
+    updateQuery('weight', selectedWeight.map(String));
     updateQuery('rating', String(selectedRating));
-    updateQuery('weight', selectedWeight.join(','));
     updateQuery('min_price', String(selectedPriceRange[0]));
     updateQuery('max_price', String(selectedPriceRange[1]));
     updateQuery('page', String(DEFAULT_PAGE));
     closeMenu();
-  };
+  }, [selectedCategories, selectedColors, selectedRating, selectedWeight, selectedPriceRange]);
 
   const handleResetFilters = useCallback(() => {
     setSelectedCategories([]);
@@ -79,19 +79,23 @@ export default observer(function FiltersBlock() {
     closeMenu();
   }, [filtersData, location.pathname, navigate]);
 
-  const items = getFilterItems({
-    selectedPriceRange,
-    onPriceChange: setSelectedPriceRange,
-    selectedCategories,
-    onCategoryChange: setSelectedCategories,
-    filtersData,
-    selectedColors,
-    onColorChange: setSelectedColors,
-    selectedWeight,
-    onWeightChange: setSelectedWeight,
-    selectedRating,
-    onRatingChange: setSelectedRating,
-  });
+  const items = useMemo(
+    () =>
+      getFilterItems({
+        selectedPriceRange,
+        onPriceChange: setSelectedPriceRange,
+        selectedCategories,
+        onCategoryChange: setSelectedCategories,
+        filtersData,
+        selectedColors,
+        onColorChange: setSelectedColors,
+        selectedWeight,
+        onWeightChange: setSelectedWeight,
+        selectedRating,
+        onRatingChange: setSelectedRating,
+      }),
+    [selectedPriceRange, selectedCategories, selectedColors, selectedWeight, selectedRating, filtersData]
+  );
 
   return (
     <div className={styles['filters-block-wrapper']}>
