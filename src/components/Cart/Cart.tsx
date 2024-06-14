@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import styles from './Cart.module.css';
 import OrderSaving from './subComponents/OrderSaving/OrderSaving';
-import CartItem from './subComponents/ProductItem/CartItem';
+import CartItem from './subComponents/CartItem/CartItem';
 import OrderSummary from './subComponents/OrderSummary/OrderSummary';
 import userStore from '../../store/user-store';
 import { cartStore } from '../../store/cart-store';

@@ -68,7 +68,7 @@ export default observer(function CartItem({ item }: CartItemProps) {
             <Typography.Paragraph className={styles['vendor-code']} copyable>
               #{vendorCode}
             </Typography.Paragraph>
-            {item.discountedPrice ? (
+            {discountedPrice ? (
               <p style={{ display: 'flex' }}>
                 Price: <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>${price}</span> $
                 {discountedPrice}
@@ -91,7 +91,7 @@ export default observer(function CartItem({ item }: CartItemProps) {
               </div>
             </div>
           </div>
-          <div className={styles['price-box']}>${price}</div>
+          <div className={styles['price-box']}>${discountedPrice ? discountedPrice * quantity : price * quantity}</div>
         </div>
       </div>
     </li>
