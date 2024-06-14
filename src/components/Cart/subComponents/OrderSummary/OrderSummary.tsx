@@ -35,7 +35,7 @@ export default observer(function OrderSummary() {
         style={{ fontFamily: 'Futura', fontWeight: 600, fontSize: '1.5rem' }}
       />
       <div className={styles['estimated-total']}>
-        <p>Estimated Total</p>
+        <p>Total</p>
         <p>${cartStore.totalPrice}</p>
       </div>
       <CustomButton variety="common" block>

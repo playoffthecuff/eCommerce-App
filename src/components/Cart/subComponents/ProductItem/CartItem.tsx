@@ -48,45 +48,50 @@ export default observer(function CartItem({ item }: CartItemProps) {
 
   return (
     <li className={styles['product-card']}>
-      <div className={styles['product-box']}>
-        <div className={styles['product-img']}>
-          <img src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder} alt={title} />
-        </div>
-        <div style={{ paddingLeft: '1rem' }}>
+      <div className={styles['product-header']}>
+        <div>
           <Typography.Title style={{ margin: 0 }} level={4}>
             {title}
           </Typography.Title>
+        </div>
+        <div className={styles.cross}>
+          <CloseOutlined onClick={handleItemDelete} />
+        </div>
+      </div>
+      <div className={styles['product-main-box']}>
+        <div className={styles['product-box']}>
+          <div className={styles['product-img']}>
+            <img src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder} alt={title} />
+          </div>
+
           <div className={styles['product-prop']}>
             <Typography.Paragraph className={styles['vendor-code']} copyable>
               #{vendorCode}
             </Typography.Paragraph>
             {item.discountedPrice ? (
-              <>
-                <p>Unit Price: ${price}</p>
-                <p>Unit Discounted Price: ${discountedPrice}</p>
-              </>
+              <p style={{ display: 'flex' }}>
+                Price: <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>${price}</span> $
+                {discountedPrice}
+              </p>
             ) : (
-              <p>Unit Price: ${price}</p>
+              <p style={{ display: 'flex' }}>Price: ${price}</p>
             )}
-            <p>Unit Size: {size}</p>
+            <p>Size: {size}</p>
           </div>
         </div>
-      </div>
-      <div className={styles['product-setting-box']}>
-        <div className={styles['counter-box']}>
-          <div className={styles['product-counter']}>
-            <div className={styles['product-controller']} onClick={handleDecrement}>
-              <MinusOutlined />
-            </div>
-            <div className={styles.quantity}>{quantity}</div>
-            <div className={styles['product-controller']} onClick={handleIncrement}>
-              <PlusOutlined />
+        <div className={styles['product-setting-box']}>
+          <div className={styles['counter-box']}>
+            <div className={styles['product-counter']}>
+              <div className={styles['product-controller']} onClick={handleDecrement}>
+                <MinusOutlined />
+              </div>
+              <div className={styles.quantity}>{quantity}</div>
+              <div className={styles['product-controller']} onClick={handleIncrement}>
+                <PlusOutlined />
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles['price-box']}>${price}</div>
-        <div className={styles.cross}>
-          <CloseOutlined onClick={handleItemDelete} />
+          <div className={styles['price-box']}>${price}</div>
         </div>
       </div>
     </li>

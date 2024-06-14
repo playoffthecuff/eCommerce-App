@@ -38,7 +38,7 @@
   justify-content: space-between;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1150px) {
   .order-box-title {
     font-size: 24px;
   }
@@ -47,9 +47,7 @@
   .estimated-total-under {
     font-size: 19px;
   }
-}
 
-@media (max-width: 999px) {
   .order-box {
     max-width: 100%;
   }
@@ -59,7 +57,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 670px) {
   .estimated-total {
     font-size: 18px;
   }
