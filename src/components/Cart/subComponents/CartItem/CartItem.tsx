@@ -51,9 +51,11 @@ export default observer(function CartItem({ item }: CartItemProps) {
     <li className={styles['product-card']}>
       <div className={styles['product-header']}>
         <div>
-          <Typography.Title style={{ margin: 0 }} level={4}>
-            {title}
-          </Typography.Title>
+          <a href={`${import.meta.env.BASE_URL}#/product?vc=${vendorCode}`} className={styles['cart-item-link']}>
+            <Typography.Title style={{ margin: 0 }} level={4}>
+              {title}
+            </Typography.Title>
+          </a>
         </div>
         <div className={styles.cross}>
           <CloseOutlined onClick={handleItemDelete} />
@@ -80,12 +82,10 @@ export default observer(function CartItem({ item }: CartItemProps) {
             <p>Size: {size}</p>
           </div>
         </div>
+
         <div className={styles['product-setting-box']}>
           <div className={styles['counter-box']}>
             <div className={styles['product-counter']}>
-              {/* <div className={styles['product-controller']} onClick={handleDecrement}>
-                <MinusOutlined />
-              </div> */}
               <CustomButton
                 style={{ width: '40px' }}
                 variety={ButtonVariety.FILTERS}
@@ -95,9 +95,6 @@ export default observer(function CartItem({ item }: CartItemProps) {
                 <MinusOutlined />
               </CustomButton>
               <div className={styles.quantity}>{quantity}</div>
-              {/* <div className={styles['product-controller']} onClick={handleIncrement}>
-                <PlusOutlined />
-              </div> */}
               <CustomButton style={{ width: '40px' }} variety={ButtonVariety.FILTERS} onClick={handleIncrement}>
                 <PlusOutlined />
               </CustomButton>

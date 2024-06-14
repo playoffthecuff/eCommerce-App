@@ -104,6 +104,16 @@
   color: var(--color-primary);
 }
 
+.cart-item-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
 @media (max-width: 670px) {
   .product-main-box {
     flex-direction: column;

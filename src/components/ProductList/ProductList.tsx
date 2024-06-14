@@ -29,7 +29,7 @@ export default observer(function ProductList() {
   }, []);
 
   return (
-    <Spin spinning={productsState === BootState.InProgress}>
+    <Spin spinning={productsState === BootState.InProgress || cartStore.cartState === BootState.InProgress}>
       <List
         itemLayout="vertical"
         size="large"

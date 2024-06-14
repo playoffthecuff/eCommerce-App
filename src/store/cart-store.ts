@@ -66,6 +66,8 @@ class CartStore {
     this._state = BootState.InProgress;
     this._error = undefined;
 
+    this._payload.quantity = 1;
+
     this._payload.productId = productId;
     this._payload.userId = userId;
     this._payload.size = size;
