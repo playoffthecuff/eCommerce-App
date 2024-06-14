@@ -15,7 +15,7 @@
 
 .product-main-box {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .product-box {
@@ -50,8 +50,10 @@
 }
 
 .counter-box {
+  flex-grow: 1;
   display: flex;
   align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .product-counter {
@@ -63,6 +65,7 @@
 .product-setting-box {
   display: flex;
   gap: 2rem;
+  width: 100%;
 }
 
 .product-controller {
@@ -76,6 +79,8 @@
 .price-box {
   display: flex;
   align-items: flex-end;
+  justify-content: flex-end;
+  min-width: 105px;
   font-size: 20px;
   font-weight: bold;
 }
@@ -111,6 +116,10 @@
 
   .product-setting-box {
     justify-content: space-between;
+  }
+
+  .counter-box {
+    justify-content: flex-start;
   }
 }
 

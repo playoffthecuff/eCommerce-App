@@ -3,7 +3,8 @@ import { Typography } from 'antd';
 
 import { observer } from 'mobx-react-lite';
 import styles from './CartItem.module.css';
-import { CartItem as CartItemData } from '../../../../types/types';
+import { ButtonVariety, CartItem as CartItemData } from '../../../../types/types';
+import CustomButton from '../../../CustomButton/CustomButton';
 
 import placeholder from '../../../../assets/images/load_failed.webp';
 import userStore from '../../../../store/user-store';
@@ -82,13 +83,24 @@ export default observer(function CartItem({ item }: CartItemProps) {
         <div className={styles['product-setting-box']}>
           <div className={styles['counter-box']}>
             <div className={styles['product-counter']}>
-              <div className={styles['product-controller']} onClick={handleDecrement}>
+              {/* <div className={styles['product-controller']} onClick={handleDecrement}>
                 <MinusOutlined />
-              </div>
+              </div> */}
+              <CustomButton
+                style={{ width: '40px' }}
+                variety={ButtonVariety.FILTERS}
+                onClick={handleDecrement}
+                disabled={quantity === 1}
+              >
+                <MinusOutlined />
+              </CustomButton>
               <div className={styles.quantity}>{quantity}</div>
-              <div className={styles['product-controller']} onClick={handleIncrement}>
+              {/* <div className={styles['product-controller']} onClick={handleIncrement}>
                 <PlusOutlined />
-              </div>
+              </div> */}
+              <CustomButton style={{ width: '40px' }} variety={ButtonVariety.FILTERS} onClick={handleIncrement}>
+                <PlusOutlined />
+              </CustomButton>
             </div>
           </div>
           <div className={styles['price-box']}>${discountedPrice ? discountedPrice * quantity : price * quantity}</div>
