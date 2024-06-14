@@ -1,11 +1,7 @@
 import Cart from '../../components/Cart/Cart';
 
 function CartPage() {
-  return (
-    <div className="wrapper">
-      <Cart />
-    </div>
-  );
+  return <Cart />;
 }
 
 export default CartPage;

@@ -22,8 +22,8 @@ export default observer(function Cart() {
     <div className={styles['cart-container']}>
       <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
       <div className={styles['cart-section']}>
-        <div style={{ marginBottom: 0 }} className={styles['product-container']}>
-          <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
+        <div className={styles['product-container']}>
+          <ul className={styles['product-list']}>
             {cartStore.items.map((item) => {
               return <CartItem key={item.productId} item={item} />;
             })}
@@ -32,7 +32,7 @@ export default observer(function Cart() {
             <OrderSaving />
           </div>
           <div className={styles['estimated-total-under']}>
-            <p>Estimated Total</p>
+            <p>Total</p>
             <p>${cartStore.totalPrice}</p>
           </div>
         </div>
