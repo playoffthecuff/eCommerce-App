@@ -34,7 +34,9 @@ function Footer() {
               width="100%"
               height="100%"
               title="map"
-              src='https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d521.7935599823968!2d-117.84136357705961!3d33.85918392680692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1717854449733!5m2!1sru!2sru" loading="lazy" referrerpolicy="no-referrer-when-downgrade'
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d521.7935599823968!2d-117.84136357705961!3d33.85918392680692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1717854449733!5m2!1sen!2ses"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>

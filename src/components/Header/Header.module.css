@@ -6,12 +6,11 @@
   box-sizing: border-box;
   display: flex;
   padding: 0.5rem;
-  padding-right: 1.5rem;
   box-shadow: 0 0.25rem var(--shadow);
   font-weight: 600;
   user-select: none;
   transition: var(--background-delay);
-  grid-row: 2/ 3;
+  grid-row: 2 / 3;
 
   ul {
     border: none;

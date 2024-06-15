@@ -48,10 +48,6 @@ html {
   overscroll-behavior: contain;
 }
 
-body {
-  overflow: unset !important;
-}
-
 :root[data-theme='light'] {
   --color-background: #fff;
   --color-background-secondary: #ebebeb;

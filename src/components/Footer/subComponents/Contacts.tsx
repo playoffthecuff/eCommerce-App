@@ -24,7 +24,7 @@ export default function Contacts() {
       </div>
       <div className={styles.block}>
         <MailOutlined />
-        <a href="mailto: p0grammers@gmail.com">p0grammers@gmail.com</a>
+        <a href="mailto: p0grammers2023Q4@gmail.com">p0grammers2023Q4@gmail.com</a>
       </div>
     </div>
   );

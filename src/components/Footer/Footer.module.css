@@ -51,7 +51,6 @@
 .map {
   width: 358px;
   height: 240px;
-  padding-right: 1rem;
   filter: grayscale(30%) invert(92%) contrast(83%) hue-rotate(180deg);
 }
 
@@ -103,6 +102,7 @@
   grid-column: 4 / 5;
   display: flex;
   gap: 1rem;
+  justify-content: end;
 }
 
 .technology {
@@ -183,7 +183,6 @@
     gap: 0;
     grid-row: 2 / 3;
     grid-column: 1 / 2;
-    padding-left: 0.75rem;
   }
 }
 

@@ -33,12 +33,16 @@ export default observer(function FiltersBlock() {
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
-    document.body.style.overflow = collapsed ? 'hidden' : 'auto';
+    if (collapsed) {
+      document.documentElement.classList.add('no-scroll');
+    } else {
+      document.documentElement.classList.remove('no-scroll');
+    }
   };
 
   const closeMenu = () => {
     setCollapsed(true);
-    document.body.style.overflow = 'auto';
+    document.documentElement.classList.remove('no-scroll');
   };
 
   const onColorChange = (checkedValues: string[]) => {
@@ -64,12 +68,6 @@ export default observer(function FiltersBlock() {
   const onPriceChange = (checkedValues: number[]) => {
     setSelectedPriceRange(checkedValues);
   };
-
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
 
   useEffect(() => {
     const categories = query.getAll('category').map((cat) => cat.toLowerCase());
