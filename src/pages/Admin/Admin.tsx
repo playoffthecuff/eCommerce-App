@@ -176,7 +176,10 @@ function AdminPage() {
         setSubmitButtonState(true);
         setVendorCodeButtonState(true);
       })
-      .catch(() => setVendorCodeButtonState(false));
+      .catch(() => {
+        setVendorCodeButtonState(false);
+        setSubmitButtonState(false);
+      });
   };
 
   const handleVendorCodeChange = (value: number | null) => {
