@@ -18,7 +18,6 @@ export default function ProductSwiper() {
   return (
     <>
       <Swiper
-        loop
         spaceBetween={16}
         navigation
         longSwipesMs={512}
@@ -51,7 +50,6 @@ export default function ProductSwiper() {
         )}
       </Swiper>
       <Swiper
-        loop
         spaceBetween={16}
         slidesPerView={4}
         freeMode

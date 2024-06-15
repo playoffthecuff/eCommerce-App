@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: var(--color-footer-faded-text);
+}
+
+h5.title {
+  color: var(--color-error);
+  margin: 0;
+}
+
+.block {
+  display: flex;
+  gap: 0.5rem;
+
+  a {
+    color: var(--color-link-footer);
+
+    &:hover {
+      color: var(--color-link-footer-hover);
+    }
+  }
+}

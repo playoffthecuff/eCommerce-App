@@ -10,6 +10,7 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PRODUCT_PRICE, catalogStore } from
 import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 import { Sort } from '../../../types/types';
+import { toTitleCase } from '../../../utils/string-functions';
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -32,12 +33,16 @@ export default observer(function FiltersBlock() {
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
-    document.body.style.overflow = collapsed ? 'hidden' : 'auto';
+    if (collapsed) {
+      document.documentElement.classList.add('no-scroll');
+    } else {
+      document.documentElement.classList.remove('no-scroll');
+    }
   };
 
   const closeMenu = () => {
     setCollapsed(true);
-    document.body.style.overflow = 'auto';
+    document.documentElement.classList.remove('no-scroll');
   };
 
   const onColorChange = (checkedValues: string[]) => {
@@ -63,12 +68,6 @@ export default observer(function FiltersBlock() {
   const onPriceChange = (checkedValues: number[]) => {
     setSelectedPriceRange(checkedValues);
   };
-
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
 
   useEffect(() => {
     const categories = query.getAll('category').map((cat) => cat.toLowerCase());
@@ -157,6 +156,7 @@ export default observer(function FiltersBlock() {
         <>
           <Slider
             range
+            className={styles['price-slider']}
             step={10}
             tooltip={{ placement: 'top' }}
             defaultValue={selectedPriceRange}
@@ -176,7 +176,7 @@ export default observer(function FiltersBlock() {
       label: 'CATEGORIES',
       children: (
         <Checkbox.Group
-          options={filtersData?.categories}
+          options={filtersData?.categories?.map((category) => toTitleCase(category)) || []}
           className={styles['filter-group']}
           onChange={onCategoryChange}
           value={selectedCategories}
@@ -199,15 +199,15 @@ export default observer(function FiltersBlock() {
       key: '4',
       label: (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          WEIGHT (KG)
-          <Tooltip title="Maximum weight of the rider" placement="top">
+          WEIGHT LIMIT
+          <Tooltip title="Max rider weight" placement="top">
             <InfoCircleOutlined style={{ marginLeft: 8 }} />
           </Tooltip>
         </div>
       ),
       children: (
         <Checkbox.Group
-          options={filtersData?.weight}
+          options={filtersData?.weight?.map((weight) => `${weight} kg`) || []}
           className={styles['filter-group']}
           onChange={onWeightChange}
           value={selectedWeight}
@@ -274,7 +274,7 @@ export default observer(function FiltersBlock() {
       >
         <div className={styles['menu-header']}>
           <Title level={2} className={styles['menu-title']}>
-            Filter
+            FILTERS
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>
