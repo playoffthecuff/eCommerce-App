@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Typography, Layout, Menu, MenuProps, Switch } from 'antd';
 import classNames from 'classnames';
 import {
@@ -10,6 +11,7 @@ import {
   WalletOutlined,
   MoonFilled,
   SunFilled,
+  SettingOutlined,
 } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -32,6 +34,7 @@ const paths = {
   '/about': 'ABOUT US',
   '/profile': 'PROFILE',
   '/logout': 'LOGOUT',
+  '/admin': 'ADMIN',
 };
 
 function Header() {
@@ -76,10 +79,14 @@ function Header() {
         : () => navigate('/login'),
     },
     {
-      label: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
-      key: userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
-      icon: userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
-      onClick: userStore.isAuthorized ? () => navigate('/profile') : () => navigate('/registration'),
+      label: userStore.user?.isRoot ? 'ADMIN' : userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+      key: userStore.user?.isRoot ? 'ADMIN' : userStore.isAuthorized ? 'PROFILE' : 'SIGN UP',
+      icon: userStore.user?.isRoot ? <SettingOutlined /> : userStore.isAuthorized ? <UserOutlined /> : <FormOutlined />,
+      onClick: userStore.user?.isRoot
+        ? () => navigate('/admin')
+        : userStore.isAuthorized
+          ? () => navigate('/profile')
+          : () => navigate('/registration'),
     },
     {
       label: 'ABOUT US',

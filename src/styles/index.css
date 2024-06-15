@@ -290,3 +290,7 @@ button {
 .ant-tabs-left > .ant-tabs-content-holder {
   border: none;
 }
+
+.ant-rate .ant-rate-star-second {
+  color: var(--color-button-disabled-text);
+}
