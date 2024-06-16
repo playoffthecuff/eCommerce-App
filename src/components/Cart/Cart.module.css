@@ -44,6 +44,16 @@
   padding: 1.5rem 0;
 }
 
+.empty-cart {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  text-align: center;
+}
+
 @media (max-width: 1150px) {
   .estimated-total-under {
     font-size: 19px;

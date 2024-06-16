@@ -1,17 +1,31 @@
 import { Spin, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Cart.module.css';
 import OrderSaving from './subComponents/OrderSaving/OrderSaving';
 import CartItem from './subComponents/CartItem/CartItem';
 import OrderSummary from './subComponents/OrderSummary/OrderSummary';
 import { cartStore } from '../../store/cart-store';
 import { BootState } from '../../types/boot-state';
+import emptyCart from '../../assets/images/empty-cart.svg';
 
 export default observer(function Cart() {
   useEffect(() => {
     cartStore.loadItems();
   }, []);
+
+  if (cartStore.items.length === 0) {
+    return (
+      <div className={styles['empty-cart']}>
+        <img style={{ width: '200px', height: '200px' }} src={emptyCart} alt="Empty Cart" />
+        <Typography.Title level={3}>Your cart is empty!</Typography.Title>
+        <Typography.Title style={{ margin: 0 }} level={4}>
+          Start your shopping adventure now! Explore our <Link to="/catalog">catalog!</Link>
+        </Typography.Title>
+      </div>
+    );
+  }
 
   return (
     <div className={styles['cart-container']}>
