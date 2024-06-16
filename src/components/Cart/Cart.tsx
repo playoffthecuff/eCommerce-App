@@ -19,10 +19,10 @@ export default observer(function Cart() {
     return (
       <div className={styles['empty-cart']}>
         <img style={{ width: '200px', height: '200px' }} src={emptyCart} alt="Empty Cart" />
-        <Typography.Title level={3}>Your cart is empty!</Typography.Title>
-        <Typography.Title style={{ margin: 0 }} level={4}>
+        <h2 style={{ fontSize: '2rem', marginBottom: 0 }}>Your cart is empty!</h2>
+        <p style={{ fontSize: '20px', fontWeight: 'bold' }}>
           Start your shopping adventure now! Explore our <Link to="/catalog">catalog!</Link>
-        </Typography.Title>
+        </p>
       </div>
     );
   }
