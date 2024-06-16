@@ -19,7 +19,6 @@ export default observer(function CartItem({ item }: CartItemProps) {
 
   const handleItemDelete = async () => {
     await cartStore.removeFromCart(productId, size);
-    await cartStore.loadItems();
   };
 
   const handleIncrement = async () => {

@@ -64,6 +64,7 @@ function Header() {
       icon: <WalletOutlined />,
       onClick: () => {
         navigate('/catalog');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
     },
     {
@@ -142,6 +143,7 @@ function Header() {
                     style={{ fontSize: '24px' }}
                     onClick={() => {
                       navigate('/cart');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                   />
                 ),

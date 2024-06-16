@@ -79,6 +79,8 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = formatPrice(resp.totalPrice);
       this._state = BootState.Success;
     });
   };
@@ -93,7 +95,6 @@ class CartStore {
       productId,
       size,
     });
-
     if (error) {
       this._state = BootState.Failed;
       this._error = (error as Error).toString();
@@ -102,6 +103,8 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = formatPrice(resp.totalPrice);
       this._state = BootState.Success;
     });
   };
@@ -206,7 +209,7 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = Number(resp.totalPrice.toFixed(2));
+      this._totalPrice = formatPrice(resp.totalPrice);
       this._state = BootState.Success;
     });
   };

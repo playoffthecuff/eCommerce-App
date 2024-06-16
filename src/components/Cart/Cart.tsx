@@ -15,13 +15,13 @@ export default observer(function Cart() {
 
   return (
     <div className={styles['cart-container']}>
-      <Typography.Title level={3}>SHOPPING BAG</Typography.Title>
+      <Typography.Title level={3}>SHOPPING CART</Typography.Title>
       <Spin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles['cart-section']}>
           <div className={styles['product-container']}>
             <ul className={styles['product-list']}>
               {cartStore.items.map((item) => {
-                return <CartItem key={item.productId} item={item} />;
+                return <CartItem key={`${item.productId}_${item.size}`} item={item} />;
               })}
             </ul>
             <div className={styles['order-saving-under']}>
