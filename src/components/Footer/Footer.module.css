@@ -6,7 +6,13 @@
 
 .container {
   display: grid;
-  grid-template: auto auto auto / 1fr clamp(304px, calc(304px + (100vw - 992px) / 3), 470px) clamp(320px, calc(320px + (100vw - 992px) / 3), 480px) clamp(368px, calc(368px + (100vw - 992px) / 3), 512px) 1fr;
+  grid-template:
+    auto auto auto / 1fr clamp(304px, calc(304px + (100vw - 992px) / 3), 470px) clamp(
+      320px,
+      calc(320px + (100vw - 992px) / 3),
+      480px
+    )
+    clamp(368px, calc(368px + (100vw - 992px) / 3), 512px) 1fr;
 }
 
 .middle-block {
@@ -120,7 +126,7 @@
     background: linear-gradient(to top, #ccc, #fff);
     position: relative;
   }
-  
+
   &.bottom {
     background: linear-gradient(to top, #000, #888);
   }
@@ -139,7 +145,7 @@
 }
 
 .copyright {
-  color: var(--color-footer-faded-text)
+  color: var(--color-footer-faded-text);
 }
 
 @media (max-width: 1024px) {
@@ -220,7 +226,7 @@
     justify-content: end;
     gap: 2rem;
   }
-  
+
   .technology-block {
     grid-row: 7 / 8;
     grid-column: 1 / 2;

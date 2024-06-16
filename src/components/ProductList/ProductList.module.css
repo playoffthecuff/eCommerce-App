@@ -7,4 +7,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 2rem;
+
+  & li[class~='ant-list-item'] {
+    flex: 1 1 calc((100% - 3 * 32px) / 4);
+
+    @media (max-width: 992px) {
+      flex: 1 1 calc((100% - 32px) / 2);
+    }
+
+    @media (max-width: 480px) {
+      flex: 1 1 100%;
+    }
+  }
 }

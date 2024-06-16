@@ -15,7 +15,6 @@
   color: var(--color-text);
 }
 
-
 .wrapper:hover svg {
   animation-name: rotation;
   animation-duration: 1.6s;

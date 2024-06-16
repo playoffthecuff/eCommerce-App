@@ -2,9 +2,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 350px;
-  margin: 1.25rem;
   overflow: hidden;
 
   & img {

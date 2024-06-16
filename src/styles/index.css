@@ -76,8 +76,8 @@ html {
   --color-top-footer-separator: linear-gradient(to top, #ccc, #fff);
   --separator-opacity: 0;
   --color-discount: #333;
-  --first-discount-shadow: -3px 3px 8px rgba(48,48,48,0.25);
-  --second-discount-shadow: 3px -3px 8px rgba(96,96,96,0.5);
+  --first-discount-shadow: -3px 3px 8px rgba(48, 48, 48, 0.25);
+  --second-discount-shadow: 3px -3px 8px rgba(96, 96, 96, 0.5);
   --color-ticker-text: rgba(255, 255, 255, 0.2);
   --color-copyable: rgba(46, 82, 208, 0.4);
 }
@@ -112,8 +112,8 @@ html {
   --color-top-footer-separator: linear-gradient(to top, #ccc, #202020);
   --separator-opacity: 1;
   --color-discount: #bbb;
-  --first-discount-shadow: -2px 2px 6px rgba(96,96,96,0.4);
-  --second-discount-shadow: 2px -2px 6px rgba(48,48,48,0.2);
+  --first-discount-shadow: -2px 2px 6px rgba(96, 96, 96, 0.4);
+  --second-discount-shadow: 2px -2px 6px rgba(48, 48, 48, 0.2);
   --color-ticker-text: rgba(16, 16, 16, 0.2);
   --color-copyable: rgba(32, 57, 144, 0.4);
 }
@@ -188,7 +188,7 @@ h5.ant-typography {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100lvh - 176px);
+  /* min-height: calc(100lvh - 176px); */
   height: 100%;
   width: 100%;
 }
@@ -255,9 +255,9 @@ h5.ant-typography {
   color: var(--color-text);
 }
 
-.ant-collapse>.ant-collapse-item >.ant-collapse-header {
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   align-items: center;
-  
+
   .ant-collapse-expand-icon {
     padding-inline-end: 0.5rem;
   }
@@ -321,4 +321,3 @@ button {
 .ant-ribbon-wrapper {
   width: fit-content;
 }
-

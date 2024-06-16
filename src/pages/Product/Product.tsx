@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/no-array-index-key */
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';

@@ -20,7 +20,7 @@ export default function CatalogPage() {
       </div>
       <ProductControls />
       <div className="container">
-        <div id="profile-page" className="wrapper">
+        <div className="wrapper">
           <section>
             <ProductList />
           </section>

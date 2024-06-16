@@ -24,7 +24,7 @@ export default observer(function BestBikes() {
         <ul className={styles['product-wrapper']}>
           {bestSellingProducts.map((product) => {
             return (
-              <li key={product._id}>
+              <li key={product._id} className={styles['product-list-item']}>
                 <ProductCard product={product} loading={productsState} />
               </li>
             );
