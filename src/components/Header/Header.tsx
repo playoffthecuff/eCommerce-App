@@ -42,9 +42,9 @@ function Header() {
   const [themeSwitch, setThemeSwitch] = useState(themeStore.theme === 'dark');
   useEffect(() => {
     if (isBurgerOpen) {
-      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll');
     } else {
-      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
     }
   }, [isBurgerOpen]);
   const location = useLocation();
@@ -120,9 +120,7 @@ function Header() {
             </div>
           </Link>
           <div className={styles['burger-wrapper']} onClick={burgerClick}>
-            <div className={styles['burger-button-wrapper']}>
-              <div className={classNames(styles.burgerButton, { [styles.active]: isBurgerOpen })} />
-            </div>
+            <div className={classNames(styles.burgerButton, { [styles.active]: isBurgerOpen })} onClick={burgerClick} />
           </div>
           <Menu
             className={styles['burger-menu']}

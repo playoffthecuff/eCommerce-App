@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: true
+        clean: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Create .env file
+      run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
+
+    - name: Remove package-lock.json
+      run: |
+        rm -f package-lock.json
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Testing
+      run: npm run test
+
+    - name: Build App
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+
+      run: |
+        mkdir -p ~/.ssh
+        echo "${DEPLOY_KEY}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/deploy_key
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git clone --depth 1 --branch gh-pages git@github.com:playoffthecuff/eCommerceApp.git deploy-repo
+        cp -r dist/* deploy-repo
+        cd deploy-repo
+        git add .
+        git commit -m "build: rebuild from commit $(git rev-parse --short HEAD)"
+        git push origin gh-pages

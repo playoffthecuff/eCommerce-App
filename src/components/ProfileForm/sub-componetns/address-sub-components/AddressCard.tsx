@@ -32,15 +32,16 @@ export function AddressCard({
     }
   };
 
+  const cardContent = <CardComponent address={address} onEdit={onEdit} handleDeleteAddress={handleDeleteAddress} />;
+
   return (
-    <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
-      {address.isDefault && (
+    <Spin spinning={isLoading} wrapperClassName={styles.spin}>
+      {address.isDefault ? (
         <Badge.Ribbon text="Default address" className={styles['badge-style']}>
-          <CardComponent address={address} onEdit={onEdit} handleDeleteAddres={handleDeleteAddress} />
+          {cardContent}
         </Badge.Ribbon>
-      )}
-      {!address.isDefault && (
-        <CardComponent address={address} onEdit={onEdit} handleDeleteAddres={handleDeleteAddress} />
+      ) : (
+        cardContent
       )}
     </Spin>
   );

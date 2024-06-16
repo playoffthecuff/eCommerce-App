@@ -1,0 +1,48 @@
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+
+.content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+
+  li::marker {
+    content: none;
+  }
+}
+
+.content > * {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.content {
+  animation-name: slide;
+  animation-duration: 64s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.stoppable:hover .content {
+  animation-play-state: paused;
+}
+
+.reverse {
+  animation-direction: reverse;
+}

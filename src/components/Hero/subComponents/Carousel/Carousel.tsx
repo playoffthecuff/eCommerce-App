@@ -7,7 +7,12 @@ import CustomButton from '../../../CustomButton/CustomButton';
 const { Title, Paragraph } = Typography;
 function Carousel() {
   return (
-    <div className={styles['carousel-wrapper']}>
+    <div
+      className={styles['carousel-wrapper']}
+      style={
+        document.body.clientWidth === window.innerWidth ? { maxWidth: '100vw' } : { maxWidth: 'calc(100vw - 11px)' }
+      }
+    >
       <AntCarousel autoplay autoplaySpeed={5000} className={styles.carousel}>
         <div className={classNames(styles.slide, styles.slide1)} />
         <div className={classNames(styles.slide, styles.slide2)} />
@@ -22,10 +27,10 @@ function Carousel() {
           </Paragraph>
           <div className={styles['buttons-wrapper']}>
             <CustomButton variety="common" href="#/registration" htmlType="button" style={{ width: '170px' }}>
-              Registration Page
+              REGISTRATION
             </CustomButton>
             <CustomButton variety="common" href="#/login" htmlType="button" style={{ width: '170px' }}>
-              Login Page
+              LOGIN
             </CustomButton>
             <CustomButton
               style={{ width: '170px' }}
@@ -34,7 +39,7 @@ function Carousel() {
               target="a_blank"
               htmlType="button"
             >
-              Api Documentation
+              API DOC
             </CustomButton>
           </div>
         </div>
