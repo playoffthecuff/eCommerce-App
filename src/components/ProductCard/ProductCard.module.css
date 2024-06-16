@@ -23,6 +23,10 @@
   }
 }
 
+.product-card div[class~='ant-card-cover'] {
+  padding: 10px;
+}
+
 .product-card div[class~='ant-card-body'] {
   display: flex;
   flex-direction: column;
