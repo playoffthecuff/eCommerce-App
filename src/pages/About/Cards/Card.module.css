@@ -1,0 +1,61 @@
+.team-card {
+  cursor: unset;
+  width: calc(100% - 21rem);
+
+  &:nth-child(3) {
+    align-self: end;
+  }
+}
+
+.team-role {
+  color: var(--color-text);
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.team-avatar {
+  width: 19rem;
+  height: 19rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+}
+
+.team-description {
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.team-card-body {
+  font-family: 'Roboto', monospace;
+
+  .team-card-meta {
+    .ant-card-meta-title {
+      font-size: 32px;
+    }
+  }
+}
+
+.team-card-meta {
+  gap: 0;
+}
+
+.team-gh {
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+@media (max-width: 1024px) {
+
+  .team-card {
+    width: 21rem;
+  }
+
+  .team-card-meta {
+    flex-direction: column;
+  }
+
+  .team-avatar {
+    margin-right: 0;
+  }
+}

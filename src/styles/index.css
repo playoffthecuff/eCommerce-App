@@ -131,6 +131,7 @@ input:-webkit-autofill {
   font-family: 'Haas';
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
   src: url('../assets/fonts/NeueHaasUnica-Regular.woff2');
 }
 
@@ -138,6 +139,7 @@ input:-webkit-autofill {
   font-family: 'Haas';
   font-style: normal;
   font-weight: bold;
+  font-display: swap;
   src: url('../assets/fonts/NeueHaasUnica-Bold.woff2');
 }
 
@@ -145,6 +147,7 @@ input:-webkit-autofill {
   font-family: 'Futura';
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
   src: url('../assets/fonts/FuturaPT-Medium.woff2');
 }
 
@@ -152,7 +155,22 @@ input:-webkit-autofill {
   font-family: 'Futura';
   font-style: normal;
   font-weight: bold;
+  font-display: swap;
   src: url('../assets/fonts/FuturaPT-Bold.woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/RobotoMono-Regular.woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/RobotoMono-Medium.woff2');
 }
 
 .app {
@@ -164,7 +182,7 @@ h2.ant-typography,
 h3.ant-typography,
 h4.ant-typography,
 h5.ant-typography {
-  font-family: 'Futura';
+  font-family: 'Futura', sans-serif;
 }
 
 .no-scroll {
@@ -322,3 +340,12 @@ button {
   width: fit-content;
 }
 
+.ant-card {
+  .ant-card-meta-avatar{
+    padding-inline-end: 0;
+  }
+  
+  .ant-card-meta-title {
+    font-size: 1.25rem;
+  }
+}

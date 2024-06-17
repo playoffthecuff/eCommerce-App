@@ -74,7 +74,7 @@
   font-size: 3rem;
   font-weight: 600;
   letter-spacing: 4px;
-  font-family: 'Futura';
+  font-family: 'Futura', sans-serif;
   text-shadow: var(--first-discount-shadow), 
                var(--second-discount-shadow);
 }
