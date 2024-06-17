@@ -44,21 +44,22 @@ function ProductPage() {
   }, [location.search]);
 
   const handleAddItem = async () => {
+    const { _id: productId, title } = productStore.product!;
     try {
       await cartStore.addToCart({
-        productId: productStore.product!._id,
+        productId,
         size,
         quantity,
       });
       notificationAPI.success({
-        message: `You have added the item to the cart.`,
+        message: `You have added "${title}" to the cart.`,
         placement: 'top',
         icon: <SmileOutlined />,
         duration: 2.5,
       });
     } catch (err) {
       notificationAPI.error({
-        message: `Failed to add the item.`,
+        message: `Failed to add "${title}" to the cart.`,
         description: 'Please try again.',
         placement: 'top',
         icon: <FrownOutlined />,
@@ -69,17 +70,18 @@ function ProductPage() {
 
   const handleRemoveItem = async () => {
     setQuantity(1);
+    const { _id: id, title } = productStore.product!;
     try {
-      await cartStore.removeFromCart(productStore.product!._id, size);
+      await cartStore.removeFromCart(id, size);
       notificationAPI.success({
-        message: `You have delete the item.`,
+        message: `You have removed "${title}" from the cart.`,
         placement: 'top',
         icon: <SmileOutlined />,
         duration: 2.5,
       });
     } catch (err) {
       notificationAPI.error({
-        message: `Failed to delete the item.`,
+        message: `Failed to remove "${title}" from the cart.`,
         description: 'Please try again.',
         placement: 'top',
         icon: <FrownOutlined />,

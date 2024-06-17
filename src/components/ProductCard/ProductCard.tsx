@@ -36,14 +36,14 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
         quantity: 1,
       });
       notificationAPI.success({
-        message: `You have added the item to the cart.`,
+        message: `You have added "${title}" to the cart.`,
         placement: 'top',
         icon: <SmileOutlined />,
         duration: 2.5,
       });
     } catch (err) {
       notificationAPI.error({
-        message: `Failed to add the item.`,
+        message: `Failed to add "${title}" to the cart.`,
         description: 'Please try again.',
         placement: 'top',
         icon: <FrownOutlined />,
