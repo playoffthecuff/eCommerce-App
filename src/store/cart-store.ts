@@ -2,7 +2,6 @@ import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
 import { CartItem } from '../types/types';
 import { BootState } from '../enums';
-import { formatPrice } from '../utils/format-price';
 import userStore from './user-store';
 
 class CartStore {
@@ -11,6 +10,8 @@ class CartStore {
   private _totalItems: number = 0;
 
   private _totalPrice: number = 0;
+
+  private _totalDiscount: number = 0;
 
   private _state: BootState = BootState.None;
 
@@ -41,6 +42,10 @@ class CartStore {
 
   get totalPrice() {
     return this._totalPrice;
+  }
+
+  get totalDiscount() {
+    return this._totalDiscount;
   }
 
   public get cartState(): BootState {
@@ -80,7 +85,8 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = formatPrice(resp.totalPrice);
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
       this._state = BootState.Success;
     });
   };
@@ -104,7 +110,8 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = formatPrice(resp.totalPrice);
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
       this._state = BootState.Success;
     });
   };
@@ -137,7 +144,8 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = formatPrice(resp.totalPrice);
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
       this._state = BootState.Success;
     });
   };
@@ -182,7 +190,8 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = formatPrice(resp.totalPrice);
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
       this._state = BootState.Success;
     });
   };
@@ -216,7 +225,8 @@ class CartStore {
     runInAction(() => {
       this._items = resp.items;
       this._totalItems = resp.totalItems;
-      this._totalPrice = formatPrice(resp.totalPrice);
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
       this._state = BootState.Success;
     });
   };
@@ -238,6 +248,7 @@ class CartStore {
       this._items = [];
       this._totalItems = 0;
       this._totalPrice = 0;
+      this._totalDiscount = 0;
       this._state = BootState.Success;
     });
   }

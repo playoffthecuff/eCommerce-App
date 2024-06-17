@@ -8,7 +8,7 @@ import CustomButton from '../../../CustomButton/CustomButton';
 
 import placeholder from '../../../../assets/images/load_failed.webp';
 import { cartStore } from '../../../../store/cart-store';
-import { formatPrice } from '../../../../utils/format-price';
+import { formatMoney } from '../../../../utils/format-money';
 
 type CartItemProps = {
   item: CartItemData;
@@ -67,11 +67,12 @@ export default observer(function CartItem({ item }: CartItemProps) {
             </Typography.Paragraph>
             {discountedPrice ? (
               <p style={{ display: 'flex' }}>
-                Price: <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>${price}</span> $
-                {discountedPrice}
+                Price:{' '}
+                <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>{formatMoney(price)}</span>
+                {formatMoney(discountedPrice)}
               </p>
             ) : (
-              <p style={{ display: 'flex' }}>Price: ${price}</p>
+              <p style={{ display: 'flex' }}>Price: {formatMoney(price)}</p>
             )}
             <p>Size: {size}</p>
           </div>
@@ -95,7 +96,7 @@ export default observer(function CartItem({ item }: CartItemProps) {
             </div>
           </div>
           <div className={styles['price-box']}>
-            ${discountedPrice ? formatPrice(discountedPrice * quantity) : formatPrice(price * quantity)}
+            {discountedPrice ? formatMoney(discountedPrice * quantity) : formatMoney(price * quantity)}
           </div>
         </div>
       </div>

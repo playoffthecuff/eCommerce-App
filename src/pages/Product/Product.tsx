@@ -20,6 +20,7 @@ import { BootState } from '../../types/boot-state';
 import { cartStore } from '../../store/cart-store';
 import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
+import { formatMoney } from '../../utils/format-money';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -90,10 +91,10 @@ function ProductPage() {
   if (productStore.bootState === BootState.InProgress) {
     return <Spin style={{ width: '100vw', position: 'absolute', top: '40dvh' }} />;
   }
-  if (productStore.bootState !== BootState.Success) {
+  if (productStore.bootState !== BootState.Success || !productStore.product) {
     return <NoProductResult />;
   }
-  const cartItem = cartStore.getCartItem(productStore.product!._id, size);
+  const cartItem = cartStore.getCartItem(productStore.product._id, size);
 
   return (
     <>
@@ -101,7 +102,7 @@ function ProductPage() {
         <div className={styles['product-container']}>
           <div className={styles['image-block']}>
             <Image.PreviewGroup
-              items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
+              items={productStore.product.gallery?.map((img) => `data:image/png;base64,${img}`)}
               preview={{
                 toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
                   <Space size={24} className="toolbar-wrapper">
@@ -111,26 +112,26 @@ function ProductPage() {
                 ),
               }}
             >
-              <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
+              <Image src={`data:image/png;base64,${productStore.product.gallery![0]}`} />
             </Image.PreviewGroup>
           </div>
           <div className={styles['info-block']}>
             <div className={styles['header-block']}>
-              <Title level={2}>{productStore.product?.title}</Title>
+              <Title level={2}>{productStore.product.title}</Title>
             </div>
             <div className={styles['rate-block']}>
-              <Rate allowHalf disabled value={productStore.product?.rating} />
-              <Paragraph copyable>{`#${productStore.product?.vendorCode}`}</Paragraph>
+              <Rate allowHalf disabled value={productStore.product.rating} />
+              <Paragraph copyable>{`#${productStore.product.vendorCode}`}</Paragraph>
             </div>
             <div className={styles['price-block']}>
-              <Text
-                className={productStore.product?.discountedPrice ? styles['old-price'] : ''}
-              >{`$${productStore.product?.price}`}</Text>
-              {!!productStore.product?.discountedPrice && (
-                <Text className={styles['discounted-price']}>{`$${productStore.product.discountedPrice}`}</Text>
+              <Text className={productStore.product.discountedPrice ? styles['old-price'] : ''}>
+                {formatMoney(productStore.product.price)}
+              </Text>
+              {!!productStore.product.discountedPrice && (
+                <Text className={styles['discounted-price']}>{formatMoney(productStore.product.discountedPrice)}</Text>
               )}
             </div>
-            <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>{productStore.product?.description}</Paragraph>
+            <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>{productStore.product.description}</Paragraph>
             <div className={styles['size-block']}>
               <Paragraph>Size:</Paragraph>
               <Radio.Group
@@ -175,13 +176,17 @@ function ProductPage() {
           <Divider style={{ marginTop: 0 }} />
           <div className={styles['product-details-container']}>
             <div>
-              <Paragraph>{productStore.product?.description}</Paragraph>
+              <Paragraph>{productStore.product.description}</Paragraph>
             </div>
             <div className={styles['overview-block']}>
               <div>
                 <Title level={5}>PRODUCT FEATURES</Title>
                 <Paragraph>
-                  <ul>{productStore.product?.overview.map((item, index) => <li key={`${index}`}>{item}</li>)}</ul>
+                  <ul>
+                    {productStore.product.overview.map((item, index) => (
+                      <li key={`${index}`}>{item}</li>
+                    ))}
+                  </ul>
                 </Paragraph>
               </div>
               <div>
@@ -196,7 +201,7 @@ function ProductPage() {
             </div>
           </div>
         </div>
-        {productStore.product?.category === 'bikes' && (
+        {productStore.product.category === 'bikes' && (
           <>
             <TechSpecs />
             <Geometry />

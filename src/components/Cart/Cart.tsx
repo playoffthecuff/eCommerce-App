@@ -10,6 +10,7 @@ import { cartStore } from '../../store/cart-store';
 import { BootState } from '../../types/boot-state';
 import emptyCart from '../../assets/images/empty-cart.svg';
 import CustomButton from '../CustomButton/CustomButton';
+import { formatMoney } from '../../utils/format-money';
 
 export default observer(function Cart() {
   useEffect(() => {
@@ -52,7 +53,7 @@ export default observer(function Cart() {
             </div>
             <div className={styles['estimated-total-under']}>
               <p>Total</p>
-              <p>${cartStore.totalPrice}</p>
+              <p>{formatMoney(cartStore.totalPrice)}</p>
             </div>
           </div>
           <OrderSummary />

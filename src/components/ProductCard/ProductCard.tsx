@@ -9,6 +9,7 @@ import { BootState } from '../../enums';
 import { cartStore } from '../../store/cart-store';
 import placeholder from '../../assets/images/load_failed.webp';
 import styles from './ProductCard.module.css';
+import { formatMoney } from '../../utils/format-money';
 
 type ProductCardProps = {
   product: ProductSummary;
@@ -85,11 +86,11 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               <div className={styles.productPrice}>
                 {discountedPrice ? (
                   <>
-                    <span className={classNames(styles.originalPrice, styles.lineThrough)}>${price}</span>
-                    <span className={styles.discountedPrice}>${discountedPrice}</span>
+                    <span className={classNames(styles.originalPrice, styles.lineThrough)}>{formatMoney(price)}</span>
+                    <span className={styles.discountedPrice}>{formatMoney(discountedPrice)}</span>
                   </>
                 ) : (
-                  <span>${price}</span>
+                  <span>{formatMoney(price)}</span>
                 )}
               </div>
               <div>

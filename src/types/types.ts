@@ -19,6 +19,7 @@ export interface CartResponseData {
   items: CartItem[];
   totalItems: number;
   totalPrice: number;
+  totalDiscount: number;
 }
 
 export interface ResponseData {

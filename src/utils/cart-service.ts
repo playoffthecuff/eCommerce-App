@@ -2,57 +2,60 @@ import api from './api';
 import { CartResponseData, CartPayload } from '../types/types';
 
 class CartService {
-  addToCart = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
+  addToCart = async (payload: CartPayload): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.post<CartResponseData>(`/cart`, payload);
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
-  removeFromCart = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
+  removeFromCart = async (payload: CartPayload): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.delete<CartResponseData>(`/cart`, { data: payload });
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
-  loadItems = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
+  loadItems = async (payload: CartPayload): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.post<CartResponseData>('/cart/load-cart', payload);
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
-  createTempCart = async (): Promise<[CartResponseData, Error | undefined]> => {
+  createTempCart = async (): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.post<CartResponseData>(`/cart/temp-cart`);
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
-  mergeCarts = async (userId: string, tempCartId: string): Promise<[CartResponseData, Error | undefined]> => {
+  mergeCarts = async (
+    userId: string,
+    tempCartId: string
+  ): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.post<CartResponseData>('/cart/merge-cart', { tempCartId, userId });
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
-  updateItemQuantity = async (payload: CartPayload): Promise<[CartResponseData, Error | undefined]> => {
+  updateItemQuantity = async (payload: CartPayload): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
     try {
       const resp = await api.post<CartResponseData>(`/cart/update-quantity`, payload);
       return [resp.data, undefined];
     } catch (error) {
-      return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+      return [undefined, error as Error];
     }
   };
 
