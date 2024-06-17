@@ -51,7 +51,7 @@ export default function Promo() {
       </Row>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={24}>
-          <MainBanner slogan="Gear Up & Save" promoCode="SUMMER20" />
+          <MainBanner slogan="Gear Up & Save" promoCode="SUMMER10" />
         </Col>
       </Row>
     </section>

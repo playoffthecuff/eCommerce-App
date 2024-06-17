@@ -8,7 +8,7 @@ export default function Technology() {
     <div className={styles.wrapper}>
       <div className={styles.block}>
         <Typography.Title level={5} className={styles.title}>
-          TECHNOLOGY
+          TECHNOLOGIES
         </Typography.Title>
         <div className={styles.content}>
           <Frontend />
