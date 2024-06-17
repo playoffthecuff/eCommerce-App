@@ -11,6 +11,7 @@ import styles from './FiltersBlock.module.css';
 import CustomButton from '../../CustomButton/CustomButton';
 import { Sort } from '../../../types/types';
 import { toTitleCase } from '../../../utils/string-functions';
+import { formatMoney } from '../../../utils/format-money';
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -166,7 +167,8 @@ export default observer(function FiltersBlock() {
             onChange={onPriceChange}
           />
           <div className={styles['price-range']}>
-            ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])}
+            {formatMoney(Math.floor(selectedPriceRange[0]), false)} -{' '}
+            {formatMoney(Math.ceil(selectedPriceRange[1]), false)}
           </div>
         </>
       ),

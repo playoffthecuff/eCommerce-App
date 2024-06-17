@@ -75,6 +75,5 @@
   font-weight: 600;
   letter-spacing: 4px;
   font-family: 'Futura';
-  text-shadow: var(--first-discount-shadow), 
-               var(--second-discount-shadow);
+  text-shadow: var(--first-discount-shadow), var(--second-discount-shadow);
 }

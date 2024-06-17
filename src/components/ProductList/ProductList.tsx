@@ -2,7 +2,9 @@ import { List, Spin } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useSearchParams } from 'react-router-dom';
 
+import { useEffect } from 'react';
 import { DEFAULT_PAGE_SIZE, catalogStore } from '../../store/catalog-store';
+import { cartStore } from '../../store/cart-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
@@ -16,8 +18,12 @@ export default observer(function ProductList() {
     setQuery(query);
   };
 
+  useEffect(() => {
+    cartStore.loadItems();
+  }, []);
+
   return (
-    <Spin spinning={productsState === BootState.InProgress}>
+    <Spin spinning={productsState === BootState.InProgress || cartStore.cartState === BootState.InProgress}>
       <List
         itemLayout="vertical"
         size="large"

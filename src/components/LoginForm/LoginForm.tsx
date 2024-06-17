@@ -7,6 +7,7 @@ import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
 import { emailRules, passwordRules } from '../../utils/fields-validation';
+import { cartStore } from '../../store/cart-store';
 
 const { Text, Title, Link, Paragraph } = Typography;
 
@@ -63,6 +64,8 @@ export default function LoginForm() {
       setTimeout(() => {
         navigate('/main');
       }, 1600);
+
+      cartStore.mergeCarts();
     } catch (err) {
       const error = err as Error;
       setFormEnabled(false);
