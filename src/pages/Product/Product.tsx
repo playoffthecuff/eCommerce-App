@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
@@ -8,7 +8,6 @@ import { Rate, Typography, InputNumber, Divider, Radio, Spin } from 'antd';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
-import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 import BestBikes from '../../components/BestBikes/BestBikes';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { LogoIcon } from '../../components/CustomIcons/CustomIcons';
@@ -25,7 +24,6 @@ const { Paragraph, Text, Title } = Typography;
 
 function ProductPage() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [size, setSize] = useState<CartItem['size']>('M');
   const [quantity, setQuantity] = useState(1);
   const [query] = useSearchParams();
@@ -67,7 +65,6 @@ function ProductPage() {
     <div className={styles.container}>
       <div className={styles['product-container']}>
         <div className={styles['image-block']}>
-          {/* <ProductSwiper /> */} {/* TODO: back to swiper next sprint */}
           <Image.PreviewGroup
             items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
             preview={{
@@ -114,37 +111,24 @@ function ProductPage() {
             </Radio.Group>
           </div>
           <div className={styles['cart-block']}>
+            <InputNumber
+              min={1}
+              value={cartItem ? cartItem.quantity : quantity}
+              onChange={(value) => {
+                if (cartItem || !value) return;
+                setQuantity(value);
+              }}
+              disabled={Boolean(cartItem)}
+            />
             {!cartItem && (
-              <>
-                <InputNumber
-                  min={1}
-                  value={quantity}
-                  onChange={(value) => {
-                    if (cartItem || !value) return;
-                    setQuantity(value);
-                  }}
-                  disabled={Boolean(cartItem)}
-                />
-                <CustomButton variety="common" onClick={handleAddItem}>
-                  ADD TO CART
-                </CustomButton>
-              </>
+              <CustomButton variety="common" onClick={handleAddItem}>
+                ADD TO CART
+              </CustomButton>
             )}
             {cartItem && (
-              <>
-                <CustomButton
-                  variety="common"
-                  onClick={() => {
-                    navigate('/cart');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                >
-                  GO TO CART
-                </CustomButton>
-                <CustomButton variety="inverted" onClick={handleRemoveItem}>
-                  REMOVE
-                </CustomButton>
-              </>
+              <CustomButton style={{ width: '126px' }} variety="common" onClick={handleRemoveItem}>
+                REMOVE
+              </CustomButton>
             )}
           </div>
         </div>
