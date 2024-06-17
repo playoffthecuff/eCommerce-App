@@ -46,6 +46,7 @@ export default observer(function Cart() {
               description="Are you sure to delete all items?"
               onConfirm={async () => {
                 cartStore.clearCart();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               icon={<QuestionCircleOutlined style={{ color: 'blue' }} />}
               okText="Yes"

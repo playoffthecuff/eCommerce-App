@@ -106,6 +106,7 @@ function ProductPage() {
             <Image.PreviewGroup
               items={productStore.product.gallery?.map((img) => `data:image/png;base64,${img}`)}
               preview={{
+                // eslint-disable-next-line react/no-unstable-nested-components
                 toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
                   <Space size={24} className="toolbar-wrapper">
                     <ZoomOutOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 1} onClick={onZoomOut} />
