@@ -1,0 +1,51 @@
+import { Row, Col, Card, Typography } from 'antd';
+
+import MainBanner from '../MainBanner/MainBanner';
+
+import styles from './Promo.module.css';
+
+import bikeImage from '../../assets/images/promo-2.jpg';
+import accessoriesImage from '../../assets/images/promo-3.webp';
+
+const { Title } = Typography;
+
+export default function Promo() {
+  return (
+    <section className={styles.promoSection}>
+      <Title level={2} className={styles.promoTitle}>
+        Ride & Redeem
+      </Title>
+      <Row gutter={16}>
+        <Col span={12}>
+          <Card
+            hoverable
+            className={styles.card}
+            style={{ backgroundImage: `url(${bikeImage})` }}
+            onClick={() => console.log('bikes')}
+          >
+            <div className={styles.cardContent}>
+              <h2>Bikes</h2>
+            </div>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card
+            hoverable
+            className={styles.card}
+            style={{ backgroundImage: `url(${accessoriesImage})` }}
+            onClick={() => console.log('accessories')}
+          >
+            <div className={styles.cardContent}>
+              <h2>Accessories</h2>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+      <Row justify="center" style={{ marginTop: '20px' }}>
+        <Col span={24}>
+          <MainBanner slogan="Gear Up & Save" promoCode="SUMMER20" />
+        </Col>
+      </Row>
+    </section>
+  );
+}
