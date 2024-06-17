@@ -1,7 +1,8 @@
-import { Spin, Typography } from 'antd';
+import { Popconfirm, Spin, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import styles from './Cart.module.css';
 import OrderSaving from './subComponents/OrderSaving/OrderSaving';
 import CartItem from './subComponents/CartItem/CartItem';
@@ -40,14 +41,18 @@ export default observer(function Cart() {
                 return <CartItem key={`${item.productId}_${item.size}`} item={item} />;
               })}
             </ul>
-            <CustomButton
-              variety="common"
-              onClick={() => {
+            <Popconfirm
+              title="Clear the cart"
+              description="Are you sure to delete all items?"
+              onConfirm={async () => {
                 cartStore.clearCart();
               }}
+              icon={<QuestionCircleOutlined style={{ color: 'blue' }} />}
+              okText="Yes"
+              cancelText="No"
             >
-              CLEAR CART
-            </CustomButton>
+              <CustomButton variety="common">CLEAR CART</CustomButton>
+            </Popconfirm>
             <div className={styles['order-saving-under']}>
               <OrderSaving />
             </div>
