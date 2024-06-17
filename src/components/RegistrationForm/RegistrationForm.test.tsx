@@ -53,7 +53,7 @@ describe('RegistrationForm tests', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (countriesService.getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    (countriesService.getCountries as Mock).mockResolvedValueOnce([mockCountries]);
     (userService.signUp as Mock).mockResolvedValueOnce(mockUser);
     (userService.checkAuthorization as Mock).mockResolvedValue([{ data: mockUser }]);
     (userService.checkEmailAvailability as Mock).mockResolvedValue({ email: mockUser.user.email, exists: false });

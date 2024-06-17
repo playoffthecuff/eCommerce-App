@@ -10,7 +10,7 @@ export interface ProductSummary {
 export interface CartItem extends Omit<ProductSummary, 'rating'> {
   productId: string;
   quantity: number;
-  size: string;
+  size: 'M' | 'S' | 'L';
 }
 
 export interface CartResponseData {
@@ -19,6 +19,7 @@ export interface CartResponseData {
   items: CartItem[];
   totalItems: number;
   totalPrice: number;
+  totalDiscount: number;
 }
 
 export interface ResponseData {
@@ -50,11 +51,11 @@ export interface Payload {
 }
 
 export interface CartPayload {
-  productId?: string | null;
-  userId?: string | null;
+  productId?: string;
+  userId?: string;
   quantity?: number;
   size?: string;
-  tempCartId?: string | null;
+  tempCartId?: string;
 }
 
 export enum ButtonVariety {

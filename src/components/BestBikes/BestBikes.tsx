@@ -5,6 +5,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import { catalogStore } from '../../store/catalog-store';
 import styles from './BestBikes.module.css';
 import { BootState } from '../../types/boot-state';
+import { cartStore } from '../../store/cart-store';
 
 const { Title } = Typography;
 
@@ -20,7 +21,7 @@ export default observer(function BestBikes() {
       <Title level={2} className={styles['best-bikes-title']}>
         Best Selling Bikes
       </Title>
-      <Spin spinning={productsState === BootState.InProgress}>
+      <Spin spinning={productsState === BootState.InProgress || cartStore.cartState === BootState.InProgress}>
         <ul className={styles['product-wrapper']}>
           {bestSellingProducts.map((product) => {
             return (

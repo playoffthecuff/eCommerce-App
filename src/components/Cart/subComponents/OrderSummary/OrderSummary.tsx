@@ -5,6 +5,7 @@ import OrderSaving from '../OrderSaving/OrderSaving';
 import { cartStore } from '../../../../store/cart-store';
 
 import styles from './OrderSummary.module.css';
+import { formatMoney } from '../../../../utils/format-money';
 
 export default observer(function OrderSummary() {
   return (
@@ -36,7 +37,7 @@ export default observer(function OrderSummary() {
       />
       <div className={styles['estimated-total']}>
         <p>Total</p>
-        <p>${cartStore.totalPrice}</p>
+        <p>{formatMoney(cartStore.totalPrice)}</p>
       </div>
       <CustomButton variety="common" block>
         PLACE ORDER

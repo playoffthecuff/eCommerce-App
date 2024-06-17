@@ -4,7 +4,6 @@ import {
   FormOutlined,
   LoginOutlined,
   LogoutOutlined,
-  ShoppingCartOutlined,
   UserOutlined,
   TeamOutlined,
   WalletOutlined,
@@ -21,6 +20,7 @@ import styles from './Header.module.css';
 import userStore from '../../store/user-store';
 import themeStore from '../../store/theme-store';
 import { cartStore } from '../../store/cart-store';
+import { CartIcon } from './components/CartIcon';
 
 const { Title, Link } = Typography;
 const { Header: AntHeader } = Layout;
@@ -64,6 +64,7 @@ function Header() {
       icon: <WalletOutlined />,
       onClick: () => {
         navigate('/catalog');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
     },
     {
@@ -137,14 +138,7 @@ function Header() {
             items={[
               {
                 key: 'Cart',
-                icon: (
-                  <ShoppingCartOutlined
-                    style={{ fontSize: '24px' }}
-                    onClick={() => {
-                      navigate('/cart');
-                    }}
-                  />
-                ),
+                icon: <CartIcon />,
               },
             ]}
             selectedKeys={[currentMenuItem]}
