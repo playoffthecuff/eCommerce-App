@@ -38,7 +38,7 @@ class CartService {
     }
   };
 
-  mergeCarts = async (tempCartId: string, userId: string): Promise<[CartResponseData, Error | undefined]> => {
+  mergeCarts = async (userId: string, tempCartId: string): Promise<[CartResponseData, Error | undefined]> => {
     try {
       const resp = await api.post<CartResponseData>('/cart/merge-cart', { tempCartId, userId });
       return [resp.data, undefined];
@@ -53,6 +53,15 @@ class CartService {
       return [resp.data, undefined];
     } catch (error) {
       return [{ _id: '', items: [], totalItems: 0, totalPrice: 0, userId: '' }, error as Error];
+    }
+  };
+
+  clearCart = async (payload: CartPayload): Promise<Error | undefined> => {
+    try {
+      await api.post<CartResponseData>('/cart/clear', payload);
+      return undefined;
+    } catch (error) {
+      return error as Error;
     }
   };
 }

@@ -65,13 +65,7 @@ export default function LoginForm() {
         navigate('/main');
       }, 1600);
 
-      const userId = userStore.user?.id;
-      const tempCartId = localStorage.getItem('temp_cart_id');
-
-      if (userId && tempCartId) {
-        cartStore.mergeCarts(userId, tempCartId);
-        localStorage.removeItem('temp_cart_id');
-      }
+      cartStore.mergeCarts();
     } catch (err) {
       const error = err as Error;
       setFormEnabled(false);

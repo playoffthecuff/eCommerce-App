@@ -143,14 +143,13 @@ class CartStore {
   };
 
   public createTempCart = async () => {
-    this._state = BootState.InProgress;
-    this._error = undefined;
-
     const tempCartId = this.getCurrentTempCartID();
     if (tempCartId) {
       return;
     }
 
+    this._error = undefined;
+    this._state = BootState.InProgress;
     const [resp, error] = await cartService.createTempCart();
     if (error) {
       this._state = BootState.Failed;
@@ -159,23 +158,31 @@ class CartStore {
     }
 
     localStorage.setItem('temp_cart_id', resp._id);
+    this._state = BootState.Success;
     this.loadItems();
   };
 
-  public mergeCarts = async (tempCartId: string, userId: string) => {
+  public mergeCarts = async () => {
+    const tmpCartID = this.getCurrentTempCartID();
+    if (!userStore.user?.id || !tmpCartID) {
+      return;
+    }
+
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    const [responseData, error] = await cartService.mergeCarts(userId, tempCartId);
-
+    const [resp, error] = await cartService.mergeCarts(userStore.user.id, tmpCartID);
     if (error) {
       this._state = BootState.Failed;
       this._error = (error as Error).toString();
       return;
     }
+    localStorage.removeItem('temp_cart_id');
 
     runInAction(() => {
-      this._items = responseData.items;
+      this._items = resp.items;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = formatPrice(resp.totalPrice);
       this._state = BootState.Success;
     });
   };
@@ -213,6 +220,27 @@ class CartStore {
       this._state = BootState.Success;
     });
   };
+
+  async clearCart(): Promise<void> {
+    this._state = BootState.InProgress;
+    try {
+      await cartService.clearCart({
+        userId: userStore.user?.id,
+        tempCartId: this.getCurrentTempCartID(),
+      });
+    } catch (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    runInAction(() => {
+      this._items = [];
+      this._totalItems = 0;
+      this._totalPrice = 0;
+      this._state = BootState.Success;
+    });
+  }
 
   getCurrentTempCartID(): string | undefined {
     return localStorage.getItem('temp_cart_id') || undefined;

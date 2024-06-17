@@ -145,27 +145,29 @@ function ProductPage() {
                 <Radio.Button value="L">L</Radio.Button>
               </Radio.Group>
             </div>
-            <div className={styles['cart-block']}>
-              <InputNumber
-                min={1}
-                value={cartItem ? cartItem.quantity : quantity}
-                onChange={(value) => {
-                  if (cartItem || !value) return;
-                  setQuantity(value);
-                }}
-                disabled={Boolean(cartItem)}
-              />
-              {!cartItem && (
-                <CustomButton variety="common" onClick={handleAddItem}>
-                  ADD TO CART
-                </CustomButton>
-              )}
-              {cartItem && (
-                <CustomButton style={{ width: '126px' }} variety="common" onClick={handleRemoveItem}>
-                  REMOVE
-                </CustomButton>
-              )}
-            </div>
+            <Spin spinning={cartStore.cartState === BootState.InProgress}>
+              <div className={styles['cart-block']}>
+                <InputNumber
+                  min={1}
+                  value={cartItem ? cartItem.quantity : quantity}
+                  onChange={(value) => {
+                    if (cartItem || !value) return;
+                    setQuantity(value);
+                  }}
+                  disabled={Boolean(cartItem)}
+                />
+                {!cartItem && (
+                  <CustomButton variety="common" onClick={handleAddItem}>
+                    ADD TO CART
+                  </CustomButton>
+                )}
+                {cartItem && (
+                  <CustomButton style={{ width: '126px' }} variety="common" onClick={handleRemoveItem}>
+                    REMOVE
+                  </CustomButton>
+                )}
+              </div>
+            </Spin>
           </div>
         </div>
         <div>

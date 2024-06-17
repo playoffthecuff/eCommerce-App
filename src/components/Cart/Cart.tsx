@@ -9,6 +9,7 @@ import OrderSummary from './subComponents/OrderSummary/OrderSummary';
 import { cartStore } from '../../store/cart-store';
 import { BootState } from '../../types/boot-state';
 import emptyCart from '../../assets/images/empty-cart.svg';
+import CustomButton from '../CustomButton/CustomButton';
 
 export default observer(function Cart() {
   useEffect(() => {
@@ -38,6 +39,14 @@ export default observer(function Cart() {
                 return <CartItem key={`${item.productId}_${item.size}`} item={item} />;
               })}
             </ul>
+            <CustomButton
+              variety="common"
+              onClick={() => {
+                cartStore.clearCart();
+              }}
+            >
+              CLEAR CART
+            </CustomButton>
             <div className={styles['order-saving-under']}>
               <OrderSaving />
             </div>
