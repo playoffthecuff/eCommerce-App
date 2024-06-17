@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { AudioOutlined, TeamOutlined, DiscordOutlined, CommentOutlined } from '@ant-design/icons';
+import { AudioOutlined, DiscordOutlined, CommentOutlined, GithubOutlined } from '@ant-design/icons';
 import { Card, Tag } from 'antd';
 import {
   AgileIcon,
@@ -7,7 +7,6 @@ import {
   MentorIcon,
   RSSoldIcon,
   RetroIcon,
-  SadBagIcon,
   ScrumIcon,
   ThreeDudesGrowsIcon,
 } from '../../components/CustomIcons/CustomIcons';
@@ -80,7 +79,7 @@ export default function AboutPage() {
             className={styles['team-work-entry']}
             title={
               <>
-                <Tag icon={<AgileIcon />} className={styles.tag} color="#E87D35">
+                <Tag icon={<AgileIcon />} className={styles.tag} color="#1C495C">
                   Agile
                 </Tag>
                 <Tag icon={<JiraIcon />} className={styles.tag} color="#357DE8">
@@ -96,10 +95,10 @@ export default function AboutPage() {
             title={
               <>
                 <ThreeDudesGrowsIcon style={{ fontSize: '2.4rem', marginRight: '0.25rem' }} />
-                <Tag className={styles.tag} color="#cd201f">
-                  Knowledge-sharing
+                <Tag className={styles.tag} color="#3B5999">
+                  Exchange
                 </Tag>
-                <Tag icon={<AudioOutlined />} className={styles.tag} color="#cd201f">
+                <Tag icon={<AudioOutlined />} className={styles.tag} color="#AEB910">
                   Daily
                 </Tag>
               </>
@@ -111,10 +110,10 @@ export default function AboutPage() {
             className={styles['team-work-entry']}
             title={
               <>
-                <Tag icon={<RetroIcon />} className={styles.tag} color="#E87D35">
+                <Tag icon={<RetroIcon />} className={styles.tag} color="#42D010">
                   Retro
                 </Tag>
-                <Tag icon={<ScrumIcon />} className={styles.tag} color="#357DE8">
+                <Tag icon={<ScrumIcon />} className={styles.tag} color="#5081BE">
                   Scrum
                 </Tag>
               </>
@@ -126,16 +125,26 @@ export default function AboutPage() {
             className={styles['team-work-entry']}
             title={
               <>
-                <Tag icon={<DiscordOutlined />} className={styles.tag} color="#E87D35">
+                <Tag icon={<DiscordOutlined />} className={styles.tag} color="#5865F2">
                   Discord
                 </Tag>
-                <Tag icon={<CommentOutlined />} className={styles.tag} color="#357DE8">
+                <Tag icon={<CommentOutlined />} className={styles.tag} color="#6C6C6C">
                   Chat
                 </Tag>
               </>
             }
           >
             Free communication on discord with approximately 100,500 lines of text.
+          </Card>
+          <Card
+            className={styles['team-work-entry']}
+            title={
+              <Tag icon={<GithubOutlined />} className={styles.tag} color="#431D57">
+                GitHub
+              </Tag>
+            }
+          >
+            Mutual and mentoring code reviews of pull requests on GitHub.
           </Card>
         </div>
       </div>

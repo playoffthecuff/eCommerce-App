@@ -91,15 +91,31 @@
 .team-work {
   width: 100%;
   font-size: 32px;
+  margin-bottom: 6rem;
 }
 
 .team-work-entry {
-  max-width: 66.5rem;
+  width: calc(100% - 21rem);
   font-size: 1.25rem;
   margin-bottom: 2rem;
+  &:nth-child(odd) {
+    margin-left: auto;
+  }
 }
 
 .tag {
   font-size: 1rem;
   margin-inline-end: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .team-work-entry {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-work-entry {
+    width: 100%;
+  }
 }

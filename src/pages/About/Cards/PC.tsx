@@ -2,7 +2,7 @@ import { Avatar, Card } from 'antd';
 import { ManOutlined, GithubOutlined, PieChartOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { FunctionIcon } from '../../../components/CustomIcons/CustomIcons';
-import pcImg from '../../../assets/images/playoffthecuff.gif';
+import pcImg from '../../../assets/images/pc.jpg';
 import styles from './Card.module.css';
 
 const tabList = [
@@ -25,11 +25,10 @@ const contentList: Record<string, React.ReactNode> = {
         <FunctionIcon /> Enthusiast
       </p>
       <p className={styles['team-description']}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum
-        nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis
-        iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam
-        laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam,
-        reiciendis iure!
+        Energy specialist with a background in &quot;Management and Informatics in Technical Systems&quot;, focusing on
+        automating technological processes. Participated in the development of a product line for high voltage power
+        distribution and implemented many projects using it. I like to develop interfaces, and also music - I play the
+        guitar and drums.
       </p>
     </>
   ),
@@ -38,14 +37,19 @@ const contentList: Record<string, React.ReactNode> = {
       <p className={styles['team-role']}>
         <FunctionIcon /> Enthusiast
       </p>
-      <p className={styles['team-description']}>
+      <div className={styles['team-description']}>
         <ul>
-          <li>to</li>
-          <li>sye</li>
-          <li>pyatoe</li>
-          <li>desyatoe</li>
+          <li>Data scraping & DB filling</li>
+          <li>Admin page</li>
+          <li>Header & Footer</li>
+          <li>User login</li>
+          <li>Project management</li>
+          <li>Product page</li>
+          <li>Frontend CI/CD</li>
+          <li>Themes</li>
+          <li>About page</li>
         </ul>
-      </p>
+      </div>
     </>
   ),
 };

@@ -46,7 +46,6 @@
 }
 
 @media (max-width: 1024px) {
-
   .team-card {
     width: 21rem;
   }
@@ -58,4 +57,16 @@
   .team-avatar {
     margin-right: 0;
   }
+}
+
+@media (max-width: 460px) {
+
+  .team-card {
+    align-self: center;
+
+    &:nth-child(3) {
+      align-self: center;
+    }
+  }
+
 }

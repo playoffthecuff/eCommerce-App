@@ -38,14 +38,19 @@ const contentList: Record<string, React.ReactNode> = {
       <p className={styles['team-role']}>
         <FunctionIcon /> Logician
       </p>
-      <p className={styles['team-description']}>
+      <div className={styles['team-description']}>
         <ul>
-          <li>to</li>
-          <li>sye</li>
-          <li>pyatoe</li>
-          <li>desyatoe</li>
+          <li>User credential management</li>
+          <li>Product cart</li>
+          <li>User login</li>
+          <li>Initial project settings</li>
+          <li>User registration</li>
+          <li>Collection and processing of photos</li>
+          <li>User address management</li>
+          <li>Breadcrumbs</li>
+          <li>Management of user personal data</li>
         </ul>
-      </p>
+      </div>
     </>
   ),
 };
