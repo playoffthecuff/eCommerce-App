@@ -10,6 +10,14 @@ import accessoriesImage from '../../assets/images/promo-3.webp';
 const { Title } = Typography;
 
 export default function Promo() {
+  const handleBikesClick = () => {
+    window.location.href = '#/catalog?category=Bikes';
+  };
+
+  const handleAccessoriesClick = () => {
+    window.location.href = '#/catalog?category=Accessory';
+  };
+
   return (
     <section className={styles.promoSection}>
       <Title level={2} className={styles.promoTitle}>
@@ -21,7 +29,7 @@ export default function Promo() {
             hoverable
             className={styles.card}
             style={{ backgroundImage: `url(${bikeImage})` }}
-            onClick={() => console.log('bikes')}
+            onClick={handleBikesClick}
           >
             <div className={styles.cardContent}>
               <h2>Bikes</h2>
@@ -33,7 +41,7 @@ export default function Promo() {
             hoverable
             className={styles.card}
             style={{ backgroundImage: `url(${accessoriesImage})` }}
-            onClick={() => console.log('accessories')}
+            onClick={handleAccessoriesClick}
           >
             <div className={styles.cardContent}>
               <h2>Accessories</h2>
