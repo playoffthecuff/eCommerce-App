@@ -8,6 +8,7 @@ import { Address, PersonalData, Finish } from './sub-components';
 import { AddressProps, Fields } from './types';
 import { mapToSignUpArg } from './helpers';
 import userStore from '../../store/user-store';
+import { cartStore } from '../../store/cart-store';
 import userService from '../../utils/user-service';
 import CustomButton from '../CustomButton/CustomButton';
 
@@ -67,9 +68,6 @@ export function RegistrationForm() {
         icon: <SmileOutlined />,
         duration: 2.5,
       });
-      setTimeout(() => {
-        navigate('/main');
-      }, 2500);
     } catch (err) {
       setIsLoading(false);
       notificationAPI.error({
@@ -80,7 +78,13 @@ export function RegistrationForm() {
         icon: <FrownOutlined />,
         duration: 2,
       });
+      return;
     }
+
+    cartStore.mergeCarts();
+    setTimeout(() => {
+      navigate('/main');
+    }, 2500);
   };
 
   const next = async () => {

@@ -209,7 +209,7 @@ h5.ant-typography {
 /* Button */
 .ant-btn {
   letter-spacing: 0.8px;
-  display: block;
+  /* display: block; */
 
   > span {
     position: relative;

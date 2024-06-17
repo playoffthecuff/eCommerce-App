@@ -7,8 +7,8 @@ import { ButtonVariety, CartItem as CartItemData } from '../../../../types/types
 import CustomButton from '../../../CustomButton/CustomButton';
 
 import placeholder from '../../../../assets/images/load_failed.webp';
-import userStore from '../../../../store/user-store';
 import { cartStore } from '../../../../store/cart-store';
+import { formatMoney } from '../../../../utils/format-money';
 
 type CartItemProps = {
   item: CartItemData;
@@ -18,16 +18,12 @@ export default observer(function CartItem({ item }: CartItemProps) {
   const { price, thumbs, discountedPrice, title, vendorCode, size, quantity, productId } = item;
 
   const handleItemDelete = async () => {
-    const tempCartId = localStorage.getItem('temp_cart_id');
-    await cartStore.removeFromCart(productId, userStore.user?.id, tempCartId);
-    await cartStore.loadItems();
+    await cartStore.removeFromCart(productId, size);
   };
 
   const handleIncrement = async () => {
     await cartStore.updateItemQuantity({
       productId,
-      userId: userStore.user?.id,
-      tempCartId: localStorage.getItem('temp_cart_id'),
       quantity: 1,
       size,
     });
@@ -37,8 +33,6 @@ export default observer(function CartItem({ item }: CartItemProps) {
     if (quantity > 1) {
       await cartStore.updateItemQuantity({
         productId,
-        userId: userStore.user?.id,
-        tempCartId: localStorage.getItem('temp_cart_id'),
         quantity: -1,
         size,
       });
@@ -73,11 +67,12 @@ export default observer(function CartItem({ item }: CartItemProps) {
             </Typography.Paragraph>
             {discountedPrice ? (
               <p style={{ display: 'flex' }}>
-                Price: <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>${price}</span> $
-                {discountedPrice}
+                Price:{' '}
+                <span style={{ textDecorationLine: 'line-through', margin: '0 0.2rem' }}>{formatMoney(price)}</span>
+                {formatMoney(discountedPrice)}
               </p>
             ) : (
-              <p style={{ display: 'flex' }}>Price: ${price}</p>
+              <p style={{ display: 'flex' }}>Price: {formatMoney(price)}</p>
             )}
             <p>Size: {size}</p>
           </div>
@@ -100,7 +95,9 @@ export default observer(function CartItem({ item }: CartItemProps) {
               </CustomButton>
             </div>
           </div>
-          <div className={styles['price-box']}>${discountedPrice ? discountedPrice * quantity : price * quantity}</div>
+          <div className={styles['price-box']}>
+            {discountedPrice ? formatMoney(discountedPrice * quantity) : formatMoney(price * quantity)}
+          </div>
         </div>
       </div>
     </li>

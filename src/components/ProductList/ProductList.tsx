@@ -8,7 +8,6 @@ import { cartStore } from '../../store/cart-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
-import userStore from '../../store/user-store';
 
 export default observer(function ProductList() {
   const { products, productsState, totalPage, currentPage } = catalogStore;
@@ -20,12 +19,7 @@ export default observer(function ProductList() {
   };
 
   useEffect(() => {
-    const currentUser = userStore.user?.id;
-    const tempCartId = localStorage.getItem('temp_cart_id');
-
-    if (currentUser || tempCartId) {
-      cartStore.loadItems();
-    }
+    cartStore.loadItems();
   }, []);
 
   return (
