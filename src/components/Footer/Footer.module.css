@@ -120,7 +120,7 @@
     background: linear-gradient(to top, #ccc, #fff);
     position: relative;
   }
-  
+
   &.bottom {
     background: linear-gradient(to top, #000, #888);
   }
@@ -139,7 +139,7 @@
 }
 
 .copyright {
-  color: var(--color-footer-faded-text)
+  color: var(--color-footer-faded-text);
 }
 
 @media (max-width: 1024px) {
@@ -220,7 +220,7 @@
     justify-content: end;
     gap: 2rem;
   }
-  
+
   .technology-block {
     grid-row: 7 / 8;
     grid-column: 1 / 2;

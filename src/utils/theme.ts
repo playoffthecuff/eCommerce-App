@@ -95,6 +95,9 @@ export const lightTheme: ThemeConfig = {
       itemPaddingSM: '0px',
       itemPadding: '0px',
     },
+    Carousel: {
+      dotOffset: 30,
+    },
   },
 };
 

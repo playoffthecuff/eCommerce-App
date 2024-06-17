@@ -4,7 +4,6 @@ import { Layout, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import Ticker from '../../components/Ticker/Ticker';
 import styles from './Root.module.css';
 import PromotionTab from '../../components/PromotionTab/PromotionTab';
@@ -58,7 +57,6 @@ function Root() {
         </div>
         <Header />
         <Content className={styles.main}>
-          <Breadcrumbs />
           <Outlet />
         </Content>
         <Footer />
