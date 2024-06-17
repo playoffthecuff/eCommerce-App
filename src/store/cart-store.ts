@@ -1,7 +1,8 @@
 import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
-import { CartItem, CartPayload } from '../types/types';
+import { CartItem } from '../types/types';
 import { BootState } from '../enums';
+import { formatPrice } from '../utils/format-price';
 import userStore from './user-store';
 
 class CartStore {
@@ -14,14 +15,6 @@ class CartStore {
   private _state: BootState = BootState.None;
 
   private _error: string | undefined;
-
-  private _payload: CartPayload = {
-    productId: null,
-    userId: null,
-    quantity: 1,
-    size: 'M',
-    tempCartId: null,
-  };
 
   constructor() {
     makeAutoObservable(this);
@@ -50,10 +43,6 @@ class CartStore {
     return this._totalPrice;
   }
 
-  public get payload(): CartPayload {
-    return this._payload;
-  }
-
   public get cartState(): BootState {
     return this._state;
   }
@@ -62,17 +51,25 @@ class CartStore {
     return this._error;
   }
 
-  public addToCart = async ({ userId, productId, size }: CartPayload) => {
+  public addToCart = async ({
+    productId,
+    size,
+    quantity = 1,
+  }: {
+    productId: string;
+    size: CartItem['size'];
+    quantity?: number;
+  }) => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    this._payload.quantity = 1;
-
-    this._payload.productId = productId;
-    this._payload.userId = userId;
-    this._payload.size = size;
-
-    const [responseData, error] = await cartService.addToCart(this._payload);
+    const [resp, error] = await cartService.addToCart({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+      productId,
+      size,
+      quantity,
+    });
 
     if (error) {
       this._state = BootState.Failed;
@@ -81,16 +78,21 @@ class CartStore {
     }
 
     runInAction(() => {
-      this._items = responseData.items;
+      this._items = resp.items;
       this._state = BootState.Success;
     });
   };
 
-  public removeFromCart = async (productId: string, userId: string | undefined, tempCartId: string | null) => {
+  public removeFromCart = async (productId: string, size: CartItem['size']) => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    const [responseData, error] = await cartService.removeFromCart({ productId, userId, tempCartId });
+    const [resp, error] = await cartService.removeFromCart({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+      productId,
+      size,
+    });
 
     if (error) {
       this._state = BootState.Failed;
@@ -99,23 +101,29 @@ class CartStore {
     }
 
     runInAction(() => {
-      this._items = responseData.items;
+      this._items = resp.items;
       this._state = BootState.Success;
     });
   };
 
-  public isInCart = (productId: string): boolean => {
-    return this._items.some((item) => item.productId === productId);
+  public getCartItem = (productId: string, size: CartItem['size']): CartItem | undefined => {
+    return this._items.find((item) => item.productId === productId && item.size === size);
   };
 
   public loadItems = async (): Promise<void> => {
+    const userId = userStore.user?.id;
+    const tempCartId = this.getCurrentTempCartID();
+    if (!userId && !tempCartId) {
+      return;
+    }
+
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    this._payload.userId = userStore.user?.id || null;
-    this._payload.tempCartId = localStorage.getItem('temp_cart_id');
-
-    const [responseData, error] = await cartService.loadItems(this._payload);
+    const [resp, error] = await cartService.loadItems({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+    });
 
     if (error) {
       this._state = BootState.Failed;
@@ -124,9 +132,9 @@ class CartStore {
     }
 
     runInAction(() => {
-      this._items = responseData.items;
-      this._totalItems = responseData.totalItems;
-      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
+      this._items = resp.items;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = formatPrice(resp.totalPrice);
       this._state = BootState.Success;
     });
   };
@@ -135,24 +143,20 @@ class CartStore {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    let tempCartId = localStorage.getItem('temp_cart_id');
-
-    if (!tempCartId) {
-      const [responseData, error] = await cartService.createTempCart();
-
-      if (error) {
-        this._state = BootState.Failed;
-        this._error = (error as Error).toString();
-        return;
-      }
-
-      tempCartId = responseData._id;
-      localStorage.setItem('temp_cart_id', tempCartId);
-      this._payload.tempCartId = tempCartId;
-      this.loadItems();
+    const tempCartId = this.getCurrentTempCartID();
+    if (tempCartId) {
+      return;
     }
 
-    this._payload.tempCartId = tempCartId;
+    const [resp, error] = await cartService.createTempCart();
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = (error as Error).toString();
+      return;
+    }
+
+    localStorage.setItem('temp_cart_id', resp._id);
+    this.loadItems();
   };
 
   public mergeCarts = async (tempCartId: string, userId: string) => {
@@ -173,20 +177,25 @@ class CartStore {
     });
   };
 
-  public updateItemQuantity = async ({ productId, userId, tempCartId, quantity, size }: CartPayload) => {
+  public updateItemQuantity = async ({
+    productId,
+    quantity,
+    size,
+  }: {
+    productId: string;
+    quantity: number;
+    size: CartItem['size'];
+  }) => {
     this._state = BootState.InProgress;
     this._error = undefined;
 
-    this._payload.quantity = 1;
-    this._payload.size = 'M';
-
-    this._payload.productId = productId;
-    this._payload.userId = userId;
-    this._payload.quantity = quantity;
-    this._payload.size = size;
-    this._payload.tempCartId = tempCartId;
-
-    const [responseData, error] = await cartService.updateItemQuantity(this._payload);
+    const [resp, error] = await cartService.updateItemQuantity({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+      productId,
+      quantity,
+      size,
+    });
 
     if (error) {
       this._state = BootState.Failed;
@@ -195,12 +204,16 @@ class CartStore {
     }
 
     runInAction(() => {
-      this._items = responseData.items;
-      this._totalItems = responseData.totalItems;
-      this._totalPrice = Number(responseData.totalPrice.toFixed(2));
+      this._items = resp.items;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = Number(resp.totalPrice.toFixed(2));
       this._state = BootState.Success;
     });
   };
+
+  getCurrentTempCartID(): string | undefined {
+    return localStorage.getItem('temp_cart_id') || undefined;
+  }
 }
 
 export const cartStore = new CartStore();

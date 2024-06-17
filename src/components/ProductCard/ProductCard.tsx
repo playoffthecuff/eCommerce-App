@@ -3,16 +3,12 @@ import classNames from 'classnames';
 import { ShoppingFilled, ShoppingTwoTone } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { ProductSummary } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
+import { CartItem, ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
-import userStore from '../../store/user-store';
 import { cartStore } from '../../store/cart-store';
-
-import styles from './ProductCard.module.css';
-
 import placeholder from '../../assets/images/load_failed.webp';
-
-const { Meta } = Card;
+import styles from './ProductCard.module.css';
 
 type ProductCardProps = {
   product: ProductSummary;
@@ -21,8 +17,8 @@ type ProductCardProps = {
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
-
-  const [sizeValue, setSizeValue] = useState('M');
+  const navigate = useNavigate();
+  const [sizeValue, setSizeValue] = useState<CartItem['size']>('M');
 
   const onChange = (event: RadioChangeEvent) => {
     setSizeValue(event.target.value);
@@ -31,20 +27,14 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation();
     event.preventDefault();
-
-    if (cartStore.isInCart(id)) {
-      const tempCartId = localStorage.getItem('temp_cart_id');
-      await cartStore.removeFromCart(id, userStore.user?.id, tempCartId);
-    } else {
-      const payload = {
-        userId: userStore.user?.id,
-        productId: id,
-        size: sizeValue,
-      };
-
-      await cartStore.addToCart(payload);
-    }
+    await cartStore.addToCart({
+      productId: id,
+      size: sizeValue,
+      quantity: 1,
+    });
   };
+
+  const itemInCart = Boolean(cartStore.getCartItem(id, sizeValue));
 
   return (
     <a href={`${import.meta.env.BASE_URL}#/product?vc=${vendorCode}`} className={styles['product-card-link']}>
@@ -64,7 +54,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
         }
       >
         <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
-          <Meta title={title} className={styles['product-title']} />
+          <Card.Meta title={title} className={styles['product-title']} />
           <div className={styles['size-block']}>
             <span>Size:</span>
             <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
@@ -85,11 +75,20 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               )}
             </div>
             <div>
-              {cartStore.isInCart(id) ? (
-                <Tooltip title="Remove from Cart">
-                  <ShoppingFilled style={{ fontSize: '24px', color: 'green' }} onClick={handleAddToCart} />
+              {itemInCart && (
+                <Tooltip title="Go to Cart">
+                  <ShoppingFilled
+                    style={{ fontSize: '24px', color: 'green' }}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      event.preventDefault();
+                      navigate('/cart');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  />
                 </Tooltip>
-              ) : (
+              )}
+              {!itemInCart && (
                 <Tooltip title="Add to Cart">
                   <ShoppingTwoTone style={{ fontSize: '24px' }} onClick={handleAddToCart} />
                 </Tooltip>

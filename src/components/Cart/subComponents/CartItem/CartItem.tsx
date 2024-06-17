@@ -7,8 +7,8 @@ import { ButtonVariety, CartItem as CartItemData } from '../../../../types/types
 import CustomButton from '../../../CustomButton/CustomButton';
 
 import placeholder from '../../../../assets/images/load_failed.webp';
-import userStore from '../../../../store/user-store';
 import { cartStore } from '../../../../store/cart-store';
+import { formatPrice } from '../../../../utils/format-price';
 
 type CartItemProps = {
   item: CartItemData;
@@ -18,16 +18,13 @@ export default observer(function CartItem({ item }: CartItemProps) {
   const { price, thumbs, discountedPrice, title, vendorCode, size, quantity, productId } = item;
 
   const handleItemDelete = async () => {
-    const tempCartId = localStorage.getItem('temp_cart_id');
-    await cartStore.removeFromCart(productId, userStore.user?.id, tempCartId);
+    await cartStore.removeFromCart(productId, size);
     await cartStore.loadItems();
   };
 
   const handleIncrement = async () => {
     await cartStore.updateItemQuantity({
       productId,
-      userId: userStore.user?.id,
-      tempCartId: localStorage.getItem('temp_cart_id'),
       quantity: 1,
       size,
     });
@@ -37,8 +34,6 @@ export default observer(function CartItem({ item }: CartItemProps) {
     if (quantity > 1) {
       await cartStore.updateItemQuantity({
         productId,
-        userId: userStore.user?.id,
-        tempCartId: localStorage.getItem('temp_cart_id'),
         quantity: -1,
         size,
       });
@@ -100,7 +95,9 @@ export default observer(function CartItem({ item }: CartItemProps) {
               </CustomButton>
             </div>
           </div>
-          <div className={styles['price-box']}>${discountedPrice ? discountedPrice * quantity : price * quantity}</div>
+          <div className={styles['price-box']}>
+            ${discountedPrice ? formatPrice(discountedPrice * quantity) : formatPrice(price * quantity)}
+          </div>
         </div>
       </div>
     </li>

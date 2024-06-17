@@ -5,18 +5,12 @@ import styles from './Cart.module.css';
 import OrderSaving from './subComponents/OrderSaving/OrderSaving';
 import CartItem from './subComponents/CartItem/CartItem';
 import OrderSummary from './subComponents/OrderSummary/OrderSummary';
-import userStore from '../../store/user-store';
 import { cartStore } from '../../store/cart-store';
 import { BootState } from '../../types/boot-state';
 
 export default observer(function Cart() {
   useEffect(() => {
-    const currentUser = userStore.user?.id;
-    const tempCartId = localStorage.getItem('temp_cart_id');
-
-    if (currentUser || tempCartId) {
-      cartStore.loadItems();
-    }
+    cartStore.loadItems();
   }, []);
 
   return (
