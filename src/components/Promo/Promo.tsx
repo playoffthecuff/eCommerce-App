@@ -24,7 +24,7 @@ export default function Promo() {
         Ride & Redeem
       </Title>
       <Row gutter={16}>
-        <Col span={12}>
+        <Col xs={24} sm={12}>
           <Card
             hoverable
             className={styles.card}
@@ -36,7 +36,7 @@ export default function Promo() {
             </div>
           </Card>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={12}>
           <Card
             hoverable
             className={styles.card}

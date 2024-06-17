@@ -31,10 +31,10 @@
 }
 
 .bannerPromo .ant-typography-copy {
-  color: #1890ff; /* Цвет текста при наведении */
+  color: #1890ff;
   transition: color 0.3s;
 }
 
 .bannerPromo .ant-typography-copy:hover {
-  color: #40a9ff; /* Цвет текста при наведении */
+  color: #40a9ff;
 }
