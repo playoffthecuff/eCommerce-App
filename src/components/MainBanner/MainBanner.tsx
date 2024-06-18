@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Card, message, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { cartStore } from '../../store/cart-store';
@@ -34,7 +35,7 @@ export default observer(function MainBanner({ slogan, promoCode }: Props) {
           <Text strong copyable={{ text: promoCode }} onClick={onApplyPromoCode}>
             {promoCode}
           </Text>{' '}
-          and get a {cartStore.promoCodes[1].discount * 100}% discount for the first order!
+          and get a {cartStore.promoCodes[1]?.discount * 100}% discount for the first order!
         </Text>
       </Card>
     </section>

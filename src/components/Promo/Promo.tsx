@@ -55,7 +55,7 @@ export default observer(function Promo() {
       </Row>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={24}>
-          <MainBanner slogan="Gear Up & Save" promoCode={cartStore.promoCodes[1].code} />
+          <MainBanner slogan="Gear Up & Save" promoCode={cartStore.promoCodes[1]?.code} />
         </Col>
       </Row>
     </section>
