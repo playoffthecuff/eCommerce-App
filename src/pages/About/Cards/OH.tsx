@@ -2,7 +2,7 @@ import { Avatar, Card } from 'antd';
 import { ManOutlined, GithubOutlined, PieChartOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { FunctionIcon } from '../../../components/CustomIcons/CustomIcons';
-import ohImg from '../../../assets/images/chilling-funny.gif';
+import ohImg from '../../../assets/images/hrybach-avatar.png';
 import styles from './Card.module.css';
 import TypedText from '../../../components/TypedText/TypedText';
 import GrowingList from '../../../components/GrowingList/GrowingList';
@@ -29,7 +29,7 @@ const contentList: Record<string, React.ReactNode> = {
       <p className={styles['team-description']}>
         <TypedText
           delay={30}
-          text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure!"
+          text="Working in tourism, I have a passion for travel and learning. Since the summer of 2022, I have been exploring programming, enjoying the challenge it presents. I find great satisfaction in overcoming obstacles and acquiring new skills."
         />
       </p>
     </>
@@ -46,7 +46,8 @@ const contentList: Record<string, React.ReactNode> = {
               'Main page',
               'Backend application core',
               'Sorting and filtering products',
-              'Routing, Catalog page',
+              'Routing',
+              'Catalog page',
               'Backend CI/CD',
               'Products search',
               'Product cart',
