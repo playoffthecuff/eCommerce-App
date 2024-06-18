@@ -289,8 +289,6 @@ class CartStore {
     if (error) {
       return;
     }
-
-    console.log(promoCodes);
     this._promoCodes = promoCodes;
   };
 

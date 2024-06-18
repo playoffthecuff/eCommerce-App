@@ -39,7 +39,7 @@
   gap: 0;
 
   &.reverse > *:nth-child(1) {
-      order: 2; 
+    order: 2;
   }
 
   &.reverse > *:nth-child(2) {
@@ -71,11 +71,10 @@
   }
 
   .team-card-meta.reverse {
-
     & > *:nth-child(1) {
-        order: 1; 
+      order: 1;
     }
-  
+
     & > *:nth-child(2) {
       order: 2;
     }
@@ -87,7 +86,6 @@
 }
 
 @media (max-width: 460px) {
-
   .team-card {
     align-self: center;
 
@@ -95,5 +93,4 @@
       align-self: center;
     }
   }
-
 }

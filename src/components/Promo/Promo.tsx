@@ -20,8 +20,6 @@ export default observer(function Promo() {
     window.location.href = '#/catalog?category=Accessory';
   };
 
-  console.log(cartStore.promoCodes);
-
   return (
     <section className={styles.promoSection}>
       <Title level={2} className={styles.promoTitle}>
