@@ -44,14 +44,15 @@ const contentList: Record<string, React.ReactNode> = {
         <ul className={styles['contribution-list']}>
           <GrowingList
             items={[
-              'User credential management',
+              'User profile page',
               'Product cart',
               'User login',
+              'Initial project settings',
               'User registration',
               'Collection and processing of photos',
               'User address management',
               'Breadcrumbs',
-              'Management of user personal data',
+              'Promo code',
             ]}
           />
         </ul>
