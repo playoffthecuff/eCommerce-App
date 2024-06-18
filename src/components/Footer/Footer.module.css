@@ -6,7 +6,13 @@
 
 .container {
   display: grid;
-  grid-template: auto auto auto / 1fr clamp(304px, calc(300px + (100vw - 1000px) / 3), 470px) clamp(320px, calc(320px + (100vw - 1000px) / 3), 480px) clamp(368px, calc(368px + (100vw - 1000px) / 3), 512px) 1fr;
+  grid-template:
+    auto auto auto / 1fr clamp(304px, calc(300px + (100vw - 1000px) / 3), 470px) clamp(
+      320px,
+      calc(320px + (100vw - 1000px) / 3),
+      480px
+    )
+    clamp(368px, calc(368px + (100vw - 1000px) / 3), 512px) 1fr;
 }
 
 .middle-block {
