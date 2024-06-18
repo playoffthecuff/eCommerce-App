@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { FunctionIcon } from '../../../components/CustomIcons/CustomIcons';
 import ohImg from '../../../assets/images/chilling-funny.gif';
 import styles from './Card.module.css';
+import TypedText from '../../../components/TypedText/TypedText';
+import GrowingList from '../../../components/GrowingList/GrowingList';
 
 const tabList = [
   {
@@ -25,11 +27,10 @@ const contentList: Record<string, React.ReactNode> = {
         <FunctionIcon /> Explorer
       </p>
       <p className={styles['team-description']}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum
-        nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis
-        iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam
-        laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam,
-        reiciendis iure!
+        <TypedText
+          delay={30}
+          text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure!"
+        />
       </p>
     </>
   ),
@@ -39,16 +40,19 @@ const contentList: Record<string, React.ReactNode> = {
         <FunctionIcon /> Explorer
       </p>
       <div className={styles['team-description']}>
-        <ul>
-          <li>Main page</li>
-          <li>Backend application core</li>
-          <li>Sorting and filtering products</li>
-          <li>Routing</li>
-          <li>Catalog page</li>
-          <li>Backend CI/CD</li>
-          <li>Products search</li>
-          <li>Product cart</li>
-          <li>Swagger docs</li>
+        <ul className={styles['contribution-list']}>
+          <GrowingList
+            items={[
+              'Main page',
+              'Backend application core',
+              'Sorting and filtering products',
+              'Routing, Catalog page',
+              'Backend CI/CD',
+              'Products search',
+              'Product cart',
+              'Swagger docs',
+            ]}
+          />
         </ul>
       </div>
     </>

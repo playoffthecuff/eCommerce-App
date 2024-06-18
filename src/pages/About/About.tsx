@@ -38,7 +38,7 @@ export default function AboutPage() {
       <div className="container">
         <div className={styles['welcome-block']}>
           <HackerText className={styles.heading} text="Welcome to the Cycling Dependency" />
-          <div className={styles['welcome-content']}>
+          <div>
             <img className={styles.welcomeImg} src={handImg} alt="hand" />
             <div className={styles['welcome-text']}>
               This website was developed as part of the educational project of the{' '}
