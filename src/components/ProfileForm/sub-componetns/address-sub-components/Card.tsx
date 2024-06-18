@@ -13,10 +13,10 @@ import { Address } from '../../../../types/authorization-response';
 export function CardComponent({
   address,
   onEdit,
-  handleDeleteAddres,
+  handleDeleteAddress: handleDeleteAddres,
 }: {
   address: Address;
-  handleDeleteAddres: () => void;
+  handleDeleteAddress: () => void;
   onEdit: (addr: Address) => void;
 }) {
   return (

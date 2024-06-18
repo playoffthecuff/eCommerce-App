@@ -2,6 +2,8 @@ import { Slider, Checkbox, Tooltip, Radio, Rate, CollapseProps } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import styles from '../FiltersBlock.module.css';
 import { FiltersData } from '../../../../types/types';
+import { formatMoney } from '../../../../utils/format-money';
+import { toTitleCase } from '../../../../utils/string-functions';
 
 interface FilterItemsProps {
   selectedPriceRange: number[];
@@ -37,6 +39,7 @@ export const getFilterItems = ({
       <>
         <Slider
           range
+          className={styles['price-slider']}
           step={10}
           tooltip={{ placement: 'top' }}
           defaultValue={selectedPriceRange}
@@ -46,7 +49,9 @@ export const getFilterItems = ({
           onChange={onPriceChange}
         />
         <div className={styles['price-range']}>
-          ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])}
+          {/* ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])} */}
+          {formatMoney(Math.floor(selectedPriceRange[0]), false)} -{' '}
+          {formatMoney(Math.ceil(selectedPriceRange[1]), false)}
         </div>
       </>
     ),
@@ -56,7 +61,8 @@ export const getFilterItems = ({
     label: 'CATEGORIES',
     children: (
       <Checkbox.Group
-        options={filtersData?.categories}
+        // options={filtersData?.categories}
+        options={filtersData?.categories?.map((category) => toTitleCase(category)) || []}
         className={styles['filter-group']}
         onChange={onCategoryChange}
         value={selectedCategories}
@@ -79,15 +85,16 @@ export const getFilterItems = ({
     key: '4',
     label: (
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        WEIGHT (KG)
-        <Tooltip title="Maximum weight of the rider" placement="top">
+        WEIGHT LIMIT
+        <Tooltip title="Max rider weight" placement="top">
           <InfoCircleOutlined style={{ marginLeft: 8 }} />
         </Tooltip>
       </div>
     ),
     children: (
       <Checkbox.Group
-        options={filtersData?.weight}
+        // options={filtersData?.weight}
+        options={filtersData?.weight?.map((weight) => `${weight} kg`) || []}
         className={styles['filter-group']}
         onChange={onWeightChange}
         value={selectedWeight}

@@ -1,20 +1,15 @@
 .profile-form {
   margin: 0 auto;
-  padding: 0 1rem 1.5rem;
-  width: 350px;
+  width: 320px;
+  margin-bottom: 3rem;
 }
 
 .tabs {
   background-color: var(--color-background);
-  position: fixed;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
   margin: 2rem auto;
+  padding: 0 1rem;
   cursor: pointer;
-  padding: 1.7rem 1rem 0.5rem;
-  max-width: 550px;
+  max-width: 512px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -37,13 +32,16 @@
   padding: 0 1rem;
   max-width: 500px;
   width: 100%;
-  margin: 4rem auto 2rem;
+  margin: 2rem auto;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
   h4 {
     width: 100%;
+  }
+  .spin {
+    width: fit-content;
   }
 }
 

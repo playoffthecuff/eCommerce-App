@@ -39,12 +39,16 @@ export default observer(function FiltersBlock() {
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
-    document.body.style.overflow = collapsed ? 'hidden' : 'auto';
+    if (collapsed) {
+      document.documentElement.classList.add('no-scroll');
+    } else {
+      document.documentElement.classList.remove('no-scroll');
+    }
   };
 
   const closeMenu = () => {
     setCollapsed(true);
-    document.body.style.overflow = 'auto';
+    document.documentElement.classList.remove('no-scroll');
   };
 
   useEffect(() => {
@@ -116,7 +120,7 @@ export default observer(function FiltersBlock() {
       >
         <div className={styles['menu-header']}>
           <Title level={2} className={styles['menu-title']}>
-            Filter
+            FILTERS
           </Title>
           <CloseOutlined className={styles['close-button']} onClick={closeMenu} />
         </div>

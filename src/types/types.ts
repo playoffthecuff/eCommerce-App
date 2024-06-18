@@ -7,6 +7,22 @@ export interface ProductSummary {
   vendorCode: number;
   thumbs: string;
 }
+export interface CartItem extends Omit<ProductSummary, 'rating'> {
+  productId: string;
+  quantity: number;
+  size: 'M' | 'S' | 'L';
+}
+
+export interface CartResponseData {
+  _id: string;
+  userId: string;
+  items: CartItem[];
+  promo: Promo;
+  totalItems: number;
+  totalPrice: number;
+  totalDiscount: number;
+  totalPromoDiscount: number;
+}
 
 export interface ResponseData {
   products: ProductSummary[];
@@ -36,8 +52,22 @@ export interface Payload {
   pageSize?: number;
 }
 
+export interface CartPayload {
+  productId?: string;
+  userId?: string;
+  quantity?: number;
+  size?: string;
+  tempCartId?: string;
+}
+
 export enum ButtonVariety {
   COMMON = 'common',
   INVERTED = 'inverted',
   FILTERS = 'filters',
 }
+
+export type Promo = {
+  _id: string;
+  code: string;
+  discount: number;
+};

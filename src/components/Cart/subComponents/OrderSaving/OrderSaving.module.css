@@ -1,0 +1,9 @@
+.order-saving-item {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+}
