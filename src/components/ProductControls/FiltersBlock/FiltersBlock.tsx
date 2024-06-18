@@ -51,11 +51,11 @@ export default observer(function FiltersBlock() {
     document.documentElement.classList.remove('no-scroll');
   };
 
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     document.body.style.overflow = 'auto';
+  //   };
+  // }, []);
 
   useEffect(() => {
     loadFiltersData();
