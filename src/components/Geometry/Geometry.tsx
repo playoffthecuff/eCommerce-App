@@ -60,7 +60,7 @@ function Geometry() {
       <Title level={2}>SIZING & GEOMETRY</Title>
       <Divider style={{ marginTop: 0 }} />
       <div className={classNames(styles.container)}>
-        <div className={styles.drawing} style={{ transform: `translateX(${bicyclePosition}px` }}>
+        <div className={styles.drawing} style={{ transform: `X(${bicyclePosition}px` }}>
           <img className={styles.image} alt="drawing" src={drawing} />
         </div>
         <Table
