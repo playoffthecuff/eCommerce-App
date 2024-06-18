@@ -22,6 +22,10 @@ class ProductStore {
     return this._bootState;
   }
 
+  public set bootState(bootState: BootState) {
+    this._bootState = bootState;
+  }
+
   private _error: string | null = null;
 
   public get error(): string | null {
@@ -65,10 +69,26 @@ class ProductStore {
     if (response) {
       runInAction(() => {
         this._shortInfo = response.data;
-        this._bootState = BootState.Success;
+        this._bootState = BootState.None;
       });
     }
   }
+
+  public addThumb = (thumb: string): void => {
+    this.product?.thumbs?.push(thumb);
+  };
+
+  public addImage = (image: string): void => {
+    this.product?.gallery?.push(image);
+  };
+
+  public removeThumb = (index: number): void => {
+    this.product?.thumbs?.splice(index, 1);
+  };
+
+  public removeImage = (index: number): void => {
+    this.product?.gallery?.splice(index, 1);
+  };
 }
 
 export default new ProductStore();

@@ -323,3 +323,6 @@ button {
 .ant-ribbon-wrapper {
   width: fit-content;
 }
+.ant-rate .ant-rate-star-second {
+  color: var(--color-button-disabled-text);
+}
