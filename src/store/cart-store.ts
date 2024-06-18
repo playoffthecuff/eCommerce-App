@@ -284,13 +284,15 @@ class CartStore {
     });
   }
 
-  async getPromoCodes() {
+  public getPromoCodes = async () => {
     const [promoCodes, error] = await cartService.getPromoCodes();
     if (error) {
       return;
     }
+
+    console.log(promoCodes);
     this._promoCodes = promoCodes;
-  }
+  };
 
   async applyPromoCode(code: string) {
     const promoCode = this._promoCodes.find((promo) => promo.code === code.toUpperCase());

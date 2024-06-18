@@ -1,5 +1,6 @@
 import { Row, Col, Card, Typography } from 'antd';
 
+import { observer } from 'mobx-react-lite';
 import MainBanner from '../MainBanner/MainBanner';
 import { cartStore } from '../../store/cart-store';
 
@@ -10,7 +11,7 @@ import accessoriesImage from '../../assets/images/promo-3.webp';
 
 const { Title } = Typography;
 
-export default function Promo() {
+export default observer(function Promo() {
   const handleBikesClick = () => {
     window.location.href = '#/catalog?category=Bikes';
   };
@@ -18,6 +19,8 @@ export default function Promo() {
   const handleAccessoriesClick = () => {
     window.location.href = '#/catalog?category=Accessory';
   };
+
+  console.log(cartStore.promoCodes);
 
   return (
     <section className={styles.promoSection}>
@@ -57,4 +60,4 @@ export default function Promo() {
       </Row>
     </section>
   );
-}
+});

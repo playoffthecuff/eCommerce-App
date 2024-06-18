@@ -1,4 +1,5 @@
 import { Card, message, Typography } from 'antd';
+import { observer } from 'mobx-react-lite';
 import { cartStore } from '../../store/cart-store';
 
 import styles from './MainBanner.module.css';
@@ -12,7 +13,7 @@ interface Props {
   promoCode: string;
 }
 
-export default function MainBanner({ slogan, promoCode }: Props) {
+export default observer(function MainBanner({ slogan, promoCode }: Props) {
   const onApplyPromoCode = () => {
     navigator.clipboard
       .writeText(promoCode)
@@ -38,4 +39,4 @@ export default function MainBanner({ slogan, promoCode }: Props) {
       </Card>
     </section>
   );
-}
+});
