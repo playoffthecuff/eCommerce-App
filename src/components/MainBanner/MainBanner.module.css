@@ -12,7 +12,7 @@
 }
 
 .bannerCard {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--color-promo-background);
   padding: 20px;
   /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -31,10 +31,10 @@
 }
 
 .bannerPromo .ant-typography-copy {
-  color: #1890ff;
+  color: var(--color-copyable);
   transition: color 0.3s;
 }
 
 .bannerPromo .ant-typography-copy:hover {
-  color: #40a9ff;
+  color: var(--color-link);
 }

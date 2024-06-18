@@ -10,7 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   /* border-radius: 8px; */
 }
 
@@ -21,14 +20,13 @@
 }
 
 .cardContent h2 {
-  color: white;
+  color: #fff;
   font-size: 2em;
   margin: 0;
 }
 
 .promoCard {
   padding: 20px;
-  background-color: #f5f5f5;
   text-align: center;
   /* border-radius: 8px; */
 }
@@ -36,19 +34,4 @@
 .promoTitle {
   text-transform: uppercase;
   text-align: center;
-}
-
-.promoText {
-  font-size: 1.2em;
-  color: #333;
-}
-
-.ant-typography-copy {
-  cursor: pointer;
-  color: #1890ff;
-  transition: color 0.3s;
-}
-
-.ant-typography-copy:hover {
-  color: #40a9ff;
 }
