@@ -17,7 +17,11 @@ export default observer(function OrderSaving() {
       </div>
       <div className={styles['order-saving-item']}>
         <p>Promo</p>
-        <p>{formatMoney(-cartStore.totalPromoDiscount)}</p>
+        <p>
+          {cartStore.totalPromoDiscount > 0
+            ? formatMoney(-cartStore.totalPromoDiscount)
+            : formatMoney(cartStore.totalPromoDiscount)}
+        </p>
       </div>
     </>
   );

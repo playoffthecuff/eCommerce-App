@@ -1,6 +1,7 @@
 import { Row, Col, Card, Typography } from 'antd';
 
 import MainBanner from '../MainBanner/MainBanner';
+import { cartStore } from '../../store/cart-store';
 
 import styles from './Promo.module.css';
 
@@ -51,7 +52,7 @@ export default function Promo() {
       </Row>
       <Row justify="center" style={{ marginTop: '20px' }}>
         <Col span={24}>
-          <MainBanner slogan="Gear Up & Save" promoCode="SUMMER10" />
+          <MainBanner slogan="Gear Up & Save" promoCode={cartStore.promoCodes[1].code} />
         </Col>
       </Row>
     </section>

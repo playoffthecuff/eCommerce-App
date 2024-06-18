@@ -1,4 +1,5 @@
 import { Card, message, Typography } from 'antd';
+import { cartStore } from '../../store/cart-store';
 
 import styles from './MainBanner.module.css';
 
@@ -32,7 +33,7 @@ export default function MainBanner({ slogan, promoCode }: Props) {
           <Text strong copyable={{ text: promoCode }} onClick={onApplyPromoCode}>
             {promoCode}
           </Text>{' '}
-          and get a discount!
+          and get a {cartStore.promoCodes[1].discount * 100}% discount for the first order!
         </Text>
       </Card>
     </section>
