@@ -21,6 +21,11 @@
   margin-top: 0.5rem;
 }
 
+.reverse .team-avatar {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
 .team-description {
   color: var(--color-text);
   font-size: 1rem;
@@ -66,13 +71,17 @@
   }
 
   .team-card-meta.reverse {
-  
+
     & > *:nth-child(1) {
         order: 1; 
     }
   
     & > *:nth-child(2) {
       order: 2;
+    }
+
+    .team-avatar {
+      margin-left: 0;
     }
   }
 }

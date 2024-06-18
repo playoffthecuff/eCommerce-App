@@ -3,7 +3,7 @@ import { WomanOutlined, GithubOutlined, PieChartOutlined } from '@ant-design/ico
 import { useState } from 'react';
 import classNames from 'classnames';
 import { FunctionIcon } from '../../../components/CustomIcons/CustomIcons';
-import katImg from '../../../assets/images/good-morning.gif';
+import photo from '../../../assets/images/photoKate.jpg';
 import styles from './Card.module.css';
 import TypedText from '../../../components/TypedText/TypedText';
 import GrowingList from '../../../components/GrowingList/GrowingList';
@@ -30,7 +30,7 @@ const contentList: Record<string, React.ReactNode> = {
       <p className={styles['team-description']}>
         <TypedText
           delay={30}
-          text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis iure!"
+          text="An engineer by training, I started learning programming 1.5 years ago. I like solving problems and learning something new. Attentive to details and always remain calm and balanced."
         />
       </p>
     </>
@@ -85,7 +85,7 @@ export default function KatCard() {
     >
       <Card.Meta
         className={classNames(styles['team-card-meta'], styles.reverse)}
-        avatar={<Avatar src={katImg} className={styles['team-avatar']} />}
+        avatar={<Avatar src={photo} className={styles['team-avatar']} />}
         title="1: 'Katerina Rubchenko'"
         description={contentList[activeTabKey]}
       />
