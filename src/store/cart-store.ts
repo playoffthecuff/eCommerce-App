@@ -1,6 +1,6 @@
 import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
-import { CartItem } from '../types/types';
+import { CartItem, Promo } from '../types/types';
 import { BootState } from '../enums';
 import userStore from './user-store';
 
@@ -17,6 +17,12 @@ class CartStore {
 
   private _error: string | undefined;
 
+  private _promoCodes: Promo[] = [];
+
+  private _promo: Promo | undefined;
+
+  private _totalPromoDiscount: number = 0;
+
   constructor() {
     makeAutoObservable(this);
 
@@ -29,6 +35,7 @@ class CartStore {
           this.loadItems();
         });
       }
+      this.getPromoCodes();
     });
   }
 
@@ -46,6 +53,18 @@ class CartStore {
 
   get totalDiscount() {
     return this._totalDiscount;
+  }
+
+  get promo() {
+    return this._promo;
+  }
+
+  get totalPromoDiscount() {
+    return this._totalPromoDiscount;
+  }
+
+  get promoCodes() {
+    return this._promoCodes;
   }
 
   public get cartState(): BootState {
@@ -84,9 +103,11 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._promo = resp.promo;
       this._totalItems = resp.totalItems;
       this._totalPrice = resp.totalPrice;
       this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   };
@@ -109,9 +130,11 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._promo = resp.promo;
       this._totalItems = resp.totalItems;
       this._totalPrice = resp.totalPrice;
       this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   };
@@ -143,9 +166,11 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._promo = resp.promo;
       this._totalItems = resp.totalItems;
       this._totalPrice = resp.totalPrice;
       this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   };
@@ -189,9 +214,11 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._promo = resp.promo;
       this._totalItems = resp.totalItems;
       this._totalPrice = resp.totalPrice;
       this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   };
@@ -224,9 +251,11 @@ class CartStore {
 
     runInAction(() => {
       this._items = resp.items;
+      this._promo = resp.promo;
       this._totalItems = resp.totalItems;
       this._totalPrice = resp.totalPrice;
       this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   };
@@ -246,9 +275,70 @@ class CartStore {
 
     runInAction(() => {
       this._items = [];
+      this._promo = undefined;
       this._totalItems = 0;
       this._totalPrice = 0;
       this._totalDiscount = 0;
+      this._totalPromoDiscount = 0;
+      this._state = BootState.Success;
+    });
+  }
+
+  async getPromoCodes() {
+    const [promoCodes, error] = await cartService.getPromoCodes();
+    if (error) {
+      return;
+    }
+    this._promoCodes = promoCodes;
+  }
+
+  async applyPromoCode(code: string) {
+    const promoCode = this._promoCodes.find((promo) => promo.code === code.toUpperCase());
+    if (!promoCode) {
+      throw new Error('Unknown promo code');
+    }
+    this._state = BootState.InProgress;
+    const [resp, error] = await cartService.applyPromoCode({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+      promoCodeId: promoCode._id,
+    });
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = error.toString();
+      throw error;
+    }
+
+    runInAction(() => {
+      this._items = resp.items;
+      this._promo = resp.promo;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
+      this._state = BootState.Success;
+    });
+  }
+
+  async removePromoCode() {
+    this._state = BootState.InProgress;
+    const [resp, error] = await cartService.removePromoCode({
+      userId: userStore.user?.id,
+      tempCartId: this.getCurrentTempCartID(),
+    });
+    if (error) {
+      this._state = BootState.Failed;
+      this._error = error.toString();
+      throw error;
+    }
+
+    runInAction(() => {
+      this._items = resp.items;
+      this._promo = undefined;
+      this._totalItems = resp.totalItems;
+      this._totalPrice = resp.totalPrice;
+      this._totalDiscount = resp.totalDiscount;
+      this._totalPromoDiscount = resp.totalPromoDiscount;
       this._state = BootState.Success;
     });
   }

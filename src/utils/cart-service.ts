@@ -1,5 +1,5 @@
 import api from './api';
-import { CartResponseData, CartPayload } from '../types/types';
+import { CartResponseData, CartPayload, Promo } from '../types/types';
 
 class CartService {
   addToCart = async (payload: CartPayload): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
@@ -65,6 +65,40 @@ class CartService {
       return undefined;
     } catch (error) {
       return error as Error;
+    }
+  };
+
+  getPromoCodes = async (): Promise<[Promo[], undefined] | [undefined, Error]> => {
+    try {
+      const resp = await api.get<Promo[]>('/promo');
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
+  };
+
+  applyPromoCode = async (payload: {
+    promoCodeId: string;
+    userId?: string;
+    tempCartId?: string;
+  }): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
+    try {
+      const resp = await api.post<CartResponseData>('/cart/promo-apply', payload);
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
+    }
+  };
+
+  removePromoCode = async (payload: {
+    userId?: string;
+    tempCartId?: string;
+  }): Promise<[CartResponseData, undefined] | [undefined, Error]> => {
+    try {
+      const resp = await api.post<CartResponseData>('/cart/promo-remove', payload);
+      return [resp.data, undefined];
+    } catch (error) {
+      return [undefined, error as Error];
     }
   };
 }

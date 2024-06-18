@@ -17,9 +17,11 @@ export interface CartResponseData {
   _id: string;
   userId: string;
   items: CartItem[];
+  promo: Promo;
   totalItems: number;
   totalPrice: number;
   totalDiscount: number;
+  totalPromoDiscount: number;
 }
 
 export interface ResponseData {
@@ -63,3 +65,9 @@ export enum ButtonVariety {
   INVERTED = 'inverted',
   FILTERS = 'filters',
 }
+
+export type Promo = {
+  _id: string;
+  code: string;
+  discount: number;
+};
