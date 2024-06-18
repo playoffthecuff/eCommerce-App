@@ -1,0 +1,14 @@
+.list-item {
+  opacity: 0;
+  animation: fade forwards;
+  /* animation-duration: 1s; */
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
