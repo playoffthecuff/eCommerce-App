@@ -2,7 +2,8 @@ import { Avatar, Card } from 'antd';
 import { WomanOutlined, GithubOutlined, PieChartOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { FunctionIcon } from '../../../components/CustomIcons/CustomIcons';
-import katImg from '../../../assets/images/good-morning.gif';
+import photo from '../../../assets/images/photoKate.jpg';
+// import katImg from '../../../assets/images/good-morning.gif';
 import styles from './Card.module.css';
 
 const tabList = [
@@ -25,11 +26,8 @@ const contentList: Record<string, React.ReactNode> = {
         <FunctionIcon /> Logician
       </p>
       <p className={styles['team-description']}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam laborum
-        nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam, reiciendis
-        iure! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit quae, temporibus ad impedit numquam
-        laborum nulla quia provident alias pariatur eum maxime delectus mollitia deserunt architecto aperiam ullam,
-        reiciendis iure!
+        An engineer by training, I started learning programming 1.5 years ago. I like solving problems and learning
+        something new. Attentive to details and always remain calm and balanced.
       </p>
     </>
   ),
@@ -40,7 +38,7 @@ const contentList: Record<string, React.ReactNode> = {
       </p>
       <div className={styles['team-description']}>
         <ul>
-          <li>User credential management</li>
+          <li>User profile page</li>
           <li>Product cart</li>
           <li>User login</li>
           <li>Initial project settings</li>
@@ -48,7 +46,7 @@ const contentList: Record<string, React.ReactNode> = {
           <li>Collection and processing of photos</li>
           <li>User address management</li>
           <li>Breadcrumbs</li>
-          <li>Management of user personal data</li>
+          <li>Promo code</li>
         </ul>
       </div>
     </>
@@ -79,7 +77,7 @@ export default function KatCard() {
     >
       <Card.Meta
         className={styles['team-card-meta']}
-        avatar={<Avatar src={katImg} className={styles['team-avatar']} />}
+        avatar={<Avatar src={photo} className={styles['team-avatar']} />}
         title="1: 'Katerina Rubchenko'"
         description={contentList[activeTabKey]}
       />
