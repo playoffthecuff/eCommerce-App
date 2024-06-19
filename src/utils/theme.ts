@@ -32,7 +32,7 @@ export const lightTheme: ThemeConfig = {
   token: {
     ...noVarTokenLight,
 
-    fontFamily: 'Haas',
+    fontFamily: 'Haas, sans-serif',
 
     borderRadius: 0,
     controlHeight: 36,
@@ -47,7 +47,7 @@ export const lightTheme: ThemeConfig = {
   },
   components: {
     Button: {
-      fontFamily: 'Futura',
+      fontFamily: 'Futura, sans-serif',
       fontWeight: 'bold',
       primaryShadow: 'none',
     },
@@ -60,7 +60,7 @@ export const lightTheme: ThemeConfig = {
       itemHoverColor: 'var(--color-menu-item-hover)',
       itemPaddingInline: 12,
       horizontalItemSelectedColor: 'var(--color-menu-item-selected)',
-      fontFamily: 'Futura',
+      fontFamily: 'Futura, sans-serif',
       colorBgContainer: 'transparent',
     },
     Layout: {

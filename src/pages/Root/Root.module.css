@@ -1,7 +1,7 @@
 .layout {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 100lvh;
+  min-height: 100dvh;
   transition: var(--background-color-delay);
   /* width: 100% !important; */
 }
@@ -9,7 +9,7 @@
 .main {
   grid-row-start: 3;
   grid-row-end: 4;
-  min-height: calc(100lvh - 176px);
+  min-height: calc(100dvh - 176px);
   width: 100% !important;
 }
 
@@ -74,6 +74,6 @@
   font-size: 3rem;
   font-weight: 600;
   letter-spacing: 4px;
-  font-family: 'Futura';
+  font-family: 'Futura', sans-serif;
   text-shadow: var(--first-discount-shadow), var(--second-discount-shadow);
 }
