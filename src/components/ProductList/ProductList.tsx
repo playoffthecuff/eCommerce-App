@@ -25,6 +25,7 @@ export default observer(function ProductList() {
   return (
     <Spin spinning={productsState === BootState.InProgress || cartStore.cartState === BootState.InProgress}>
       <List
+        bordered={false}
         itemLayout="vertical"
         size="large"
         pagination={{
@@ -40,7 +41,7 @@ export default observer(function ProductList() {
         dataSource={products}
         renderItem={(product) => {
           return (
-            <List.Item>
+            <List.Item style={{ borderBlockEnd: 'none' }}>
               <ProductCard product={product} loading={productsState} />
             </List.Item>
           );
