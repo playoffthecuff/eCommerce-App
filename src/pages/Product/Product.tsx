@@ -109,7 +109,7 @@ function ProductPage() {
             </div>
             <div className={styles['info-block']}>
               <div className={styles['heading-block']}>
-                <Title ellipsis level={2} style={{ marginTop: 0 }}>
+                <Title ellipsis level={2} style={{ marginTop: 8 }}>
                   {productStore.product.title}
                 </Title>
               </div>

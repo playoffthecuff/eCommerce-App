@@ -98,7 +98,7 @@ describe('RegistrationForm tests', () => {
       userEvent.click(sameBillingAddressCheckbox);
       await userEvent.click(submitBtn);
 
-      // step: complete regestration
+      // step: complete registration
       await screen.findByText(/complete registration/i);
       userEvent.click(submitBtn);
       await waitFor(() => {
