@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
