@@ -32,7 +32,7 @@ export function AddressCard({
     }
   };
 
-  const cardContent = <CardComponent address={address} onEdit={onEdit} handleDeleteAddres={handleDeleteAddress} />;
+  const cardContent = <CardComponent address={address} onEdit={onEdit} handleDeleteAddress={handleDeleteAddress} />;
 
   return (
     <Spin spinning={isLoading} wrapperClassName={styles.spin}>

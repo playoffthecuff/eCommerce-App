@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  span {
+    color: var(--color-footer-text);
+  }
+}
+
+.content {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 14px;
+
+  a {
+    color: var(--color-link-footer);
+    display: flex;
+    gap: 0.5rem;
+    &:hover {
+      color: var(--color-link-footer-hover);
+    }
+  }
+}
+
+span.title {
+  color: var(--color-footer-faded-text);
+}

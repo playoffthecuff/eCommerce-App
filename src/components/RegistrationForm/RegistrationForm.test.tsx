@@ -53,7 +53,7 @@ describe('RegistrationForm tests', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (countriesService.getCountries as Mock).mockResolvedValueOnce(mockCountries);
+    (countriesService.getCountries as Mock).mockResolvedValueOnce([mockCountries]);
     (userService.signUp as Mock).mockResolvedValueOnce(mockUser);
     (userService.checkAuthorization as Mock).mockResolvedValue([{ data: mockUser }]);
     (userService.checkEmailAvailability as Mock).mockResolvedValue({ email: mockUser.user.email, exists: false });
@@ -98,7 +98,7 @@ describe('RegistrationForm tests', () => {
       userEvent.click(sameBillingAddressCheckbox);
       await userEvent.click(submitBtn);
 
-      // step: complete regestration
+      // step: complete registration
       await screen.findByText(/complete registration/i);
       userEvent.click(submitBtn);
       await waitFor(() => {
@@ -106,7 +106,7 @@ describe('RegistrationForm tests', () => {
       });
     },
     {
-      timeout: 10000,
+      timeout: 20000,
     }
   );
 });

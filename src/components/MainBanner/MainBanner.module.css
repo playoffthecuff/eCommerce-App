@@ -1,0 +1,39 @@
+.banner {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  /* border-radius: 8px; */
+}
+
+.bannerCard {
+  background-color: var(--color-promo-background);
+  padding: 20px;
+  /* border-radius: 10px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bannerSlogan {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.bannerPromo {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.bannerPromo .ant-typography-copy {
+  color: var(--color-copyable);
+  transition: color 0.3s;
+}
+
+.bannerPromo .ant-typography-copy:hover {
+  color: var(--color-link);
+}

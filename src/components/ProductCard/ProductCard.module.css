@@ -1,9 +1,7 @@
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 350px;
-  margin: 1.25rem;
   overflow: hidden;
 
   & img {
@@ -25,6 +23,10 @@
   }
 }
 
+.product-card div[class~='ant-card-cover'] {
+  padding: 10px;
+}
+
 .product-card div[class~='ant-card-body'] {
   display: flex;
   flex-direction: column;
@@ -43,6 +45,13 @@
 
 .product-title {
   flex: 1;
+}
+
+.card-body-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .product-price {
@@ -78,4 +87,32 @@
   width: 100%;
   height: 1px;
   background-color: var(--color-text);
+}
+
+.product-card-notification-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.product-card-notification {
+  width: 200px;
+  margin-bottom: 8px;
+}
+
+.size-block {
+  span {
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+.size-radio-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+.shopping-icon {
+  font-size: 24px;
+  color: var(--color-primary);
 }
