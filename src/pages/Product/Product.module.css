@@ -58,6 +58,10 @@
   }
 }
 
+.cart-button {
+  width: 126px;
+}
+
 .rate-block {
   display: flex;
   gap: 0.5rem;
@@ -112,6 +116,7 @@
 @media (max-width: 728px) {
   .product-container {
     flex-direction: column;
+    gap: 0;
   }
   .header-block {
     padding-top: 0;
@@ -119,5 +124,20 @@
   .overview-block {
     flex-direction: column;
     gap: 1rem;
+  }
+}
+
+
+@media (max-width: 728px) {
+
+  .cart-button {
+    flex: 1;
+  }
+
+  .cart-block {
+    position: fixed;
+    bottom: 1rem;
+    z-index: 2;
+    width: calc(100% -  5rem);
   }
 }

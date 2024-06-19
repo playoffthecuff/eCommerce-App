@@ -290,7 +290,6 @@ class CartStore {
       return;
     }
 
-    console.log(promoCodes);
     this._promoCodes = promoCodes;
   };
 
