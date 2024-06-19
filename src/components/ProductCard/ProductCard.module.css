@@ -111,3 +111,8 @@
 .size-radio-wrapper {
   margin-bottom: 0.5rem;
 }
+
+.shopping-icon {
+  font-size: 24px;
+  color: var(--color-primary);
+}

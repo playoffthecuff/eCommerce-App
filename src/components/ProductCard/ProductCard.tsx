@@ -1,6 +1,6 @@
 import { Card, Radio, RadioChangeEvent, Rate, Skeleton, Tooltip, notification } from 'antd';
 import classNames from 'classnames';
-import { FrownOutlined, ShoppingFilled, ShoppingTwoTone, SmileOutlined } from '@ant-design/icons';
+import { FrownOutlined, ShoppingFilled, ShoppingOutlined, SmileOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -97,7 +97,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
                 {itemInCart && (
                   <Tooltip title="Go to Cart">
                     <ShoppingFilled
-                      style={{ fontSize: '24px', color: 'green' }}
+                      className={styles['shopping-icon']}
                       onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -109,7 +109,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
                 )}
                 {!itemInCart && (
                   <Tooltip title="Add to Cart">
-                    <ShoppingTwoTone style={{ fontSize: '24px' }} onClick={handleAddToCart} />
+                    <ShoppingOutlined className={styles['shopping-icon']} onClick={handleAddToCart} />
                   </Tooltip>
                 )}
               </div>
