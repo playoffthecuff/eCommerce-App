@@ -108,12 +108,17 @@ function ProductPage() {
               <ProductSwiper />
             </div>
             <div className={styles['info-block']}>
-              <div className={styles['header-block']}>
-                <Title level={2}>{productStore.product.title}</Title>
+              <div className={styles['heading-block']}>
+                <Title ellipsis level={2} style={{ marginTop: 0 }}>
+                  {productStore.product.title}
+                </Title>
               </div>
               <div className={styles['rate-block']}>
                 <Rate allowHalf disabled value={productStore.product.rating} />
-                <Paragraph copyable>{`#${productStore.product.vendorCode}`}</Paragraph>
+                <Paragraph>
+                  <Text>#</Text>
+                  <Text copyable>{`${productStore.product.vendorCode}`}</Text>
+                </Paragraph>
               </div>
               <div className={styles['price-block']}>
                 <Text className={productStore.product.discountedPrice ? styles['old-price'] : ''}>
