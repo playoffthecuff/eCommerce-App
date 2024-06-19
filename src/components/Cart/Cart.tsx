@@ -42,6 +42,7 @@ export default observer(function Cart() {
               })}
             </ul>
             <Popconfirm
+              color="var(--color-link-footer)"
               title="Clear the cart"
               description="Are you sure to delete all items?"
               onConfirm={async () => {
