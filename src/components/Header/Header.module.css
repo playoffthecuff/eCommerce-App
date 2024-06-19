@@ -220,13 +220,13 @@
   }
 }
 
-@media (min-width: 728px) {
+@media (min-width: 729px) {
   .sider.active {
     left: -100%;
   }
 }
 
-@media (min-width: 728px) {
+@media (min-width: 729px) {
   .sider.active {
     left: -100%;
   }
