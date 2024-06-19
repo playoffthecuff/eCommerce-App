@@ -341,6 +341,10 @@ button {
   width: fit-content;
 }
 
+.ant-rate .ant-rate-star-second {
+  color: var(--color-button-disabled-text);
+}
+
 .ant-card {
   .ant-card-meta-avatar {
     padding-inline-end: 0;

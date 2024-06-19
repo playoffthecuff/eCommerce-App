@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import Ticker from '../../components/Ticker/Ticker';
 import styles from './Root.module.css';
 import PromotionTab from '../../components/PromotionTab/PromotionTab';
+import ScrollUpButton from '../../components/CustomButton/ScrollUpButton';
 
 const { Content } = Layout;
 
@@ -60,6 +61,7 @@ function Root() {
           <Outlet />
         </Content>
         <Footer />
+        <ScrollUpButton scrollToVisible={1560} />
       </Layout>
     </>
   );

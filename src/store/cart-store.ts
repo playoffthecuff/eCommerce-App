@@ -289,6 +289,7 @@ class CartStore {
     if (error) {
       return;
     }
+
     this._promoCodes = promoCodes;
   };
 

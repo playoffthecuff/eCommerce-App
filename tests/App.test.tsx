@@ -11,7 +11,7 @@ describe('Renders main page correctly', async () => {
     cleanup();
   });
 
-  it.skip('renders main page when path is /', async () => {
+  it('renders main page when path is /', async () => {
     // const router = createMemoryRouter(routerConfig, {
     //   initialEntries: ['/'],
     // });
