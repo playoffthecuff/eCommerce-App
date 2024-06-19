@@ -70,6 +70,7 @@ export interface ProductResponse {
   rating: number;
   title: string;
   description: string;
+  shortDescription?: string;
   vendorCode: number;
   price: number;
   discountedPrice?: number;

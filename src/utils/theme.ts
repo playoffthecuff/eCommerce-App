@@ -50,11 +50,6 @@ export const lightTheme: ThemeConfig = {
       fontFamily: 'Futura, sans-serif',
       fontWeight: 'bold',
       primaryShadow: 'none',
-      defaultBg: 'var(--color-primary)',
-      defaultHoverBg: 'var(--color-button-background)',
-      defaultColor: 'var(--color-button-text)',
-      defaultHoverColor: 'var(--color-button-hover-text)',
-      defaultActiveColor: 'var(--color-button-active-text)',
     },
     Form: {
       itemMarginBottom: 28,

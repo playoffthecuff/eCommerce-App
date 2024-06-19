@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
-import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space, notification } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined, SmileOutlined, FrownOutlined } from '@ant-design/icons';
+import { Rate, Typography, InputNumber, Divider, Radio, Spin, notification } from 'antd';
+import { SmileOutlined, FrownOutlined } from '@ant-design/icons';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
@@ -21,6 +21,7 @@ import { cartStore } from '../../store/cart-store';
 import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
 import { formatMoney } from '../../utils/format-money';
+import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -31,7 +32,6 @@ function ProductPage() {
   const [query] = useSearchParams();
   const vendorCode = query.get('vc')!;
   const [notificationAPI, contextHolder] = notification.useNotification();
-
   useEffect(() => {
     cartStore.loadItems();
   }, []);
@@ -100,56 +100,52 @@ function ProductPage() {
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles['product-container']}>
-          <div className={styles['image-block']}>
-            <Image.PreviewGroup
-              items={productStore.product.gallery?.map((img) => `data:image/png;base64,${img}`)}
-              preview={{
-                // eslint-disable-next-line react/no-unstable-nested-components
-                toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
-                  <Space size={24} className="toolbar-wrapper">
-                    <ZoomOutOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 1} onClick={onZoomOut} />
-                    <ZoomInOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 50} onClick={onZoomIn} />
-                  </Space>
-                ),
-              }}
-            >
-              <Image src={`data:image/png;base64,${productStore.product.gallery![0]}`} />
-            </Image.PreviewGroup>
-          </div>
-          <div className={styles['info-block']}>
-            <div className={styles['header-block']}>
-              <Title level={2}>{productStore.product.title}</Title>
+      <Spin spinning={cartStore.cartState === BootState.InProgress}>
+        <div className={styles.container}>
+          <div className={styles['product-container']}>
+            <div className={styles['image-block']}>
+              <ProductSwiper />
             </div>
-            <div className={styles['rate-block']}>
-              <Rate allowHalf disabled value={productStore.product.rating} />
-              <Paragraph copyable>{`#${productStore.product.vendorCode}`}</Paragraph>
-            </div>
-            <div className={styles['price-block']}>
-              <Text className={productStore.product.discountedPrice ? styles['old-price'] : ''}>
-                {formatMoney(productStore.product.price)}
-              </Text>
-              {!!productStore.product.discountedPrice && (
-                <Text className={styles['discounted-price']}>{formatMoney(productStore.product.discountedPrice)}</Text>
-              )}
-            </div>
-            <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>{productStore.product.description}</Paragraph>
-            <div className={styles['size-block']}>
-              <Paragraph>Size:</Paragraph>
-              <Radio.Group
-                onChange={(e) => {
-                  setSize(e.target.value);
-                  setQuantity(1);
-                }}
-                value={size}
-              >
-                <Radio.Button value="S">S</Radio.Button>
-                <Radio.Button value="M">M</Radio.Button>
-                <Radio.Button value="L">L</Radio.Button>
-              </Radio.Group>
-            </div>
-            <Spin spinning={cartStore.cartState === BootState.InProgress}>
+            <div className={styles['info-block']}>
+              <div className={styles['heading-block']}>
+                <Title ellipsis={{ tooltip: productStore.product.title }} level={2} style={{ marginTop: 8 }}>
+                  {productStore.product.title}
+                </Title>
+              </div>
+              <div className={styles['rate-block']}>
+                <Rate allowHalf disabled value={productStore.product.rating} />
+                <Paragraph>
+                  <Text>#</Text>
+                  <Text copyable>{`${productStore.product.vendorCode}`}</Text>
+                </Paragraph>
+              </div>
+              <div className={styles['price-block']}>
+                <Text className={productStore.product.discountedPrice ? styles['old-price'] : ''}>
+                  {formatMoney(productStore.product.price)}
+                </Text>
+                {!!productStore.product.discountedPrice && (
+                  <Text className={styles['discounted-price']}>
+                    {formatMoney(productStore.product.discountedPrice)}
+                  </Text>
+                )}
+              </div>
+              <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>
+                {productStore.product.shortDescription}
+              </Paragraph>
+              <div className={styles['size-block']}>
+                <Paragraph>Size:</Paragraph>
+                <Radio.Group
+                  onChange={(e) => {
+                    setSize(e.target.value);
+                    setQuantity(1);
+                  }}
+                  value={size}
+                >
+                  <Radio.Button value="S">S</Radio.Button>
+                  <Radio.Button value="M">M</Radio.Button>
+                  <Radio.Button value="L">L</Radio.Button>
+                </Radio.Group>
+              </div>
               <div className={styles['cart-block']}>
                 <InputNumber
                   min={1}
@@ -161,63 +157,63 @@ function ProductPage() {
                   disabled={Boolean(cartItem)}
                 />
                 {!cartItem && (
-                  <CustomButton variety="common" onClick={handleAddItem}>
+                  <CustomButton variety="common" className={styles['cart-button']} onClick={handleAddItem}>
                     ADD TO CART
                   </CustomButton>
                 )}
                 {cartItem && (
-                  <CustomButton style={{ width: '126px' }} variety="common" onClick={handleRemoveItem}>
+                  <CustomButton variety="common" className={styles['cart-button']} onClick={handleRemoveItem}>
                     REMOVE
                   </CustomButton>
                 )}
               </div>
-            </Spin>
-          </div>
-        </div>
-        <div>
-          <Title level={2}>PRODUCT DETAILS</Title>
-          <Divider style={{ marginTop: 0 }} />
-          <div className={styles['product-details-container']}>
-            <div>
-              <Paragraph>{productStore.product.description}</Paragraph>
             </div>
-            <div className={styles['overview-block']}>
+          </div>
+          <div>
+            <Title level={2}>PRODUCT DETAILS</Title>
+            <Divider style={{ marginTop: 0 }} />
+            <div className={styles['product-details-container']}>
               <div>
-                <Title level={5}>PRODUCT FEATURES</Title>
-                <Paragraph>
-                  <ul>
-                    {productStore.product.overview.map((item, index) => (
-                      <li key={`${index}`}>{item}</li>
-                    ))}
-                  </ul>
-                </Paragraph>
+                <Paragraph>{productStore.product.description}</Paragraph>
               </div>
-              <div>
-                <Title level={5}>3 YEARS WARRANTY</Title>
-                <div className={styles['warranty-block']}>
-                  <div className={styles.logo}>
-                    <LogoIcon />
+              <div className={styles['overview-block']}>
+                <div>
+                  <Title level={5}>PRODUCT FEATURES</Title>
+                  <Paragraph>
+                    <ul>
+                      {productStore.product.overview.map((item, index) => (
+                        <li key={`${index}`}>{item}</li>
+                      ))}
+                    </ul>
+                  </Paragraph>
+                </div>
+                <div>
+                  <Title level={5}>3 YEARS WARRANTY</Title>
+                  <div className={styles['warranty-block']}>
+                    <div className={styles.logo}>
+                      <LogoIcon />
+                    </div>
+                    <Paragraph>{WARRANTY_TEXT}</Paragraph>
                   </div>
-                  <Paragraph>{WARRANTY_TEXT}</Paragraph>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        {productStore.product.category === 'bikes' && (
-          <>
-            <TechSpecs />
-            <Geometry />
-          </>
-        )}
-        <div>
-          <Title level={2}>YOU MIGHT LIKE</Title>
-          <Divider style={{ marginTop: 0 }} />
-          <div className={classNames(styles['product-details-container'])}>
-            <BestBikes />
+          {productStore.product.category === 'bikes' && (
+            <>
+              <TechSpecs />
+              <Geometry />
+            </>
+          )}
+          <div>
+            <Title level={2}>YOU MIGHT LIKE</Title>
+            <Divider style={{ marginTop: 0 }} />
+            <div className={classNames(styles['product-details-container'])}>
+              <BestBikes />
+            </div>
           </div>
         </div>
-      </div>
+      </Spin>
       {contextHolder}
     </>
   );

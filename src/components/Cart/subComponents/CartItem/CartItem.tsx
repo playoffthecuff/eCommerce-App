@@ -82,15 +82,15 @@ export default observer(function CartItem({ item }: CartItemProps) {
           <div className={styles['counter-box']}>
             <div className={styles['product-counter']}>
               <CustomButton
-                style={{ width: '40px' }}
-                variety={ButtonVariety.FILTERS}
+                style={{ width: '44px' }}
+                variety={ButtonVariety.COMMON}
                 onClick={handleDecrement}
                 disabled={quantity === 1}
               >
                 <MinusOutlined />
               </CustomButton>
               <div className={styles.quantity}>{quantity}</div>
-              <CustomButton style={{ width: '40px' }} variety={ButtonVariety.FILTERS} onClick={handleIncrement}>
+              <CustomButton style={{ width: '44px' }} variety={ButtonVariety.COMMON} onClick={handleIncrement}>
                 <PlusOutlined />
               </CustomButton>
             </div>

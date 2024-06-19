@@ -2,6 +2,7 @@ export type User = {
   id: string;
   email: string;
   isActivated: boolean;
+  isRoot?: boolean;
   firstName: string;
   lastName: string;
   dateOfBirth: string;

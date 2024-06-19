@@ -4,6 +4,7 @@
   margin-top: 2rem;
   display: flex;
   gap: 1rem;
+  overflow-x: hidden;
 }
 
 .description-table {
@@ -22,7 +23,6 @@
 }
 
 .geometry-table {
-  width: 50%;
   td:first-child {
     font-weight: 600;
   }
