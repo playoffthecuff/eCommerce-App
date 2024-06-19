@@ -15,7 +15,7 @@ type CartItemProps = {
 };
 
 export default observer(function CartItem({ item }: CartItemProps) {
-  const { price, thumbs, discountedPrice, title, vendorCode, size, quantity, productId } = item;
+  const { price, thumbs, discountedPrice, title, vendorCode, size, quantity, productId, category } = item;
 
   const handleItemDelete = async () => {
     await cartStore.removeFromCart(productId, size);
@@ -74,7 +74,7 @@ export default observer(function CartItem({ item }: CartItemProps) {
             ) : (
               <p style={{ display: 'flex' }}>Price: {formatMoney(price)}</p>
             )}
-            <p>Size: {size}</p>
+            {category === 'bikes' && <p>Size: {size}</p>}
           </div>
         </div>
 

@@ -132,20 +132,22 @@ function ProductPage() {
               <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>
                 {productStore.product.shortDescription}
               </Paragraph>
-              <div className={styles['size-block']}>
-                <Paragraph>Size:</Paragraph>
-                <Radio.Group
-                  onChange={(e) => {
-                    setSize(e.target.value);
-                    setQuantity(1);
-                  }}
-                  value={size}
-                >
-                  <Radio.Button value="S">S</Radio.Button>
-                  <Radio.Button value="M">M</Radio.Button>
-                  <Radio.Button value="L">L</Radio.Button>
-                </Radio.Group>
-              </div>
+              {productStore.product.category === 'bikes' && (
+                <div className={styles['size-block']}>
+                  <Paragraph>Size:</Paragraph>
+                  <Radio.Group
+                    onChange={(e) => {
+                      setSize(e.target.value);
+                      setQuantity(1);
+                    }}
+                    value={size}
+                  >
+                    <Radio.Button value="S">S</Radio.Button>
+                    <Radio.Button value="M">M</Radio.Button>
+                    <Radio.Button value="L">L</Radio.Button>
+                  </Radio.Group>
+                </div>
+              )}
               <div className={styles['cart-block']}>
                 <InputNumber
                   min={1}

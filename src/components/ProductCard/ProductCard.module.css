@@ -102,6 +102,8 @@
 }
 
 .size-block {
+  height: 6rem;
+  padding: 1rem 0;
   span {
     width: 100%;
     display: inline-block;

@@ -17,7 +17,7 @@ type ProductCardProps = {
 };
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
-  const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id } = product;
+  const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id, category } = product;
   const navigate = useNavigate();
   const [sizeValue, setSizeValue] = useState<CartItem['size']>('M');
   const [notificationAPI, contextHolder] = notification.useNotification();
@@ -74,14 +74,20 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
         >
           <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
             <Card.Meta title={title} className={styles['product-title']} />
+
             <div className={styles['size-block']}>
-              <span>Size:</span>
-              <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
-                <Radio.Button value="S">S</Radio.Button>
-                <Radio.Button value="M">M</Radio.Button>
-                <Radio.Button value="L">L</Radio.Button>
-              </Radio.Group>
+              {category === 'bikes' && (
+                <>
+                  <span>Size:</span>
+                  <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
+                    <Radio.Button value="S">S</Radio.Button>
+                    <Radio.Button value="M">M</Radio.Button>
+                    <Radio.Button value="L">L</Radio.Button>
+                  </Radio.Group>
+                </>
+              )}
             </div>
+
             <div className={styles['card-body-wrapper']}>
               <div className={styles.productPrice}>
                 {discountedPrice ? (

@@ -10,7 +10,7 @@ export const MAX_PRODUCT_PRICE = 2_000;
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
-  private _besSellingProducts: ProductSummary[] = [];
+  private _bestSellingProducts: ProductSummary[] = [];
 
   private _filtersData: FiltersData | undefined;
 
@@ -39,7 +39,7 @@ class CatalogStore {
   }
 
   public get bestSellingProducts(): ProductSummary[] {
-    return this._besSellingProducts;
+    return this._bestSellingProducts;
   }
 
   public get filtersData(): FiltersData {
@@ -94,7 +94,7 @@ class CatalogStore {
     }
 
     runInAction(() => {
-      this._besSellingProducts = responseData.products;
+      this._bestSellingProducts = responseData.products;
       this._state = BootState.Success;
     });
   };

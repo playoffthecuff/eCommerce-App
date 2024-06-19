@@ -6,11 +6,13 @@ export interface ProductSummary {
   discountedPrice?: number;
   vendorCode: number;
   thumbs: string;
+  category: string;
 }
 export interface CartItem extends Omit<ProductSummary, 'rating'> {
   productId: string;
   quantity: number;
   size: 'M' | 'S' | 'L';
+  category: string;
 }
 
 export interface CartResponseData {
