@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
@@ -32,7 +32,6 @@ function ProductPage() {
   const [query] = useSearchParams();
   const vendorCode = query.get('vc')!;
   const [notificationAPI, contextHolder] = notification.useNotification();
-
   useEffect(() => {
     cartStore.loadItems();
   }, []);
@@ -109,7 +108,7 @@ function ProductPage() {
             </div>
             <div className={styles['info-block']}>
               <div className={styles['heading-block']}>
-                <Title ellipsis level={2} style={{ marginTop: 8 }}>
+                <Title ellipsis={{ tooltip: productStore.product.title }} level={2} style={{ marginTop: 8 }}>
                   {productStore.product.title}
                 </Title>
               </div>

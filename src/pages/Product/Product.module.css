@@ -14,6 +14,7 @@
 }
 
 .info-block {
+  width: 35%;
   flex-basis: 35%;
   display: flex;
   flex-direction: column;
@@ -34,6 +35,10 @@
   background-color: var(--color-gallery-background);
   transition: var(--background-color-delay);
   user-select: none;
+}
+
+.ellipsis {
+  max-width: 100%;
 }
 
 .heading-block {
@@ -113,21 +118,25 @@
 }
 
 @media (max-width: 728px) {
+  
+  .info-block {
+    width: auto;
+    margin-top: 2%;
+  }
+
   .product-container {
     flex-direction: column;
     gap: 0;
   }
+
   .header-block {
     padding-top: 0;
   }
+
   .overview-block {
     flex-direction: column;
     gap: 1rem;
   }
-}
-
-
-@media (max-width: 728px) {
 
   .cart-button {
     flex: 1;
