@@ -6,7 +6,7 @@
 
 .tabs {
   background-color: var(--color-background);
-  margin: 2rem auto;
+  margin: 2rem auto 1rem;
   padding: 0 1rem;
   cursor: pointer;
   max-width: 512px;
@@ -32,7 +32,7 @@
   padding: 0 1rem;
   max-width: 500px;
   width: 100%;
-  margin: 2rem auto;
+  margin: 0 auto 3rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -55,7 +55,7 @@
 }
 
 .add-new-btn {
-  width: 213px;
+  width: 212px;
   height: 230px;
   background-color: var(--color-menu-item-selected);
   display: flex;
