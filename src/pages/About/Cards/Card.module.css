@@ -3,12 +3,6 @@
   width: calc(100% - 20vw);
   max-width: 900px;
 
-  /* &:nth-child(1) {
-    margin-right: auto;
-  }
-  &:nth-child(3) {
-    margin-right: auto;
-  } */
   &:nth-child(2) {
     margin-left: auto;
     div[class~='ant-card-meta-avatar'] {
@@ -35,9 +29,6 @@
   margin-bottom: 1rem;
   margin-right: 1rem;
   margin-top: 0.5rem;
-}
-
-.reverse .team-avatar {
 }
 
 .team-description {
