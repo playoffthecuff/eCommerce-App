@@ -22,6 +22,7 @@ import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
 import { formatMoney } from '../../utils/format-money';
 import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -100,6 +101,9 @@ function ProductPage() {
 
   return (
     <>
+      <div className="container">
+        <Breadcrumbs />
+      </div>
       <Spin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles.container}>
           <div className={styles['product-container']}>
