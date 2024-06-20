@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { FrownOutlined, ShoppingFilled, ShoppingOutlined, SmileOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartItem, ProductSummary } from '../../types/types';
 import { BootState } from '../../enums';
 import { cartStore } from '../../store/cart-store';
@@ -56,7 +56,13 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
 
   return (
     <>
-      <a href={`${import.meta.env.BASE_URL}#/product?vc=${vendorCode}`} className={styles['product-card-link']}>
+      <Link
+        to={`/product?vc=${vendorCode}`}
+        className={styles['product-card-link']}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      >
         <Card
           className={styles.productCard}
           hoverable
@@ -127,7 +133,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
             <div className={styles['product-card-notification-container']} />
           </Skeleton>
         </Card>
-      </a>
+      </Link>
       {contextHolder}
     </>
   );
