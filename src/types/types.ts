@@ -7,6 +7,7 @@ export interface ProductSummary {
   vendorCode: number;
   thumbs: string;
   category: string;
+  shortDescription: string;
 }
 export interface CartItem extends Omit<ProductSummary, 'rating'> {
   productId: string;

@@ -1,4 +1,4 @@
-import { Card, Radio, RadioChangeEvent, Rate, Skeleton, Tooltip, notification } from 'antd';
+import { Card, Radio, RadioChangeEvent, Rate, Skeleton, Tooltip, Typography, notification } from 'antd';
 import classNames from 'classnames';
 import { FrownOutlined, MehOutlined, ShoppingOutlined, SmileOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
@@ -18,12 +18,13 @@ type ProductCardProps = {
 };
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
-  const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id, category } = product;
+  const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id, category, shortDescription } = product;
   const [sizeValue, setSizeValue] = useState<CartItem['size']>('M');
   const [notificationAPI, contextHolder] = notification.useNotification();
 
   const onChange = (event: RadioChangeEvent) => {
     setSizeValue(event.target.value);
+    console.log(shortDescription);
   };
 
   const handleAddToCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -83,35 +84,41 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
         hoverable
         cover={
           loading === BootState.InProgress ? (
-            <Link
-              to={`/product?vc=${vendorCode}`}
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <Skeleton.Image className={styles.skeletonImage} active />
-              <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
-            </Link>
+            <div className={styles['cover-wrapper']}>
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/product?vc=${vendorCode}`}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              >
+                <Skeleton.Image className={styles.skeletonImage} active />
+                <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
+              </Link>
+            </div>
           ) : (
-            <Link
-              to={`/product?vc=${vendorCode}`}
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <img
-                alt={title}
-                src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder}
-                className={styles.productImage}
-              />
-              <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
-            </Link>
+            <div className={styles['cover-wrapper']}>
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/product?vc=${vendorCode}`}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              >
+                <img
+                  alt={title}
+                  src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder}
+                  className={styles.productImage}
+                />
+                <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
+              </Link>
+            </div>
           )
         }
       >
         <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
           <div className={styles['size-block']}>
-            {category === 'bikes' && (
+            {(category === 'bikes' && (
               <>
                 <span>Size:</span>
                 <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
@@ -126,6 +133,12 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
                   </Radio.Button>
                 </Radio.Group>
               </>
+            )) || (
+              <Tooltip title={shortDescription}>
+                <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ width: 'fitContent', marginTop: '1rem' }}>
+                  {shortDescription}
+                </Typography.Paragraph>
+              </Tooltip>
             )}
           </div>
 
@@ -142,15 +155,15 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
             </div>
             {itemInCart && (
               <Tooltip title="Remove from Cart">
-                <div style={{ padding: '0.5rem' }}>
-                  <FullBagIcon className={styles['shopping-icon']} onClick={handleRemoveFromCart} />
+                <div style={{ padding: '0.5rem', cursor: 'pointer' }} onClick={handleRemoveFromCart}>
+                  <FullBagIcon className={styles['shopping-icon']} />
                 </div>
               </Tooltip>
             )}
             {!itemInCart && (
               <Tooltip title="Add to Cart">
-                <div style={{ padding: '0.5rem' }}>
-                  <ShoppingOutlined className={styles['shopping-icon']} onClick={handleAddToCart} />
+                <div style={{ padding: '0.5rem', cursor: 'pointer' }} onClick={handleAddToCart}>
+                  <ShoppingOutlined className={styles['shopping-icon']} />
                 </div>
               </Tooltip>
             )}

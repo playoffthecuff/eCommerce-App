@@ -25,13 +25,16 @@
   }
 }
 
-.product-card div[class~='ant-card-cover'] {
+.cover-wrapper {
+  background-color: var(--color-background-secondary);
   padding: 9px 16px;
+}
+
+.product-card div[class~='ant-card-cover'] {
 
   img {
     aspect-ratio: 16 / 9;
   }
-
 }
 
 .product-card div[class~='ant-card-body'] {
@@ -88,7 +91,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 19px;
+  margin-top: 1rem;
+  margin-bottom: 4px;
   width: 100%;
 }
 
@@ -115,8 +119,7 @@
 }
 
 .size-block {
-  height: 6rem;
-  padding: 1rem 0;
+  height: 4.25rem;
   span {
     width: 100%;
     display: inline-block;
