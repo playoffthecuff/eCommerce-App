@@ -18,10 +18,10 @@ export default observer(function SearchBlock() {
 
   return (
     <Search
-      placeholder="search bicycle"
+      placeholder="Find a product..."
       allowClear
       onSearch={onSearch}
-      style={{ width: 300 }}
+      style={{ width: 192 }}
       className={styles['search-input']}
     />
   );

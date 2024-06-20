@@ -3,12 +3,12 @@
 }
 
 .product-controls-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 758px) {
+@media (max-width: 728px) {
   .product-controls {
     padding: 2rem 0;
   }

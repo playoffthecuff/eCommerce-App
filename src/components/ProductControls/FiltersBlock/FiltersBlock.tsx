@@ -1,4 +1,4 @@
-import { Layout, Typography, Collapse } from 'antd';
+import { Layout, Typography, Collapse, Button } from 'antd';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
@@ -120,24 +120,23 @@ export default observer(function FiltersBlock() {
         </div>
         <Collapse items={items} bordered={false} className={styles['filter-collapse']} />
         <div className={styles['buttons-wrapper']}>
-          <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleApplyFilters}>
+          <CustomButton style={{ width: 192 }} variety="common" htmlType="button" onClick={handleApplyFilters}>
             Apply
           </CustomButton>
-          <CustomButton style={{ width: '160px' }} variety="common" htmlType="button" onClick={handleResetFilters}>
+          <CustomButton style={{ width: 192 }} variety="common" htmlType="button" onClick={handleResetFilters}>
             Reset Filters
           </CustomButton>
         </div>
       </Sider>
 
-      <CustomButton
-        style={{ width: '160px' }}
-        variety="filters"
+      <Button
+        style={{ width: 192 }}
         htmlType="button"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={toggleMenu}
       >
         Filter
-      </CustomButton>
+      </Button>
     </div>
   );
 });

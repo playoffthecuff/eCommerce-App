@@ -48,14 +48,14 @@ export default observer(function SortBlock() {
       <Select
         style={{ width: '100%' }}
         onChange={handleSortChange}
-        placeholder="select sort order"
+        placeholder="Sort order..."
         className={styles.select}
         value={sortToValue(catalogStore.payload.sorts?.[0])}
       >
-        <Option value="Alphabetically, A-Z">Alphabetically, A-Z</Option>
-        <Option value="Alphabetically, Z-A">Alphabetically, Z-A</Option>
-        <Option value="Price, low to high">Price, low to high</Option>
-        <Option value="Price, high to low">Price, high to low</Option>
+        <Option value="Alphabetically, A-Z">Alphabetically, A-Z 🠗</Option>
+        <Option value="Alphabetically, Z-A">Alphabetically, Z-A 🠕</Option>
+        <Option value="Price, low to high">Price, low to high 🠗</Option>
+        <Option value="Price, high to low">Price, high to low 🠕</Option>
       </Select>
     </div>
   );
