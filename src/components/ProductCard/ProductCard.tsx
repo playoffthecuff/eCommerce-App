@@ -77,84 +77,98 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
   const itemInCart = Boolean(cartStore.getCartItem(id, sizeValue));
 
   return (
-    <>
-      <Link
-        to={`/product?vc=${vendorCode}`}
-        className={styles['product-card-link']}
-        onClick={() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      >
-        <Card
-          className={styles.productCard}
-          hoverable
-          cover={
-            loading === BootState.InProgress ? (
+    <div className={styles['product-card-link']}>
+      <Card
+        className={styles['product-card']}
+        hoverable
+        cover={
+          loading === BootState.InProgress ? (
+            <Link
+              to={`/product?vc=${vendorCode}`}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <Skeleton.Image className={styles.skeletonImage} active />
-            ) : (
+              <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
+            </Link>
+          ) : (
+            <Link
+              to={`/product?vc=${vendorCode}`}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <img
                 alt={title}
                 src={thumbs ? `data:image/jpeg;base64,${thumbs}` : placeholder}
                 className={styles.productImage}
               />
-            )
-          }
-        >
-          <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
-            <Card.Meta title={title} className={styles['product-title']} />
+              <Card.Meta title={title} className={styles['product-title']} style={{ marginTop: '1rem' }} />
+            </Link>
+          )
+        }
+      >
+        <Skeleton loading={loading === BootState.InProgress} active paragraph={{ rows: 2 }}>
+          <div className={styles['size-block']}>
+            {category === 'bikes' && (
+              <>
+                <span>Size:</span>
+                <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
+                  <Radio.Button value="S" className={styles['size-button']}>
+                    S
+                  </Radio.Button>
+                  <Radio.Button value="M" className={styles['size-button']}>
+                    M
+                  </Radio.Button>
+                  <Radio.Button value="L" className={styles['size-button']}>
+                    L
+                  </Radio.Button>
+                </Radio.Group>
+              </>
+            )}
+          </div>
 
-            <div className={styles['size-block']}>
-              {category === 'bikes' && (
+          <div className={styles['card-body-wrapper']}>
+            <div className={styles.productPrice}>
+              {discountedPrice ? (
                 <>
-                  <span>Size:</span>
-                  <Radio.Group className={styles['size-radio-wrapper']} onChange={onChange} value={sizeValue}>
-                    <Radio.Button value="S">S</Radio.Button>
-                    <Radio.Button value="M">M</Radio.Button>
-                    <Radio.Button value="L">L</Radio.Button>
-                  </Radio.Group>
+                  <span className={classNames(styles.originalPrice, styles.lineThrough)}>{formatMoney(price)}</span>
+                  <span className={styles.discountedPrice}>{formatMoney(discountedPrice)}</span>
                 </>
+              ) : (
+                <span>{formatMoney(price)}</span>
               )}
             </div>
-
-            <div className={styles['card-body-wrapper']}>
-              <div className={styles.productPrice}>
-                {discountedPrice ? (
-                  <>
-                    <span className={classNames(styles.originalPrice, styles.lineThrough)}>{formatMoney(price)}</span>
-                    <span className={styles.discountedPrice}>{formatMoney(discountedPrice)}</span>
-                  </>
-                ) : (
-                  <span>{formatMoney(price)}</span>
-                )}
-              </div>
-              <div>
-                {itemInCart && (
-                  <Tooltip title="Remove from Cart">
-                    <FullBagIcon className={styles['shopping-icon']} onClick={handleRemoveFromCart} />
-                  </Tooltip>
-                )}
-                {!itemInCart && (
-                  <Tooltip title="Add to Cart">
-                    <ShoppingOutlined className={styles['shopping-icon']} onClick={handleAddToCart} />
-                  </Tooltip>
-                )}
-              </div>
-            </div>
-            <div className={styles['rate-wrapper']}>
-              <Rate
-                allowHalf
-                value={rating}
-                disabled
-                className={styles.rate}
-                style={{ color: 'var(--color-text)', fontSize: 10 }}
-              />
-              <div className={styles['rate-line']} />
-            </div>
-            <div className={styles['product-card-notification-container']} />
-          </Skeleton>
-        </Card>
-      </Link>
+            {itemInCart && (
+              <Tooltip title="Remove from Cart">
+                <div style={{ padding: '0.5rem' }}>
+                  <FullBagIcon className={styles['shopping-icon']} onClick={handleRemoveFromCart} />
+                </div>
+              </Tooltip>
+            )}
+            {!itemInCart && (
+              <Tooltip title="Add to Cart">
+                <div style={{ padding: '0.5rem' }}>
+                  <ShoppingOutlined className={styles['shopping-icon']} onClick={handleAddToCart} />
+                </div>
+              </Tooltip>
+            )}
+          </div>
+          <div className={styles['rate-wrapper']}>
+            <Rate
+              allowHalf
+              value={rating}
+              disabled
+              className={styles.rate}
+              style={{ color: 'var(--color-text)', fontSize: 10 }}
+            />
+            <div className={styles['rate-line']} />
+          </div>
+          <div className={styles['product-card-notification-container']} />
+        </Skeleton>
+      </Card>
       {contextHolder}
-    </>
+    </div>
   );
 });

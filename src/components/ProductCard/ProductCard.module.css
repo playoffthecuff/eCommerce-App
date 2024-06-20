@@ -3,8 +3,10 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: auto;
 
   & img {
+    width: 100%;
     transition: transform 0.3s ease;
   }
 
@@ -37,6 +39,12 @@
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
+}
+.size-button {
+  width: 34px;
+  height: 34px;
+  padding: unset;
+  text-align: center;
 }
 
 .product-image {
