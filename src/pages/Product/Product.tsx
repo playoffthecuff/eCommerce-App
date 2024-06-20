@@ -107,7 +107,7 @@ function ProductPage() {
 
   return (
     <>
-      <div className="container">
+      <div className="container" style={{ marginTop: '1rem' }}>
         <Breadcrumbs />
       </div>
       <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>

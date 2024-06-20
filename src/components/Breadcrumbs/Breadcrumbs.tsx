@@ -27,7 +27,8 @@ export const Breadcrumbs = observer(() => {
   return (
     <div className={styles.breadcrumbs}>
       <Link to="/">
-        <LogoIcon /> Home
+        <LogoIcon style={{ textDecoration: 'none', marginRight: '1ch' }} />
+        Home
       </Link>
       <span> / </span>
       {isProductDetailsPage || currentCategory ? <Link to="/catalog">Catalog</Link> : 'Catalog'}

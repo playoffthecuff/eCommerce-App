@@ -538,8 +538,8 @@ export function ThreeDudesGrowsIcon({ className, style }: Partial<CustomIconComp
   return <Icon component={ThreeDudesGrows} className={className} style={style} />;
 }
 
-export function LogoIcon({ className }: Partial<CustomIconComponentProps>) {
-  return <Icon component={LogoSvg} className={className} />;
+export function LogoIcon({ className, style }: Partial<CustomIconComponentProps>) {
+  return <Icon component={LogoSvg} className={className} style={style} />;
 }
 
 export function RSSIcon({ className }: Partial<CustomIconComponentProps>) {
