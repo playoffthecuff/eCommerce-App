@@ -23,6 +23,7 @@ import styles from './Product.module.css';
 import { formatMoney } from '../../utils/format-money';
 import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 import { CubeSpin, CubeSpinner } from '../../components/CubeSpinner/CubeSpinner';
+import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -106,6 +107,9 @@ function ProductPage() {
 
   return (
     <>
+      <div className="container">
+        <Breadcrumbs />
+      </div>
       <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles.container}>
           <div className={styles['product-container']}>
