@@ -10,6 +10,7 @@ import { cartStore } from '../../store/cart-store';
 import placeholder from '../../assets/images/load_failed.webp';
 import styles from './ProductCard.module.css';
 import { formatMoney } from '../../utils/format-money';
+import { FullBagIcon } from '../CustomIcons/CustomIcons';
 
 type ProductCardProps = {
   product: ProductSummary;
@@ -102,7 +103,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               <div>
                 {itemInCart && (
                   <Tooltip title="Go to Cart">
-                    <ShoppingFilled
+                    <FullBagIcon
                       className={styles['shopping-icon']}
                       onClick={(event) => {
                         event.stopPropagation();
