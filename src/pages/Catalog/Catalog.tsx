@@ -25,7 +25,7 @@ export default function CatalogPage() {
       <ProductControls />
       <div className="container">
         <div className="wrapper">
-          <section>
+          <section style={{ width: '100%' }}>
             <ProductList />
           </section>
         </div>

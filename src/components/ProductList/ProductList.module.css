@@ -2,7 +2,7 @@
   padding: 3rem 0;
   width: 100%;
 }
-
+/* ant-list-item ant-list-item-no-flex */
 .product-list ul[class~='ant-list-items'] {
   display: flex;
   flex-wrap: wrap;
