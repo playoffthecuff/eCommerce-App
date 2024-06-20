@@ -346,9 +346,6 @@ button {
 }
 
 .ant-card {
-  .ant-card-meta-avatar {
-    padding-inline-end: 0;
-  }
 
   .ant-card-meta-title {
     font-size: 1.25rem;

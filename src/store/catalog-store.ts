@@ -4,7 +4,7 @@ import { FiltersData, ProductSummary, Payload } from '../types/types';
 import { BootState } from '../types/boot-state';
 
 export const DEFAULT_PAGE = 1;
-export const DEFAULT_PAGE_SIZE = 8;
+export const DEFAULT_PAGE_SIZE = 12;
 export const MAX_PRODUCT_PRICE = 2_000;
 
 class CatalogStore {

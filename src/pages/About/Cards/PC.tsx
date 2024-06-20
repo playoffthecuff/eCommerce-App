@@ -29,7 +29,7 @@ const contentList: Record<string, React.ReactNode> = {
       <p className={styles['team-description']}>
         <TypedText
           delay={30}
-          text='Energy specialist with a background in "Management and Informatics in Technical Systems", focusing on automating technological processes. Participated in the development of a product line for high voltage power distribution and implemented many projects using it. I like to develop interfaces, and also music - I play the guitar and drums.'
+          text='Energy specialist with a background in "Management and Informatics in Technical Systems", focusing on automating technological processes. Participated in the development of a product line for high voltage power distribution. I like to develop interfaces.'
         />
       </p>
     </>

@@ -53,9 +53,11 @@ export default function AboutPage() {
         </div>
         <div className={styles['team-block']}>
           <div className={classNames(styles.heading, styles['mono-font'])}>const team = [</div>
-          <OHCard />
-          <KatCard />
-          <PCCard />
+          <div className={styles['team-card-wrapper']}>
+            <OHCard />
+            <KatCard />
+            <PCCard />
+          </div>
           <div className={classNames(styles.heading, styles['mono-font'])}>];</div>
         </div>
         <div className={styles['team-work']}>
