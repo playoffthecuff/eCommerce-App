@@ -12,6 +12,7 @@ import CustomButton from '../../../CustomButton/CustomButton';
 import { countriesStore } from '../../../../store/countries-store';
 import styles from '../../ProfileForm.module.css';
 import { checkIfFormValid } from '../../helpers';
+import { CubeSpinner } from '../../../CubeSpinner/CubeSpinner';
 
 export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType; onSubmit?: () => void }) => {
   const [country, setCountry] = useState<Country | undefined>();
@@ -82,7 +83,12 @@ export const AddAddressForm = observer(({ type, onSubmit }: { type: AddressType;
   };
 
   return (
-    <Spin spinning={isLoading} style={{ width: '212px' }} wrapperClassName={styles.spin}>
+    <Spin
+      indicator={<CubeSpinner size={32} tilted />}
+      spinning={isLoading}
+      style={{ width: '212px' }}
+      wrapperClassName={styles.spin}
+    >
       <Form
         layout="vertical"
         form={form}

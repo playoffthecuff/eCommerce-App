@@ -1,11 +1,11 @@
-import { ShoppingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { Spin, Tooltip } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cartStore } from '../../../store/cart-store';
 import styles from '../Header.module.css';
-import { BootState } from '../../../enums';
+import { BootState } from '../../../types/boot-state';
 
 const MAX_ITEMS_TO_SHOW = 9;
 
@@ -22,7 +22,7 @@ export const CartIcon = observer(() => {
     count = '';
   }
   if (cartStore.cartState === BootState.InProgress) {
-    count = <Spin size="small" />;
+    count = <Spin indicator={<LoadingOutlined spin />} size="small" />;
   }
 
   const icon = (

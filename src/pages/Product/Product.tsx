@@ -22,6 +22,7 @@ import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
 import { formatMoney } from '../../utils/format-money';
 import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+import { CubeSpin, CubeSpinner } from '../../components/CubeSpinner/CubeSpinner';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -91,7 +92,12 @@ function ProductPage() {
   };
 
   if (productStore.bootState === BootState.InProgress) {
-    return <Spin style={{ width: '100vw', position: 'absolute', top: '40dvh' }} />;
+    return (
+      <Spin
+        indicator={<CubeSpinner size={32} tilted />}
+        style={{ width: '100vw', position: 'absolute', top: '40dvh' }}
+      />
+    );
   }
   if (productStore.bootState !== BootState.Success || !productStore.product) {
     return <NoProductResult />;
@@ -100,7 +106,7 @@ function ProductPage() {
 
   return (
     <>
-      <Spin spinning={cartStore.cartState === BootState.InProgress}>
+      <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
@@ -215,7 +221,7 @@ function ProductPage() {
             </div>
           </div>
         </div>
-      </Spin>
+      </CubeSpin>
       {contextHolder}
     </>
   );

@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Country, countriesService } from '../utils/countries-service';
-import { BootState } from '../enums';
+import { BootState } from '../types/boot-state';
 
 class CountriesStore {
   private _countries: Country[] = [];

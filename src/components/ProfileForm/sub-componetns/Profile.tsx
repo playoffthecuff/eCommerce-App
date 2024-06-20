@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DatePicker, Form, Input, Spin, Typography, notification } from 'antd';
+import { DatePicker, Form, Input, Typography, notification } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { DiffOutlined, EditOutlined, FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { AxiosError } from 'axios';
@@ -10,6 +10,7 @@ import userStore from '../../../store/user-store';
 import styles from '../ProfileForm.module.css';
 import { ProfileFormFields } from '../types';
 import { checkIfFormValid } from '../helpers';
+import { CubeSpin } from '../../CubeSpinner/CubeSpinner';
 
 export const PersonalData = observer(() => {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +60,7 @@ export const PersonalData = observer(() => {
 
   return (
     <>
-      <Spin spinning={isLoading}>
+      <CubeSpin spinning={isLoading}>
         <div className={styles['profile-form']}>
           <Form
             form={form}
@@ -109,7 +110,7 @@ export const PersonalData = observer(() => {
             </CustomButton>
           )}
         </div>
-      </Spin>
+      </CubeSpin>
       {contextHolder}
     </>
   );

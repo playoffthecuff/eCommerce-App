@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartItem, ProductSummary } from '../../types/types';
-import { BootState } from '../../enums';
+import { BootState } from '../../types/boot-state';
 import { cartStore } from '../../store/cart-store';
 import placeholder from '../../assets/images/load_failed.webp';
 import styles from './ProductCard.module.css';

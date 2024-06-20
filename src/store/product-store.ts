@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { BootState } from '../enums';
+import { BootState } from '../types/boot-state';
 import { ProductResponse, ShortInfoResponse } from '../types/product-response';
 import { productService } from '../utils/product-service';
 

@@ -8,6 +8,7 @@ import userStore from '../../../store/user-store';
 import { PasswordDataFormFields } from '../types';
 import styles from '../ProfileForm.module.css';
 import { checkIfFormValid } from '../helpers';
+import { CubeSpinner } from '../../CubeSpinner/CubeSpinner';
 
 export function PasswordData() {
   const [isValid, setIsValid] = useState(true);
@@ -49,7 +50,12 @@ export function PasswordData() {
 
   return (
     <div className={styles['profile-form']}>
-      <Spin spinning={isLoading} style={{ width: '360px' }} wrapperClassName={styles.spin}>
+      <Spin
+        spinning={isLoading}
+        indicator={<CubeSpinner size={32} tilted />}
+        style={{ width: '360px' }}
+        wrapperClassName={styles.spin}
+      >
         <Form form={form} layout="vertical" onFieldsChange={() => checkIfFormValid(form, setIsValid)}>
           <Typography.Title level={4}>Change Password</Typography.Title>
           <Form.Item label="Enter your password" name="password" rules={passwordRules} hasFeedback validateFirst>
