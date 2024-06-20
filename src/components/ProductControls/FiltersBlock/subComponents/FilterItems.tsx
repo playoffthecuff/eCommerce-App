@@ -49,7 +49,6 @@ export const getFilterItems = ({
           onChange={onPriceChange}
         />
         <div className={styles['price-range']}>
-          {/* ${Math.floor(selectedPriceRange[0])} - ${Math.ceil(selectedPriceRange[1])} */}
           {formatMoney(Math.floor(selectedPriceRange[0]), false)} -
           {formatMoney(Math.ceil(selectedPriceRange[1]), false)}
         </div>
@@ -61,11 +60,10 @@ export const getFilterItems = ({
     label: 'CATEGORIES',
     children: (
       <Checkbox.Group
-        // options={filtersData?.categories}
         options={filtersData?.categories?.map((category) => toTitleCase(category)) || []}
         className={styles['filter-group']}
         onChange={onCategoryChange}
-        value={selectedCategories}
+        value={selectedCategories.map((category) => toTitleCase(category))}
       />
     ),
   },
