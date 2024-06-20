@@ -1,9 +1,8 @@
 import { Card, Radio, RadioChangeEvent, Rate, Skeleton, Tooltip, notification } from 'antd';
 import classNames from 'classnames';
-import { FrownOutlined, ShoppingFilled, ShoppingOutlined, SmileOutlined } from '@ant-design/icons';
+import { FrownOutlined, MehOutlined, ShoppingOutlined, SmileOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CartItem, ProductSummary } from '../../types/types';
 import { BootState } from '../../types/boot-state';
 import { cartStore } from '../../store/cart-store';
@@ -19,7 +18,6 @@ type ProductCardProps = {
 
 export default observer(function ProductCard({ product, loading }: ProductCardProps) {
   const { title, price, discountedPrice, vendorCode, rating, thumbs, _id: id, category } = product;
-  const navigate = useNavigate();
   const [sizeValue, setSizeValue] = useState<CartItem['size']>('M');
   const [notificationAPI, contextHolder] = notification.useNotification();
 
@@ -45,6 +43,28 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
     } catch (err) {
       notificationAPI.error({
         message: `Failed to add "${title}" to the cart.`,
+        description: 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2,
+      });
+    }
+  };
+
+  const handleRemoveFromCart = async (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    try {
+      await cartStore.removeFromCart(id, sizeValue);
+      notificationAPI.success({
+        message: `You have removed "${title}" from the cart.`,
+        placement: 'top',
+        icon: <MehOutlined />,
+        duration: 2.5,
+      });
+    } catch (err) {
+      notificationAPI.error({
+        message: `Failed to remove "${title}" from the cart.`,
         description: 'Please try again.',
         placement: 'top',
         icon: <FrownOutlined />,
@@ -102,16 +122,8 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
               </div>
               <div>
                 {itemInCart && (
-                  <Tooltip title="Go to Cart">
-                    <FullBagIcon
-                      className={styles['shopping-icon']}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        navigate('/cart');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    />
+                  <Tooltip title="Remove from Cart">
+                    <FullBagIcon className={styles['shopping-icon']} onClick={handleRemoveFromCart} />
                   </Tooltip>
                 )}
                 {!itemInCart && (

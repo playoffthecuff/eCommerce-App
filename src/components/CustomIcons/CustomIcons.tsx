@@ -39,6 +39,7 @@ function SadBag() {
       <path
         d="M7.63609 9.32443C7.45057 9.06909 7.20726 8.86128 6.92604 8.71799C6.64482 8.5747 6.33368 8.5 6.01806 8.5C5.70244 8.5 5.3913 8.5747 5.11008 8.71799C4.82886 8.86128 4.58554 9.06909 4.40002 9.32443"
         stroke="currentColor"
+        strokeLinecap="round"
         fill="none"
       />
       <path d="M4.50005 6.8002C4.50005 7.13157 4.23142 7.4002 3.90005 7.4002C3.56868 7.4002 3.30005 7.13157 3.30005 6.8002C3.30005 6.46883 3.56868 6.2002 3.90005 6.2002C4.23142 6.2002 4.50005 6.46883 4.50005 6.8002Z" />
@@ -51,10 +52,7 @@ function FullBag() {
   return (
     <svg width="1em" height="1em" viewBox="0 0 12 12" fill="currentColor">
       <path d="M10.2858 3.32164H8.46434V3.10735C8.46434 1.74664 7.36077 0.643066 6.00005 0.643066C4.63934 0.643066 3.53577 1.74664 3.53577 3.10735V3.32164H1.71434C1.47728 3.32164 1.28577 3.51316 1.28577 3.75021V10.9288C1.28577 11.1658 1.47728 11.3574 1.71434 11.3574H10.2858C10.5228 11.3574 10.7143 11.1658 10.7143 10.9288V3.75021C10.7143 3.51316 10.5228 3.32164 10.2858 3.32164ZM4.50005 3.10735C4.50005 2.27833 5.17103 1.60735 6.00005 1.60735C6.82907 1.60735 7.50005 2.27833 7.50005 3.10735V3.32164H4.50005V3.10735ZM9.75005 10.3931H2.25005V4.28592H3.53577V5.4645C3.53577 5.52342 3.58398 5.57164 3.64291 5.57164H4.39291C4.45184 5.57164 4.50005 5.52342 4.50005 5.4645V4.28592H7.50005V5.4645C7.50005 5.52342 7.54827 5.57164 7.6072 5.57164H8.3572C8.41612 5.57164 8.46434 5.52342 8.46434 5.4645V4.28592H9.75005V10.3931Z" />
-      <path
-        d="M6.35059 7.10205C3.35059 6.60204 2 8.10221 2 8.10221V10.602H10.1336V8.60208C10.1336 8.60208 9.35059 7.60207 6.35059 7.10205Z"
-        stroke="currentColor"
-      />
+      <path d="M6 6.5C3 6.5 2 7.99982 2 7.99982V10.9998H10V7.99982C10 7.99982 9 6.5 6 6.5Z" />
     </svg>
   );
 }
@@ -521,8 +519,8 @@ export function SadBagIcon({ className, style }: Partial<CustomIconComponentProp
   return <Icon component={SadBag} className={className} style={style} />;
 }
 
-export function FullBagIcon({ className, style, onClick }: Partial<CustomIconComponentProps>) {
-  return <Icon component={FullBag} className={className} style={style} onClick={onClick} />;
+export function FullBagIcon(props: Partial<CustomIconComponentProps>) {
+  return <Icon component={FullBag} {...props} />;
 }
 export function ScrumIcon({ className }: Partial<CustomIconComponentProps>) {
   return <Icon component={Scrum} className={className} />;

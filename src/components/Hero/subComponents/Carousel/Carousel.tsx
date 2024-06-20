@@ -10,7 +10,7 @@ function Carousel() {
     <div
       className={styles['carousel-wrapper']}
       style={
-        document.body.clientWidth === window.innerWidth ? { maxWidth: '100vw' } : { maxWidth: 'calc(100vw - 11px)' }
+        document.body.clientWidth === window.innerWidth ? { maxWidth: '100vw' } : { maxWidth: 'calc(100vw - 8px)' }
       }
     >
       <AntCarousel autoplay autoplaySpeed={5000} className={styles.carousel}>

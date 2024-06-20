@@ -24,7 +24,12 @@
 }
 
 .product-card div[class~='ant-card-cover'] {
-  padding: 10px;
+  padding: 9px 16px;
+
+  img {
+    aspect-ratio: 16 / 9;
+  }
+
 }
 
 .product-card div[class~='ant-card-body'] {
