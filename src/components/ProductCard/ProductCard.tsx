@@ -134,11 +134,17 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
                 </Radio.Group>
               </>
             )) || (
-              <Tooltip title={shortDescription}>
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/product?vc=${vendorCode}`}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              >
                 <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ width: 'fitContent', marginTop: '1rem' }}>
                   {shortDescription}
                 </Typography.Paragraph>
-              </Tooltip>
+              </Link>
             )}
           </div>
 
@@ -146,7 +152,7 @@ export default observer(function ProductCard({ product, loading }: ProductCardPr
             <div className={styles.productPrice}>
               {discountedPrice ? (
                 <>
-                  <span className={classNames(styles.originalPrice, styles.lineThrough)}>{formatMoney(price)}</span>
+                  <span className={classNames(styles.originalPrice, styles['old-pice'])}>{formatMoney(price)}</span>
                   <span className={styles.discountedPrice}>{formatMoney(discountedPrice)}</span>
                 </>
               ) : (

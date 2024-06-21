@@ -7,7 +7,7 @@
     margin: 0;
     width: 128px;
     line-height: 1.25;
-    color: var(--color-error);
+    color: var(--color-accent-footer);
   }
 }
 
@@ -16,7 +16,7 @@
   padding: 0.5rem;
   padding-left: 0;
   height: 40px;
-  color: #5875da;
+  color: var(--color-link-footer-hover);
 }
 
 .text {
