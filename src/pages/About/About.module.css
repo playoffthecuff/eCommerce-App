@@ -1,15 +1,141 @@
-.text {
-  font-size: 1rem;
-  display: inline-flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5ch;
+.hero {
+  user-select: none;
+  width: 100%;
+  height: calc(100dvh - 176px);
+  padding: calc(20dvh - 35px) 1rem 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.3)
+  );
 }
 
-.error-image-wrapper {
-  max-width: 20rem;
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', monospace;
+  font-size: min(15vw, 6rem);
+  color: var(--color-primary);
 
-  img {
+  &:hover .flip {
+    transform: scaleX(1);
+  }
+}
+
+.flip {
+  align-self: end;
+  display: inline-block;
+  transform: scaleX(-1);
+  transition: transform 0.8s;
+  color: var(--color-error);
+}
+
+.logo-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  text-align: right;
+}
+
+.rss-logo {
+  display: inline-block;
+  font-size: 8rem;
+  line-height: 1.5rem;
+  color: var(--color-text);
+  transition: var(--color-delay);
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.welcome-block {
+  width: 100%;
+  margin: 4rem 0;
+}
+
+.mono-font {
+  font-family: 'Roboto';
+}
+
+.team-block {
+  padding: 0.5rem;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.team-card-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  /* justify-content: center; */
+}
+
+.heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.welcome-img {
+  margin-top: 0.25rem;
+  height: 5rem;
+  float: left;
+}
+
+.welcome-text {
+  max-width: 66.5rem;
+  font-size: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.team-work {
+  width: 100%;
+  font-size: 32px;
+  margin-bottom: 8rem;
+}
+
+.team-work-entry {
+  width: calc(100% - 20vw);
+  max-width: 728px;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  &:nth-child(odd) {
+    margin-left: auto;
+  }
+}
+
+.tag {
+  font-size: 1rem;
+  margin-inline-end: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .team-work-entry {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-card-wrapper {
+    justify-content: center;
+  }
+  .team-work-entry {
     width: 100%;
   }
 }

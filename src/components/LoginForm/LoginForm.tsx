@@ -1,4 +1,4 @@
-import { Form, Input, Typography, FormProps, notification, Spin } from 'antd';
+import { Form, Input, Typography, FormProps, notification } from 'antd';
 import type { NotificationArgsProps } from 'antd';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import styles from './LoginForm.module.css';
 import userStore from '../../store/user-store';
 import CustomButton from '../CustomButton/CustomButton';
 import { emailRules, passwordRules } from '../../utils/fields-validation';
+import { cartStore } from '../../store/cart-store';
+import { CubeSpin } from '../CubeSpinner/CubeSpinner';
 
 const { Text, Title, Link, Paragraph } = Typography;
 
@@ -63,6 +65,8 @@ export default function LoginForm() {
       setTimeout(() => {
         navigate('/main');
       }, 1600);
+
+      cartStore.mergeCarts();
     } catch (err) {
       const error = err as Error;
       setFormEnabled(false);
@@ -72,7 +76,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Spin spinning={spinRotate}>
+    <CubeSpin spinning={spinRotate}>
       <Form
         name="login"
         className={styles.loginForm}
@@ -121,6 +125,6 @@ export default function LoginForm() {
           </CustomButton>
         </Form.Item>
       </Form>
-    </Spin>
+    </CubeSpin>
   );
 }

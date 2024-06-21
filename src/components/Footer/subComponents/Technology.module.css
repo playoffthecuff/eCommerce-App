@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.title {
+  color: var(--color-accent-footer);
+  a {
+    color: var(--color-link-footer);
+
+    &:hover {
+      color: var(--color-link-footer-hover);
+    }
+  }
+}
+
+h5.title {
+  margin: 0;
+  color: var(--color-accent-footer);
+}
+
+.content {
+  display: flex;
+  gap: 2rem;
+}
+
+a.about {
+  color: var(--color-accent-footer);
+  &:hover {
+    color: var(--color-accent-footer-hover);
+  }
+}

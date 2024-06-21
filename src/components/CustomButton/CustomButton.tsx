@@ -18,13 +18,13 @@ interface ExtendedButtonProps extends ButtonProps {
 }
 
 export default function CustomButton(props: ExtendedButtonProps): JSX.Element {
-  const { variety, ...restProps } = props;
+  const { variety, className, ...restProps } = props;
   const buttonProps = { ...(restProps as ButtonProps) };
 
   return (
     <Button
       type="default"
-      className={classNames(defaultButtonStyles.defaultButton, afterEffectStyles.afterEffect, {
+      className={classNames(defaultButtonStyles.defaultButton, className, afterEffectStyles.afterEffect, {
         [commonButtonStyles.commonButton]: variety === ButtonVariety.COMMON,
         [invertedCommonButtonStyles.invertedButton]: variety === ButtonVariety.INVERTED,
         [filtersButtonStyles.filtersButton]: variety === ButtonVariety.FILTERS,

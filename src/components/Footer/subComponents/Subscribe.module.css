@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  h5.title {
+    color: var(--color-accent-footer);
+    margin: 0;
+  }
+
+  span {
+    color: var(--color-footer-text);
+  }
+
+  .input {
+    background: #141414;
+    border-color: #424242;
+    -webkit-text-fill-color: #888 !important;
+  }
+
+  .button {
+    background: var(--color-link-footer-hover);
+  }
+
+  .button.button:hover {
+    background: var(--color-link-footer);
+  }
+}

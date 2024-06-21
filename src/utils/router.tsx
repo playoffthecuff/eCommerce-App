@@ -9,7 +9,8 @@ import ProfilePage from '../pages/Profile/Profile';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import DevPage from '../pages/Develop/Develop';
 import ProductPage from '../pages/Product/Product';
-// import AdminPage from '../pages/Admin/Admin';
+import CartPage from '../pages/Cart/CartPage';
+import AdminPage from '../pages/Admin/Admin';
 
 const router = createHashRouter([
   {
@@ -57,10 +58,14 @@ const router = createHashRouter([
         path: '/product',
         element: <ProductPage />,
       },
-      // {
-      //   path: '/admin',
-      //   element: <AdminPage />,
-      // },
+      {
+        path: '/cart',
+        element: <CartPage />,
+      },
+      {
+        path: '/admin',
+        element: <AdminPage />,
+      },
       {
         path: '*',
         element: <ErrorPage />,

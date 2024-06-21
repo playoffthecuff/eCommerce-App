@@ -1,16 +1,14 @@
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/no-array-index-key */
-import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
-import { Rate, Typography, InputNumber, Divider, Radio, Spin, Image, Space } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
+import { Rate, Typography, InputNumber, Divider, Radio, Spin, notification } from 'antd';
+import { SmileOutlined, FrownOutlined } from '@ant-design/icons';
 import TechSpecs from '../../components/TechSpecs/TechSpecs';
 import Geometry from '../../components/Geometry/Geometry';
 import NoProductResult from '../../components/NoProductResult/NoProductResult';
-// import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
 import BestBikes from '../../components/BestBikes/BestBikes';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { LogoIcon } from '../../components/CustomIcons/CustomIcons';
@@ -19,71 +17,167 @@ import productStore from '../../store/product-store';
 
 import { WARRANTY_TEXT } from '../../utils/product-service';
 import { BootState } from '../../types/boot-state';
+import { cartStore } from '../../store/cart-store';
+import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
+import { formatMoney } from '../../utils/format-money';
+import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+import { CubeSpin, CubeSpinner } from '../../components/CubeSpinner/CubeSpinner';
+import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 
 const { Paragraph, Text, Title } = Typography;
 
 function ProductPage() {
   const location = useLocation();
+  const [size, setSize] = useState<CartItem['size']>('M');
+  const [quantity, setQuantity] = useState(1);
+  const [query] = useSearchParams();
+  const vendorCode = query.get('vc')!;
+  const [notificationAPI, contextHolder] = notification.useNotification();
   useEffect(() => {
-    const vendorCode = location.search.split('=')[1];
+    cartStore.loadItems();
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       await productStore.loadProduct(vendorCode);
     }
     fetchData();
   }, [location.search]);
 
-  switch (productStore.bootState) {
-    case BootState.Success:
-      return (
+  const handleAddItem = async () => {
+    const { _id: productId, title } = productStore.product!;
+    try {
+      await cartStore.addToCart({
+        productId,
+        size,
+        quantity,
+      });
+      notificationAPI.success({
+        message: `You have added "${title}" to the cart.`,
+        placement: 'top',
+        icon: <SmileOutlined />,
+        duration: 2.5,
+      });
+    } catch (err) {
+      notificationAPI.error({
+        message: `Failed to add "${title}" to the cart.`,
+        description: 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2,
+      });
+    }
+  };
+
+  const handleRemoveItem = async () => {
+    setQuantity(1);
+    const { _id: id, title } = productStore.product!;
+    try {
+      await cartStore.removeFromCart(id, size);
+      notificationAPI.success({
+        message: `You have removed "${title}" from the cart.`,
+        placement: 'top',
+        icon: <SmileOutlined />,
+        duration: 2.5,
+      });
+    } catch (err) {
+      notificationAPI.error({
+        message: `Failed to remove "${title}" from the cart.`,
+        description: 'Please try again.',
+        placement: 'top',
+        icon: <FrownOutlined />,
+        duration: 2,
+      });
+    }
+  };
+
+  if (productStore.bootState === BootState.InProgress) {
+    return (
+      <Spin
+        indicator={<CubeSpinner size={32} tilted />}
+        style={{ width: '100vw', position: 'absolute', top: '40dvh' }}
+      />
+    );
+  }
+  if (productStore.bootState !== BootState.Success || !productStore.product) {
+    return <NoProductResult />;
+  }
+  const cartItem = cartStore.getCartItem(productStore.product._id, size);
+
+  return (
+    <>
+      <div className="container" style={{ marginTop: '1rem' }}>
+        <Breadcrumbs />
+      </div>
+      <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
-              {/* <ProductSwiper /> */} {/* TODO: back to swiper next sprint */}
-              <Image.PreviewGroup
-                items={productStore.product?.gallery?.map((img) => `data:image/png;base64,${img}`)}
-                preview={{
-                  toolbarRender: (_, { transform: { scale }, actions: { onZoomOut, onZoomIn } }) => (
-                    <Space size={24} className="toolbar-wrapper">
-                      <ZoomOutOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 1} onClick={onZoomOut} />
-                      <ZoomInOutlined style={{ fontSize: '1.25rem' }} disabled={scale === 50} onClick={onZoomIn} />
-                    </Space>
-                  ),
-                }}
-              >
-                <Image src={`data:image/png;base64,${productStore.product?.gallery![0]}`} />
-              </Image.PreviewGroup>
+              <ProductSwiper />
             </div>
             <div className={styles['info-block']}>
-              <div className={styles['header-block']}>
-                <Title level={2}>{productStore.product?.title}</Title>
+              <div className={styles['heading-block']}>
+                <Title ellipsis={{ tooltip: productStore.product.title }} level={2} style={{ marginTop: 8 }}>
+                  {productStore.product.title}
+                </Title>
               </div>
               <div className={styles['rate-block']}>
-                <Rate allowHalf disabled value={productStore.product?.rating} />
-                <Paragraph copyable>{`#${productStore.product?.vendorCode}`}</Paragraph>
+                <Rate allowHalf disabled value={productStore.product.rating} />
+                <Paragraph>
+                  <Text>#</Text>
+                  <Text copyable>{`${productStore.product.vendorCode}`}</Text>
+                </Paragraph>
               </div>
               <div className={styles['price-block']}>
-                <Text
-                  className={productStore.product?.discountedPrice ? styles['old-price'] : ''}
-                >{`$${productStore.product?.price}`}</Text>
-                {!!productStore.product?.discountedPrice && (
-                  <Text className={styles['discounted-price']}>{`$${productStore.product.discountedPrice}`}</Text>
+                <Text className={productStore.product.discountedPrice ? styles['old-price'] : ''}>
+                  {formatMoney(productStore.product.price)}
+                </Text>
+                {!!productStore.product.discountedPrice && (
+                  <Text className={styles['discounted-price']}>
+                    {formatMoney(productStore.product.discountedPrice)}
+                  </Text>
                 )}
               </div>
               <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>
-                {productStore.product?.description}
+                {productStore.product.shortDescription}
               </Paragraph>
-              <div className={styles['size-block']}>
-                <Paragraph>Size:</Paragraph>
-                <Radio.Group>
-                  <Radio.Button value="S">S</Radio.Button>
-                  <Radio.Button value="M">M</Radio.Button>
-                  <Radio.Button value="L">L</Radio.Button>
-                </Radio.Group>
-              </div>
+              {productStore.product.category === 'bikes' && (
+                <div className={styles['size-block']}>
+                  <Paragraph>Size:</Paragraph>
+                  <Radio.Group
+                    onChange={(e) => {
+                      setSize(e.target.value);
+                      setQuantity(1);
+                    }}
+                    value={size}
+                  >
+                    <Radio.Button value="S">S</Radio.Button>
+                    <Radio.Button value="M">M</Radio.Button>
+                    <Radio.Button value="L">L</Radio.Button>
+                  </Radio.Group>
+                </div>
+              )}
               <div className={styles['cart-block']}>
-                <InputNumber defaultValue={1} min={1} />
-                <CustomButton variety="common">ADD TO CART</CustomButton>
+                <InputNumber
+                  min={1}
+                  value={cartItem ? cartItem.quantity : quantity}
+                  onChange={(value) => {
+                    if (cartItem || !value) return;
+                    setQuantity(value);
+                  }}
+                  disabled={Boolean(cartItem)}
+                />
+                {!cartItem && (
+                  <CustomButton variety="common" className={styles['cart-button']} onClick={handleAddItem}>
+                    ADD TO CART
+                  </CustomButton>
+                )}
+                {cartItem && (
+                  <CustomButton variety="common" className={styles['cart-button']} onClick={handleRemoveItem}>
+                    REMOVE
+                  </CustomButton>
+                )}
               </div>
             </div>
           </div>
@@ -92,13 +186,17 @@ function ProductPage() {
             <Divider style={{ marginTop: 0 }} />
             <div className={styles['product-details-container']}>
               <div>
-                <Paragraph>{productStore.product?.description}</Paragraph>
+                <Paragraph>{productStore.product.description}</Paragraph>
               </div>
               <div className={styles['overview-block']}>
                 <div>
                   <Title level={5}>PRODUCT FEATURES</Title>
                   <Paragraph>
-                    <ul>{productStore.product?.overview.map((item, index) => <li key={`${index}`}>{item}</li>)}</ul>
+                    <ul>
+                      {productStore.product.overview.map((item, index) => (
+                        <li key={`${index}`}>{item}</li>
+                      ))}
+                    </ul>
                   </Paragraph>
                 </div>
                 <div>
@@ -113,7 +211,7 @@ function ProductPage() {
               </div>
             </div>
           </div>
-          {productStore.product?.category === 'bikes' && (
+          {productStore.product.category === 'bikes' && (
             <>
               <TechSpecs />
               <Geometry />
@@ -127,12 +225,10 @@ function ProductPage() {
             </div>
           </div>
         </div>
-      );
-    case BootState.InProgress:
-      return <Spin style={{ width: '100vw', position: 'absolute', top: '40dvh' }} />;
-    default:
-      return <NoProductResult />;
-  }
+      </CubeSpin>
+      {contextHolder}
+    </>
+  );
 }
 
 const observableProductPage = observer(ProductPage);

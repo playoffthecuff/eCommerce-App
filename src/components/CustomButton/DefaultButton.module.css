@@ -3,9 +3,9 @@
   display: block;
   overflow: hidden;
   border: none;
-  transition: background-color 0.4s;
   background-color: var(--color-primary);
   color: var(--color-button-text);
+  transition: background-color 0.8s, color 0.8s;
 
   > span {
     position: relative;

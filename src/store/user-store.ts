@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { Address, AddressType, SignUpArg, SignUpResponse, UpdateUserArg, User } from '../types/authorization-response';
 import UserService from '../utils/user-service';
-import { BootState } from '../enums';
+import { BootState } from '../types/boot-state';
 
 class UserStore {
   private _user: User | undefined;

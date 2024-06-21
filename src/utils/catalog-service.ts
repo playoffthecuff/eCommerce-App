@@ -22,7 +22,7 @@ class CatalogService {
 
   loadFiltersData = async (): Promise<[FiltersData, Error | undefined]> => {
     try {
-      const resp = await api.post<FiltersData>('/products/filters');
+      const resp = await api.get<FiltersData>('/products/filters');
 
       return [resp.data, undefined];
     } catch (error) {

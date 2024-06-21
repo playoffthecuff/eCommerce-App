@@ -9,30 +9,30 @@ export function getSystemTheme(): Theme {
 }
 
 const noVarTokenLight = {
-  colorPrimary: '#2644ad',
+  colorPrimary: '#541388',
   colorPrimaryHover: '#111',
-  colorError: '#ad4426',
-  colorSuccess: '#44ad26',
-  colorLink: '#2644ad',
-  colorLinkHover: '#5875da',
+  colorError: '#B42200',
+  colorSuccess: '#22B400',
+  colorLink: '#541388',
+  colorLinkHover: '#966cad',
 };
 
 const noVarTokenDark = {
-  colorPrimary: '#5875da',
-  colorPrimaryHover: '#ddd',
-  colorError: '#df856c',
-  colorSuccess: '#85df6c',
-  colorLink: '#5875da',
-  colorLinkHover: '#2644ad',
+  colorPrimary: '#966cad',
+  colorPrimaryHover: '#999EB0',
+  colorError: '#F62F00',
+  colorSuccess: '#2ADE00',
+  colorLink: '#966cad',
+  colorLinkHover: '#78508F',
 };
 
 export const lightTheme: ThemeConfig = {
-  // cssVar: true,
-  // hashed: false,
+  cssVar: true,
+  hashed: false,
   token: {
     ...noVarTokenLight,
 
-    fontFamily: 'Haas',
+    fontFamily: 'Haas, sans-serif',
 
     borderRadius: 0,
     controlHeight: 36,
@@ -47,25 +47,23 @@ export const lightTheme: ThemeConfig = {
   },
   components: {
     Button: {
-      fontFamily: 'Futura',
+      fontFamily: 'Futura, sans-serif',
       fontWeight: 'bold',
       primaryShadow: 'none',
-      defaultBg: 'var(--color-primary)',
-      defaultHoverBg: 'var(--color-button-background)',
-      defaultColor: 'var(--color-button-text)',
-      defaultHoverColor: 'var(--color-button-hover-text)',
-      defaultActiveColor: 'var(--color-button-active-text)',
     },
     Form: {
       itemMarginBottom: 28,
       verticalLabelPadding: 0,
+    },
+    Input: {
+      hoverBorderColor: 'var(--color-border-hover)',
     },
     Menu: {
       itemColor: 'var(--color-menu-item-text)',
       itemHoverColor: 'var(--color-menu-item-hover)',
       itemPaddingInline: 12,
       horizontalItemSelectedColor: 'var(--color-menu-item-selected)',
-      fontFamily: 'Futura',
+      fontFamily: 'Futura, sans-serif',
       colorBgContainer: 'transparent',
     },
     Layout: {
@@ -94,6 +92,9 @@ export const lightTheme: ThemeConfig = {
       itemPaddingLG: '0px',
       itemPaddingSM: '0px',
       itemPadding: '0px',
+    },
+    Carousel: {
+      dotOffset: 30,
     },
   },
 };

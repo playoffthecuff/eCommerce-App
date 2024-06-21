@@ -2,9 +2,26 @@
   padding: 3rem 0;
   width: 100%;
 }
-
+/* ant-list-item ant-list-item-no-flex */
 .product-list ul[class~='ant-list-items'] {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
+  gap: 2rem;
+
+  & li[class~='ant-list-item'] {
+    width: calc((100% - 6rem) / 4);
+
+    @media (max-width: 1280px) {
+      width: calc((100% - 4rem) / 3);
+    }
+
+    @media (max-width: 1024px) {
+      width: calc(50% - 1rem);
+    }
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
 }

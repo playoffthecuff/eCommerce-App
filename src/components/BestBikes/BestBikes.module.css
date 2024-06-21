@@ -11,10 +11,26 @@
 }
 
 .product-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
   list-style: none;
   padding: 0;
+}
+
+.product-list-item {
+  flex: 1 1 calc((100% - 3 * 32px) / 4);
+}
+
+@media (max-width: 1040px) {
+  .product-list-item {
+    flex: 1 1 calc((100% - 32px) / 2);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-list-item {
+    flex: 1 1 100%;
+  }
 }

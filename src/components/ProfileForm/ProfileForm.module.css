@@ -1,16 +1,24 @@
 .profile-form {
-  /* margin: 0 128px; */
-  margin-left: 128px;
-  padding-bottom: 1.5rem;
-  max-width: 320px;
-  /* width: 100%; */
+  margin: 0 auto;
+  width: 320px;
+  margin-bottom: 3rem;
 }
 
 .tabs {
-  padding: 1rem 1rem 0rem;
-  /* max-width: 450px; */
-  max-width: 900px;
+  background-color: var(--color-background);
+  margin: 2rem auto 1rem;
+  padding: 0 1rem;
+  cursor: pointer;
+  max-width: 512px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.active {
+  border-bottom: 2px solid var(--color-menu-item-selected);
+  color: var(--color-menu-item-selected);
 }
 
 .modal-form {
@@ -21,19 +29,19 @@
 }
 
 .address-form-styles {
-  /* max-width: 360px; */
-  max-width: 728px;
-  margin: 0 auto;
-  margin-left: 128px;
+  padding: 0 1rem;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto 3rem;
   display: flex;
-  /* justify-content: center; */
-  /* flex-direction: column; */
   flex-wrap: wrap;
   gap: 1rem;
-
+  justify-content: space-between;
   h4 {
     width: 100%;
-    /* text-align: center; */
+  }
+  .spin {
+    width: fit-content;
   }
 }
 
@@ -41,16 +49,46 @@
   background-color: var(--color-primary);
 }
 
-@media (max-width: 500px) {
-  /* .tabs {
-    max-width: 370px;
-  } */
+.tabs div:hover {
+  border-bottom: 2px solid var(--color-menu-item-selected);
+  color: var(--color-menu-item-selected);
+}
 
-  .address-form-styles {
-    padding: 0rem 0.5rem;
+.add-new-btn {
+  width: 212px;
+  height: 230px;
+  background-color: var(--color-menu-item-selected);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-footer-text);
+  cursor: pointer;
+}
+
+.address-card {
+  width: 212px;
+  padding-top: 1.25rem;
+}
+
+@media (max-width: 528px) {
+  .tabs {
+    font-size: 15px;
+    margin: 1.5rem auto;
   }
 }
 
-.spin {
-  width: 212px;
+@media (max-width: 500px) {
+  .address-form-styles {
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    h4 {
+      width: 213px;
+    }
+  }
+  .add-new-btn {
+    height: 50px;
+  }
 }

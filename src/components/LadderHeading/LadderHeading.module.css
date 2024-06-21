@@ -1,0 +1,19 @@
+@keyframes slide {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.wrapper {
+  display: flex;
+  overflow: hidden;
+}
+
+.letter {
+  line-height: 1.2;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}

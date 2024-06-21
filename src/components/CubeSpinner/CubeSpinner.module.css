@@ -1,0 +1,70 @@
+
+.rotated {
+  animation-name: rotation;
+  animation-duration: 4.8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.tilted {
+	transform: rotate(45deg);
+}
+
+.cube-grid {
+	margin: 0 auto;
+}
+
+.cube {
+	width: 33%; 
+	height: 33%; 
+
+	float: left; 
+	animation-name: cubeGridScaleDelay;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.cube-grid .cube1 {
+	animation-delay: 0.2s; }
+.cube-grid .cube2 { 
+	animation-delay: 0.3s; 
+}
+.cube-grid .cube3 {
+	animation-delay: 0.4s; 
+}
+.cube-grid .cube4 {
+	animation-delay: 0.1s; 
+}
+.cube-grid .cube5 {
+	animation-delay: 0.2s; 
+}
+.cube-grid .cube6 {
+	animation-delay: 0.3s; 
+}
+.cube-grid .cube7 {
+	animation-delay: 0s; 
+}
+.cube-grid .cube8 {
+	animation-delay: 0.1s; 
+}
+.cube-grid .cube9 {
+	animation-delay: 0.2s; 
+}
+
+@keyframes cubeGridScaleDelay {
+	0%, 70%, 100% {
+		transform: scale3D(1, 1, 1);
+	} 35% {
+		transform: scale3D(0, 0, 1); 
+	}
+}

@@ -1,0 +1,32 @@
+.wrapper {
+  padding: 13px 0.75rem;
+  background-color: var(--color-header-background);
+  transform: rotate(-90deg) translateX(-39px) translateY(-44px);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  transition: var(--background-color-delay), var(--color-delay);
+}
+
+.text {
+  font-family: 'Futura', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.wrapper:hover svg {
+  animation-name: rotation;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
