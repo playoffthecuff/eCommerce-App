@@ -46,7 +46,7 @@ const contentList: Record<string, React.ReactNode> = {
             items={[
               'User profile page',
               'Product cart',
-              'User login',
+              'field validation',
               'Initial project settings',
               'User registration',
               'Working with photos',
