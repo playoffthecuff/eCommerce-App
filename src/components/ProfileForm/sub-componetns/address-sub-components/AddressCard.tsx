@@ -4,6 +4,7 @@ import { Address, AddressType } from '../../../../types/authorization-response';
 import userStore from '../../../../store/user-store';
 import styles from '../../ProfileForm.module.css';
 import { CardComponent } from './Card';
+import { CubeSpinner } from '../../../CubeSpinner/CubeSpinner';
 
 export function AddressCard({
   address,
@@ -35,7 +36,7 @@ export function AddressCard({
   const cardContent = <CardComponent address={address} onEdit={onEdit} handleDeleteAddress={handleDeleteAddress} />;
 
   return (
-    <Spin spinning={isLoading} wrapperClassName={styles.spin}>
+    <Spin indicator={<CubeSpinner size={32} tilted />} spinning={isLoading} wrapperClassName={styles.spin}>
       {address.isDefault ? (
         <Badge.Ribbon text="Default address" className={styles['badge-style']}>
           {cardContent}

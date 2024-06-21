@@ -79,6 +79,14 @@
   width: 100%;
 }
 
+.team-card-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  /* justify-content: center; */
+}
+
 .heading {
   font-size: 1.75rem;
   font-weight: 600;
@@ -103,7 +111,8 @@
 }
 
 .team-work-entry {
-  width: calc(100% - 21rem);
+  width: calc(100% - 20vw);
+  max-width: 728px;
   font-size: 1.25rem;
   margin-bottom: 2rem;
   &:nth-child(odd) {
@@ -123,6 +132,9 @@
 }
 
 @media (max-width: 480px) {
+  .team-card-wrapper {
+    justify-content: center;
+  }
   .team-work-entry {
     width: 100%;
   }

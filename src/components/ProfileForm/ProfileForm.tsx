@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import styles from './ProfileForm.module.css';
 import userStore from '../../store/user-store';
-import { BootState } from '../../enums';
+import { BootState } from '../../types/boot-state';
 import { PasswordData, PersonalData } from './sub-componetns';
 import { Addresses } from './sub-componetns/Address';
 import { AddressType } from '../../types/authorization-response';

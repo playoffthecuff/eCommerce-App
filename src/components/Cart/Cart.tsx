@@ -1,4 +1,4 @@
-import { Popconfirm, Spin, Typography } from 'antd';
+import { Popconfirm, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { BootState } from '../../types/boot-state';
 import emptyCart from '../../assets/images/empty-cart.svg';
 import CustomButton from '../CustomButton/CustomButton';
 import { formatMoney } from '../../utils/format-money';
+import { CubeSpin } from '../CubeSpinner/CubeSpinner';
 
 export default observer(function Cart() {
   useEffect(() => {
@@ -33,7 +34,7 @@ export default observer(function Cart() {
   return (
     <div className={styles['cart-container']}>
       <Typography.Title level={3}>SHOPPING CART</Typography.Title>
-      <Spin spinning={cartStore.cartState === BootState.InProgress}>
+      <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles['cart-section']}>
           <div className={styles['product-container']}>
             <ul className={styles['product-list']}>
@@ -65,7 +66,7 @@ export default observer(function Cart() {
           </div>
           <OrderSummary />
         </div>
-      </Spin>
+      </CubeSpin>
     </div>
   );
 });

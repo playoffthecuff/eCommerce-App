@@ -1,16 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { productsService } from '../utils/catalog-service';
 import { FiltersData, ProductSummary, Payload } from '../types/types';
-import { BootState } from '../enums';
+import { BootState } from '../types/boot-state';
 
 export const DEFAULT_PAGE = 1;
-export const DEFAULT_PAGE_SIZE = 8;
+export const DEFAULT_PAGE_SIZE = 12;
 export const MAX_PRODUCT_PRICE = 2_000;
 
 class CatalogStore {
   private _products: ProductSummary[] = [];
 
-  private _besSellingProducts: ProductSummary[] = [];
+  private _bestSellingProducts: ProductSummary[] = [];
 
   private _filtersData: FiltersData | undefined;
 
@@ -39,7 +39,7 @@ class CatalogStore {
   }
 
   public get bestSellingProducts(): ProductSummary[] {
-    return this._besSellingProducts;
+    return this._bestSellingProducts;
   }
 
   public get filtersData(): FiltersData {
@@ -94,7 +94,7 @@ class CatalogStore {
     }
 
     runInAction(() => {
-      this._besSellingProducts = responseData.products;
+      this._bestSellingProducts = responseData.products;
       this._state = BootState.Success;
     });
   };
@@ -117,6 +117,7 @@ class CatalogStore {
   };
 
   public applyFilters = async (payload: Payload) => {
+    this._state = BootState.Loading;
     this._payload.filters = payload.filters;
     this._payload.query = payload.query;
     this._payload.sorts = payload.sorts;
@@ -136,10 +137,12 @@ class CatalogStore {
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
+      this._state = BootState.Success;
     });
   };
 
   public resetFilters = async () => {
+    this._state = BootState.Loading;
     this._payload.filters = {};
     this._payload.page = DEFAULT_PAGE;
     this.currentPage = DEFAULT_PAGE;
@@ -156,6 +159,7 @@ class CatalogStore {
     runInAction(() => {
       this._products = responseData.products;
       this._totalPage = responseData.total;
+      this._state = BootState.Success;
     });
   };
 }

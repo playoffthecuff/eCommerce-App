@@ -3,7 +3,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import productStore from '../../store/product-store';
 import { LogoIcon } from '../CustomIcons/CustomIcons';
 import styles from './Breadcrumbs.module.css';
-import { BootState } from '../../enums';
+import { BootState } from '../../types/boot-state';
 
 export const Breadcrumbs = observer(() => {
   const location = useLocation();
@@ -27,7 +27,8 @@ export const Breadcrumbs = observer(() => {
   return (
     <div className={styles.breadcrumbs}>
       <Link to="/">
-        <LogoIcon /> Home
+        <LogoIcon style={{ textDecoration: 'none', marginRight: '1ch' }} />
+        Home
       </Link>
       <span> / </span>
       {isProductDetailsPage || currentCategory ? <Link to="/catalog">Catalog</Link> : 'Catalog'}

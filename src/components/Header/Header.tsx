@@ -35,7 +35,7 @@ const paths = {
   '/about': 'ABOUT US',
   '/profile': 'PROFILE',
   '/logout': 'LOGOUT',
-  '/cart': 'CART',
+  '/cart': 'Cart',
   '/admin': 'ADMIN',
 };
 

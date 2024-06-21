@@ -23,12 +23,13 @@
 }
 
 .product-img {
-  background-color: rgb(227, 229, 230);
+  background-color: var(--color-background-secondary);
   width: 133px;
   height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--background-color-delay);
 
   img {
     width: 100%;

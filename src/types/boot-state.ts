@@ -3,4 +3,5 @@ export enum BootState {
   InProgress,
   Success,
   Failed,
+  Loading,
 }

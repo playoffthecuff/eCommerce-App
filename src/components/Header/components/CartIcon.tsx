@@ -5,7 +5,8 @@ import { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cartStore } from '../../../store/cart-store';
 import styles from '../Header.module.css';
-import { BootState } from '../../../enums';
+import { BootState } from '../../../types/boot-state';
+import { SadBagIcon } from '../../CustomIcons/CustomIcons';
 
 const MAX_ITEMS_TO_SHOW = 9;
 
@@ -22,7 +23,7 @@ export const CartIcon = observer(() => {
     count = '';
   }
   if (cartStore.cartState === BootState.InProgress) {
-    count = <Spin size="small" />;
+    count = <Spin size="small" style={{ fontSize: 8 }} />;
   }
 
   const icon = (
@@ -33,7 +34,9 @@ export const CartIcon = observer(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     >
-      <ShoppingOutlined style={{ fontSize: '28px' }} />
+      {(cartStore.totalItems === 0 && <SadBagIcon style={{ fontSize: '32px', position: 'relative', bottom: 4 }} />) || (
+        <ShoppingOutlined style={{ fontSize: '32px', position: 'relative', bottom: 4 }} />
+      )}
       <div className={styles.badge}>{count}</div>
     </div>
   );

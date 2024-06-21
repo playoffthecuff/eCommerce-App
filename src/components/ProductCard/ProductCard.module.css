@@ -3,8 +3,10 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: auto;
 
   & img {
+    width: 100%;
     transition: transform 0.3s ease;
   }
 
@@ -23,8 +25,16 @@
   }
 }
 
+.cover-wrapper {
+  background-color: var(--color-background-secondary);
+  padding: 9px 16px;
+}
+
 .product-card div[class~='ant-card-cover'] {
-  padding: 10px;
+
+  img {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .product-card div[class~='ant-card-body'] {
@@ -32,6 +42,12 @@
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
+}
+.size-button {
+  width: 34px;
+  height: 34px;
+  padding: unset;
+  text-align: center;
 }
 
 .product-image {
@@ -59,7 +75,7 @@
 }
 
 .discounted-price {
-  color: var(--color-error);
+  color: var(--color-accent);
   margin-left: 1rem;
 }
 
@@ -67,15 +83,17 @@
   color: var(--color-text);
 }
 
-.line-through {
+.old-pice {
   text-decoration: line-through;
+  color: var(--color-discount);
 }
 
 .rate-wrapper {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 19px;
+  margin-top: 1rem;
+  margin-bottom: 4px;
   width: 100%;
 }
 
@@ -102,6 +120,7 @@
 }
 
 .size-block {
+  height: 4.25rem;
   span {
     width: 100%;
     display: inline-block;
@@ -113,6 +132,6 @@
 }
 
 .shopping-icon {
-  font-size: 24px;
+  font-size: 32px;
   color: var(--color-primary);
 }

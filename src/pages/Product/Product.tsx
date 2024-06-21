@@ -22,6 +22,7 @@ import { CartItem } from '../../types/types';
 import styles from './Product.module.css';
 import { formatMoney } from '../../utils/format-money';
 import ProductSwiper from '../../components/ProductSwiper/ProductSwiper';
+import { CubeSpin, CubeSpinner } from '../../components/CubeSpinner/CubeSpinner';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 
 const { Paragraph, Text, Title } = Typography;
@@ -92,7 +93,12 @@ function ProductPage() {
   };
 
   if (productStore.bootState === BootState.InProgress) {
-    return <Spin style={{ width: '100vw', position: 'absolute', top: '40dvh' }} />;
+    return (
+      <Spin
+        indicator={<CubeSpinner size={32} tilted />}
+        style={{ width: '100vw', position: 'absolute', top: '40dvh' }}
+      />
+    );
   }
   if (productStore.bootState !== BootState.Success || !productStore.product) {
     return <NoProductResult />;
@@ -101,10 +107,10 @@ function ProductPage() {
 
   return (
     <>
-      <div className="container">
+      <div className="container" style={{ marginTop: '1rem' }}>
         <Breadcrumbs />
       </div>
-      <Spin spinning={cartStore.cartState === BootState.InProgress}>
+      <CubeSpin spinning={cartStore.cartState === BootState.InProgress}>
         <div className={styles.container}>
           <div className={styles['product-container']}>
             <div className={styles['image-block']}>
@@ -136,20 +142,22 @@ function ProductPage() {
               <Paragraph ellipsis={{ rows: 5, expandable: 'collapsible' }}>
                 {productStore.product.shortDescription}
               </Paragraph>
-              <div className={styles['size-block']}>
-                <Paragraph>Size:</Paragraph>
-                <Radio.Group
-                  onChange={(e) => {
-                    setSize(e.target.value);
-                    setQuantity(1);
-                  }}
-                  value={size}
-                >
-                  <Radio.Button value="S">S</Radio.Button>
-                  <Radio.Button value="M">M</Radio.Button>
-                  <Radio.Button value="L">L</Radio.Button>
-                </Radio.Group>
-              </div>
+              {productStore.product.category === 'bikes' && (
+                <div className={styles['size-block']}>
+                  <Paragraph>Size:</Paragraph>
+                  <Radio.Group
+                    onChange={(e) => {
+                      setSize(e.target.value);
+                      setQuantity(1);
+                    }}
+                    value={size}
+                  >
+                    <Radio.Button value="S">S</Radio.Button>
+                    <Radio.Button value="M">M</Radio.Button>
+                    <Radio.Button value="L">L</Radio.Button>
+                  </Radio.Group>
+                </div>
+              )}
               <div className={styles['cart-block']}>
                 <InputNumber
                   min={1}
@@ -217,7 +225,7 @@ function ProductPage() {
             </div>
           </div>
         </div>
-      </Spin>
+      </CubeSpin>
       {contextHolder}
     </>
   );

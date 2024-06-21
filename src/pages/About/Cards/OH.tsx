@@ -45,7 +45,7 @@ const contentList: Record<string, React.ReactNode> = {
             items={[
               'Main page',
               'Backend application core',
-              'Sorting and filtering products',
+              'Sorting/filtering products',
               'Routing',
               'Catalog page',
               'Backend CI/CD',

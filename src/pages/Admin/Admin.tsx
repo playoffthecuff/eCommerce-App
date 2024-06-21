@@ -1,21 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import { MinusCircleOutlined, PlusOutlined, RedoOutlined, ZoomInOutlined, ZoomOutOutlined } from '@ant-design/icons';
-import {
-  Form,
-  Image,
-  Radio,
-  Select,
-  Upload,
-  message,
-  Input,
-  Space,
-  Button,
-  Rate,
-  Switch,
-  InputNumber,
-  Spin,
-} from 'antd';
+import { Form, Image, Radio, Select, Upload, message, Input, Space, Button, Rate, Switch, InputNumber } from 'antd';
 import type { GetProp, RadioChangeEvent, UploadFile, UploadProps } from 'antd';
 import { observer } from 'mobx-react-lite';
 import axios from 'axios';
@@ -24,6 +10,7 @@ import productStore from '../../store/product-store';
 import { BootState } from '../../types/boot-state';
 import userStore from '../../store/user-store';
 import NoWayResult from '../../components/NoWayResult/NoWayResult';
+import { CubeSpin } from '../../components/CubeSpinner/CubeSpinner';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -533,7 +520,7 @@ function AdminPage() {
   switch (userStore.user?.isRoot) {
     case true:
       return (
-        <Spin spinning={productStore.bootState === BootState.InProgress}>
+        <CubeSpin spinning={productStore.bootState === BootState.InProgress}>
           <Form
             form={form}
             labelCol={{ span: 12 }}
@@ -756,7 +743,7 @@ function AdminPage() {
               </Form.Item>
             )}
           </Form>
-        </Spin>
+        </CubeSpin>
       );
     default:
       return <NoWayResult />;

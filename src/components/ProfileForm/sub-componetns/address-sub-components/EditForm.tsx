@@ -11,6 +11,7 @@ import { AddressForm } from '../../../RegistrationForm/sub-components/AddressFor
 import CustomButton from '../../../CustomButton/CustomButton';
 import { Country } from '../../../../utils/countries-service';
 import userStore from '../../../../store/user-store';
+import { CubeSpinner } from '../../../CubeSpinner/CubeSpinner';
 
 export const EditForm = observer(
   ({ address, type, onSubmit }: { address: Address; type: AddressType; onSubmit: () => void }) => {
@@ -80,7 +81,7 @@ export const EditForm = observer(
     };
 
     return (
-      <Spin spinning={isLoading} style={{ width: '212px' }}>
+      <Spin indicator={<CubeSpinner size={32} tilted />} spinning={isLoading} style={{ width: '212px' }}>
         <Form
           layout="vertical"
           style={{ marginTop: '1.5rem' }}

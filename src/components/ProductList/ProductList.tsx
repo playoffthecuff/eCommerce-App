@@ -1,4 +1,4 @@
-import { List, Spin } from 'antd';
+import { List } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { useSearchParams } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { cartStore } from '../../store/cart-store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 import { BootState } from '../../types/boot-state';
+import { CubeSpin } from '../CubeSpinner/CubeSpinner';
 
 export default observer(function ProductList() {
   const { products, productsState, totalPage, currentPage } = catalogStore;
@@ -23,8 +24,9 @@ export default observer(function ProductList() {
   }, []);
 
   return (
-    <Spin spinning={productsState === BootState.InProgress || cartStore.cartState === BootState.InProgress}>
+    <CubeSpin spinning={productsState !== BootState.Success || cartStore.cartState === BootState.InProgress}>
       <List
+        bordered={false}
         itemLayout="vertical"
         size="large"
         pagination={{
@@ -40,13 +42,13 @@ export default observer(function ProductList() {
         dataSource={products}
         renderItem={(product) => {
           return (
-            <List.Item>
+            <List.Item style={{ borderBlockEnd: 'none' }}>
               <ProductCard product={product} loading={productsState} />
             </List.Item>
           );
         }}
         className={styles['product-list']}
       />
-    </Spin>
+    </CubeSpin>
   );
 });

@@ -49,7 +49,7 @@ const contentList: Record<string, React.ReactNode> = {
               'User login',
               'Initial project settings',
               'User registration',
-              'Collection and processing of photos',
+              'Working with photos',
               'User address management',
               'Breadcrumbs',
               'Promo code',

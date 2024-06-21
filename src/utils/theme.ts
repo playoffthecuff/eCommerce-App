@@ -9,26 +9,26 @@ export function getSystemTheme(): Theme {
 }
 
 const noVarTokenLight = {
-  colorPrimary: '#2644ad',
+  colorPrimary: '#541388',
   colorPrimaryHover: '#111',
-  colorError: '#ad4426',
-  colorSuccess: '#44ad26',
-  colorLink: '#2644ad',
-  colorLinkHover: '#5875da',
+  colorError: '#B42200',
+  colorSuccess: '#22B400',
+  colorLink: '#541388',
+  colorLinkHover: '#966cad',
 };
 
 const noVarTokenDark = {
-  colorPrimary: '#5875da',
-  colorPrimaryHover: '#ddd',
-  colorError: '#df856c',
-  colorSuccess: '#85df6c',
-  colorLink: '#5875da',
-  colorLinkHover: '#2644ad',
+  colorPrimary: '#966cad',
+  colorPrimaryHover: '#999EB0',
+  colorError: '#F62F00',
+  colorSuccess: '#2ADE00',
+  colorLink: '#966cad',
+  colorLinkHover: '#78508F',
 };
 
 export const lightTheme: ThemeConfig = {
-  // cssVar: true,
-  // hashed: false,
+  cssVar: true,
+  hashed: false,
   token: {
     ...noVarTokenLight,
 
@@ -54,6 +54,9 @@ export const lightTheme: ThemeConfig = {
     Form: {
       itemMarginBottom: 28,
       verticalLabelPadding: 0,
+    },
+    Input: {
+      hoverBorderColor: 'var(--color-border-hover)',
     },
     Menu: {
       itemColor: 'var(--color-menu-item-text)',

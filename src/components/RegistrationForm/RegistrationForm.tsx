@@ -1,4 +1,4 @@
-import { Steps, Form, notification, Spin } from 'antd';
+import { Steps, Form, notification } from 'antd';
 import { CheckOutlined, EnvironmentOutlined, SmileOutlined, FrownOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import userStore from '../../store/user-store';
 import { cartStore } from '../../store/cart-store';
 import userService from '../../utils/user-service';
 import CustomButton from '../CustomButton/CustomButton';
+import { CubeSpin } from '../CubeSpinner/CubeSpinner';
 
 const steps = [
   {
@@ -131,7 +132,7 @@ export function RegistrationForm() {
   const CurrentStep = steps[step].render;
 
   return (
-    <Spin spinning={isLoading}>
+    <CubeSpin spinning={isLoading}>
       <Steps responsive={false} className={styles.steps} current={step}>
         {steps.map((stp) => (
           <Steps.Step className={styles.step} key={stp.title} title={stp.title} icon={stp.icon} />
@@ -158,6 +159,6 @@ export function RegistrationForm() {
         </CustomButton>
       </div>
       {contextHolder}
-    </Spin>
+    </CubeSpin>
   );
 }

@@ -1,7 +1,7 @@
 import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import { cartService } from '../utils/cart-service';
 import { CartItem, Promo } from '../types/types';
-import { BootState } from '../enums';
+import { BootState } from '../types/boot-state';
 import userStore from './user-store';
 
 class CartStore {

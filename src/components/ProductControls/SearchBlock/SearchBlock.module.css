@@ -1,9 +1,3 @@
-.search-input {
-  button {
-    color: var(--color-button-text) !important;
-  }
-}
-
 @media (max-width: 758px) {
   .search-input {
     grid-row-start: 1;
