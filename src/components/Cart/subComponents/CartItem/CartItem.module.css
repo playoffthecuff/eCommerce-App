@@ -29,6 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--background-color-delay);
 
   img {
     width: 100%;

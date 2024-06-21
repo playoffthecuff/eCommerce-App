@@ -76,4 +76,5 @@
   letter-spacing: 4px;
   font-family: 'Futura', sans-serif;
   text-shadow: var(--first-discount-shadow), var(--second-discount-shadow);
+  transition: var(--color-delay);
 }
