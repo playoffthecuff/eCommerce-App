@@ -86,6 +86,7 @@ html {
   --color-ticker-text: rgba(255, 255, 255, 0.2);
   --color-copyable: rgba(46, 82, 208, 0.4);
   --color-promo-background: rgba(255, 255, 255, 0.8);
+  --opacity-swiper-thumbs: 0.5;
 }
 
 :root[data-theme='dark'] {
@@ -126,6 +127,7 @@ html {
   --color-ticker-text: rgba(16, 16, 16, 0.2);
   --color-copyable: rgba(24, 42, 100, 0.4);
   --color-promo-background: rgba(0, 0, 0, 0.8);
+  --opacity-swiper-thumbs: 0.7;
 }
 
 input:-webkit-autofill {
