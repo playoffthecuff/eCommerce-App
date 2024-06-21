@@ -75,7 +75,7 @@
 }
 
 .discounted-price {
-  color: var(--color-error);
+  color: var(--color-accent);
   margin-left: 1rem;
 }
 
@@ -83,8 +83,9 @@
   color: var(--color-text);
 }
 
-.line-through {
+.old-pice {
   text-decoration: line-through;
+  color: var(--color-discount);
 }
 
 .rate-wrapper {
